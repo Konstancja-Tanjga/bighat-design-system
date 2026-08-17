@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Formatting
+        run: npm run format:check
+
+      # Fails if tokens.css was edited by hand or the TS source changed without
+      # regenerating it. One source of truth, enforced.
+      - name: Tokens are in sync with their source
+        run: npm run tokens:check
+
+      # Includes the WCAG AA contrast gate over every declared token pair in
+      # both themes. A palette change that drops below threshold stops here.
+      - name: Tests
+        run: npm test
+
+      - name: Build library
+        run: npm run build
+
+      - name: Build Storybook
+        run: npm run build-storybook
