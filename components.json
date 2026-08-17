@@ -1,0 +1,217 @@
+{
+  "name": "@bighatpoland/ui",
+  "version": "2.0.0",
+  "skill": "./agent/SKILL.md",
+  "storybook": "https://bighatpoland.github.io/bighat-design-system/",
+  "tokens": {
+    "layers": ["primitive", "semantic"],
+    "productApi": "semantic",
+    "cssPrefix": "--bh",
+    "note": "Product code and generated code may reference semantic tokens only. Primitives exist to define semantics and are not part of the public API.",
+    "semanticGroups": [
+      "surface",
+      "text",
+      "border",
+      "action",
+      "status",
+      "control",
+      "gap",
+      "padding",
+      "radius",
+      "elevation"
+    ],
+    "contrast": {
+      "standard": "WCAG 2.1 AA",
+      "bodyText": 4.5,
+      "largeText": 3,
+      "nonText": 3,
+      "enforcedBy": "src/tokens/contrast.test.ts — runs in CI, fails the build"
+    }
+  },
+  "components": [
+    {
+      "name": "Button",
+      "purpose": "An action the user takes.",
+      "notFor": ["Navigation — use an anchor styled as a link"],
+      "props": {
+        "variant": {
+          "type": "'primary' | 'secondary' | 'ghost'",
+          "default": "primary",
+          "meaning": "visual weight"
+        },
+        "tone": {
+          "type": "'default' | 'critical'",
+          "default": "default",
+          "meaning": "consequence of the action"
+        },
+        "size": { "type": "'sm' | 'md' | 'lg'", "default": "md" },
+        "loading": {
+          "type": "boolean",
+          "default": false,
+          "note": "Stays focusable; blocks the click."
+        },
+        "loadingLabel": { "type": "string", "default": "Loading" },
+        "iconStart": { "type": "ReactNode", "note": "Decorative — hidden from assistive tech." },
+        "iconEnd": { "type": "ReactNode" },
+        "fullWidth": { "type": "boolean", "default": false }
+      },
+      "deprecated": {
+        "variant=\"danger\"": {
+          "replacement": "variant=\"primary\" tone=\"critical\"",
+          "removedIn": "3.0.0",
+          "reason": "variant conflated visual weight with consequence"
+        }
+      }
+    },
+    {
+      "name": "Input",
+      "purpose": "Single-line text entry with label, description and error wired to ARIA.",
+      "notFor": ["Controls with their own keyboard model — date pickers, comboboxes"],
+      "props": {
+        "label": { "type": "string", "required": true },
+        "hideLabel": {
+          "type": "boolean",
+          "default": false,
+          "note": "Hides visually, keeps it for assistive tech."
+        },
+        "description": { "type": "ReactNode", "note": "Persists when an error appears." },
+        "error": { "type": "string", "note": "Its presence is what sets aria-invalid." }
+      }
+    },
+    {
+      "name": "Select",
+      "purpose": "Choosing one value from a short, known list. Native element underneath.",
+      "notFor": ["Search", "Multi-select", "Async or very long option lists"],
+      "props": {
+        "label": { "type": "string", "required": true },
+        "options": {
+          "type": "Array<{ value: string; label: string; disabled?: boolean }>",
+          "required": true
+        },
+        "placeholder": { "type": "string", "note": "Rendered as a disabled first option." },
+        "description": { "type": "ReactNode" },
+        "error": { "type": "string" }
+      }
+    },
+    {
+      "name": "Dialog",
+      "purpose": "A decision that must block the rest of the page. Native <dialog>.",
+      "notFor": ["Non-blocking feedback — use Toast"],
+      "props": {
+        "open": { "type": "boolean", "required": true },
+        "onClose": { "type": "() => void", "required": true },
+        "title": { "type": "string", "required": true },
+        "description": { "type": "ReactNode" },
+        "footer": { "type": "ReactNode", "note": "Primary action last." },
+        "dismissible": {
+          "type": "boolean",
+          "default": true,
+          "note": "false blocks Escape and backdrop click. Destructive confirmations only."
+        },
+        "size": { "type": "'sm' | 'md' | 'lg'", "default": "md" }
+      }
+    },
+    {
+      "name": "Toast",
+      "purpose": "Ephemeral confirmation that something happened.",
+      "notFor": ["Errors the user must act on in place — use StateBlock"],
+      "usage": "Wrap the app in <ToastProvider>, then call useToast().notify(...).",
+      "props": {
+        "tone": {
+          "type": "'info' | 'success' | 'warning' | 'critical'",
+          "note": "critical routes to the assertive live region and never auto-dismisses."
+        },
+        "title": { "type": "string", "required": true },
+        "description": { "type": "string" },
+        "duration": { "type": "number | null", "default": "5000, or null for critical" }
+      }
+    },
+    {
+      "name": "Table",
+      "purpose": "Comparable rows of structured data.",
+      "notFor": ["Layout"],
+      "props": {
+        "caption": {
+          "type": "string",
+          "required": true,
+          "note": "Names the table for assistive tech."
+        },
+        "columns": { "type": "Array<Column<Row>>", "required": true },
+        "rows": { "type": "Row[]", "required": true },
+        "rowKey": { "type": "(row: Row) => string", "required": true },
+        "sort": {
+          "type": "{ key: string; direction: 'ascending' | 'descending' }",
+          "note": "Controlled — the same component works with server-side sorting."
+        },
+        "onSortChange": { "type": "(sort) => void" },
+        "state": {
+          "type": "StateBlockProps",
+          "note": "Replaces the body with a StateBlock across every column."
+        }
+      }
+    },
+    {
+      "name": "Badge",
+      "purpose": "Short status attached to an object.",
+      "notFor": ["Bare counts", "Anything clickable"],
+      "props": {
+        "tone": {
+          "type": "'neutral' | 'info' | 'success' | 'warning' | 'critical'",
+          "default": "neutral"
+        },
+        "dot": {
+          "type": "boolean",
+          "default": false,
+          "note": "Decorative. The label still carries the meaning."
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "note": "Required by design — colour alone fails WCAG 1.4.1."
+        }
+      }
+    },
+    {
+      "name": "StateBlock",
+      "purpose": "The empty, loading and error surfaces of any data view.",
+      "notFor": ["The happy path"],
+      "props": {
+        "state": { "type": "'empty' | 'loading' | 'error'", "required": true },
+        "title": {
+          "type": "string",
+          "required": true,
+          "note": "One line, sentence case, no trailing period."
+        },
+        "description": {
+          "type": "ReactNode",
+          "note": "Say what the user can do, not what the server did."
+        },
+        "action": {
+          "type": "ReactNode",
+          "note": "The single most useful next step. Omit rather than invent."
+        },
+        "secondaryAction": { "type": "ReactNode" },
+        "icon": { "type": "ReactNode", "note": "Decorative." },
+        "density": { "type": "'inline' | 'section' | 'page'", "default": "section" },
+        "diagnostics": {
+          "type": "ReactNode",
+          "note": "Error only. Rendered inside a collapsed <details>."
+        }
+      },
+      "announcements": {
+        "loading": "role=status — polite, must not interrupt",
+        "error": "role=alert — assertive, the user's action failed",
+        "empty": "no live region — a successful response with nothing in it"
+      }
+    }
+  ],
+  "rules": [
+    "Never reference a primitive token from product code.",
+    "Never use a spacing value outside the 4px scale.",
+    "Never write a bespoke empty, loading or error state — use StateBlock.",
+    "Never let colour be the only carrier of meaning.",
+    "Never remove a focus outline; add className=\"bh-focusable\" instead.",
+    "Never use a placeholder in place of a label.",
+    "Prefer a new component over a new prop on an existing one."
+  ]
+}
