@@ -143,9 +143,9 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
             brand={
               <>
                 <span className="bh-kanban__logo" aria-hidden="true">
-                  ap<sup>+</sup>
+                  bh<sup>◆</sup>
                 </span>
-                <span className="bh-visually-hidden">Asseco</span>
+                <span className="bh-visually-hidden">Big Hat Poland</span>
               </>
             }
             title="Document Manager"

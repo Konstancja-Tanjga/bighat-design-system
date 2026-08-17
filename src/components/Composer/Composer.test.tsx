@@ -61,9 +61,9 @@ describe('Composer', () => {
   });
 
   it('describes the field with the hint', () => {
-    render(<Composer label="Ask" hint="Read-only — the analyst cannot change your data." />);
+    render(<Composer label="Ask" hint="Read-only — AI Chat cannot change your data." />);
     expect(screen.getByLabelText('Ask')).toHaveAccessibleDescription(
-      'Read-only — the analyst cannot change your data.',
+      'Read-only — AI Chat cannot change your data.',
     );
   });
 

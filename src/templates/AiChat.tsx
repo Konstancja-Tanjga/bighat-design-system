@@ -45,7 +45,7 @@ const RAIL = [
   { id: 'home', label: 'Home', icon: <IconHome /> },
   { id: 'workspaces', label: 'Workspaces', icon: <IconGrid /> },
   { id: 'reports', label: 'Reports', icon: <IconChart /> },
-  { id: 'analyst', label: 'Analyst', icon: <IconSparkle /> },
+  { id: 'chat', label: 'AI Chat', icon: <IconSparkle /> },
   { id: 'pipelines', label: 'Pipelines', icon: <IconFlow /> },
   { id: 'trends', label: 'Trends', icon: <IconTrend /> },
   { id: 'saved', label: 'Saved', icon: <IconStar /> },
@@ -117,7 +117,7 @@ export type AiChatTemplateProps = {
 };
 
 export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChatTemplateProps) {
-  const [activeRail, setActiveRail] = useState('analyst');
+  const [activeRail, setActiveRail] = useState('chat');
   const [activeChat, setActiveChat] = useState('p1');
   const [mode, setMode] = useState('ask');
   const [explainerOpen, setExplainerOpen] = useState(showExplainer);
@@ -131,12 +131,12 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
             brand={
               <>
                 <span className="bh-ai__logo" aria-hidden="true">
-                  ap<sup>+</sup>
+                  bh<sup>◆</sup>
                 </span>
-                <span className="bh-visually-hidden">Asseco</span>
+                <span className="bh-visually-hidden">Big Hat Poland</span>
               </>
             }
-            title="AI Data Analyst"
+            title="AI Chat"
             actions={<Button size="sm">New analysis</Button>}
           />
         </>
@@ -189,8 +189,8 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
       aside={
         <SidePanel ariaLabel="Working memory" side="end" title="Working memory" width={280}>
           <p className="bh-ai__memory-intro">
-            Facts the analyst is holding for this conversation. Everything here shapes the answers
-            below it.
+            Facts AI Chat is holding for this conversation. Everything here shapes the answers below
+            it.
           </p>
           <ul className="bh-ai__memory">
             {MEMORY.map((fact) => (
@@ -214,7 +214,7 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
           <Card>
             <div className="bh-ai__explainer">
               <div className="bh-ai__explainer-head">
-                <p className="bh-ai__eyebrow">How the analyst works</p>
+                <p className="bh-ai__eyebrow">How AI Chat works</p>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -224,9 +224,9 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
                   ✕
                 </Button>
               </div>
-              <h3 className="bh-ai__explainer-title">An analyst that shows its work.</h3>
+              <h3 className="bh-ai__explainer-title">An assistant that shows its work.</h3>
               <p className="bh-ai__explainer-body">
-                Ask anything about the business in plain English. The analyst plans the analysis,
+                Ask anything about the business in plain English. AI Chat plans the analysis,
                 queries your live data, and returns the answer together with the chart, the SQL it
                 ran, and any caveats it found on the way.
               </p>
@@ -294,7 +294,7 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
           activeMode={mode}
           onModeChange={setMode}
           submitLabel="Ask"
-          hint="Answers come with the SQL that produced them. Read-only — the analyst cannot change your data."
+          hint="Answers come with the SQL that produced them. Read-only — AI Chat cannot change your data."
           tools={
             <>
               <button type="button" className="bh-ai__tool bh-focusable" aria-label="Attach a file">
