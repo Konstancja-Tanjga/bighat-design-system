@@ -121,7 +121,53 @@ export function App({ children }) {
 Dark theme is `document.documentElement.setAttribute('data-theme', 'dark')`.
 Users who never touch a toggle get `prefers-color-scheme` automatically.
 
-## 9. Deprecations in flight
+## 9. Build screens from `AppShell`, not from `<div>`s
+
+An application screen has four regions and they are landmarks, not layout:
+
+```tsx
+<AppShell
+  header={<AppBar brand={…} title="Document Manager" actions={…} />}
+  rail={<NavRail items={…} activeId={…} ariaLabel="Product areas" />}
+  sidebar={<SidePanel ariaLabel="Filters">…</SidePanel>}
+  aside={<SidePanel ariaLabel="Working memory" side="end">…</SidePanel>}
+>
+  …
+</AppShell>
+```
+
+`ariaLabel` on every panel and rail is **required**, not optional politeness:
+three unnamed complementary regions are one region as far as landmark
+navigation is concerned.
+
+## 10. Any drag interaction needs a pointer-free equivalent
+
+WCAG 2.5.1 requires a simple alternative to a path-based gesture. On a board,
+that is `BoardCard`'s `moveTargets` + `onMove`, and the move must be announced
+through `Board`'s `announcement` prop — a card that has just left the place a
+keyboard user was standing has to say where it went.
+
+Never ship a board where the only way to move a card is to drag it.
+
+## 11. Skeleton only when the shape is known
+
+`Skeleton` works by letting the eye settle into a layout that will not move.
+Use it for eight cards or ten table rows. For a wait whose shape is unknown it
+promises a layout that never arrives — use `StateBlock state="loading"`.
+
+Wrap a set in `SkeletonGroup` so one polite announcement covers all of them;
+individual bones are `aria-hidden` and must stay that way.
+
+## 12. Templates are a starting point, not a dependency
+
+Templates live in Storybook and are deliberately **not** exported from the
+package. Copy one into the product and edit it. What is exported is everything
+it is made of.
+
+When you copy one, keep the four states. Deleting the error story deletes the
+part that was hard.
+
+## 13. Deprecations in flight
 
 - `Button variant="danger"` → `variant="primary" tone="critical"`.
   Still works, warns in development, removed in 3.0. See `MIGRATION.md`.
@@ -138,7 +184,7 @@ Machine-readable in `components.json`. Human-readable in the Storybook at
 | `AppBar`     | The top bar: brand, screen, actions | Repeating the product name in title  |
 | `NavRail`    | Narrow icon navigation              | Destinations needing >2 words        |
 | `NavList`    | Grouped lists in a side panel       | Tabular data — use `Table`           |
-| `SidePanel`  | A panel you work *alongside*        | Anything blocking — use `Dialog`     |
+| `SidePanel`  | A panel you work _alongside_        | Anything blocking — use `Dialog`     |
 | `Card`       | Content acted on as a unit          | A paragraph; two actions inside      |
 | `Composer`   | A prompt input with modes           | Ordinary multi-line fields           |
 | `Skeleton`   | Waits whose shape is known          | Unknown shape — use `StateBlock`     |

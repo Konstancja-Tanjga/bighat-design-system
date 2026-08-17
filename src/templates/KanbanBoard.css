@@ -1,0 +1,94 @@
+.bh-kanban {
+  padding: var(--bh-padding-section);
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-padding-section);
+  min-height: 0;
+}
+
+.bh-kanban__logo {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--bh-action-primary-bg);
+}
+
+.bh-kanban__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-tight);
+}
+
+.bh-kanban__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.bh-kanban__subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--bh-text-muted);
+}
+
+.bh-kanban__filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-normal);
+  padding: 0 var(--bh-gap-snug);
+}
+
+.bh-kanban__card-title {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--bh-gap-snug);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--bh-text-primary);
+}
+
+.bh-kanban__card-icon {
+  flex: none;
+  margin-top: 1px;
+  color: var(--bh-text-muted);
+}
+
+.bh-kanban__card-meta {
+  display: block;
+  margin: var(--bh-gap-tight) 0 var(--bh-gap-snug);
+  font-size: 11px;
+  color: var(--bh-text-muted);
+}
+
+.bh-kanban__card-status {
+  display: block;
+}
+
+.bh-kanban__skeleton {
+  display: flex;
+  gap: var(--bh-gap-normal);
+  overflow-x: auto;
+}
+
+.bh-kanban__skeleton-column {
+  flex: 0 0 288px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+  padding: var(--bh-gap-snug);
+  background: var(--bh-surface-sunken);
+  border: 1px solid var(--bh-border-subtle);
+  border-radius: var(--bh-radius-surface);
+  box-sizing: border-box;
+}
+
+.bh-kanban__skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+  padding: var(--bh-padding-inline);
+  background: var(--bh-surface-raised);
+  border: 1px solid var(--bh-border-subtle);
+  border-radius: var(--bh-radius-control);
+}

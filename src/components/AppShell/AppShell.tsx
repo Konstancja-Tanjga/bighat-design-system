@@ -32,7 +32,14 @@ export type AppShellProps = {
   height?: 'fill' | 'flow';
 };
 
-export function AppShell({ header, rail, sidebar, aside, children, height = 'fill' }: AppShellProps) {
+export function AppShell({
+  header,
+  rail,
+  sidebar,
+  aside,
+  children,
+  height = 'fill',
+}: AppShellProps) {
   return (
     <div className={`bh-shell bh-shell--${height}`} data-has-rail={rail ? '' : undefined}>
       {header && <header className="bh-shell__header">{header}</header>}

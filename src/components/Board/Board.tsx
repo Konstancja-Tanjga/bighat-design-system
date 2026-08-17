@@ -46,7 +46,8 @@ export type BoardColumnProps = {
   limit?: number;
   /** A column-level action — "add", "filter". */
   action?: ReactNode;
-  children: ReactNode;
+  /** Optional: a column with `count` of zero renders `empty` instead. */
+  children?: ReactNode;
   /** Rendered in place of the cards when the column is empty. */
   empty?: ReactNode;
 };

@@ -10,6 +10,9 @@ export type { AppShellProps } from './components/AppShell/AppShell';
 export { Badge } from './components/Badge/Badge';
 export type { BadgeProps, BadgeTone } from './components/Badge/Badge';
 
+export { Board, BoardCard, BoardColumn } from './components/Board/Board';
+export type { BoardCardProps, BoardColumnProps, BoardProps } from './components/Board/Board';
+
 export { Card } from './components/Card/Card';
 export type { CardProps } from './components/Card/Card';
 
