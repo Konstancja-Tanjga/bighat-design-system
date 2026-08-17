@@ -1,0 +1,64 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { TokenTable, ContrastTable } from './TokenTable';
+
+<Meta title="Foundations/Tokens" />
+
+# Tokens
+
+## Two layers, one API
+
+**Layer 1 — primitives.** Raw values with no meaning: `blue.500`, `space.4`,
+`radius.md`. They exist so the second layer has something to point at. No
+component imports them.
+
+**Layer 2 — semantics.** Roles: `surface.raised`, `text.muted`,
+`action.primary.hover`, `border.focus`. This is the only colour API a component
+is allowed to touch.
+
+The test of whether the split is real is the dark theme. Here it is a swap of
+the semantic layer alone — same component code, same class names, no second
+stylesheet, no `.dark &` selectors scattered through the CSS. If components
+referenced primitives, that would be impossible without a find-and-replace.
+
+## What it costs
+
+A designer cannot hand over a hex value and be finished. Every new colour needs
+a **role** before it can be used, and if no existing role fits, the answer is a
+conversation about what the role is — not a new primitive slipped into a
+component.
+
+That friction is the point, and it is also the most common reason a two-layer
+system quietly collapses back into one. The lint rule and the contrast test are
+what keep the shortcut from being available.
+
+## Semantic colour
+
+<TokenTable group="text" />
+<TokenTable group="surface" />
+<TokenTable group="border" />
+<TokenTable group="action" />
+<TokenTable group="status" />
+
+## Contrast, measured
+
+Every pair below is asserted in CI, in both themes, at the WCAG level that
+actually applies to it.
+
+<ContrastTable />
+
+## Spacing and size
+
+The scale is 4px-based. A value off the scale is a value that will drift, so
+components take steps, never measurements.
+
+<TokenTable group="gap" />
+<TokenTable group="padding" />
+<TokenTable group="control" />
+<TokenTable group="radius" />
+
+## Generated, not maintained
+
+`src/styles/tokens.css` is emitted from `src/tokens/*.ts` by `npm run tokens`.
+CI runs `npm run tokens:check` and fails if the committed CSS has drifted from
+its source, so "one source of truth" is enforced rather than agreed.

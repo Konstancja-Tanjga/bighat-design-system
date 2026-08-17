@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Introduction" />
+
+# @bighatpoland/ui
+
+Eight components, two token layers, and a build that fails on a contrast
+regression.
+
+This system is small on purpose. It is not trying to cover every surface an
+enterprise product needs — it is trying to be legible about **why** each
+decision was made and **what** each one cost, because that is the part of design
+systems work that never survives into a portfolio.
+
+## What to look at
+
+- **Foundations → Tokens** — the two layers, and why product code may only
+  touch one of them.
+- **Foundations → Accessibility** — the contrast gate, and why it distinguishes
+  text from non-text.
+- **Components → StateBlock** — empty, loading and error as one component, with
+  three different announcement strategies.
+- **Components → Button** — the one breaking change this system has shipped,
+  and the deprecation still in flight.
+
+## What is deliberately missing
+
+A `Combobox`. A date picker. A layout grid. Icons.
+
+Each of those is a real need in a real product, and each would have been a way
+to make this repository look bigger without making any new argument. `Select`
+wraps the native element and `Dialog` uses native `<dialog>` for the same
+reason: the interesting decision was choosing not to build them.
+
+## Conventions
+
+Every component page has a **"do not use it for"** line. That is not padding —
+in practice it is the part teams actually need, because the failure mode of a
+design system is not people ignoring it, it is people stretching one component
+over a problem it was never shaped for.

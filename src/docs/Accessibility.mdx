@@ -1,0 +1,89 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Accessibility" />
+
+# Accessibility
+
+The target is **WCAG 2.1 AA**. What follows is how that is held, because a
+stated target with no mechanism is a stated target.
+
+## Contrast is a build error, not a review comment
+
+`src/tokens/semantic.ts` declares every foreground/background relationship the
+system promises to keep legible. `src/tokens/contrast.test.ts` iterates that
+list across both themes and asserts each one against the WCAG level that
+actually applies. 58 assertions, run in CI before Storybook deploys.
+
+The nuance that makes it useful rather than annoying:
+
+| Requirement | Ratio | Applies to |
+|---|---|---|
+| `bodyText` | 4.5:1 | Anything a user reads |
+| `largeText` | 3:1 | 24px regular / 18.66px bold and up |
+| `nonText` | 3:1 | Focus rings, control boundaries — WCAG 1.4.11 |
+
+A tool that demands 4.5:1 for a focus ring pushes the whole palette to mud and
+gets switched off within a month. Encoding the *right* threshold per pair is
+what keeps the gate switched on.
+
+The coverage property is the other half: adding a semantic token that renders
+text means adding a line to `contrastPairs`. Forgetting is a review comment,
+because the pair list *is* the coverage — there is no separate audit to fall
+behind.
+
+## Colour is never the only cue
+
+`Badge` has no `color` prop and requires a label. Form errors carry a message,
+not just a red border. The contrast table in **Foundations → Tokens** writes
+"pass" and "FAIL" in words next to the colour, because a table about contrast
+that communicated only in green and red would be its own counterexample.
+
+## Focus is moved, never removed
+
+`outline: none` appears nowhere. Interactive elements carry `bh-focusable`,
+which draws a 2px ring in `border.focus` with a 2px offset — contrast-tested
+at 3:1 against every surface it can appear on, in both themes.
+
+`:focus-visible` rather than `:focus`, so mouse users do not see a ring on
+click and keyboard users never lose it.
+
+## Announcements are chosen per situation
+
+The most common accessibility mistake in an enterprise app is not a missing
+label — it is state that changes silently. `StateBlock` takes a position:
+
+- **loading** → `role="status"`. Polite. It must not cut across whatever the
+  user is currently reading.
+- **error** → `role="alert"`. Assertive. Their action failed and they need to
+  know now.
+- **empty** → nothing. This is a successful response that happens to contain no
+  rows. Announcing it interrupts the user to report that nothing went wrong.
+
+`Toast` renders **two** live regions, both present from first paint. Two,
+because a failure placed in a polite region can be missed entirely; present
+from first paint, because a live region created in the same tick as its content
+is not announced by most screen readers.
+
+## Native where the platform is better
+
+`Dialog` is the native `<dialog>` element: focus trapping, focus restoration to
+the trigger, page inertness, Escape handling and the top layer all come from
+the browser. `Select` is the native element: platform picker on touch, autofill,
+typeahead.
+
+Both are accessibility decisions before they are engineering decisions. A
+hand-rolled focus trap is one of the most commonly broken patterns on the web,
+and there is no version of writing one that beats not writing one.
+
+## What is not covered
+
+- No screen-reader testing on real assistive technology. The tests assert ARIA
+  wiring and keyboard behaviour in jsdom, which catches regressions but is not
+  the same as NVDA or VoiceOver telling you the flow is confusing.
+- No automated axe run in CI. The Storybook a11y addon is set to `test: 'error'`
+  so violations surface while developing, but they do not yet fail the build.
+- No reduced-transparency or forced-colors mode support beyond the browser
+  defaults.
+
+These are gaps, listed rather than glossed over. A system that claims full
+coverage is either lying or has not looked.
