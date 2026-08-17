@@ -134,6 +134,14 @@ Machine-readable in `components.json`. Human-readable in the Storybook at
 
 | Component    | Use it for                          | Do not use it for                    |
 | ------------ | ----------------------------------- | ------------------------------------ |
+| `AppShell`   | The frame a screen sits in          | Docs pages — it owns app landmarks   |
+| `AppBar`     | The top bar: brand, screen, actions | Repeating the product name in title  |
+| `NavRail`    | Narrow icon navigation              | Destinations needing >2 words        |
+| `NavList`    | Grouped lists in a side panel       | Tabular data — use `Table`           |
+| `SidePanel`  | A panel you work *alongside*        | Anything blocking — use `Dialog`     |
+| `Card`       | Content acted on as a unit          | A paragraph; two actions inside      |
+| `Composer`   | A prompt input with modes           | Ordinary multi-line fields           |
+| `Skeleton`   | Waits whose shape is known          | Unknown shape — use `StateBlock`     |
 | `Button`     | An action the user takes            | Navigation — use an anchor           |
 | `Input`      | Single-line text entry              | Anything with its own keyboard model |
 | `Select`     | Choosing one of a short, known list | Search, multi-select, async options  |
@@ -142,3 +150,12 @@ Machine-readable in `components.json`. Human-readable in the Storybook at
 | `Table`      | Comparable rows of structured data  | Layout                               |
 | `Badge`      | Short status on an object           | Counts on their own, buttons         |
 | `StateBlock` | Empty, loading and error surfaces   | The happy path                       |
+
+## Not in the system yet
+
+Named here so an agent stops looking rather than quietly widening something
+adjacent. If a screen needs one, build it locally per rule 7 and say so.
+
+`Tabs`, `Textarea`, `Chip` (filter and removable), `ToggleGroup` (segmented
+control), `FileDropzone`, `Avatar`, `Combobox`, `Checkbox`, `Radio`,
+`Tooltip`, `Pagination`, `Breadcrumbs`.

@@ -1,0 +1,115 @@
+.bh-composer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+  font-family: var(--bh-font-family);
+}
+
+.bh-composer__field {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--bh-gap-snug);
+  padding: var(--bh-gap-snug);
+  background: var(--bh-surface-base);
+  border: 1px solid var(--bh-border-strong);
+  border-radius: var(--bh-radius-surface);
+}
+
+/* The ring goes on the field, not the textarea, so the focus indicator wraps
+   the whole control the user perceives. */
+.bh-composer__field:focus-within {
+  outline: 2px solid var(--bh-border-focus);
+  outline-offset: 2px;
+}
+
+.bh-composer__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  resize: none;
+  background: transparent;
+  color: var(--bh-text-primary);
+  font: inherit;
+  font-size: 14px;
+  line-height: 22px;
+  padding: var(--bh-gap-tight) var(--bh-gap-snug);
+  overflow-y: auto;
+}
+
+.bh-composer__input::placeholder {
+  color: var(--bh-text-muted);
+}
+
+.bh-composer__tools {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-tight);
+  flex: none;
+}
+
+.bh-composer__submit {
+  height: 34px;
+  padding: 0 var(--bh-padding-inline);
+  border: 0;
+  border-radius: var(--bh-radius-control);
+  background: var(--bh-action-primary-bg);
+  color: var(--bh-action-primary-fg);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.bh-composer__submit:hover:not(:disabled) {
+  background: var(--bh-action-primary-bg-hover);
+}
+
+.bh-composer__submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.bh-composer__modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bh-gap-tight);
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.bh-composer__mode {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-tight);
+  min-height: 32px;
+  padding: 0 var(--bh-padding-inline);
+  border-radius: var(--bh-radius-pill);
+  color: var(--bh-text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.bh-composer__mode:hover {
+  background: var(--bh-action-secondary-bg-hover);
+}
+
+/* Checked state is a fill *and* a weight change — the radio itself is visually
+   hidden, so the label has to carry the whole indication. */
+.bh-composer__mode--active {
+  background: var(--bh-status-info-bg);
+  color: var(--bh-status-info-fg);
+  font-weight: 600;
+}
+
+.bh-composer__mode:has(input:focus-visible) {
+  outline: 2px solid var(--bh-border-focus);
+  outline-offset: 2px;
+}
+
+.bh-composer__hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--bh-text-muted);
+}

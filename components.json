@@ -30,6 +30,150 @@
   },
   "components": [
     {
+      "name": "AppShell",
+      "purpose": "The frame every application screen sits in. Owns the landmark structure — header, nav, main, complementary.",
+      "notFor": ["Documentation and marketing pages — use height=\"flow\" or no shell at all"],
+      "props": {
+        "header": { "type": "ReactNode", "note": "Rendered as <header>." },
+        "rail": { "type": "ReactNode", "note": "Narrow icon rail on the leading edge." },
+        "sidebar": { "type": "ReactNode", "note": "Leading panel — navigation, a tree." },
+        "aside": { "type": "ReactNode", "note": "Trailing panel — inspector, context." },
+        "children": { "type": "ReactNode", "required": true, "note": "Becomes the only <main>." },
+        "height": {
+          "type": "'fill' | 'flow'",
+          "default": "fill",
+          "meaning": "fill pins to the viewport and scrolls each region independently"
+        }
+      },
+      "exports": ["AppShell", "SkipLink"],
+      "note": "Slots are optional. A screen without a rail is this component with a prop left out, not a second layout."
+    },
+    {
+      "name": "AppBar",
+      "purpose": "The top bar. Three slots in reading order: brand, title, actions.",
+      "notFor": ["Repeating the product name in title — brand already carries it"],
+      "props": {
+        "brand": { "type": "ReactNode", "note": "Logo or wordmark." },
+        "title": { "type": "ReactNode", "note": "Names the current screen, not the product." },
+        "titleAsHeading": {
+          "type": "boolean",
+          "default": true,
+          "note": "false when the screen has its own visible <h1>."
+        },
+        "center": { "type": "ReactNode", "note": "Search or filters acting on this screen." },
+        "actions": { "type": "ReactNode", "note": "Primary action last." }
+      }
+    },
+    {
+      "name": "NavRail",
+      "purpose": "Narrow icon navigation rail.",
+      "notFor": ["Destinations whose meaning needs more than two words"],
+      "props": {
+        "items": { "type": "NavRailItem[]", "required": true },
+        "activeId": { "type": "string" },
+        "onSelect": { "type": "(id: string) => void" },
+        "footerItems": { "type": "NavRailItem[]", "note": "Pinned to the bottom." },
+        "showLabels": {
+          "type": "boolean",
+          "default": false,
+          "note": "Prefer it past about five destinations."
+        },
+        "ariaLabel": { "type": "string", "note": "Names the landmark." }
+      },
+      "note": "NavRailItem.label is required — it is the accessible name, the tooltip and the optional caption. An icon-only rail without it is a memory test."
+    },
+    {
+      "name": "NavList",
+      "purpose": "Grouped list inside a side panel — saved views, recent items, a shallow tree.",
+      "notFor": ["Tabular data — use Table"],
+      "usage": "<NavGroup label=\"Pinned\"><NavItem item={…} active onSelect={…} /></NavGroup>",
+      "exports": ["NavList", "NavGroup", "NavItem"],
+      "props": {
+        "item": { "type": "NavListItem", "required": true, "note": "On NavItem." },
+        "active": { "type": "boolean", "default": false },
+        "onSelect": { "type": "(id: string) => void" },
+        "label": { "type": "string", "note": "On NavGroup — wired with aria-labelledby." },
+        "ariaLabel": { "type": "string", "note": "On NavList." }
+      },
+      "note": "A real <ul>, so a screen reader announces the item count before the user commits to reading it."
+    },
+    {
+      "name": "SidePanel",
+      "purpose": "A persistent panel beside the main content.",
+      "notFor": ["Anything blocking — use Dialog", "Transient drawers"],
+      "props": {
+        "ariaLabel": { "type": "string", "required": true, "note": "Names the landmark." },
+        "side": { "type": "'start' | 'end'", "default": "start" },
+        "title": { "type": "ReactNode" },
+        "header": { "type": "ReactNode", "note": "Pinned above the scroll area." },
+        "footer": { "type": "ReactNode", "note": "Pinned below it." },
+        "children": { "type": "ReactNode", "required": true },
+        "width": { "type": "number", "default": 260 },
+        "collapsed": { "type": "boolean", "default": false },
+        "onToggle": { "type": "() => void" }
+      },
+      "note": "Never traps focus and never makes the page inert — the user works in main and reads the panel at the same time."
+    },
+    {
+      "name": "Card",
+      "purpose": "A bounded surface around content the user might act on as a unit.",
+      "notFor": ["A paragraph — that is a border with extra steps", "Cards with two actions inside"],
+      "props": {
+        "children": { "type": "ReactNode", "required": true },
+        "onClick": { "type": "() => void", "note": "Makes the whole surface one button." },
+        "ariaLabel": { "type": "string", "note": "Its accessible name when onClick is set." },
+        "elevation": { "type": "'flat' | 'raised'", "default": "flat" },
+        "accent": {
+          "type": "'none' | 'info' | 'success' | 'warning' | 'critical'",
+          "default": "none",
+          "note": "Decorative — never the only carrier of a status."
+        },
+        "padding": { "type": "'snug' | 'normal'", "default": "normal" },
+        "dragging": { "type": "boolean", "default": false }
+      }
+    },
+    {
+      "name": "Composer",
+      "purpose": "The prompt input — a textarea in a form, with optional single-choice modes.",
+      "notFor": ["Ordinary multi-line form fields"],
+      "props": {
+        "label": { "type": "string", "required": true },
+        "placeholder": { "type": "string", "default": "Ask anything" },
+        "value": { "type": "string" },
+        "onValueChange": { "type": "(value: string) => void" },
+        "onSubmit": { "type": "(value: string) => void" },
+        "modes": { "type": "ComposerMode[]", "note": "Rendered as a radio group, not buttons." },
+        "activeMode": { "type": "string" },
+        "onModeChange": { "type": "(id: string) => void" },
+        "tools": { "type": "ReactNode", "note": "Icon buttons still need labels." },
+        "submitLabel": { "type": "string", "default": "Ask" },
+        "busy": { "type": "boolean", "default": false },
+        "disabled": { "type": "boolean", "default": false },
+        "hint": { "type": "ReactNode", "note": "The place for an accuracy notice." },
+        "maxRows": { "type": "number", "default": 8 }
+      },
+      "note": "Enter submits, Shift+Enter adds a line — and the form still submits the ordinary way, so switch access and voice control work without knowing the key handler."
+    },
+    {
+      "name": "Skeleton",
+      "purpose": "A placeholder for content whose shape is already known.",
+      "notFor": ["Waits with no known shape — use StateBlock state=\"loading\""],
+      "usage": "Wrap bones in <SkeletonGroup label=\"Loading documents\">; the group makes the single announcement.",
+      "exports": ["Skeleton", "SkeletonGroup"],
+      "props": {
+        "width": { "type": "number | string", "default": "100%" },
+        "height": { "type": "number | string", "default": 16 },
+        "radius": { "type": "'control' | 'surface' | 'pill'", "default": "control" },
+        "animated": {
+          "type": "boolean",
+          "default": true,
+          "note": "Shimmer is off under prefers-reduced-motion regardless."
+        },
+        "label": { "type": "string", "required": true, "note": "On SkeletonGroup." }
+      },
+      "note": "Individual bones are aria-hidden; the group announces once. Otherwise a screen reader reads \"blank\" forty times."
+    },
+    {
       "name": "Button",
       "purpose": "An action the user takes.",
       "notFor": ["Navigation — use an anchor styled as a link"],

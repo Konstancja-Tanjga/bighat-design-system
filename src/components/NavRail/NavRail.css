@@ -1,0 +1,99 @@
+.bh-rail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 56px;
+  padding: var(--bh-gap-snug) 0;
+  background: var(--bh-surface-base);
+  font-family: var(--bh-font-family);
+}
+
+.bh-rail--labelled {
+  width: 76px;
+}
+
+.bh-rail__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--bh-gap-tight);
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-tight);
+}
+
+.bh-rail__list--footer {
+  margin-top: auto;
+}
+
+.bh-rail__item {
+  position: relative;
+  width: 100%;
+  min-height: 44px; /* pointer target — WCAG 2.5.8 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--bh-gap-tight) 2px;
+  border: 0;
+  border-radius: var(--bh-radius-control);
+  background: transparent;
+  color: var(--bh-text-secondary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.bh-rail__item:hover {
+  background: var(--bh-action-secondary-bg-hover);
+  color: var(--bh-text-primary);
+}
+
+/* Active state carries three cues, not one: fill, colour, and a leading bar.
+   Colour alone would fail 1.4.1 for anyone who cannot see the tint. */
+.bh-rail__item--active {
+  background: var(--bh-status-info-bg);
+  color: var(--bh-status-info-fg);
+}
+
+.bh-rail__item--active::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 22px;
+  border-radius: 0 3px 3px 0;
+  background: currentColor;
+}
+
+.bh-rail__icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.bh-rail__dot {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bh-status-critical-fg);
+  border: 1.5px solid var(--bh-surface-base);
+}
+
+.bh-rail__label {
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,46 @@
+.bh-appbar {
+  display: flex;
+  align-items: center;
+  gap: var(--bh-gap-normal);
+  height: 56px;
+  padding: 0 var(--bh-padding-inline);
+  background: var(--bh-surface-base);
+  font-family: var(--bh-font-family);
+}
+
+.bh-appbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+  flex: none;
+  color: var(--bh-text-primary);
+  font-weight: 600;
+}
+
+.bh-appbar__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--bh-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.bh-appbar__center {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Pushes actions to the trailing edge when there is no centre slot to do it. */
+.bh-appbar__actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+  flex: none;
+}
