@@ -13,6 +13,6 @@ for the person upgrading, not for the person who wrote the code:
 - **Bad:** "refactor Button props"
 - **Good:** "`Button` splits `variant` into `variant` and `tone`. `variant="danger"` still works and warns; see MIGRATION.md."
 
-Merging to `main` opens a *Version Packages* pull request that collects the
+Merging to `main` opens a _Version Packages_ pull request that collects the
 pending changesets. Publishing to npm happens when that PR is merged — so
 bumping a version is always a separate, reviewed decision.

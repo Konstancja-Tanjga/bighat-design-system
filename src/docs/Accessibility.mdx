@@ -16,19 +16,19 @@ actually applies. 58 assertions, run in CI before Storybook deploys.
 
 The nuance that makes it useful rather than annoying:
 
-| Requirement | Ratio | Applies to |
-|---|---|---|
-| `bodyText` | 4.5:1 | Anything a user reads |
-| `largeText` | 3:1 | 24px regular / 18.66px bold and up |
-| `nonText` | 3:1 | Focus rings, control boundaries — WCAG 1.4.11 |
+| Requirement | Ratio | Applies to                                    |
+| ----------- | ----- | --------------------------------------------- |
+| `bodyText`  | 4.5:1 | Anything a user reads                         |
+| `largeText` | 3:1   | 24px regular / 18.66px bold and up            |
+| `nonText`   | 3:1   | Focus rings, control boundaries — WCAG 1.4.11 |
 
 A tool that demands 4.5:1 for a focus ring pushes the whole palette to mud and
-gets switched off within a month. Encoding the *right* threshold per pair is
+gets switched off within a month. Encoding the _right_ threshold per pair is
 what keeps the gate switched on.
 
 The coverage property is the other half: adding a semantic token that renders
 text means adding a line to `contrastPairs`. Forgetting is a review comment,
-because the pair list *is* the coverage — there is no separate audit to fall
+because the pair list _is_ the coverage — there is no separate audit to fall
 behind.
 
 ## Colour is never the only cue

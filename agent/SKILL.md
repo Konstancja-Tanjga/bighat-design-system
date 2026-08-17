@@ -132,13 +132,13 @@ Users who never touch a toggle get `prefers-color-scheme` automatically.
 Machine-readable in `components.json`. Human-readable in the Storybook at
 <https://bighatpoland.github.io/bighat-design-system/>.
 
-| Component | Use it for | Do not use it for |
-|---|---|---|
-| `Button` | An action the user takes | Navigation — use an anchor |
-| `Input` | Single-line text entry | Anything with its own keyboard model |
-| `Select` | Choosing one of a short, known list | Search, multi-select, async options |
-| `Dialog` | A decision that must block the page | Non-blocking feedback — use `Toast` |
-| `Toast` | Confirming something happened | Errors the user must act on in place |
-| `Table` | Comparable rows of structured data | Layout |
-| `Badge` | Short status on an object | Counts on their own, buttons |
-| `StateBlock` | Empty, loading and error surfaces | The happy path |
+| Component    | Use it for                          | Do not use it for                    |
+| ------------ | ----------------------------------- | ------------------------------------ |
+| `Button`     | An action the user takes            | Navigation — use an anchor           |
+| `Input`      | Single-line text entry              | Anything with its own keyboard model |
+| `Select`     | Choosing one of a short, known list | Search, multi-select, async options  |
+| `Dialog`     | A decision that must block the page | Non-blocking feedback — use `Toast`  |
+| `Toast`      | Confirming something happened       | Errors the user must act on in place |
+| `Table`      | Comparable rows of structured data  | Layout                               |
+| `Badge`      | Short status on an object           | Counts on their own, buttons         |
+| `StateBlock` | Empty, loading and error surfaces   | The happy path                       |
