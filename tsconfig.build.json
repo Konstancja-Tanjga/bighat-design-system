@@ -1,0 +1,23 @@
+{
+  /**
+   * Declaration emit for the published package.
+   *
+   * Separate from tsconfig.app.json because that config sets `noEmit` for the
+   * bundler-mode checks, which silently swallowed the .d.ts output — the
+   * package advertised `types: ./dist/index.d.ts` and shipped without it.
+   * Types are part of the public API, so they get their own explicit config.
+   */
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.build.tsbuildinfo",
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
+    // Without this the tree lands at dist/src/index.d.ts and `types` misses it.
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.stories.tsx", "src/test"]
+}
