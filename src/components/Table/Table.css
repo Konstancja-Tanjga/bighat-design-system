@@ -1,0 +1,88 @@
+/* Wide tables scroll inside their own container so the page body never gains
+   a horizontal scrollbar. */
+.bh-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--bh-border-subtle);
+  border-radius: var(--bh-radius-surface);
+  background: var(--bh-surface-base);
+}
+
+.bh-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--bh-font-family);
+  font-size: 13px;
+  color: var(--bh-text-primary);
+}
+
+.bh-table__caption {
+  padding: var(--bh-padding-inline);
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bh-text-primary);
+}
+
+.bh-table th,
+.bh-table td {
+  padding: var(--bh-padding-block) var(--bh-padding-inline);
+  border-bottom: 1px solid var(--bh-border-subtle);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.bh-table th[data-align='end'],
+.bh-table td[data-align='end'] {
+  text-align: right;
+}
+
+.bh-table thead th {
+  background: var(--bh-surface-sunken);
+  color: var(--bh-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.bh-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.bh-table tbody tr:hover td {
+  background: var(--bh-surface-sunken);
+}
+
+.bh-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-tight);
+  padding: 2px 4px;
+  margin: -2px -4px;
+  border: 0;
+  border-radius: var(--bh-radius-control);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.bh-table__sort:hover {
+  color: var(--bh-text-primary);
+}
+
+.bh-table__sort-icon {
+  font-size: 9px;
+  opacity: 0.7;
+}
+
+.bh-table__state {
+  padding: 0;
+}
+
+.bh-table__state:hover {
+  background: transparent;
+}
