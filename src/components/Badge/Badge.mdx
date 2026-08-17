@@ -1,0 +1,106 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Badge } from './Badge';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as BadgeStories from './Badge.stories';
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+Short status attached to an object.
+
+<Canvas of={BadgeStories.Tones} />
+
+The smallest component in this system and the one under the most contrast
+pressure: small text, tinted background, five tones, two themes. Every one of
+those combinations is asserted in CI.
+
+## When to use it
+
+| Use `Badge` for                             | Use something else for                           |
+| ------------------------------------------- | ------------------------------------------------ |
+| The state of a thing — Paid, Draft, Overdue | A number on its own — that is a counter          |
+| A category the user filters by              | Something clickable — that is a button or a link |
+| A short, closed set of values               | Free-text tags of unbounded length               |
+
+## Do and don't
+
+### There is no `color` prop, and the label is required
+
+<Guidance>
+  <Do reason="The word carries the meaning and the tone reinforces it. Readable in greyscale, in a PDF export, and by the one-in-twelve men with a colour vision deficiency.">
+    <Badge tone="success">Paid</Badge>
+    <Badge tone="warning">Pending</Badge>
+    <Badge tone="critical">Overdue</Badge>
+  </Do>
+  <Dont reason="Colour as the sole carrier of meaning fails WCAG 1.4.1. This is the version of the component that gets built the moment the API accepts a colour instead of a tone — which is exactly why this one does not.">
+    <span style={{ display: 'inline-flex', gap: 12 }}>
+      <span style={{ width: 12, height: 12, borderRadius: 6, background: '#0a7f55' }} />
+      <span style={{ width: 12, height: 12, borderRadius: 6, background: '#b26a02' }} />
+      <span style={{ width: 12, height: 12, borderRadius: 6, background: '#c02a2f' }} />
+    </span>
+  </Dont>
+</Guidance>
+
+### Map tone to consequence, not to taste
+
+<Guidance>
+  <Do reason="critical means the user must act; warning means they should look; success means it is done; neutral means it is simply a fact. A consistent mapping makes the colour genuinely informative across the whole product.">
+    <Badge tone="critical">Overdue</Badge>
+    <Badge tone="warning">Due in 3 days</Badge>
+    <Badge tone="success">Paid</Badge>
+    <Badge tone="neutral">Draft</Badge>
+  </Do>
+  <Dont reason="Green because green looks positive, red because the brand uses red. Once tone stops tracking consequence, a red badge tells the user nothing about whether they need to do anything — and they stop looking.">
+    <Badge tone="success">Draft</Badge>
+    <Badge tone="critical">Archived</Badge>
+    <Badge tone="info">Overdue</Badge>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Consistency and standards">
+  The same visual treatment must mean the same thing everywhere in the product. A tone that means
+  "urgent" on one screen and "brand colour" on another has stopped being a signal.
+</Heuristic>
+
+### Keep it to one or two words
+
+<Guidance>
+  <Do reason="A badge is scanned, not read. One or two words survive being seen in peripheral vision at the end of a table row, which is where badges actually get used.">
+    <Badge tone="critical">Overdue</Badge>
+    <Badge tone="warning">Needs review</Badge>
+  </Do>
+  <Dont reason="A sentence in a pill. It does not wrap, so it stretches the column, and by the time it is read the user has lost the row they were scanning.">
+    <Badge tone="warning">Awaiting approval from the finance team</Badge>
+  </Dont>
+</Guidance>
+
+### One badge per object
+
+Three badges on one row is a second table nobody designed. If an object
+genuinely has several independent states, they belong in their own columns
+where they can be sorted and filtered.
+
+<Heuristic name="Aesthetic and minimalist design">
+  Every extra unit competes with the relevant units and diminishes their relative visibility. Badges
+  are visually loud by construction, so their value drops sharply with quantity.
+</Heuristic>
+
+### Do not make it clickable
+
+A badge is a status, not a control. If it filters the table, it needs to look
+and behave like a control — focus ring, hover state, keyboard operation, an
+accessible name saying what it does. That is a different component.
+
+## Accessibility
+
+- `children` is required, so a badge can never be colour-only.
+- `dot` is decorative and `aria-hidden`; it adds emphasis, never meaning.
+- All five tones are contrast-tested against their own background in both
+  themes at 4.5:1 — the badge is treated as body text, not as decoration,
+  because it carries information.
+
+## Props
+
+<Controls of={BadgeStories.Tones} />

@@ -1,0 +1,147 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { Button } from './Button';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+An action the user takes. Two independent axes: `variant` is how much visual
+weight it carries, `tone` is what happens if you press it.
+
+<Canvas of={ButtonStories.Weights} />
+
+## When to use it
+
+| Use `Button` for                       | Use something else for                                        |
+| -------------------------------------- | ------------------------------------------------------------- |
+| Submitting, saving, deleting, retrying | Navigating to another page — that is an anchor                |
+| Opening a dialog or a menu             | A destination that should be middle-clickable or bookmarkable |
+| Any action that changes state          | A toggle with two persistent states — that is a switch        |
+
+The anchor rule is not pedantry. A `Button` that navigates breaks
+middle-click, cmd-click, "copy link address", and the browser's own history
+model — all of which users have already learned everywhere else.
+
+<Heuristic name="Consistency and standards">
+  Users should not have to wonder whether different words, situations or actions mean the same
+  thing. A control that looks like a button but behaves like a link violates the convention the rest
+  of the web already taught them.
+</Heuristic>
+
+## Do and don't
+
+### One primary action per view
+
+<Guidance>
+  <Do reason="A single filled button tells the user where the path continues. Everything else steps back to secondary, so the hierarchy does the deciding instead of the user.">
+    <Button variant="secondary">Cancel</Button>
+    <Button>Save changes</Button>
+  </Do>
+  <Dont reason="Three primary buttons is three equally loud claims on attention. The user now has to read all of them to work out which one they wanted — the choice has been handed back to them.">
+    <Button>Save</Button>
+    <Button>Save and close</Button>
+    <Button>Save and new</Button>
+  </Dont>
+</Guidance>
+
+### Label the action, not the acknowledgement
+
+<Guidance>
+  <Do reason="A verb phrase describing the outcome is readable out of context — which matters, because a screen reader user can navigate a page by its buttons alone and will hear the label with nothing around it.">
+    <Button>Delete workspace</Button>
+    <Button variant="secondary">Keep workspace</Button>
+  </Do>
+  <Dont reason='"OK" and "Yes" require the user to hold the question in memory while they read the answer. If the dialog said "Delete this workspace?", the buttons should say "Delete" and "Keep" — not make them look back up.'>
+    <Button>OK</Button>
+    <Button variant="secondary">Cancel</Button>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  Minimise memory load by making the options visible. A button labelled with its own consequence is
+  recognised; a button labelled "Yes" has to be reconstructed from the sentence above it.
+</Heuristic>
+
+### Tone is separate from weight
+
+<Guidance>
+  <Do reason="A destructive action inside a dense row of controls should be quiet and still unmistakably destructive. That is what the separate tone axis exists for.">
+    <Button variant="ghost" tone="critical" size="sm">
+      Delete
+    </Button>
+    <Button variant="ghost" size="sm">
+      Duplicate
+    </Button>
+  </Do>
+  <Dont reason="Making every destructive action a filled red button trains people to ignore red. By the time they reach the one deletion that really is irreversible, the signal has already been spent.">
+    <Button tone="critical" size="sm">
+      Delete
+    </Button>
+    <Button tone="critical" size="sm">
+      Remove
+    </Button>
+    <Button tone="critical" size="sm">
+      Clear
+    </Button>
+  </Dont>
+</Guidance>
+
+### Loading keeps the label
+
+<Guidance>
+  <Do reason="The label stays, so the button does not change width mid-click and the user can still see what they asked for. It stays focusable, so keyboard focus is not thrown back to the document body.">
+    <Button loading loadingLabel="Saving changes">
+      Save changes
+    </Button>
+  </Do>
+  <Dont reason='Replacing the label with a bare spinner removes the accessible name — a screen reader announces "button" and nothing else — and the width jump moves whatever sits next to it.'>
+    <Button aria-label="Loading" style={{ width: 44 }}>
+      ⟳
+    </Button>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Visibility of system status">
+  The system should always keep users informed about what is going on, through appropriate feedback
+  within reasonable time. `loading` is that feedback — and `loadingLabel` is what makes it reach a
+  user who cannot see the spinner.
+</Heuristic>
+
+### Disabled is a last resort
+
+<Guidance>
+  <Do reason="Let the user press it and tell them what is missing. The error names the problem and points at the field; the path forward is visible rather than guessed at.">
+    <Button>Send invoice</Button>
+  </Do>
+  <Dont reason="A disabled button with no explanation is a dead end: it does not say what is wrong, it is skipped by some screen-reader navigation modes, and greyed-out text is exempt from contrast requirements, so it is often genuinely hard to read.">
+    <Button disabled>Send invoice</Button>
+  </Dont>
+</Guidance>
+
+Disabling is legitimate while an action is genuinely impossible — a bulk action
+with nothing selected — but not as a substitute for validation. If the user
+cannot work out _why_ it is disabled, the control has failed.
+
+<Heuristic name="Help users recognize, diagnose, and recover from errors">
+  Error messages should be expressed in plain language, state the problem precisely, and suggest a
+  solution. A disabled button does none of the three.
+</Heuristic>
+
+## Accessibility
+
+- The accessible name comes from the label text. `iconStart` and `iconEnd` are
+  `aria-hidden`, so an icon-only button **must** carry `aria-label`.
+- `loading` sets `aria-busy` and `aria-disabled` and blocks the click, but
+  leaves the button in the tab order — losing focus mid-interaction is worse
+  than a button that is briefly inert.
+- Focus is drawn with `bh-focusable`: a 2px ring in `border.focus`, tested at
+  3:1 against every surface it can sit on (WCAG 1.4.11).
+- Target size: `md` and `lg` clear 44×44 CSS px with their surrounding spacing.
+  Reserve `sm` for dense data tables on pointer-first screens.
+
+## Props
+
+<Controls of={ButtonStories.Primary} />

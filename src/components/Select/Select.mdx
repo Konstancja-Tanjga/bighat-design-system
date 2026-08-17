@@ -1,0 +1,153 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { Select } from './Select';
+import * as SelectStories from './Select.stories';
+
+<Meta of={SelectStories} />
+
+# Select
+
+One value from a short, known list. Native `<select>` underneath.
+
+<Canvas of={SelectStories.Default} />
+
+## The deliberate omission
+
+This is the component this system chose **not** to build.
+
+A custom listbox is roughly 400 lines of roving tabindex, typeahead,
+virtualisation, scroll containment and mobile fallbacks. The native element
+already provides the platform picker on touch devices, form autofill, native
+typeahead, and correct behaviour in assistive technologies nobody here owns a
+licence to test against.
+
+When a product genuinely needs multi-select with search, that is a different
+component with a different name — not a prop on this one.
+
+## When to use it
+
+| Options                                              | Better control                       |
+| ---------------------------------------------------- | ------------------------------------ |
+| 2–4, all visible at once helps                       | Radio group                          |
+| 5–15, known, stable                                  | **`Select`**                         |
+| More than ~15, or the user knows the value they want | Combobox with typeahead              |
+| Several values at once                               | Multi-select — a different component |
+| A binary on/off                                      | Switch or checkbox                   |
+
+<Heuristic name="Flexibility and efficiency of use">
+  Accelerators unseen by the novice user may speed up the expert. Native `select` types ahead for
+  free; a hand-built listbox usually forgets to.
+</Heuristic>
+
+## Do and don't
+
+### Order for the reader, not for the database
+
+<Guidance>
+  <Do reason="A lifecycle order the user already holds in their head. Scanning stops at the first plausible match instead of continuing to the end just in case.">
+    <Select
+      label="Invoice status"
+      options={[
+        { value: 'draft', label: 'Draft' },
+        { value: 'sent', label: 'Sent' },
+        { value: 'paid', label: 'Paid' },
+        { value: 'void', label: 'Void' },
+      ]}
+      defaultValue="sent"
+    />
+  </Do>
+  <Dont reason="Alphabetical order on a set with an inherent sequence scatters the sequence. It reflects how the rows came back from the query, not how the user thinks about them.">
+    <Select
+      label="Invoice status"
+      options={[
+        { value: 'draft', label: 'Draft' },
+        { value: 'paid', label: 'Paid' },
+        { value: 'sent', label: 'Sent' },
+        { value: 'void', label: 'Void' },
+      ]}
+      defaultValue="sent"
+    />
+  </Dont>
+</Guidance>
+
+Alphabetical is right when the set is long, flat and has no inherent order —
+countries, currencies. It is wrong for anything with a lifecycle, a severity or
+a size.
+
+### The placeholder is not an option
+
+<Guidance>
+  <Do reason='"Choose a status" is rendered as a disabled first option: it prompts without being selectable, so it cannot be submitted as if it were a real value.'>
+    <Select
+      label="Invoice status"
+      placeholder="Choose a status"
+      defaultValue=""
+      options={[
+        { value: 'draft', label: 'Draft' },
+        { value: 'sent', label: 'Sent' },
+      ]}
+    />
+  </Do>
+  <Dont reason='A selectable "None" or "-- select --" is a value the user can choose deliberately, so the form cannot distinguish "not answered yet" from "answered: none". Those are different states and they need different handling.'>
+    <Select
+      label="Invoice status"
+      defaultValue="none"
+      options={[
+        { value: 'none', label: '-- select --' },
+        { value: 'draft', label: 'Draft' },
+        { value: 'sent', label: 'Sent' },
+      ]}
+    />
+  </Dont>
+</Guidance>
+
+### Do not change the page on selection
+
+Selecting a value must not navigate, submit the form, or reorder the page.
+Keyboard users move through options with the arrow keys, and every option they
+pass through fires a change event — a select that navigates on change is
+unusable without a mouse.
+
+<Heuristic name="User control and freedom">
+  Users often pick options by mistake and need an undo. A control that commits the moment focus
+  lands on a value removes the chance to change their mind.
+</Heuristic>
+
+### Label every option in full
+
+<Guidance>
+  <Do reason="Whole words. The option list is often the only place a user meets these terms, and a picker on a phone gives them no tooltip to hover for the expansion.">
+    <Select
+      label="Payment terms"
+      options={[
+        { value: '14', label: 'Net 14 days' },
+        { value: '30', label: 'Net 30 days' },
+      ]}
+      defaultValue="30"
+    />
+  </Do>
+  <Dont reason="Internal shorthand that only the team who built the schema can read. The user has to learn the system's vocabulary in order to answer a question about their own invoice.">
+    <Select
+      label="Payment terms"
+      options={[
+        { value: '14', label: 'N14' },
+        { value: '30', label: 'N30' },
+      ]}
+      defaultValue="30"
+    />
+  </Dont>
+</Guidance>
+
+## Accessibility
+
+- `label` is required and associated with the control by `htmlFor`.
+- `error` sets `aria-invalid` and is read before the description.
+- The chevron is `aria-hidden` and `pointer-events: none`, so it can never
+  intercept the click that should open the picker.
+- Native keyboard behaviour is untouched: arrows to move, typeahead to jump,
+  Enter or Escape to commit or cancel, exactly as the platform defines it.
+
+## Props
+
+<Controls of={SelectStories.Default} />

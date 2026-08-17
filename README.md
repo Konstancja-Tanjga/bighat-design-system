@@ -10,6 +10,13 @@ rules instead of inventing its own.
 
 **[Storybook →](https://bighatpoland.github.io/bighat-design-system/)**
 
+[![CI](https://github.com/bighatpoland/bighat-design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/bighatpoland/bighat-design-system/actions/workflows/ci.yml)
+[![Storybook](https://img.shields.io/badge/Storybook-live-3563e9)](https://bighatpoland.github.io/bighat-design-system/)
+[![WCAG AA](https://img.shields.io/badge/WCAG_AA-58_assertions_in_CI-0a7f55)](#2-contrast-is-a-build-error)
+[![License](https://img.shields.io/badge/license-MIT-59636f)](./LICENSE)
+
+![Three states of StateBlock — empty, loading and error — each with its announcement strategy](./docs/images/04_stateblock.png)
+
 ---
 
 ## The four decisions
@@ -28,6 +35,8 @@ The cost is real and worth naming: every new colour needs a _role_ before it
 can be used, which means designers cannot hand over a hex and be done. That
 friction is the feature.
 
+![Primitives feed semantics, semantics feed components, and the shortcut from components straight to primitives is marked never](./docs/images/01_token_layers.png)
+
 ### 2. Contrast is a build error
 
 `src/tokens/semantic.ts` declares every foreground/background pair the system
@@ -45,6 +54,8 @@ Two things this design gets right that a generic linter cannot:
   push the palette to mud.
 - Adding a token that renders text without declaring its pair is a review
   comment, not a silent gap — because the pair list _is_ the coverage.
+
+![Table of measured contrast ratios per semantic pair, with one rejected candidate at 2.53:1](./docs/images/03_contrast_gate.png)
 
 ### 3. The states nobody designs are a component
 
@@ -78,6 +89,8 @@ still renders **byte-identically**, warns once in development, and is removed in
 3.0. There is a test asserting the two forms produce the same markup, which is
 what lets a team upgrade on a Tuesday and rename whenever they get to it.
 
+![Before: one variant enum doing two jobs. After: a variant by tone grid, with the previously impossible combination highlighted](./docs/images/02_variant_tone.png)
+
 Full reasoning, deprecation timeline and a scripted rename: **[MIGRATION.md](./MIGRATION.md)**
 
 ---
@@ -108,6 +121,16 @@ diff.
 | `Table`      | Comparable rows of structured data  | Layout                                 |
 | `Badge`      | Short status on an object           | Bare counts, anything clickable        |
 | `StateBlock` | Empty, loading, error               | The happy path                         |
+
+Every component ships a **Do / Don't** page in the Storybook: live examples of
+the right and the wrong version side by side, each with the reason rather than
+the instruction, anchored to a named usability heuristic. "Don't do X" gets
+argued with in review; "don't do X, because a screen reader user never hears
+the failure" gets followed.
+
+The examples are rendered components, not screenshots — a screenshot of
+guidance goes stale the moment the component changes, and nobody notices,
+because images have no build step.
 
 Two omissions are deliberate. `Select` wraps the **native** element — a custom
 listbox is ~400 lines of roving tabindex, typeahead and mobile fallback, and

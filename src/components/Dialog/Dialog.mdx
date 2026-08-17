@@ -1,0 +1,116 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Button } from '../Button/Button';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as DialogStories from './Dialog.stories';
+
+<Meta of={DialogStories} />
+
+# Dialog
+
+A decision that must block the rest of the page. Built on the native
+`<dialog>` element.
+
+<Canvas of={DialogStories.Default} />
+
+## What the platform gives us
+
+Focus trapping, focus restoration to the element that opened it, page
+inertness, Escape handling and the top layer all come from the browser. A
+hand-rolled focus trap is one of the most reliably broken patterns on the web,
+and there is no version of writing one that beats not writing one.
+
+The only thing added here is backdrop-click dismissal, because the backdrop is
+a pseudo-element with no click target of its own.
+
+## When to use it
+
+| Use `Dialog` for                             | Use something else for                              |
+| -------------------------------------------- | --------------------------------------------------- |
+| A destructive confirmation                   | Confirming something already succeeded — `Toast`    |
+| A short focused form the flow depends on     | A long form — that is a page                        |
+| A choice that must be made before continuing | Supplementary detail — a disclosure or a side panel |
+
+A modal interrupts. That is its entire mechanism, and it is why it should be
+rare: a product that opens a modal for everything has no way left to say
+"this one actually matters".
+
+<Heuristic name="Aesthetic and minimalist design">
+  Every extra unit of information competes with the relevant units and diminishes their visibility.
+  A modal is the loudest unit available — spend it carefully.
+</Heuristic>
+
+## Do and don't
+
+### Name the consequence in the buttons
+
+<Guidance>
+  <Do reason="Each button is readable on its own. A user who tabs straight to the actions — as screen reader users often do — still knows exactly what each one will do.">
+    <Button variant="secondary">Keep workspace</Button>
+    <Button tone="critical">Delete permanently</Button>
+  </Do>
+  <Dont reason='"Yes" and "No" only mean something while the question is still in the user’s head. Under a title phrased as a negative ("Don’t you want to keep this?") they become genuinely ambiguous.'>
+    <Button variant="secondary">No</Button>
+    <Button tone="critical">Yes</Button>
+  </Dont>
+</Guidance>
+
+### Reserve non-dismissible for real destruction
+
+<Guidance>
+  <Do reason="dismissible={false} on an irreversible action: Escape and backdrop clicks are blocked and the close button is gone, so there is exactly one way out and it is a labelled choice.">
+    <Button variant="secondary">Keep workspace</Button>
+    <Button tone="critical">Delete 1,284 invoices</Button>
+  </Do>
+  <Dont reason="A trapped ordinary form dialog. The user reflexively presses Escape, nothing happens, and they now have to hunt for the exit in a UI that has just taught them it might not have one.">
+    <Button variant="secondary">Cancel</Button>
+    <Button>Rename</Button>
+  </Dont>
+</Guidance>
+
+<Heuristic name="User control and freedom">
+  A clearly marked emergency exit, without an extended dialogue. Escape is that exit, and users have
+  been trained on it for thirty years. Blocking it needs a reason stronger than tidiness.
+</Heuristic>
+
+### Say what will be destroyed
+
+A destructive confirmation should state the scale of what happens: _"This
+removes 1,284 invoices and cannot be undone"_, not _"Are you sure?"_. The user
+already believed they were sure — the point of the dialog is to give them a
+fact they might not have had.
+
+Where the action is genuinely irreversible and high-value, requiring the user
+to type the name of the thing is justified. Where it is reversible, prefer an
+undo over a confirmation: an undo costs nothing on the happy path, whereas a
+confirmation taxes every user forever to protect against a rare mistake.
+
+<Heuristic name="Error prevention">
+  Eliminate error-prone conditions, or check for them and present users with a confirmation before
+  they commit. Note the order — prevention first, confirmation only when prevention is impossible.
+</Heuristic>
+
+### Never stack modals
+
+A dialog that opens another dialog leaves the user with two nested blocking
+states and no clear notion of what Escape will close. If a dialog needs a
+sub-decision, the flow belongs on a page.
+
+### Do not put a form's only validation inside a modal
+
+If validation errors appear inside a dialog, they must be reachable without
+scrolling past the fold and the dialog must not close on submit until the
+errors are resolved. A modal that closes and discards typed input is the single
+most expensive failure this component can produce.
+
+## Accessibility
+
+- `aria-labelledby` points at the title, `aria-describedby` at the description
+  when there is one — so the dialog announces its purpose on open.
+- Focus moves into the dialog on `showModal()` and returns to the trigger on
+  close. Both are the platform's behaviour, not this component's.
+- The `cancel` event is intercepted: with `dismissible={false}` it is
+  cancelled, which is what makes the dialog genuinely non-dismissible rather
+  than just missing a close button.
+- Content scrolls inside `bh-dialog__body`, so the header and actions stay
+  visible on a short viewport.

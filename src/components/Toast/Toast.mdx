@@ -1,0 +1,129 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as ToastStories from './Toast.stories';
+
+<Meta of={ToastStories} />
+
+# Toast
+
+Ephemeral confirmation that something happened.
+
+<Canvas of={ToastStories.Playground} />
+
+## Two live regions, not one
+
+Confirmations go into the polite region; failures go into the assertive one.
+A user who navigates away before hearing that their save failed has been
+failed twice.
+
+Both regions are rendered by the provider from first paint, **empty**. A live
+region created in the same tick as its content is not announced by most screen
+readers — this is the detail that quietly breaks most hand-rolled toast
+implementations.
+
+<Heuristic name="Visibility of system status">
+  Keep users informed through appropriate feedback within reasonable time. "Appropriate" is doing a
+  lot of work here: the feedback has to reach a user who is not looking at the corner of the screen
+  where the toast appeared.
+</Heuristic>
+
+## When to use it
+
+| Use `Toast` for                            | Use something else for                                     |
+| ------------------------------------------ | ---------------------------------------------------------- |
+| "Invoice sent" — it worked, carry on       | "We could not load your invoices" — `StateBlock`, in place |
+| A background job finishing                 | A decision the user must make — `Dialog`                   |
+| An undoable action, with the undo attached | Anything the user must read to continue safely             |
+
+## Do and don't
+
+### Errors do not auto-dismiss
+
+<Guidance>
+  <Do reason="tone='critical' never auto-dismisses and routes to the assertive region. The user was probably looking somewhere else when it fired; a message that vanishes on a timer is a message they may simply never see.">
+    <div style={{ fontSize: 14, color: 'var(--bh-text-secondary)' }}>
+      <code>notify(&#123; tone: 'critical', title: 'Could not send invoice' &#125;)</code>
+      <div style={{ marginTop: 6 }}>
+        duration defaults to <code>null</code> — stays until dismissed
+      </div>
+    </div>
+  </Do>
+  <Dont reason="A five-second error is a coin toss. Anyone reading a long form, using a screen magnifier, or briefly looking at their keyboard misses it entirely — and the failure is silent from then on.">
+    <div style={{ fontSize: 14, color: 'var(--bh-text-secondary)' }}>
+      <code>notify(&#123; tone: 'critical', duration: 5000 &#125;)</code>
+      <div style={{ marginTop: 6 }}>gone before a slow reader reaches it</div>
+    </div>
+  </Dont>
+</Guidance>
+
+### Do not put an action the user must take inside a toast
+
+A toast disappears. Anything the user _must_ do therefore cannot live only
+there. Undo is the exception that proves the rule: undo is optional by
+definition, and its whole value is that it is offered briefly and then expires.
+
+If the user must retry, fix, or choose — that belongs in a `StateBlock` where
+the failure happened, or in a `Dialog`.
+
+<Heuristic name="Recognition rather than recall">
+  Instructions should be visible or easily retrievable. A message that erases itself after five
+  seconds is neither.
+</Heuristic>
+
+### Confirm the outcome, not the click
+
+<Guidance>
+  <Do reason="Names what changed and which object it happened to. Useful in a workflow where the user fires several of these in a row and needs to know which one landed.">
+    <div style={{ fontSize: 14, color: 'var(--bh-text-secondary)' }}>
+      <strong style={{ color: 'var(--bh-text-primary)' }}>Invoice sent</strong>
+      <div>INV-2041 is on its way to Northwind Trading.</div>
+    </div>
+  </Do>
+  <Dont reason='"Success!" tells the user something they already assumed from the button they pressed. It costs attention and returns no information.'>
+    <div style={{ fontSize: 14, color: 'var(--bh-text-secondary)' }}>
+      <strong style={{ color: 'var(--bh-text-primary)' }}>Success!</strong>
+      <div>Operation completed.</div>
+    </div>
+  </Dont>
+</Guidance>
+
+### Do not confirm the obvious at all
+
+If the result of an action is visible on screen — the row disappeared, the
+badge changed to Paid — a toast saying so is redundant. The best confirmation
+is the interface updating.
+
+Reserve toasts for outcomes the user **cannot** see: something happened off
+screen, asynchronously, or to an object they have already navigated away from.
+
+<Heuristic name="Aesthetic and minimalist design">
+  Interfaces should not contain information which is irrelevant or rarely needed. A toast for every
+  successful click is a stream of low-information interruptions, and it teaches the user to ignore
+  the channel entirely.
+</Heuristic>
+
+### Cap the stack
+
+The provider keeps the newest three by default. An uncapped stack turns a retry
+loop into a wall of notifications covering the thing the user was trying to
+fix — including, frequently, the control that would stop the loop.
+
+## Timing
+
+- Non-critical toasts default to **5 seconds**. That is enough for a short
+  confirmation and not enough for two sentences — which is a reason to keep
+  them to one.
+- Never auto-dismiss anything the user needs to act on.
+- Hovering does not currently pause the timer. That is a known gap, listed
+  rather than glossed over.
+
+## Accessibility
+
+- Two regions, `aria-live="polite"` and `aria-live="assertive"`, both present
+  from first paint.
+- Each dismiss button is named with the toast it dismisses
+  (`"Dismiss: Invoice sent"`), so a screen reader user meeting three buttons in
+  a row can tell them apart.
+- Toasts are a `<ol>` of `<li>`, so the count is announced and the items are
+  navigable as a list.

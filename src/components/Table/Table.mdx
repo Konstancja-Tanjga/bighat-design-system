@@ -1,0 +1,145 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Badge } from '../Badge/Badge';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as TableStories from './Table.stories';
+
+<Meta of={TableStories} />
+
+# Table
+
+Comparable rows of structured data.
+
+<Canvas of={TableStories.Sortable} />
+
+## When to use it
+
+A table is for **comparison**. If the user will not scan down a column
+comparing values, the data probably wants a list or a set of cards instead.
+
+| Use `Table` for                                  | Use something else for                       |
+| ------------------------------------------------ | -------------------------------------------- |
+| Rows the user compares across a shared attribute | Layout — use CSS grid                        |
+| Data with an obvious sort or filter              | A single record's detail — a definition list |
+| Anything exported to a spreadsheet               | Content where each item needs a paragraph    |
+
+## Do and don't
+
+### Align numbers right, text left
+
+<Guidance>
+  <Do reason="Right-aligned numerals line up digit place against digit place, so magnitude is visible without reading. Tabular figures make the comparison work even before the eye reaches the decimal point.">
+    <div
+      style={{
+        fontFamily: 'ui-monospace, monospace',
+        fontSize: 14,
+        textAlign: 'right',
+        minWidth: 140,
+      }}
+    >
+      <div>€12,400.00</div>
+      <div>€3,120.00</div>
+      <div>€28,950.00</div>
+      <div>€640.00</div>
+    </div>
+  </Do>
+  <Dont reason="Left-aligned numbers put the thousands digit of one row above the units digit of another. The user has to read every value in full instead of scanning the shape of the column.">
+    <div
+      style={{
+        fontFamily: 'ui-monospace, monospace',
+        fontSize: 14,
+        textAlign: 'left',
+        minWidth: 140,
+      }}
+    >
+      <div>€12,400.00</div>
+      <div>€3,120.00</div>
+      <div>€28,950.00</div>
+      <div>€640.00</div>
+    </div>
+  </Dont>
+</Guidance>
+
+### Status is a word, not a colour
+
+<Guidance>
+  <Do reason="Badge requires a label, so the status survives colour blindness, greyscale printing and the export to PDF that somebody always makes.">
+    <Badge tone="success">Paid</Badge>
+    <Badge tone="warning">Pending</Badge>
+    <Badge tone="critical">Overdue</Badge>
+  </Do>
+  <Dont reason="Three coloured dots with a legend somewhere above the fold. The user has to hold the mapping in memory while scanning, which is the cost this pattern always hides.">
+    <span style={{ display: 'inline-flex', gap: 14 }}>
+      <span style={{ width: 12, height: 12, borderRadius: 6, background: '#0a7f55' }} />
+      <span style={{ width: 12, height: 12, borderRadius: 6, background: '#b26a02' }} />
+      <span style={{ width: 12, height: 12, borderRadius: 6, background: '#c02a2f' }} />
+    </span>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  A legend forces the user to remember a mapping while their eyes are somewhere else. Labelling in
+  place removes the memory step entirely.
+</Heuristic>
+
+### Sort is controlled, and only one column carries it
+
+`sort` is a prop, not internal state. The day the table has two hundred rows
+the sort moves to the server, and a component that owned it locally has to be
+rewritten. Owning it from the start means the same component serves both.
+
+`aria-sort` goes on the currently sorted header **only**. Setting it on every
+sortable column tells a screen reader the table is sorted four ways at once.
+
+### Do not hide the primary action behind hover
+
+<Guidance>
+  <Do reason="Row actions are visible without hovering. They work on touch, they are reachable by keyboard in document order, and the user can see what a row affords before committing to it.">
+    <div style={{ display: 'flex', gap: 10, fontSize: 13 }}>
+      <span style={{ color: 'var(--bh-text-link)' }}>Open</span>
+      <span style={{ color: 'var(--bh-text-link)' }}>Duplicate</span>
+      <span style={{ color: 'var(--bh-status-critical-fg)' }}>Delete</span>
+    </div>
+  </Do>
+  <Dont reason="Hover-only actions do not exist on touch devices, are invisible to anyone scanning for what is possible, and are frequently skipped by keyboard users because nothing indicates they are there.">
+    <div style={{ fontSize: 13, color: 'var(--bh-text-muted)', fontStyle: 'italic' }}>
+      (actions appear on hover)
+    </div>
+  </Dont>
+</Guidance>
+
+### Empty, loading and error belong to `StateBlock`
+
+Pass the `state` prop rather than rendering your own message. The table keeps
+its header row and the surrounding filters, so the user can undo the filter
+that produced the emptiness — and the wording matches every other surface in
+the product.
+
+<Heuristic name="Consistency and standards">
+  Users should not have to wonder whether different words mean the same thing. Three teams writing
+  three "no results" messages guarantees that they will.
+</Heuristic>
+
+### Do not paginate what fits
+
+Pagination costs a click and destroys the ability to scan. Under a few hundred
+rows, scrolling with a sticky header beats paging. Reach for pagination when
+the cost is on the server, not because the list looks long.
+
+## Density and truncation
+
+- Truncate a cell only when the full value is available elsewhere — in a detail
+  view, or in a title attribute. A truncated invoice reference the user cannot
+  recover is a dead end.
+- Do not truncate the column the user is most likely to search for.
+- Wide tables scroll inside their own container, so the page body never gains a
+  horizontal scrollbar.
+
+## Accessibility
+
+- `caption` is required — it names the table for a screen reader user
+  navigating between several on one page. `hideCaption` hides it visually only.
+- Headers use `scope="col"`; sortable ones wrap a real `<button>`, so they are
+  reachable and operable by keyboard with no custom key handling.
+- The state row spans every column with `colSpan`, so the table structure stays
+  valid while it is empty.

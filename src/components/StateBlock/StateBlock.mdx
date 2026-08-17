@@ -1,0 +1,159 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Button } from '../Button/Button';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { StateBlock } from './StateBlock';
+import * as StateBlockStories from './StateBlock.stories';
+
+<Meta of={StateBlockStories} />
+
+# StateBlock
+
+The three states every data surface spends real time in: it has nothing to
+show, it is fetching, or it broke.
+
+<Canvas of={StateBlockStories.Empty} />
+
+## Why this is a component and not a guideline
+
+Empty, loading and error get reinvented by every team that builds a list. The
+results diverge in tone of voice, in layout, and — most expensively — in
+whether anything is announced to assistive technology at all.
+
+Making it a component means the pattern is enforced by import rather than by
+whether someone read the wiki.
+
+| State     | Live region                | Why                                                      |
+| --------- | -------------------------- | -------------------------------------------------------- |
+| `loading` | `role="status"` — polite   | Transient. Must not cut across what the user is reading. |
+| `error`   | `role="alert"` — assertive | Their action failed and they need to know now.           |
+| `empty`   | none                       | A successful response that contains no rows.             |
+
+<Heuristic name="Visibility of system status">
+  Feedback within reasonable time, for every state — including the ones that are not the happy path.
+  A list that renders nothing while it loads has told the user nothing, and a screen-reader user has
+  not even been told that much.
+</Heuristic>
+
+## Do and don't
+
+### "Empty" is two different screens
+
+This is the most common mistake with this component, and it is a content
+mistake rather than a technical one.
+
+<Guidance>
+  <Do reason="First use and filtered-to-nothing are different situations with different exits. One needs an onboarding action; the other needs a way out of the filter the user themselves applied.">
+    <StateBlock
+      density="inline"
+      state="empty"
+      title="No invoices match these filters"
+      description="Try widening the date range."
+      action={
+        <Button size="sm" variant="secondary">
+          Clear filters
+        </Button>
+      }
+    />
+  </Do>
+  <Dont reason='One generic message for both. A first-time user is told there is "no data" and given no way to create any; a user who over-filtered is offered a create button they do not want.'>
+    <StateBlock density="inline" state="empty" title="No data available" />
+  </Dont>
+</Guidance>
+
+### Say what did not happen to their data
+
+<Guidance>
+  <Do reason="Plain language, no jargon, and an explicit statement that nothing was lost — which is the question the user is actually asking. Retry is the primary action, and the correlation id is available for support without being shown to everyone.">
+    <StateBlock
+      density="inline"
+      state="error"
+      title="We could not load your invoices"
+      description="The billing service did not respond. Your data has not changed."
+      action={<Button size="sm">Try again</Button>}
+      diagnostics="correlation-id: 8f2c1a94 · HTTP 503"
+    />
+  </Do>
+  <Dont reason="A status code is not a message. It does not say whether the save went through, offers no way forward, and expresses the failure in the system's vocabulary rather than the user's.">
+    <StateBlock density="inline" state="error" title="Error 503" />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Match between system and the real world">
+  Speak the users' language, with words and concepts familiar to them, rather than system-oriented
+  terms. "HTTP 503" is the system's vocabulary. "The billing service did not respond" is theirs.
+</Heuristic>
+
+### Offer an action only when there is one
+
+<Guidance>
+  <Do reason="No invented next step. If the honest answer is that the user has to wait for someone else, saying so is more useful than a button that does nothing they need.">
+    <StateBlock
+      density="inline"
+      state="empty"
+      title="No invoices assigned to you"
+      description="Your team lead assigns invoices at the start of each week."
+    />
+  </Do>
+  <Dont reason="A call to action the user has no permission to complete. They press it, hit a permissions error, and now the empty state has cost them a click and taught them not to trust the buttons.">
+    <StateBlock
+      density="inline"
+      state="empty"
+      title="No invoices assigned to you"
+      action={<Button size="sm">Create invoice</Button>}
+    />
+  </Dont>
+</Guidance>
+
+### Do not announce an empty result
+
+<Guidance>
+  <Do reason="No live region. The request succeeded and happened to return nothing — that is the rendered result, not an event, and the user reaches it by navigating to it.">
+    <StateBlock density="inline" state="empty" title="No invoices yet" />
+  </Do>
+  <Dont reason='Wrapping an empty state in role="alert" interrupts whatever the user is reading to tell them nothing went wrong. Do it on every filter keystroke and the alert region becomes noise the user learns to tune out.'>
+    <div role="alert">
+      <StateBlock density="inline" state="empty" title="No invoices yet" />
+    </div>
+  </Dont>
+</Guidance>
+
+### Keep the surrounding furniture
+
+<Guidance>
+  <Do reason="Inside a Table, pass the state prop — the header row, filters and toolbar stay put, so the user can change the filter that produced the emptiness without navigating away.">
+    <StateBlock
+      density="inline"
+      state="empty"
+      title="No invoices match these filters"
+      action={
+        <Button size="sm" variant="secondary">
+          Clear filters
+        </Button>
+      }
+    />
+  </Do>
+  <Dont reason="Replacing the whole page with an empty state removes the controls that caused it. The user's only route back is the browser's back button, which is not where they expected the exit to be.">
+    <StateBlock density="inline" state="empty" title="Nothing here" />
+  </Dont>
+</Guidance>
+
+<Heuristic name="User control and freedom">
+  Users need a clearly marked emergency exit to leave an unwanted state. A filter that empties the
+  screen and takes its own controls with it has removed the exit.
+</Heuristic>
+
+## Writing the copy
+
+- **Title.** One line, sentence case, no trailing period. Describes the
+  situation, not the technology.
+- **Description.** Say what the user can do, not what the server did. Two lines
+  at most; if it needs three, the situation needs a documentation link instead.
+- **Never apologise twice.** "Sorry, something went wrong. We apologise for the
+  inconvenience." is two sentences that carry no information.
+- **Avoid "Oops".** In an enterprise tool the user has usually lost work or
+  time. A cheerful tone reads as not taking that seriously.
+
+## Props
+
+<Controls of={StateBlockStories.Empty} />

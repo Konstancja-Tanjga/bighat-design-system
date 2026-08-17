@@ -1,0 +1,114 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { Input } from './Input';
+import * as InputStories from './Input.stories';
+
+<Meta of={InputStories} />
+
+# Input
+
+Single-line text entry, with the label, description and error wired to ARIA
+from the same props that render the visible text.
+
+<Canvas of={InputStories.WithDescription} />
+
+## When to use it
+
+| Use `Input` for                         | Use something else for                                                  |
+| --------------------------------------- | ----------------------------------------------------------------------- |
+| Names, emails, references, search terms | Dates — those need a picker with its own keyboard model                 |
+| Any short free-text value               | One of a known set of options — that is `Select`                        |
+| Numbers with no fixed range             | A value with a meaningful range the user should feel — that is a slider |
+
+## Do and don't
+
+### A placeholder is not a label
+
+<Guidance>
+  <Do reason="The label stays visible while the field is being filled and after it is filled — which is when the user proof-reads the form. It is also what a screen reader announces on focus.">
+    <Input label="Work email" placeholder="name@company.com" />
+  </Do>
+  <Dont reason="A placeholder disappears at the first keystroke, so the user loses the one thing telling them what the field is. It is also the first casualty of browser autofill, and its low-contrast grey is frequently unreadable.">
+    <Input label="Work email" hideLabel placeholder="Work email" />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  Make information visible rather than requiring the user to remember it. A placeholder-as-label
+  forces exactly the recall this heuristic exists to prevent — and it does so at the moment the user
+  can least afford it.
+</Heuristic>
+
+`hideLabel` exists for one legitimate case: a search field whose purpose is
+obvious from an adjacent icon and context. It hides the label visually and
+keeps it for assistive technology. It is not a shortcut for a tidier form.
+
+### Say what is wrong and how to fix it
+
+<Guidance>
+  <Do reason="Names the problem in plain language and implies the correction. The description survives alongside the error, so the rule the user was meant to follow is still on screen at the moment they broke it.">
+    <Input
+      label="Work email"
+      description="We use this for billing receipts only."
+      defaultValue="konstancja.company.com"
+      error="Enter an email address with an @ in it."
+    />
+  </Do>
+  <Dont reason='"Invalid input" describes the system’s verdict, not the user’s mistake. They now have to guess which of the rules they broke — and if the description was replaced by the error, they cannot even re-read the rules.'>
+    <Input label="Work email" defaultValue="konstancja.company.com" error="Invalid input" />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Help users recognize, diagnose, and recover from errors">
+  Express errors in plain language, indicate the problem precisely, and suggest a solution. Three
+  requirements — "Invalid input" satisfies none of them.
+</Heuristic>
+
+### Never rely on the red border alone
+
+<Guidance>
+  <Do reason="The border weight changes and a message appears. Two cues, one of which survives colour blindness, a monochrome display, and a user who has zoomed past the point where the border is on screen.">
+    <Input label="Invoice reference" defaultValue="INV/2041" error="Use digits only, no slashes." />
+  </Do>
+  <Dont reason="Colour as the sole carrier of meaning fails WCAG 1.4.1. Roughly one in twelve men has some form of colour vision deficiency, and none of them are told this field is the problem.">
+    <Input label="Invoice reference" defaultValue="INV/2041" />
+  </Dont>
+</Guidance>
+
+### Validate at the right moment
+
+Validate a field when the user leaves it, not on every keystroke. Telling
+somebody their email is invalid after they have typed `k` is technically
+accurate and practically hostile.
+
+The exception is a rule the user can satisfy progressively — a password
+strength requirement — where live feedback helps rather than nags.
+
+<Heuristic name="Error prevention">
+  Better than good error messages is a careful design which prevents a problem from occurring in the
+  first place. Input masks, sensible `type` and `inputMode`, and generous parsing beat a well-worded
+  rejection.
+</Heuristic>
+
+### Mark the shorter list
+
+If most fields are required, mark the **optional** ones. An asterisk on eleven
+of twelve fields carries no information and adds visual noise to all of them.
+
+## Accessibility
+
+- `label` is required and always rendered — `hideLabel` moves it out of sight,
+  never out of the accessibility tree.
+- `error` sets `aria-invalid` and is placed **first** in `aria-describedby`,
+  because that is the order a screen reader reads and the error is the more
+  urgent of the two.
+- The error is deliberately **not** a live region. The field already points at
+  it, so it is reachable through the input; a live region here makes every
+  keystroke of client-side validation speak twice.
+- Ids are generated with `useId`, so two fields with the same label on one page
+  cannot collide.
+
+## Props
+
+<Controls of={InputStories.Default} />
