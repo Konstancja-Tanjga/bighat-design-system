@@ -120,6 +120,12 @@ skip link. Both arms then left raw font sizes inline, because the system exports
 no typography tokens — the second gap an outside consumer has found that the
 author could not see.
 
+`CLAUDE.md` routes an agent arriving at this repository for the first time,
+and `agent/HANDOFF.md` maps the questions people actually ask — _is this
+handoff-safe?_, _the spacing looks off_, _bighat cannot do what I need here_ —
+to what each one runs and what it returns. The same guidance for humans is
+`docs/handoff-guide.html`.
+
 ---
 
 ## Components
