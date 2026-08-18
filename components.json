@@ -30,6 +30,35 @@
   },
   "components": [
     {
+      "name": "Accordion",
+      "purpose": "Disclosure of one topic at a time. Headers are real buttons inside headings.",
+      "notFor": ["Navigation between screens", "Hiding content the user always needs"],
+      "props": {
+        "multiple": {
+          "type": "boolean",
+          "default": false
+        },
+        "defaultOpen": {
+          "type": "string[]",
+          "note": "Ids open on first render."
+        },
+        "headingLevel": {
+          "type": "2 | 3 | 4 | 5 | 6",
+          "default": 3,
+          "note": "Where the accordion sits in the document outline."
+        },
+        "AccordionItem.title": {
+          "type": "ReactNode",
+          "required": true
+        },
+        "AccordionItem.meta": {
+          "type": "ReactNode",
+          "note": "Count or status next to the title."
+        }
+      },
+      "exports": ["Accordion", "AccordionItem"]
+    },
+    {
       "name": "AppBar",
       "purpose": "The top bar. Three slots in reading order: brand, title, actions.",
       "notFor": ["Repeating the product name in title — brand already carries it"],
@@ -93,6 +122,39 @@
       "note": "Slots are optional. A screen without a rail is this component with a prop left out, not a second layout."
     },
     {
+      "name": "Avatar",
+      "purpose": "A person, as a picture with a name behind it.",
+      "notFor": ["A logo", "Carrying status on its own"],
+      "props": {
+        "name": {
+          "type": "string",
+          "required": true,
+          "note": "Initials and accessible name come from it."
+        },
+        "src": {
+          "type": "string"
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "md"
+        },
+        "decorative": {
+          "type": "boolean",
+          "default": false,
+          "note": "True when the name is already visible next to it."
+        },
+        "AvatarGroup.label": {
+          "type": "string",
+          "required": true
+        },
+        "AvatarGroup.max": {
+          "type": "number",
+          "default": 4
+        }
+      },
+      "exports": ["Avatar", "AvatarGroup"]
+    },
+    {
       "name": "Badge",
       "purpose": "Short status attached to an object.",
       "notFor": ["Bare counts", "Anything clickable"],
@@ -148,6 +210,26 @@
         "BoardCard.onMove": {
           "type": "(targetId: string) => void",
           "note": "Required for a pointer-free move — WCAG 2.5.1."
+        }
+      }
+    },
+    {
+      "name": "Breadcrumbs",
+      "purpose": "Position in a hierarchy. The last crumb is the current page and is not a link.",
+      "notFor": ["Click history", "A two-level hierarchy — a back link is enough"],
+      "props": {
+        "items": {
+          "type": "BreadcrumbItem[]",
+          "required": true
+        },
+        "ariaLabel": {
+          "type": "string",
+          "default": "Breadcrumb"
+        },
+        "maxItems": {
+          "type": "number",
+          "default": 5,
+          "note": "Beyond this the middle collapses; root and leaf always show."
         }
       }
     },
@@ -240,6 +322,67 @@
       }
     },
     {
+      "name": "Checkbox",
+      "purpose": "An independent yes/no that is submitted with a form.",
+      "notFor": [
+        "An immediate setting — that is Switch",
+        "Mutually exclusive options — that is RadioGroup"
+      ],
+      "props": {
+        "label": {
+          "type": "ReactNode",
+          "required": true
+        },
+        "description": {
+          "type": "ReactNode"
+        },
+        "error": {
+          "type": "string",
+          "note": "Its presence is the invalid state."
+        },
+        "indeterminate": {
+          "type": "boolean",
+          "default": false,
+          "note": "Set as a DOM property, so it announces as mixed."
+        }
+      }
+    },
+    {
+      "name": "Combobox",
+      "purpose": "A text field that filters a list. The one custom listbox in the system.",
+      "notFor": [
+        "A short, fixed set — use Select",
+        "Free text — the value must come from the list"
+      ],
+      "props": {
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "options": {
+          "type": "ComboboxOption[]",
+          "required": true
+        },
+        "value": {
+          "type": "string | null",
+          "required": true
+        },
+        "onChange": {
+          "type": "(value: string | null) => void",
+          "required": true
+        },
+        "filter": {
+          "type": "(option, query) => boolean",
+          "note": "Defaults to case-insensitive contains."
+        },
+        "emptyMessage": {
+          "type": "string",
+          "default": "No matches"
+        }
+      },
+      "note": "Escape closes the list; a second Escape clears the field. Blur restores the committed value."
+    },
+    {
       "name": "Composer",
       "purpose": "The prompt input — a textarea in a form, with optional single-choice modes.",
       "notFor": ["Ordinary multi-line form fields"],
@@ -299,6 +442,36 @@
       "note": "Enter submits, Shift+Enter adds a line — and the form still submits the ordinary way, so switch access and voice control work without knowing the key handler."
     },
     {
+      "name": "DatePicker",
+      "purpose": "A native date input, with the format and range stated in the description.",
+      "notFor": ["A custom calendar grid", "A duration — that is two fields"],
+      "props": {
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "granularity": {
+          "type": "'date' | 'month' | 'week' | 'datetime-local'",
+          "default": "date"
+        },
+        "min": {
+          "type": "string",
+          "note": "Named in the hint automatically."
+        },
+        "max": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "DateRangePicker.legend": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "exports": ["DatePicker", "DateRangePicker"]
+    },
+    {
       "name": "Dialog",
       "purpose": "A decision that must block the rest of the page. Native <dialog>.",
       "notFor": ["Non-blocking feedback — use Toast"],
@@ -334,6 +507,56 @@
       }
     },
     {
+      "name": "Divider",
+      "purpose": "A line between things. Decorative unless it carries a label.",
+      "notFor": ["Spacing — use the gap tokens"],
+      "props": {
+        "orientation": {
+          "type": "'horizontal' | 'vertical'",
+          "default": "horizontal"
+        },
+        "children": {
+          "type": "ReactNode",
+          "note": "Turns it into a labelled role=separator."
+        },
+        "spacing": {
+          "type": "'none' | 'snug' | 'loose'",
+          "default": "snug"
+        }
+      }
+    },
+    {
+      "name": "IconPicker",
+      "purpose": "Choosing one icon from a searchable grid. A radio group, not a wall of buttons.",
+      "notFor": ["An icon set with no names — the name is the accessible label"],
+      "props": {
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "icons": {
+          "type": "IconOption[]",
+          "required": true,
+          "note": "Each needs a name; keywords widen the search."
+        },
+        "value": {
+          "type": "string"
+        },
+        "onChange": {
+          "type": "(name: string) => void",
+          "required": true
+        },
+        "searchable": {
+          "type": "boolean",
+          "default": true
+        },
+        "columns": {
+          "type": "number",
+          "default": 8
+        }
+      }
+    },
+    {
       "name": "Input",
       "purpose": "Single-line text entry with label, description and error wired to ARIA.",
       "notFor": ["Controls with their own keyboard model — date pickers, comboboxes"],
@@ -354,6 +577,93 @@
         "error": {
           "type": "string",
           "note": "Its presence is what sets aria-invalid."
+        }
+      }
+    },
+    {
+      "name": "List",
+      "purpose": "A vertical list of records: leading media, title, supporting line, trailing slot.",
+      "notFor": [
+        "Data the user compares or sorts — that is Table",
+        "A selectable master pane — that is ListView"
+      ],
+      "props": {
+        "ariaLabel": {
+          "type": "string"
+        },
+        "dividers": {
+          "type": "boolean",
+          "default": true
+        },
+        "ListItem.title": {
+          "type": "ReactNode",
+          "required": true
+        },
+        "ListItem.href": {
+          "type": "string",
+          "note": "Makes the row a link. Mutually exclusive with onSelect."
+        },
+        "ListItem.onSelect": {
+          "type": "() => void",
+          "note": "Makes the row a button."
+        },
+        "ListItem.trailing": {
+          "type": "ReactNode",
+          "note": "Rendered outside the row's own control."
+        }
+      },
+      "exports": ["List", "ListItem"]
+    },
+    {
+      "name": "ListView",
+      "purpose": "A selectable master list driving a detail pane. One tab stop, arrows, type-ahead.",
+      "notFor": [
+        "Multi-select — that is a Table with a checkbox column",
+        "Static records — that is List"
+      ],
+      "props": {
+        "ariaLabel": {
+          "type": "string",
+          "required": true
+        },
+        "items": {
+          "type": "ListViewItem[]",
+          "required": true
+        },
+        "value": {
+          "type": "string | null",
+          "note": "Controlled selection."
+        },
+        "onChange": {
+          "type": "(id: string) => void"
+        },
+        "empty": {
+          "type": "ReactNode",
+          "note": "Use StateBlock for anything richer than a line."
+        }
+      }
+    },
+    {
+      "name": "Menu",
+      "purpose": "A list of actions behind a trigger. Focus moves in on open and back on close.",
+      "notFor": ["Navigation — those are links", "Choosing a value — that is Select"],
+      "props": {
+        "label": {
+          "type": "ReactNode",
+          "required": true
+        },
+        "items": {
+          "type": "MenuItem[]",
+          "required": true,
+          "note": "tone='critical' for destructive items."
+        },
+        "align": {
+          "type": "'start' | 'end'",
+          "default": "start"
+        },
+        "renderTrigger": {
+          "type": "(props) => ReactNode",
+          "note": "For an icon button or an avatar trigger."
         }
       }
     },
@@ -417,6 +727,125 @@
         }
       },
       "note": "NavRailItem.label is required — it is the accessible name, the tooltip and the optional caption. An icon-only rail without it is a memory test."
+    },
+    {
+      "name": "Progress",
+      "purpose": "How far along something is. Determinate or honestly indeterminate.",
+      "notFor": ["A fake bar that waits at 90%", "A skeleton's job — an unknown layout"],
+      "props": {
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "value": {
+          "type": "number",
+          "note": "Omit for the indeterminate state."
+        },
+        "max": {
+          "type": "number",
+          "default": 100
+        },
+        "valueText": {
+          "type": "string",
+          "note": "e.g. '12 of 40 files'."
+        },
+        "tone": {
+          "type": "'default' | 'success' | 'critical'",
+          "default": "default"
+        },
+        "hideLabel": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    {
+      "name": "RadioGroup",
+      "purpose": "One choice out of a visible, mutually exclusive set. The group is the component.",
+      "notFor": [
+        "More than about six options — that is Select or Combobox",
+        "Independent toggles — that is Checkbox"
+      ],
+      "props": {
+        "legend": {
+          "type": "string",
+          "required": true
+        },
+        "options": {
+          "type": "RadioOption[]",
+          "required": true
+        },
+        "value": {
+          "type": "string"
+        },
+        "onChange": {
+          "type": "(value: string) => void"
+        },
+        "orientation": {
+          "type": "'vertical' | 'horizontal'",
+          "default": "vertical"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "ScrollArea",
+      "purpose": "A scrollable region that is reachable by keyboard and keeps the platform scrollbar.",
+      "notFor": ["Replacing the scrollbar with divs", "A region that never overflows"],
+      "props": {
+        "ariaLabel": {
+          "type": "string",
+          "required": true,
+          "note": "Used once the region becomes focusable."
+        },
+        "maxHeight": {
+          "type": "number | string",
+          "default": 240
+        },
+        "axis": {
+          "type": "'vertical' | 'horizontal' | 'both'",
+          "default": "vertical"
+        },
+        "fade": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "note": "tabIndex is added only while the content actually overflows."
+    },
+    {
+      "name": "SegmentedControl",
+      "purpose": "Two to five mutually exclusive options, all visible. A radio group that looks like buttons.",
+      "notFor": ["More than five options", "A filter with a cleared state"],
+      "props": {
+        "legend": {
+          "type": "string",
+          "required": true,
+          "note": "Visually hidden unless showLegend."
+        },
+        "showLegend": {
+          "type": "boolean",
+          "default": false
+        },
+        "options": {
+          "type": "SegmentedOption[]",
+          "required": true
+        },
+        "value": {
+          "type": "string",
+          "required": true
+        },
+        "onChange": {
+          "type": "(value: string) => void",
+          "required": true
+        },
+        "size": {
+          "type": "'sm' | 'md'",
+          "default": "md"
+        }
+      }
     },
     {
       "name": "Select",
@@ -519,6 +948,40 @@
       "note": "Individual bones are aria-hidden; the group announces once. Otherwise a screen reader reads \"blank\" forty times."
     },
     {
+      "name": "Slider",
+      "purpose": "A native range input for an approximate value on a continuum.",
+      "notFor": [
+        "A value the user needs to type exactly — that is Input",
+        "Fewer than about ten steps"
+      ],
+      "props": {
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "value": {
+          "type": "number",
+          "required": true
+        },
+        "onChange": {
+          "type": "(value: number) => void",
+          "required": true
+        },
+        "min": {
+          "type": "number",
+          "default": 0
+        },
+        "max": {
+          "type": "number",
+          "default": 100
+        },
+        "formatValue": {
+          "type": "(value: number) => string",
+          "note": "Becomes aria-valuetext — '24' alone means nothing."
+        }
+      }
+    },
+    {
       "name": "StateBlock",
       "purpose": "The empty, loading and error surfaces of any data view.",
       "notFor": ["The happy path"],
@@ -563,6 +1026,55 @@
       }
     },
     {
+      "name": "StatusBar",
+      "purpose": "The thin bar at the bottom of an application. Its message slot is a polite live region.",
+      "notFor": ["Anything urgent — that is Toast", "Actions — that is Toolbar"],
+      "props": {
+        "items": {
+          "type": "StatusBarItem[]",
+          "note": "Label and value pairs, read out together."
+        },
+        "message": {
+          "type": "ReactNode",
+          "note": "Announced politely. Always rendered so the region exists before it fills."
+        },
+        "end": {
+          "type": "ReactNode"
+        },
+        "ariaLabel": {
+          "type": "string",
+          "default": "Status"
+        }
+      }
+    },
+    {
+      "name": "Switch",
+      "purpose": "An immediate setting. Takes effect on click, with no Save button.",
+      "notFor": ["A value submitted with a form — that is Checkbox"],
+      "props": {
+        "label": {
+          "type": "ReactNode",
+          "required": true
+        },
+        "checked": {
+          "type": "boolean",
+          "required": true
+        },
+        "onChange": {
+          "type": "(checked: boolean) => void",
+          "required": true
+        },
+        "description": {
+          "type": "ReactNode"
+        },
+        "labelPosition": {
+          "type": "'start' | 'end'",
+          "default": "end"
+        }
+      },
+      "note": "role=switch, so the state announces as on/off rather than checked."
+    },
+    {
       "name": "Table",
       "purpose": "Comparable rows of structured data.",
       "notFor": ["Layout"],
@@ -598,6 +1110,45 @@
       }
     },
     {
+      "name": "Tabs",
+      "purpose": "A filter over one screen. Roving tabindex, arrows to move, panel is the next tab stop.",
+      "notFor": [
+        "Content with its own URL — those are links",
+        "More tabs than fit without scrolling"
+      ],
+      "props": {
+        "defaultTab": {
+          "type": "string",
+          "note": "Defaults to the first tab registered."
+        },
+        "value": {
+          "type": "string",
+          "note": "Controlled selection."
+        },
+        "onChange": {
+          "type": "(id: string) => void"
+        },
+        "manual": {
+          "type": "boolean",
+          "default": false,
+          "note": "Arrows move focus; Enter or Space activates. Use for expensive panels."
+        },
+        "TabList.ariaLabel": {
+          "type": "string",
+          "required": true
+        },
+        "Tab.id": {
+          "type": "string",
+          "required": true
+        },
+        "TabPanel.id": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "exports": ["Tabs", "TabList", "Tab", "TabPanel"]
+    },
+    {
       "name": "Toast",
       "purpose": "Ephemeral confirmation that something happened.",
       "notFor": ["Errors the user must act on in place — use StateBlock"],
@@ -619,6 +1170,91 @@
           "default": "5000, or null for critical"
         }
       }
+    },
+    {
+      "name": "Toolbar",
+      "purpose": "A row of controls acting on the content below it. One tab stop, arrows between controls.",
+      "notFor": ["Page-level navigation — that is AppBar", "A single button"],
+      "props": {
+        "ariaLabel": {
+          "type": "string",
+          "required": true,
+          "note": "Names what the toolbar acts on."
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true
+        },
+        "end": {
+          "type": "ReactNode",
+          "note": "Trailing slot: search, view switches, counts."
+        },
+        "orientation": {
+          "type": "'horizontal' | 'vertical'",
+          "default": "horizontal"
+        },
+        "flush": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    {
+      "name": "Tooltip",
+      "purpose": "A short label for a control that has none. Dismissible, hoverable, persistent.",
+      "notFor": [
+        "Anything interactive inside it — that is a popover",
+        "Text the user must read to succeed"
+      ],
+      "props": {
+        "content": {
+          "type": "ReactNode",
+          "required": true,
+          "note": "Plain text."
+        },
+        "children": {
+          "type": "ReactElement",
+          "required": true,
+          "note": "One focusable element."
+        },
+        "placement": {
+          "type": "'top' | 'bottom'",
+          "default": "top"
+        },
+        "delay": {
+          "type": "number",
+          "default": 200,
+          "note": "Hover only. Focus shows it immediately."
+        }
+      },
+      "note": "Describes the trigger via aria-describedby; it never becomes its accessible name."
+    },
+    {
+      "name": "UserProfile",
+      "purpose": "Who is signed in, and the account actions. Name as text, not only as initials.",
+      "notFor": ["Showing another person — that is Avatar", "App navigation"],
+      "props": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "secondary": {
+          "type": "string",
+          "note": "E-mail or tenant — what tells two accounts apart."
+        },
+        "items": {
+          "type": "MenuItem[]",
+          "note": "Sign out last. Without them it renders as static identity."
+        },
+        "compact": {
+          "type": "boolean",
+          "default": false,
+          "note": "Hides the text; the button then names the account itself."
+        },
+        "badge": {
+          "type": "ReactNode"
+        }
+      }
     }
   ],
   "rules": [
@@ -632,7 +1268,12 @@
     "Never rebuild the application frame out of divs — AppShell carries the named landmarks.",
     "Never ship a drag-only interaction; BoardCard.onMove is the pointer-free path (WCAG 2.5.1).",
     "Never use a Skeleton for a wait whose shape is unknown — it promises a layout that never arrives.",
-    "Never leave a SidePanel or NavRail without an ariaLabel."
+    "Never leave a SidePanel or NavRail without an ariaLabel.",
+    "Never use role=\"toolbar\", \"tablist\" or \"listbox\" without the arrow-key handling they promise — Toolbar, Tabs and ListView already implement it.",
+    "Never put an interactive element inside a Tooltip; a tooltip the user has to reach is a popover.",
+    "Never use a Switch for a value that is submitted with a form, or a Checkbox for one that takes effect immediately.",
+    "Never let a Combobox commit free text — the value must come from the list.",
+    "Never build a scrollable region without a keyboard path to it; ScrollArea adds the tab stop only while it overflows."
   ],
   "templates": {
     "note": "Templates are documented in Storybook and deliberately not exported. Copy them into the product and edit.",

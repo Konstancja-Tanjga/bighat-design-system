@@ -1,0 +1,61 @@
+.bh-tabs {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--bh-font-family);
+}
+
+.bh-tabs__list {
+  display: flex;
+  gap: var(--bh-gap-tight);
+  border-bottom: 1px solid var(--bh-border-subtle);
+  overflow-x: auto;
+}
+
+.bh-tabs__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-tight);
+  height: var(--bh-control-lg);
+  padding: 0 var(--bh-padding-inline);
+  background: transparent;
+  border: 0;
+  /* The indicator is a bottom border on the tab itself, so it moves with the
+     tab rather than needing a separately positioned element. */
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: var(--bh-text-secondary);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.bh-tabs__tab:hover:not(:disabled) {
+  color: var(--bh-text-primary);
+  background: var(--bh-surface-sunken);
+}
+
+.bh-tabs__tab[aria-selected='true'] {
+  color: var(--bh-text-primary);
+  border-bottom-color: var(--bh-action-primary-bg);
+  font-weight: 500;
+}
+
+.bh-tabs__tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bh-tabs__badge {
+  padding: 0 6px;
+  border-radius: var(--bh-radius-pill);
+  background: var(--bh-surface-sunken);
+  color: var(--bh-text-secondary);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.bh-tabs__panel {
+  padding: var(--bh-padding-section) 0;
+  color: var(--bh-text-primary);
+}

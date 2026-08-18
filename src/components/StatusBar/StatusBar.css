@@ -1,0 +1,51 @@
+.bh-status-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--bh-gap-loose);
+  min-height: var(--bh-control-sm);
+  padding: 0 var(--bh-padding-inline);
+  background: var(--bh-surface-sunken);
+  border-top: 1px solid var(--bh-border-subtle);
+  color: var(--bh-text-secondary);
+  font-family: var(--bh-font-family);
+  font-size: 12px;
+}
+
+.bh-status-bar__items {
+  display: flex;
+  align-items: center;
+  gap: var(--bh-gap-loose);
+  flex-wrap: wrap;
+}
+
+.bh-status-bar__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--bh-gap-tight);
+  white-space: nowrap;
+}
+
+.bh-status-bar__label {
+  color: var(--bh-text-muted);
+}
+
+.bh-status-bar__value {
+  color: var(--bh-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.bh-status-bar__message {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bh-status-bar__end {
+  display: flex;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+  margin-left: auto;
+}

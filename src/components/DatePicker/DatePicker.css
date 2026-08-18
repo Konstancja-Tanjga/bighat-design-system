@@ -1,0 +1,37 @@
+/* The browser's own indicator is kept — replacing it costs the platform picker
+   on touch and the keyboard shortcut that opens it. It is only recoloured so
+   it survives the dark theme. */
+.bh-datepicker::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+:root[data-theme='dark'] .bh-datepicker::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .bh-datepicker::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+}
+
+.bh-date-range {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--bh-font-family);
+}
+
+.bh-date-range__fields {
+  display: flex;
+  gap: var(--bh-gap-normal);
+  flex-wrap: wrap;
+}
+
+.bh-date-range__fields > * {
+  flex: 1 1 160px;
+}

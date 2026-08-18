@@ -1,0 +1,57 @@
+.bh-combobox__control {
+  position: relative;
+}
+
+.bh-combobox__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  max-height: 240px;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--bh-gap-tight);
+  list-style: none;
+  border: 1px solid var(--bh-border-subtle);
+  border-radius: var(--bh-radius-surface);
+  background: var(--bh-surface-overlay);
+  box-shadow: var(--bh-elevation-overlay);
+}
+
+.bh-combobox__list[hidden] {
+  display: none;
+}
+
+.bh-combobox__option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--bh-gap-tight) var(--bh-padding-inline);
+  border-radius: var(--bh-radius-control);
+  color: var(--bh-text-primary);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Focus never leaves the input, so the active option is drawn here rather
+   than relying on :focus — this is what aria-activedescendant points at. */
+.bh-combobox__option.is-active {
+  background: var(--bh-surface-sunken);
+}
+
+.bh-combobox__option[aria-selected='true'] .bh-combobox__option-label::after {
+  content: ' ✓';
+  color: var(--bh-text-link);
+}
+
+.bh-combobox__option-hint {
+  color: var(--bh-text-muted);
+  font-size: 12px;
+}
+
+.bh-combobox__empty {
+  padding: var(--bh-gap-snug) var(--bh-padding-inline);
+  color: var(--bh-text-muted);
+  font-size: 13px;
+}
