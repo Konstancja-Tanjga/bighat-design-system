@@ -1,0 +1,93 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Breadcrumbs } from './Breadcrumbs';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as BreadcrumbStories from './Breadcrumbs.stories';
+
+<Meta of={BreadcrumbStories} />
+
+# Breadcrumbs
+
+Where the user is in a hierarchy.
+
+<Canvas of={BreadcrumbStories.Default} />
+
+## Location, never history
+
+A trail that records the path the user clicked changes shape on every visit.
+That is a worse map than none: the user cannot learn it, and it stops telling
+them anything about the structure they are in.
+
+| Use `Breadcrumbs` for                        | Skip them for                             |
+| -------------------------------------------- | ----------------------------------------- |
+| A hierarchy three levels deep or more        | A two-level site — a back link is clearer |
+| Content users arrive at from search          | A linear flow — that is a stepper         |
+| Places where "up one level" is a real action | The top level itself                      |
+
+## Do and don't
+
+### The last crumb is the page, not a link
+
+<Guidance>
+  <Do reason="The current page carries aria-current='page' and is plain text. It orients the user without adding a control that goes nowhere.">
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '#' },
+        { label: 'Invoices', href: '#' },
+        { label: 'INV-2043' },
+      ]}
+    />
+  </Do>
+  <Dont reason="A link to the page you are already on. It takes a tab stop, it announces as a link, and activating it reloads the screen the user is looking at — a control whose entire behaviour is to do nothing.">
+    <nav aria-label="Wrong example">
+      <span style={{ fontSize: 13 }}>
+        <a href="#">Home</a> / <a href="#">Invoices</a> /{' '}
+        <a href="#" style={{ fontWeight: 600 }}>
+          INV-2043
+        </a>
+      </span>
+    </nav>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Visibility of system status">
+  The trail answers "where am I" before the user asks. Making the answer clickable turns a status
+  display into a control, and controls invite use.
+</Heuristic>
+
+### Collapse the middle, keep both ends
+
+<Canvas of={BreadcrumbStories.Collapsed} />
+
+Past `maxItems`, the middle becomes an ellipsis and the root and the last two
+levels stay. Those are the crumbs that carry meaning: where the hierarchy
+starts, and where the user is standing. Truncating from the end removes exactly
+the information the component exists to show.
+
+### Never the only way up
+
+Breadcrumbs supplement navigation; they do not replace it. On a phone they are
+frequently truncated to two entries, so if the only route back to a parent is
+through the trail, that route disappears at 375px.
+
+### Real labels, real length limits
+
+<Guidance>
+  <Do reason="The page's own name, ellipsised by CSS when the space runs out. The full text stays in the DOM, so it is read out and found by search.">
+    <p style={{ margin: 0, fontSize: 13 }}>Home / Invoices / INV-2043</p>
+  </Do>
+  <Dont reason="Truncating in JavaScript. 'Master services agr…' is what the screen reader gets too, and the user cannot recover the rest by any means.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Home / Docs / Master services agr…
+    </p>
+  </Dont>
+</Guidance>
+
+## Accessibility
+
+- A `<nav>` with an `aria-label`, so it is a distinct landmark from the main
+  navigation.
+- An ordered list, because the sequence is the meaning.
+- `aria-current="page"` on the last crumb, which is not a link.
+- Separators are `aria-hidden` — a screen reader reading "slash" between every
+  level is noise the list structure already conveys.

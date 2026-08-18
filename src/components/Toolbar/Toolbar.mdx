@@ -1,0 +1,90 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as ToolbarStories from './Toolbar.stories';
+
+<Meta of={ToolbarStories} />
+
+# Function Bar
+
+A row of controls that act on the content below them.
+
+<Canvas of={ToolbarStories.Default} />
+
+## `role="toolbar"` is a promise
+
+It tells assistive technology: _this is one tab stop, and arrow keys move
+between the controls inside it_. Making that promise without implementing it is
+worse than not making it at all — the user tabs once, lands on the first
+button, and cannot reach the other nine.
+
+So the arrow handling lives in this component, on the container, and works with
+whatever controls you put inside.
+
+| Use `Toolbar` for                             | Use something else for                    |
+| --------------------------------------------- | ----------------------------------------- |
+| Actions on the table, board or document below | Page navigation — that is `AppBar`        |
+| A formatting strip                            | A single button — a button is enough      |
+| A dense cluster the user visits repeatedly    | Actions on one row — put them in that row |
+
+## Do and don't
+
+### Name what the toolbar acts on
+
+<Guidance>
+  <Do reason="ariaLabel='Invoice list' tells the user which content these controls affect. On a screen with two toolbars — one for the list, one for the editor — this is the only thing that tells them apart.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      <code>{'<Toolbar ariaLabel="Invoice list">'}</code>
+    </p>
+  </Do>
+  <Dont reason="'Toolbar' as the label, or no label. The user hears 'toolbar' twice on one page and has to guess which is which by tabbing into each.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      <code>{'<Toolbar ariaLabel="Toolbar">'}</code>
+    </p>
+  </Dont>
+</Guidance>
+
+### A text field inside keeps its own arrow keys
+
+Left and Right move the caret when focus is in an `<input>`. Stealing those to
+move between toolbar buttons would make the search field unusable, so the
+handler steps aside for inputs — a detail that is invisible until someone
+tries to correct a typo.
+
+<Heuristic name="Consistency and standards">
+  Inside a text field, arrow keys mean what they mean everywhere else in the operating system. A
+  container that redefines them has broken a convention the user did not opt into.
+</Heuristic>
+
+### Icon-only buttons need names and tooltips
+
+<Canvas of={ToolbarStories.Flush} />
+
+`aria-label` gives the button a name for screen readers. A `Tooltip` gives it
+one for everybody else — including voice-control users, who say the visible
+label. A bare glyph with neither is a control only its author can operate.
+
+### Do not put the primary action here and nowhere else
+
+<Guidance>
+  <Do reason="The toolbar holds the actions that apply to the whole collection. The primary action for the screen also sits in the app bar, where users look for it first.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      App bar: New invoice · Toolbar: Import, Export, Delete
+    </p>
+  </Do>
+  <Dont reason="Twelve controls of equal weight, primary buried among them. A toolbar is scanned, not read, and everything competing at the same volume means nothing is found quickly.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      New · Import · Export · Delete · Archive · Merge · Split · Tag · Assign · Print · Share · Lock
+    </p>
+  </Dont>
+</Guidance>
+
+## Accessibility
+
+- `role="toolbar"` with a required `ariaLabel`, and `aria-orientation` when
+  vertical.
+- Arrow keys move between focusable children and wrap; Home and End jump to
+  the ends.
+- Inputs inside keep their native arrow-key behaviour.
+- Only the focused control is reachable by Tab; the rest are reached with the
+  arrows, which is what the role promised.

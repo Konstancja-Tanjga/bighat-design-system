@@ -1,0 +1,90 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as MenuStories from './Menu.stories';
+
+<Meta of={MenuStories} />
+
+# Menu
+
+A list of actions behind a trigger.
+
+<Canvas of={MenuStories.Default} />
+
+## Menu, navigation, or select
+
+A menu is for **doing**: rename, duplicate, delete. Using `role="menu"` for
+anything else tells a screen reader user to expect commands they will not find.
+
+| It is a…     | when the items…                | so use…              |
+| ------------ | ------------------------------ | -------------------- |
+| Menu         | perform an action on something | `Menu`               |
+| Navigation   | take the user somewhere        | links, `NavList`     |
+| Value picker | set a field's value            | `Select`, `Combobox` |
+
+## Do and don't
+
+### Focus goes in, and comes back
+
+<Guidance>
+  <Do reason="Opening moves focus to the first item; Escape closes and returns it to the trigger. The user ends where they started, which is the only way a menu is usable without a mouse.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      ↓ opens on the first item · ↑ opens on the last · Esc returns to the trigger
+    </p>
+  </Do>
+  <Dont reason="A menu that opens without moving focus. The keyboard user has opened something they cannot reach, and their next Tab press goes to whatever follows the trigger — past the menu entirely.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Menu opens · focus stays on the trigger · Tab leaves the menu behind
+    </p>
+  </Dont>
+</Guidance>
+
+### A click outside closes it — without eating the click
+
+Dismissal listens on `pointerdown` and does not call `preventDefault`, so the
+thing the user clicked on actually receives their click. The alternative —
+swallowing the first click to close the menu — means every action outside an
+open menu takes two attempts.
+
+### Destructive items are last, and they say what they delete
+
+<Guidance>
+  <Do reason="tone='critical' plus a specific label. The colour is reinforcement; the word 'invoice' is what tells the user what disappears. Position at the end keeps it away from the item the pointer lands on first.">
+    <p style={{ margin: 0, fontSize: 13 }}>Rename · Duplicate · Export · **Delete invoice**</p>
+  </Do>
+  <Dont reason="A red 'Delete' between two routine items. Colour alone carries the warning, and the label does not say what is being deleted — so the confirmation dialog is doing all the work.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Rename · <span style={{ color: 'var(--bh-status-critical-fg)' }}>Delete</span> · Duplicate
+    </p>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Error prevention">
+  A destructive command sitting where a routine one is expected produces exactly the mistake a
+  confirmation dialog then has to catch. Placement prevents; dialogs only interrupt.
+</Heuristic>
+
+### Shortcuts shown here are labels, not bindings
+
+The `shortcut` column documents a key combination the application binds
+elsewhere. It is `aria-hidden`, because a screen reader reading "Rename,
+F2" makes the item's name ambiguous — and the user who relies on shortcuts
+already knows them.
+
+### Disabled items keep their place
+
+<Canvas of={MenuStories.AlignedToTheEnd} />
+
+An item that disappears when unavailable moves everything below it, so the
+user's muscle memory picks the wrong command. A disabled item stays put, is
+skipped by arrow keys, and is still readable — ideally with a reason nearby.
+
+## Accessibility
+
+- Trigger carries `aria-haspopup="menu"`, `aria-expanded` and `aria-controls`.
+- Items are `role="menuitem"` with `tabIndex={-1}`; focus is moved
+  programmatically, so the menu is one stop in the tab order.
+- Arrow keys wrap and skip disabled items, Home and End jump to the ends, Tab
+  closes the menu rather than cycling inside it.
+- Hover and focus share one highlight, so there is never a second "current"
+  item on screen.

@@ -1,0 +1,93 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as TabsStories from './Tabs.stories';
+
+<Meta of={TabsStories} />
+
+# Tab
+
+A filter over one screen. Not navigation between screens.
+
+<Canvas of={TabsStories.Default} />
+
+## The rule that decides it
+
+**If the content has its own URL, it wants links.** Tabs that change the
+address bar are navigation wearing a tab's clothes: the back button behaves
+oddly, the panel cannot be linked to, and a screen reader promises a tab list
+that is really a menu of pages.
+
+| Use `Tabs` for                                  | Use links or a route for                 |
+| ----------------------------------------------- | ---------------------------------------- |
+| Slices of the same object — Open, Paid, Overdue | Sections a user would bookmark or share  |
+| Views a user flips between while comparing      | Steps in a sequence — that is a wizard   |
+| Panels cheap enough to keep mounted             | Content that changes the page's identity |
+
+## Do and don't
+
+### One tab stop for the whole list
+
+<Guidance>
+  <Do reason="Roving tabindex: only the selected tab is in the tab order, arrows move between the rest, and the next Tab press lands in the panel. A ten-tab list costs the keyboard user two key presses to get past.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      Tab → selected tab. → and ← → move. Tab again → panel content.
+    </p>
+  </Do>
+  <Dont reason="Every tab focusable. The user presses Tab ten times to reach the content they are already looking at, and there is no way to skip the list.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Tab, Tab, Tab, Tab, Tab, Tab, Tab, Tab, Tab, Tab → content.
+    </p>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Flexibility and efficiency of use">
+  A control the user passes through on every visit should cost one key press, not one per option.
+  The accelerator here is not an extra feature; it is the absence of a tax.
+</Heuristic>
+
+### Activation follows focus — unless the panel is expensive
+
+<Canvas of={TabsStories.Manual} />
+
+By default, arrowing to a tab selects it. That is correct when every panel is
+already rendered: the user hears the panel change as they move, which is the
+faster interaction.
+
+The moment a panel costs a network request, use `manual`. Automatic activation
+then fires a request per arrow press, and a user arrowing from the first tab to
+the fifth has queued four requests they never wanted.
+
+### The panel is a tab stop
+
+Tabbing out of the tab list lands **in the panel**, not on the next tab. That
+is what makes the content reachable without arrowing back through the list, and
+it is the step most hand-rolled implementations skip.
+
+### Do not hide required steps behind tabs
+
+<Guidance>
+  <Do reason="Tabs hold alternatives — three views of the same invoices. Nothing is lost by never opening one, because the user chose which slice they needed.">
+    <p style={{ margin: 0, fontSize: 13 }}>Open · Paid · Overdue</p>
+  </Do>
+  <Dont reason="Tabs holding a form the user must complete. Fields hidden in an unvisited tab fail validation invisibly, and the error the user gets points at something they cannot see.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Details · Billing · Permissions — all required before Save
+    </p>
+  </Dont>
+</Guidance>
+
+### Badges reinforce, they never carry
+
+A count on a tab is useful. A red dot with no number and no label is a colour
+telling the whole story, which is the WCAG 1.4.1 failure this system refuses
+elsewhere. If the dot means "unread", the tab's accessible name says so.
+
+## Accessibility
+
+- `role="tablist"` with `aria-label`, `role="tab"` with `aria-selected` and
+  `aria-controls`, `role="tabpanel"` with `aria-labelledby`.
+- Roving `tabIndex`: the selected tab is `0`, the rest `-1`.
+- Arrow keys wrap; Home and End jump to the ends.
+- Hidden panels use the `hidden` attribute, so find-in-page does not match
+  inside them and screen readers do not wander in.
