@@ -1,0 +1,110 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Checkbox } from './Checkbox';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+An independent yes/no that is submitted with a form.
+
+<Canvas of={CheckboxStories.Default} />
+
+## When to use it
+
+| Use `Checkbox` for                              | Use something else for                            |
+| ----------------------------------------------- | ------------------------------------------------- |
+| A value the user confirms, then submits         | A setting that applies at once — that is `Switch` |
+| Several options that are true independently     | One option out of a set — that is `RadioGroup`    |
+| A parent that summarises its children (`mixed`) | A filter chip the user toggles on a live list     |
+
+## Do and don't
+
+### The box is native, and it stays native
+
+<Guidance>
+  <Do reason="The drawn box is a sibling of a real <input type='checkbox'>, which is still in the DOM under it. Form submission, the space key, autofill, Windows High Contrast and every screen reader keep working because the platform control was never removed.">
+    <Checkbox label="Send me the monthly summary" defaultChecked />
+  </Do>
+  <Dont reason="A <div role='checkbox'> with a click handler. It is invisible to a form, silent to voice control, and its state is a class name — so the day someone styles it differently the announcement quietly stops matching the picture.">
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        color: 'var(--bh-text-muted)',
+      }}
+    >
+      <span
+        style={{
+          width: 18,
+          height: 18,
+          borderRadius: 4,
+          background: 'var(--bh-action-primary-bg)',
+        }}
+      />
+      Send me the monthly summary
+    </span>
+  </Dont>
+</Guidance>
+
+### Label the box with what ticking it does
+
+<Guidance>
+  <Do reason="Positive phrasing, in the user's terms. The label answers 'what happens if this is on', which is the only question being asked at the moment of ticking.">
+    <Checkbox label="Send me the monthly summary" />
+  </Do>
+  <Dont reason="A negative label makes the checked state mean 'do not', so the user has to hold a double negative in their head to answer a yes/no question. It is also the single most common source of the wrong setting being saved.">
+    <Checkbox label="Do not send me the monthly summary" />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Match between the system and the real world">
+  The control should speak the user's language. A checkbox that has to be mentally inverted before
+  it can be answered has moved the system's convenience ahead of the user's understanding.
+</Heuristic>
+
+### `indeterminate` is a property, not a third value
+
+<Canvas of={CheckboxStories.Indeterminate} />
+
+The mixed state describes children, never a value of its own. It is set as a
+DOM property in an effect, because rendering it as an attribute does nothing —
+`indeterminate="true"` is not a thing, and the resulting checkbox announces as
+plain unchecked while looking mixed.
+
+A user clicking a mixed parent gets a decision, not a cycle: it checks
+everything. Cycling through mixed is a state the user cannot produce
+deliberately and cannot predict.
+
+### The error goes under the box, not in the label
+
+<Guidance>
+  <Do reason="error is wired to aria-describedby and puts the input into aria-invalid, so the reason arrives with the control rather than in a summary the user has already scrolled past.">
+    <Checkbox
+      label="I accept the terms"
+      required
+      error="You have to accept the terms to continue."
+    />
+  </Do>
+  <Dont reason="A red asterisk and a message at the top of the form. The user tabs to the field, hears nothing wrong, submits again, and has to hunt for what changed.">
+    <Checkbox label="I accept the terms *" />
+  </Dont>
+</Guidance>
+
+## Accessibility
+
+- The `<input>` is never removed or hidden with `display: none`; it sits
+  transparent above the drawn box, so it keeps the click target and the state.
+- `label` is required and tied with `htmlFor` — the box's 18px square is not
+  the hit area, the label is part of it too.
+- `description` and `error` both reach the input through `aria-describedby`,
+  error first, because it is the more urgent of the two.
+- `indeterminate` announces as **mixed**, which is what makes a select-all
+  parent comprehensible without looking at its children.
+
+## Props
+
+<Controls of={CheckboxStories.Default} />

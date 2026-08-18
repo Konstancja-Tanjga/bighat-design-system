@@ -1,0 +1,88 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as DateStories from './DatePicker.stories';
+
+<Meta of={DateStories} />
+
+# Datepicker
+
+A date, entered in the browser's own control.
+
+<Canvas of={DateStories.Default} />
+
+## The deliberate omission
+
+There is no calendar grid in this repository, and that is the feature.
+
+A hand-built one is roving focus across two dimensions, Page Up and Page Down
+for months, localised week starts, the Hijri and Buddhist calendars, a text
+entry path for the many people who would rather type `04/05` than click twice,
+and a mobile fallback. The platform ships all of it, in the user's own locale
+and calendar system, wired to the OS picker on touch.
+
+What the platform does **not** do is tell the user which formats and which
+range are acceptable. That is the gap this component closes.
+
+## Do and don't
+
+### State the range before the user guesses it
+
+<Guidance>
+  <Do reason="min and max generate a hint automatically, so the constraint is visible while the user types rather than after they submit. An 'invalid date' they could not have predicted is the standard failure of every date field.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      <code>min="2026-08-18" max="2026-12-31"</code> → “Between 2026-08-18 and 2026-12-31.”
+    </p>
+  </Do>
+  <Dont reason="A bare field that rejects the date after submission. The user has no way to know whether the problem is the range, the format, or the century.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      “Please enter a valid date.”
+    </p>
+  </Dont>
+</Guidance>
+
+<Canvas of={DateStories.WithRangeHint} />
+
+### Do not fight the locale
+
+The displayed format belongs to the user's operating system: `dd.mm.yyyy` in
+Warsaw, `mm/dd/yyyy` in Chicago. The value handed to your code is always ISO
+`yyyy-mm-dd`, whatever the display. Never write a placeholder like `DD/MM/YYYY`
+into the field — for half your users it is a lie, and the native control
+already shows its own format hint.
+
+<Heuristic name="Match between the system and the real world">
+  The user's calendar conventions are part of their world, not the system's. A field that insists on
+  one country's format is asking everyone else to translate their own birthday.
+</Heuristic>
+
+### A period is two fields, not one popover
+
+<Canvas of={DateStories.Range} />
+
+`DateRangePicker` is two date inputs in one fieldset. It is not a range widget
+with a hover preview, because a two-click sequence inside a floating calendar
+is slower than typing for anyone who already knows both dates — and it is the
+part that breaks first on a phone.
+
+### Granularity, not a hand-rolled month select
+
+<Canvas of={DateStories.Month} />
+
+Accounting month, ISO week, or a precise moment: `granularity` switches the
+native input type instead of composing three separate controls whose values
+have to be recombined.
+
+## Accessibility
+
+- Native `<input type="date">` — the OS picker on touch, the platform's
+  keyboard handling everywhere, correct announcement in every screen reader.
+- The range hint reaches the field through `aria-describedby`, so it is heard
+  before the user types, not after they fail.
+- `error` sets `aria-invalid` and is read first, ahead of the hint.
+- The browser's calendar indicator is kept and only recoloured for the dark
+  theme; replacing it costs the keyboard shortcut that opens the picker.
+
+## Props
+
+<Controls of={DateStories.Default} />

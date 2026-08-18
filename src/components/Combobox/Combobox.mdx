@@ -1,0 +1,107 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as ComboboxStories from './Combobox.stories';
+
+<Meta of={ComboboxStories} />
+
+# Combobox (Autocomplete)
+
+A text field that filters a list. The only custom listbox in this system.
+
+<Canvas of={ComboboxStories.Default} />
+
+## Why this one is not native
+
+`Select` wraps the native element on purpose, and that rule holds until the
+list gets long enough that scanning it stops working. A native `<select>`
+cannot be typed into, and `<datalist>` is inconsistent across browsers and
+unreadable to several screen readers.
+
+So this component pays the full ARIA bill instead, and the bill is the reason
+you should not write a second one:
+
+- `role="combobox"` on the input, with `aria-expanded` and `aria-controls`
+- `aria-activedescendant` rather than moving focus, so typing keeps working
+- Down and Up to move, Enter to commit, Escape to close and Escape again to clear
+- the result count in a live region, so filtering to nothing is not silent
+
+| Use `Combobox` for                            | Use something else for                |
+| --------------------------------------------- | ------------------------------------- |
+| A list too long to scan — countries, accounts | A short known list — that is `Select` |
+| A value that must come from the list          | Free text — that is `Input`           |
+| Filtering by name where the user knows it     | Choosing several things at once       |
+
+## Do and don't
+
+### The value comes from the list. Always.
+
+<Guidance>
+  <Do reason="On blur the field snaps back to the committed selection. Half-typed text is not a value, and leaving it on screen tells the user they chose something they did not.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      Type <code>Pol</code>, click away — the field clears, because nothing was committed.
+    </p>
+  </Do>
+  <Dont reason="Keeping the typed text as if it were a selection. The form submits 'Pol', the backend rejects it, and the user is told their country is invalid when the field showed them something that looked chosen.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Field still reads <code>Pol</code>, value is <code>null</code>.
+    </p>
+  </Dont>
+</Guidance>
+
+### Announce the result count
+
+Filtering is a visual event. Someone using a screen reader types three letters
+and, without a live region, hears nothing at all — not the four matches, not
+the zero matches. The count is spoken politely after typing stops, which is
+why it does not interrupt every keystroke.
+
+<Heuristic name="Visibility of system status">
+  The system reacted to the input; the user has to be able to tell. Silence after typing is
+  indistinguishable from a broken field.
+</Heuristic>
+
+### Focus never leaves the input
+
+The active option is tracked with `aria-activedescendant` and drawn with a
+background, not with `:focus`. Moving real focus into the list would break
+typing, which is the one thing this component exists to allow.
+
+That is also why the active option is styled by class rather than by the
+browser's focus ring: nothing in the list is ever focused.
+
+### Two Escapes, two different jobs
+
+<Guidance>
+  <Do reason="First Escape closes the list and leaves the value; second Escape clears the field. The user can back out one step at a time, which is the behaviour every desktop combobox has had for thirty years.">
+    <p style={{ margin: 0, fontSize: 13 }}>Escape → list closes. Escape again → field empties.</p>
+  </Do>
+  <Dont reason="A single Escape that clears everything. The user who only wanted to dismiss the dropdown has lost their selection and has to find it again.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Escape → list closes and the value is gone.
+    </p>
+  </Dont>
+</Guidance>
+
+### `hint` disambiguates, it does not decorate
+
+Two options with the same label are a bug the user cannot resolve. `hint` is
+the second line — the currency, the dialling code, the account number — and it
+exists for exactly that case, not for marketing copy.
+
+## Accessibility
+
+- The input keeps focus throughout; the list is navigated by
+  `aria-activedescendant`.
+- `aria-autocomplete="list"` tells assistive tech that typing filters rather
+  than completes inline.
+- The option list is a real `role="listbox"` with `role="option"` children and
+  `aria-selected` on the committed value.
+- Options commit on `mousedown`, not `click`: `click` fires after `blur` has
+  already closed the list.
+- Errors are wired with `aria-invalid` and `aria-describedby`, as in every
+  other field in the system.
+
+## Props
+
+<Controls of={ComboboxStories.Default} />

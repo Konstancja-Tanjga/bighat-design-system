@@ -1,0 +1,100 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as SliderStories from './Slider.stories';
+
+<Meta of={SliderStories} />
+
+# Slider
+
+An approximate value on a continuum, where the relationship between the value
+and its range matters more than the exact number.
+
+<Canvas of={SliderStories.Default} />
+
+## When to use it
+
+| Use `Slider` for                                      | Use something else for                                              |
+| ----------------------------------------------------- | ------------------------------------------------------------------- |
+| Volume, opacity, zoom — feedback is immediate         | A number the user knows exactly — use `Input`                       |
+| A value where "about here" is a legitimate answer     | Money, quantities, anything typed from a document                   |
+| Ranges with enough steps that typing would be tedious | Fewer than about ten steps — use `RadioGroup` or `SegmentedControl` |
+
+## Do and don't
+
+### Native range, restyled — never rebuilt
+
+The platform ships arrow keys, Home and End, Page Up and Page Down, touch
+handling, and the correct `slider` role. A `<div>` with a draggable thumb ships
+none of that, and is the most reliable way to make a value unreachable without
+a mouse. This component styles the track and thumb and changes nothing else.
+
+### Show the value, always
+
+<Guidance>
+  <Do reason="The number sits next to the label and updates as the thumb moves. A slider without a readout asks the user to estimate their own input from a thumb position, which nobody can do to better than about ten percent.">
+    <div style={{ minWidth: 260 }}>
+      <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+        Opacity — 40% shown beside the label, live.
+      </p>
+    </div>
+  </Do>
+  <Dont reason="A bare track. The user drags, releases, and then has to look somewhere else on the screen to find out what they just set — if that number is shown at all.">
+    <input type="range" defaultValue={40} aria-label="Opacity, no readout" />
+  </Dont>
+</Guidance>
+
+### `formatValue` is what a screen reader says
+
+<Canvas of={SliderStories.WithUnits} />
+
+"24" is meaningless. `formatValue` becomes `aria-valuetext`, so the same
+string a sighted user reads — "24 hours before" — is what gets spoken. Without
+it the control announces a bare number and its percentage, and the unit lives
+only in the visual design.
+
+<Heuristic name="Visibility of system status">
+  The system's current value has to be perceivable in the same moment it changes, through whichever
+  channel the user is using — not reconstructable afterwards from a thumb position.
+</Heuristic>
+
+### Steps the user can actually land on
+
+<Guidance>
+  <Do reason="A step that matches the precision the value deserves. If the product stores whole hours, the slider moves in whole hours and every arrow press produces a value the system can keep.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      <code>
+        min={1} max={72} step={1}
+      </code>{' '}
+      — 72 reachable values, one per arrow press.
+    </p>
+  </Do>
+  <Dont reason="A continuous range over four decimal places. The arrow keys now take four thousand presses to cross it, and the value the user sets is never the value they meant.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      <code>
+        min={0} max={1} step={0.0001}
+      </code>
+    </p>
+  </Dont>
+</Guidance>
+
+### Pair it with a field when the exact number matters
+
+A slider is an approximation device. When a user needs 37 and not 36, give
+them a slider **and** a number input bound to the same value — the slider for
+the sense of scale, the field for the answer. Do not make the slider precise
+enough to hit 37 by making its steps invisible.
+
+## Accessibility
+
+- Native `<input type="range">`: arrows, Home, End, Page Up, Page Down and the
+  platform's touch behaviour all arrive for free.
+- `aria-valuetext` via `formatValue` — units and qualifiers, not a raw number.
+- The filled portion is painted into the track with a hard-stop gradient, so
+  there is no second element to fall out of sync with the value.
+- The label is a real `<label>` with `htmlFor`, so clicking it focuses the
+  slider.
+
+## Props
+
+<Controls of={SliderStories.Default} />
