@@ -1,10 +1,10 @@
 # @bighatpoland/ui
 
-## Unreleased
+## 3.1.0
 
 ### Minor Changes
 
-- Twenty-one components, so a whole application screen can be built without
+- 479c21d: Twenty-one components, so the library covers an application screen without
   anyone reaching for a local `<div>`.
 
   Form controls: `Checkbox`, `RadioGroup`, `Switch`, `SegmentedControl`,
@@ -14,13 +14,12 @@
   `Progress`, `Breadcrumbs`, `List`, `ListView`, `Avatar`, `UserProfile`,
   `StatusBar`, `Divider`, `ScrollArea`.
 
-  The keyboard model a `role` promises is implemented rather than asserted:
-  roving tabindex in `Tabs` and `Toolbar`, `aria-activedescendant` plus
-  type-ahead in `ListView` and `Combobox`, focus return to the trigger in
-  `Menu`. Where the platform already ships the behaviour — date entry, range
-  dragging, scrollbars — the native element is styled instead of replaced, and
-  `Combobox` is the one place that bargain is refused, so it pays the full ARIA
-  bill.
+  The keyboard patterns that a `role` promises are implemented rather than
+  asserted: roving tabindex in `Tabs` and `Toolbar`, `aria-activedescendant`
+  plus type-ahead in `ListView` and `Combobox`, focus return in `Menu`. Where the
+  platform already ships the behaviour — date entry, range dragging, scrollbars —
+  the native element is styled rather than replaced. `Combobox` is the one place
+  that bargain is refused, so it pays the full ARIA bill instead.
 
   Nothing existing changed: this release is additive, and `components.json`,
   `agent/SKILL.md` and the README tables list the new components alongside the
