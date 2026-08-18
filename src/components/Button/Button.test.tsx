@@ -51,19 +51,17 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toHaveAccessibleName('Continue');
   });
 
-  it('maps the deprecated danger variant onto the critical tone', () => {
-    // The deprecation warning is a dev-time nudge, not a behaviour change: the
-    // rendered result must stay identical for the whole deprecation window.
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
-    const { container: legacy } = render(<Button variant="danger">Delete</Button>);
-    const { container: current } = render(
-      <Button variant="primary" tone="critical">
+  it('applies the critical tone independently of the weight', () => {
+    // The two axes are orthogonal, which is the entire point of the 3.0 split:
+    // a destructive action can be the quietest control on the screen.
+    const { container } = render(
+      <Button variant="ghost" tone="critical">
         Delete
       </Button>,
     );
 
-    expect(legacy.firstElementChild?.className).toBe(current.firstElementChild?.className);
-    warn.mockRestore();
+    const className = container.firstElementChild?.className ?? '';
+    expect(className).toContain('bh-button--ghost');
+    expect(className).toContain('bh-button--critical');
   });
 });

@@ -167,11 +167,10 @@ it is made of.
 When you copy one, keep the four states. Deleting the error story deletes the
 part that was hard.
 
-## 13. Deprecations in flight
+## 13. Deprecations
 
-- `Button variant="danger"` → `variant="primary" tone="critical"`.
-  Still works, warns in development, removed in 3.0. See `MIGRATION.md`.
-  Never write new code with it.
+None. `Button variant="danger"` was deprecated in 2.0 and **removed in 3.0** —
+it is now a type error. Use `tone="critical"`. See `MIGRATION.md`.
 
 ## Component inventory
 

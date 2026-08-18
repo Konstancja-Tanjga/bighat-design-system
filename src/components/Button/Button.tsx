@@ -4,15 +4,17 @@ import './Button.css';
 
 /**
  * `variant` answers "how much visual weight", `tone` answers "how dangerous".
- * They used to be one prop, which is why `danger` is still accepted below —
- * see MIGRATION.md for why that was a mistake worth a major version.
+ *
+ * They used to be one prop. `variant="danger"` was deprecated in 2.0, warned
+ * for the whole of the 2.x line, and was removed in 3.0 — so it is now a type
+ * error rather than a silent fallback. See MIGRATION.md.
  */
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 export type ButtonTone = 'default' | 'critical';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & {
-  variant?: ButtonVariant | 'danger';
+  variant?: ButtonVariant;
   tone?: ButtonTone;
   size?: ButtonSize;
   /** Renders a spinner, disables the button, and keeps the label readable. */
@@ -25,8 +27,6 @@ export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'classNa
   fullWidth?: boolean;
   children: ReactNode;
 };
-
-let warnedAboutDanger = false;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
@@ -44,25 +44,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
-  const resolvedVariant: ButtonVariant = variant === 'danger' ? 'primary' : variant;
-  const resolvedTone: ButtonTone = variant === 'danger' ? 'critical' : tone;
-
-  if (variant === 'danger') {
-    if (import.meta.env?.DEV && !warnedAboutDanger) {
-      warnedAboutDanger = true;
-      console.warn(
-        '[@bighatpoland/ui] Button variant="danger" is deprecated and will be removed in 3.0. ' +
-          'Use variant="primary" tone="critical". See MIGRATION.md.',
-      );
-    }
-  }
-
   const classes = [
     'bh-button',
     'bh-focusable',
-    `bh-button--${resolvedVariant}`,
+    `bh-button--${variant}`,
     `bh-button--${size}`,
-    resolvedTone === 'critical' && 'bh-button--critical',
+    tone === 'critical' && 'bh-button--critical',
     fullWidth && 'bh-button--full',
     loading && 'bh-button--loading',
   ]

@@ -1,5 +1,49 @@
 # Migration guide
 
+## 2.x → 3.0 — `variant="danger"` is removed
+
+### What changed
+
+The deprecation announced in 2.0 has closed. `variant="danger"` no longer
+exists; it is a TypeScript error rather than a silent fallback.
+
+```diff
+- <Button variant="danger">Delete workspace</Button>
++ <Button tone="critical">Delete workspace</Button>
+```
+
+### If you are already on 2.x
+
+Nothing may need doing. Every `variant="danger"` in a 2.x codebase has been
+printing a deprecation warning in development since the day you upgraded, so
+the work is likely finished. To be sure:
+
+```bash
+rg 'variant="danger"' src        # expect no matches
+npx tsc --noEmit                 # the type error is the backstop
+```
+
+### If you skipped 2.x
+
+Do the 1.x → 2.0 rename below first — the scripted replacement still applies —
+then upgrade. There is no combined path, because the intermediate version is
+where the warning lived, and the warning is what makes the rename safe to do
+gradually.
+
+### Why the window was two versions long
+
+`variant="danger"` rendered byte-identically to its replacement for the whole
+of 2.x, asserted by a test. That property is what let a team take 2.0 on a
+Tuesday and do the rename whenever they got to it — the version bump and the
+migration were two separate decisions, which is the only way a team with its
+own roadmap can schedule them.
+
+Removing it in 3.0 rather than leaving it forever is the other half of the
+bargain. A deprecation that never ends is not a deprecation; it is a second
+API you have quietly agreed to maintain.
+
+---
+
 ## 1.x → 2.0 — `Button` splits `variant` into `variant` + `tone`
 
 ### What changed

@@ -85,10 +85,14 @@ weight, one (`danger`) described consequence. It held up until someone needed a
 destructive action that was not the loudest thing on screen, and product code
 filled with inline colour overrides.
 
-2.0 splits it into `variant` (weight) and `tone` (consequence). `variant="danger"`
-still renders **byte-identically**, warns once in development, and is removed in
-3.0. There is a test asserting the two forms produce the same markup, which is
-what lets a team upgrade on a Tuesday and rename whenever they get to it.
+2.0 split it into `variant` (weight) and `tone` (consequence). `variant="danger"`
+kept rendering **byte-identically** through the whole of 2.x — asserted by a
+test — while warning once in development. That is what let a team take the new
+major on a Tuesday and do the rename whenever they got to it: the version bump
+and the migration were two separate decisions.
+
+3.0 closed the window and removed it. A deprecation that never ends is not a
+deprecation; it is a second API you have quietly agreed to maintain forever.
 
 ![Before: one variant enum doing two jobs. After: a variant by tone grid, with the previously impossible combination highlighted](./docs/images/02_variant_tone.png)
 
