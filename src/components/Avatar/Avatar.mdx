@@ -1,0 +1,78 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Avatar } from './Avatar';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as AvatarStories from './Avatar.stories';
+
+<Meta of={AvatarStories} />
+
+# Avatar
+
+A person, as a picture with a name behind it.
+
+<Canvas of={AvatarStories.Sizes} />
+
+## The `name` prop is not optional
+
+It produces the initials, the accessible name when the avatar stands alone, and
+the fallback when the image fails. An avatar without a name is a coloured
+circle that says "graphic" out loud.
+
+## Do and don't
+
+### Decorative when the name is already there
+
+<Guidance>
+  <Do reason="decorative hides the avatar from assistive tech because the text next to it says the same thing. Hearing 'Ada Lovelace, image, Ada Lovelace' is the duplicate every audit finds.">
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <Avatar name="Ada Lovelace" decorative />
+      <span>Ada Lovelace</span>
+    </div>
+  </Do>
+  <Dont reason="A named avatar next to the same name. The user hears everything twice, in a list of twenty people that is forty announcements for twenty facts.">
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <Avatar name="Ada Lovelace" />
+      <span>Ada Lovelace</span>
+    </div>
+  </Dont>
+</Guidance>
+
+### Never carry status in the ring
+
+<Guidance>
+  <Do reason="Status as a Badge with a word. 'Away' is readable in greyscale, in a screenshot pasted into a ticket, and out loud.">
+    <p style={{ margin: 0, fontSize: 13 }}>Ada Lovelace · Away</p>
+  </Do>
+  <Dont reason="A green or amber dot on the avatar. Colour is the only carrier of meaning — WCAG 1.4.1 — and the dot is unlabelled, so no assistive technology can report it.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Ada Lovelace <span style={{ color: 'var(--bh-status-success-fg)' }}>●</span>
+    </p>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Consistency and standards">
+  A coloured ring means something different in every product that uses one. A word means the same
+  thing in all of them.
+</Heuristic>
+
+### Two initials, and a fallback that never breaks
+
+Three or four letters are unreadable at 24px and wrong more often — many people
+have a name that does not split the way a first-and-last rule assumes. When the
+image fails to load, the initials appear rather than a broken-image icon.
+
+### Groups say how many
+
+<Canvas of={AvatarStories.Group} />
+
+`AvatarGroup` requires a `label` and announces "Assignees: 5". The `+2` chip is
+decorative: the count is already in the group's name, so reading it twice adds
+nothing.
+
+## Accessibility
+
+- Standalone avatars are `role="img"` with `aria-label={name}`; the inner
+  `<img>` carries `alt=""` so it is never named twice.
+- `decorative` puts `aria-hidden` on the whole element.
+- The image failing falls back to initials in the same box — no layout shift,
+  no broken icon.

@@ -1,0 +1,75 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as ScrollAreaStories from './ScrollArea.stories';
+
+<Meta of={ScrollAreaStories} />
+
+# Scroll Bar
+
+A scrollable region that a keyboard can reach.
+
+<Canvas of={ScrollAreaStories.Vertical} />
+
+## Why `overflow: auto` is not enough
+
+A scrollable region has to be operable without a pointer. Firefox makes such
+regions focusable on its own; Chrome and Safari only do it when the element is
+already focusable — so a `<div>` with `overflow: auto` and no `tabindex` simply
+cannot be scrolled by a keyboard user. The content below the fold is
+unreachable.
+
+This component adds `tabindex="0"` and a `role="group"` name — but **only while
+the content actually overflows**, because a focus stop that scrolls nothing is
+dead weight in the tab order.
+
+## Do and don't
+
+### The scrollbar stays the platform's
+
+<Guidance>
+  <Do reason="scrollbar-color and scrollbar-width, plus the WebKit pseudo-elements. It is still the browser's scrollbar, so it keeps momentum scrolling, click-in-track paging, and high-contrast rendering.">
+    <p style={{ margin: 0, fontSize: 13 }}>Thin, tokenised, and still a real scrollbar.</p>
+  </Do>
+  <Dont reason="Two divs and a drag handler. Overlay scrollbars drawn in JavaScript lose the platform's paging, its touch behaviour and its accessibility mapping — and they are the first thing to break on a trackpad with inertia.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      A custom thumb that only responds to drag.
+    </p>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Consistency and standards">
+  The scrollbar is an operating-system control the user has already learned. Replacing it means
+  re-teaching a behaviour that was never confusing.
+</Heuristic>
+
+### No overflow, no tab stop
+
+<Canvas of={ScrollAreaStories.NoOverflow} />
+
+The region measures itself with a `ResizeObserver` and only claims a focus stop
+when there is somewhere to scroll. A short note stays out of the tab order; the
+same component with more content joins it.
+
+### Do not nest scroll regions
+
+Two scrollbars in one column means the user's wheel gesture lands on whichever
+one the pointer happens to be over. `overscroll-behavior: contain` stops the
+inner region from chaining its scroll to the page, but the real fix is one
+scroll region per axis per screen.
+
+### Fade is a hint, never the only one
+
+The mask at the edges suggests more content. It is not a control and does not
+announce anything, so it never replaces a visible count, a heading, or the
+scrollbar itself. Turn it off (`fade={false}`) where the content's own edge
+matters — a table header, a code block.
+
+## Accessibility
+
+- `tabIndex={0}` and `role="group"` with `ariaLabel`, applied only while
+  overflowing.
+- Arrow keys, Page Up and Page Down, Home and End all come from the platform
+  once the region is focusable.
+- `overscroll-behavior: contain`, so scrolling to the end does not carry on
+  scrolling the page behind it.

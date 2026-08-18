@@ -1,0 +1,70 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as UserProfileStories from './UserProfile.stories';
+
+<Meta of={UserProfileStories} />
+
+# User Profile
+
+Who is signed in, and what they can do about it.
+
+<Canvas of={UserProfileStories.Default} />
+
+## The question it answers
+
+"Am I in the right account?" — asked the moment a screen shows unexpected data,
+and asked most often by exactly the people who hold several accounts on the
+same product.
+
+## Do and don't
+
+### The name is text, not two initials
+
+<Guidance>
+  <Do reason="Name and the thing that disambiguates it — the tenant, the e-mail. Two people with one product and three tenants can tell in a glance which one they are in.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      <strong>Ada Lovelace</strong>
+      <br />
+      Nordwind sp. z o.o.
+    </p>
+  </Do>
+  <Dont reason="An avatar alone. The initials are identical across every account the same person holds, so the control cannot answer the only question it exists for — and hovering to find out does not work on touch.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>AL</p>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Visibility of system status">
+  Which account is active is system state, and it changes what every other number on the screen
+  means. It belongs on screen, not behind an interaction.
+</Heuristic>
+
+### Compact only where space forces it
+
+<Canvas of={UserProfileStories.Compact} />
+
+`compact` drops the text and keeps the avatar, so the trigger names itself —
+"Account: Ada Lovelace" — because otherwise the button has no accessible name
+at all. Use it on narrow layouts, not as the default.
+
+### Sign out goes last
+
+It is the one item in the menu that is hard to undo mid-task. Last position
+keeps it away from where the pointer lands, and `tone="critical"` marks it
+without relying on the colour to carry the meaning.
+
+### Without a menu it is just identity
+
+<Canvas of={UserProfileStories.Static} />
+
+Passing no `items` renders a plain, non-interactive block. That is the right
+shape for a settings page that shows the account rather than offering actions
+on it — a button that opens nothing is a control that lies.
+
+## Accessibility
+
+- The trigger is a `Menu` button with `aria-haspopup="menu"`; focus returns to
+  it on close.
+- In `compact` mode the button carries an explicit `aria-label` naming the
+  account.
+- The avatar inside is `decorative`, because the name is right beside it.

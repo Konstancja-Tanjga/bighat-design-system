@@ -1,0 +1,77 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as ListViewStories from './ListView.stories';
+
+<Meta of={ListViewStories} />
+
+# List View
+
+A selectable master list driving a detail pane.
+
+<Canvas of={ListViewStories.MasterDetail} />
+
+## Why it is a listbox
+
+`List` renders records. `ListView` renders a **choice** — the selected row
+determines what the pane beside it shows. That is a listbox, and the listbox
+pattern is what makes a long list usable without a mouse: one tab stop, arrows
+to move, Home and End to jump, type-ahead to find.
+
+## Do and don't
+
+### One tab stop, not one per row
+
+<Guidance>
+  <Do reason="The container takes the focus and aria-activedescendant points at the current row. Forty rows cost the keyboard user one Tab press and a few arrow keys.">
+    <p style={{ margin: 0, fontSize: 13 }}>Tab → list. ↓ ↑ → move. Type “ga” → jumps to Gamma.</p>
+  </Do>
+  <Dont reason="A <ul> of buttons. It works with a mouse and makes a keyboard user press Tab forty times to reach the fortieth conversation — and forty more to leave the list.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Tab × 40 to reach the last row.
+    </p>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Flexibility and efficiency of use">
+  Type-ahead is the accelerator that makes a long list bearable. It costs nothing to the user who
+  never discovers it, and it is the difference between usable and unusable for the one who does.
+</Heuristic>
+
+### Selection is never colour alone
+
+The selected row gets a tinted background **and** a leading bar. On a
+monochrome display, in high contrast, or for anyone who cannot separate two
+close greys, the bar is the cue that survives.
+
+### Multi-select is deliberately absent
+
+<Guidance>
+  <Do reason="One selection driving one pane. The interaction stays a single question — which record am I looking at — and the arrow keys answer it.">
+    <p style={{ margin: 0, fontSize: 13 }}>Selected: Nordwind sp. z o.o.</p>
+  </Do>
+  <Dont reason="Rows that are both activated and ticked. That is a table with a checkbox column, and Table already does it with sorting, headers and a caption. Two selection models in one control is the state nobody can explain.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      ☑ row · also “current” · also opens the detail pane
+    </p>
+  </Dont>
+</Guidance>
+
+### Empty gets a real explanation
+
+<Canvas of={ListViewStories.Empty} />
+
+`empty` takes a line of text for the trivial case. Anything with a cause and a
+next step — a failed load, a filter that matched nothing — is `StateBlock`,
+which is the component that already answers "what happened and what now".
+
+## Accessibility
+
+- `role="listbox"` with a required `ariaLabel`, `role="option"` rows with
+  `aria-selected`.
+- Focus stays on the container; the current row is tracked with
+  `aria-activedescendant`.
+- Arrow keys wrap and skip disabled rows; Home and End jump to the ends;
+  printable characters start a type-ahead that resets after 800ms.
+- Scrolling the selection into view is feature-detected, so keyboard selection
+  still works where no layout engine exists.

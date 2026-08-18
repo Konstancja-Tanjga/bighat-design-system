@@ -1,0 +1,82 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Divider } from './Divider';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as DividerStories from './Divider.stories';
+
+<Meta of={DividerStories} />
+
+# Divider
+
+A line between things.
+
+<Canvas of={DividerStories.Horizontal} />
+
+## Decoration by default, semantic when labelled
+
+With no label the rule is `aria-hidden`: a separator announced between every
+row of a list is noise, and the layout already conveys the grouping. Add a
+label and it becomes a real `role="separator"` carrying that name, because at
+that point it is dividing the page into named regions.
+
+## Do and don't
+
+### Space first, rules second
+
+<Guidance>
+  <Do reason="Grouping done with spacing. Proximity is the strongest grouping cue there is, it costs no ink, and it survives every theme and zoom level.">
+    <div style={{ display: 'grid', gap: 20, fontSize: 13 }}>
+      <span>Billing address</span>
+      <span>Delivery address</span>
+    </div>
+  </Do>
+  <Dont reason="A rule between every element. The page becomes a grid of boxes where nothing is grouped, because when everything is separated, separation stops meaning anything.">
+    <div style={{ fontSize: 13, width: '100%' }}>
+      <div>Billing address</div>
+      <Divider spacing="none" />
+      <div>Line 1</div>
+      <Divider spacing="none" />
+      <div>Line 2</div>
+      <Divider spacing="none" />
+      <div>Post code</div>
+    </div>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Aesthetic and minimalist design">
+  Each rule competes with the content for attention. The question is never "would a line look tidy",
+  it is "is there a boundary here that spacing cannot express".
+</Heuristic>
+
+### A labelled divider is a heading in disguise — check which you want
+
+<Canvas of={DividerStories.Labelled} />
+
+"or" between two sign-in methods is genuinely a separator. "Recent files" above
+a list is a heading, and writing it as a divider removes it from the document
+outline, where screen reader users navigate.
+
+### Vertical only inside a row of controls
+
+<Canvas of={DividerStories.Vertical} />
+
+It needs a parent with a height to stretch to — a flex row of buttons, a
+toolbar. Dropped into a block layout it collapses to nothing, which is the
+usual reason a vertical divider "does not show up".
+
+### Never use it as spacing
+
+The `spacing` prop exists so the rule brings its own margins. A divider with
+`spacing="none"` used to push two elements apart is a line pretending to be a
+gap token.
+
+## Accessibility
+
+- Unlabelled horizontal rules are `aria-hidden` — the visual grouping is
+  already conveyed by the structure around them.
+- Labelled dividers get `role="separator"` and their accessible name from the
+  label.
+- Vertical dividers carry `aria-orientation="vertical"`.
+- The rule uses `border.subtle`, which is deliberately not held to 3:1 — it is
+  decoration, and holding decoration to a contrast rule pushes real content
+  towards lower contrast to compensate.
