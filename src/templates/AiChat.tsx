@@ -278,9 +278,7 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
             What should we look into?
           </h3>
 
-          {state === 'loading' && (
-            <Progress label="Contacting your data sources" size="sm" />
-          )}
+          {state === 'loading' && <Progress label="Contacting your data sources" size="sm" />}
 
           {state === 'loading' && (
             <SkeletonGroup label="Loading suggestions" className="bh-ai__grid">

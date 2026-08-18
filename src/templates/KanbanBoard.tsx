@@ -405,7 +405,10 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
         ariaLabel="Board status"
         items={[
           { label: 'Documents', value: docs.length },
-          { label: 'Owner', value: OWNERS.find((entry) => entry.value === owner)?.label ?? 'Anyone' },
+          {
+            label: 'Owner',
+            value: OWNERS.find((entry) => entry.value === owner)?.label ?? 'Anyone',
+          },
           { label: 'Uploaded', value: uploaded === 'custom' ? 'Custom range' : `${uploaded} days` },
         ]}
         // The board keeps its own live region for moves; this one carries the
