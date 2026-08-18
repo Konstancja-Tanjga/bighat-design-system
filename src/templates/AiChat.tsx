@@ -1,17 +1,26 @@
 import { useState } from 'react';
 
+import { Accordion, AccordionItem } from '../components/Accordion/Accordion';
 import { AppBar } from '../components/AppBar/AppBar';
 import { AppShell, SkipLink } from '../components/AppShell/AppShell';
 import { Badge } from '../components/Badge/Badge';
 import { Button } from '../components/Button/Button';
 import { Card } from '../components/Card/Card';
 import { Composer } from '../components/Composer/Composer';
+import { Divider } from '../components/Divider/Divider';
 import { Input } from '../components/Input/Input';
+import { List, ListItem } from '../components/List/List';
 import { NavGroup, NavItem } from '../components/NavList/NavList';
 import { NavRail } from '../components/NavRail/NavRail';
+import { Progress } from '../components/Progress/Progress';
+import { ScrollArea } from '../components/ScrollArea/ScrollArea';
 import { SidePanel } from '../components/SidePanel/SidePanel';
 import { Skeleton, SkeletonGroup } from '../components/Skeleton/Skeleton';
 import { StateBlock } from '../components/StateBlock/StateBlock';
+import { StatusBar } from '../components/StatusBar/StatusBar';
+import { Tab, TabList, TabPanel, Tabs } from '../components/Tabs/Tabs';
+import { Tooltip } from '../components/Tooltip/Tooltip';
+import { UserProfile } from '../components/UserProfile/UserProfile';
 import {
   IconAttach,
   IconBrief,
@@ -137,7 +146,20 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
               </>
             }
             title="AI Chat"
-            actions={<Button size="sm">New analysis</Button>}
+            actions={
+              <>
+                <Button size="sm">New analysis</Button>
+                <UserProfile
+                  name="Ada Lovelace"
+                  secondary="Nordwind sp. z o.o."
+                  items={[
+                    { label: 'Profile' },
+                    { label: 'Data sources' },
+                    { label: 'Sign out', tone: 'critical' },
+                  ]}
+                />
+              </>
+            }
           />
         </>
       }
@@ -192,11 +214,27 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
             Facts AI Chat is holding for this conversation. Everything here shapes the answers below
             it.
           </p>
-          <ul className="bh-ai__memory">
-            {MEMORY.map((fact) => (
-              <li key={fact}>{fact}</li>
-            ))}
-          </ul>
+
+          {/* A List, not a <ul> with a class: the facts are records with a
+              leading marker, and the list announces its own length. */}
+          <ScrollArea ariaLabel="Working memory facts" maxHeight={220}>
+            <List ariaLabel="Facts in working memory" dividers={false}>
+              {MEMORY.map((fact) => (
+                <ListItem key={fact} leading="•" title={fact} />
+              ))}
+            </List>
+          </ScrollArea>
+
+          <Divider spacing="snug" />
+
+          <Accordion headingLevel={3}>
+            <AccordionItem id="sources" title="Sources" meta="10 connected">
+              Warehouse, billing exports and the CRM. Every answer names the tables it read.
+            </AccordionItem>
+            <AccordionItem id="caveats" title="Known caveats" meta="2">
+              Late-arriving rows are excluded, and Q3 restatements apply to 2025 only.
+            </AccordionItem>
+          </Accordion>
         </SidePanel>
       }
     >
@@ -206,6 +244,7 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
           <div className="bh-ai__chips">
             <Badge tone="neutral">Read-only mode</Badge>
             <Badge tone="info">10 sources connected</Badge>
+            <Divider orientation="vertical" spacing="none" />
             <span className="bh-ai__governance">Governance enforced by Admin</span>
           </div>
         </header>
@@ -240,6 +279,10 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
           </h3>
 
           {state === 'loading' && (
+            <Progress label="Contacting your data sources" size="sm" />
+          )}
+
+          {state === 'loading' && (
             <SkeletonGroup label="Loading suggestions" className="bh-ai__grid">
               {Array.from({ length: 6 }, (_, index) => (
                 <Card key={index} padding="snug">
@@ -269,19 +312,45 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
           )}
 
           {state === 'ready' && (
-            <div className="bh-ai__grid">
-              {SUGGESTIONS.map((suggestion) => (
-                <Card
-                  key={suggestion.title}
-                  padding="snug"
-                  onClick={() => {}}
-                  ariaLabel={`Ask: ${suggestion.title}`}
-                >
-                  <span className="bh-ai__suggestion-title">{suggestion.title}</span>
-                  <span className="bh-ai__suggestion-detail">{suggestion.detail}</span>
-                </Card>
-              ))}
-            </div>
+            <Tabs defaultTab="suggested">
+              <TabList ariaLabel="Starting points">
+                <Tab id="suggested" badge={SUGGESTIONS.length}>
+                  Suggested
+                </Tab>
+                <Tab id="recent" badge={RECENT.length}>
+                  Recent questions
+                </Tab>
+              </TabList>
+
+              <TabPanel id="suggested">
+                <div className="bh-ai__grid">
+                  {SUGGESTIONS.map((suggestion) => (
+                    <Card
+                      key={suggestion.title}
+                      padding="snug"
+                      onClick={() => {}}
+                      ariaLabel={`Ask: ${suggestion.title}`}
+                    >
+                      <span className="bh-ai__suggestion-title">{suggestion.title}</span>
+                      <span className="bh-ai__suggestion-detail">{suggestion.detail}</span>
+                    </Card>
+                  ))}
+                </div>
+              </TabPanel>
+
+              <TabPanel id="recent">
+                <List ariaLabel="Recent questions">
+                  {RECENT.map((item) => (
+                    <ListItem
+                      key={item.id}
+                      title={item.label}
+                      description={item.subline}
+                      onSelect={() => setActiveChat(item.id)}
+                    />
+                  ))}
+                </List>
+              </TabPanel>
+            </Tabs>
           )}
         </section>
       </div>
@@ -297,16 +366,36 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
           hint="Answers come with the SQL that produced them. Read-only — AI Chat cannot change your data."
           tools={
             <>
-              <button type="button" className="bh-ai__tool bh-focusable" aria-label="Attach a file">
-                <IconAttach />
-              </button>
-              <button type="button" className="bh-ai__tool bh-focusable" aria-label="Dictate">
-                <IconMic />
-              </button>
+              <Tooltip content="Attach a file">
+                <Button variant="ghost" size="sm" aria-label="Attach a file">
+                  <IconAttach />
+                </Button>
+              </Tooltip>
+              <Tooltip content="Dictate">
+                <Button variant="ghost" size="sm" aria-label="Dictate">
+                  <IconMic />
+                </Button>
+              </Tooltip>
             </>
           }
         />
       </div>
+
+      <StatusBar
+        ariaLabel="Session status"
+        items={[
+          { label: 'Sources', value: '10 connected' },
+          { label: 'Mode', value: MODES.find((entry) => entry.id === mode)?.label ?? 'Ask' },
+        ]}
+        message={
+          state === 'error'
+            ? 'Data sources unreachable — nothing was queried.'
+            : state === 'loading'
+              ? 'Planning the analysis…'
+              : 'Read-only. AI Chat cannot change your data.'
+        }
+        end={<Badge tone="neutral">Governed workspace</Badge>}
+      />
     </AppShell>
   );
 }

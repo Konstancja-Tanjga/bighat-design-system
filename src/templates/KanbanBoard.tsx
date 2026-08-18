@@ -4,13 +4,23 @@ import { AppBar } from '../components/AppBar/AppBar';
 import { AppShell, SkipLink } from '../components/AppShell/AppShell';
 import { Badge, type BadgeTone } from '../components/Badge/Badge';
 import { Board, BoardCard, BoardColumn } from '../components/Board/Board';
+import { Breadcrumbs } from '../components/Breadcrumbs/Breadcrumbs';
 import { Button } from '../components/Button/Button';
+import { Checkbox } from '../components/Checkbox/Checkbox';
+import { Combobox } from '../components/Combobox/Combobox';
+import { DateRangePicker } from '../components/DatePicker/DatePicker';
+import { Divider } from '../components/Divider/Divider';
 import { Input } from '../components/Input/Input';
 import { NavRail } from '../components/NavRail/NavRail';
+import { SegmentedControl } from '../components/SegmentedControl/SegmentedControl';
 import { Select } from '../components/Select/Select';
 import { SidePanel } from '../components/SidePanel/SidePanel';
 import { Skeleton, SkeletonGroup } from '../components/Skeleton/Skeleton';
 import { StateBlock } from '../components/StateBlock/StateBlock';
+import { StatusBar } from '../components/StatusBar/StatusBar';
+import { Toolbar } from '../components/Toolbar/Toolbar';
+import { Tooltip } from '../components/Tooltip/Tooltip';
+import { UserProfile } from '../components/UserProfile/UserProfile';
 import { IconDoc, IconFlow, IconGrid, IconHome, IconInbox, IconStar } from './icons';
 import './KanbanBoard.css';
 
@@ -32,6 +42,15 @@ type Doc = {
   tone: BadgeTone;
   status: string;
 };
+
+/** Everyone in the tenant — a list nobody scans, which is why Owner is a Combobox. */
+const OWNERS = [
+  { value: 'me', label: 'Ada Lovelace', hint: 'You' },
+  { value: 'legal', label: 'Legal team', hint: '6 people' },
+  { value: 'finance', label: 'Finance team', hint: '11 people' },
+  { value: 'grace', label: 'Grace Hopper', hint: 'Compliance' },
+  { value: 'katherine', label: 'Katherine Johnson', hint: 'Finance' },
+];
 
 const COLUMNS: Array<{ id: ColumnId; title: string; limit?: number }> = [
   { id: 'inbox', title: 'Inbox' },
@@ -122,6 +141,11 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
   );
   const [announcement, setAnnouncement] = useState('');
   const [activeRail, setActiveRail] = useState('documents');
+  const [owner, setOwner] = useState<string | null>(null);
+  const [uploaded, setUploaded] = useState('30');
+  const [layout, setLayout] = useState('board');
+  const [onlyMine, setOnlyMine] = useState(false);
+  const [needsReview, setNeedsReview] = useState(false);
 
   const move = (docId: string, targetId: string) => {
     const doc = docs.find((d) => d.id === docId);
@@ -155,6 +179,15 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
                   Import
                 </Button>
                 <Button size="sm">Upload</Button>
+                <UserProfile
+                  name="Ada Lovelace"
+                  secondary="Legal team"
+                  items={[
+                    { label: 'Profile' },
+                    { label: 'Notification rules' },
+                    { label: 'Sign out', tone: 'critical' },
+                  ]}
+                />
               </>
             }
           />
@@ -192,36 +225,101 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
                 { value: 'certificate', label: 'Certificate' },
               ]}
             />
-            <Select
+            {/* Owner is a Combobox rather than a Select: the list is every
+                person in the tenant, which is not a list anyone scans. */}
+            <Combobox
               label="Owner"
               placeholder="Anyone"
-              defaultValue=""
+              options={OWNERS}
+              value={owner}
+              onChange={setOwner}
+            />
+
+            <SegmentedControl
+              legend="Uploaded"
+              showLegend
+              size="sm"
+              value={uploaded}
+              onChange={setUploaded}
               options={[
-                { value: 'me', label: 'Me' },
-                { value: 'legal', label: 'Legal team' },
-                { value: 'finance', label: 'Finance team' },
+                { value: '7', label: '7 days' },
+                { value: '30', label: '30 days' },
+                { value: 'custom', label: 'Custom' },
               ]}
             />
-            <Select
-              label="Uploaded"
-              defaultValue="30"
-              options={[
-                { value: '7', label: 'Last 7 days' },
-                { value: '30', label: 'Last 30 days' },
-                { value: 'all', label: 'Any time' },
-              ]}
+
+            {uploaded === 'custom' && (
+              <DateRangePicker
+                legend="Upload date"
+                start={{ label: 'From', defaultValue: '2026-07-18' }}
+                end={{ label: 'To', defaultValue: '2026-08-18' }}
+              />
+            )}
+
+            <Divider spacing="snug" />
+
+            <Checkbox
+              label="Only documents I own"
+              checked={onlyMine}
+              onChange={(event) => setOnlyMine(event.target.checked)}
+            />
+            <Checkbox
+              label="Needs my review"
+              description="Documents waiting on a decision from you."
+              checked={needsReview}
+              onChange={(event) => setNeedsReview(event.target.checked)}
             />
           </div>
         </SidePanel>
       }
     >
       <div className="bh-kanban">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '#' },
+            { label: 'Documents', href: '#' },
+            { label: 'All documents' },
+          ]}
+        />
+
         <header className="bh-kanban__head">
           <h2 className="bh-kanban__title">All documents</h2>
           <p className="bh-kanban__subtitle">
             {docs.length} documents · classification runs automatically on upload
           </p>
         </header>
+
+        <Toolbar
+          ariaLabel="Document board"
+          flush
+          end={
+            <SegmentedControl
+              legend="Layout"
+              size="sm"
+              value={layout}
+              onChange={setLayout}
+              options={[
+                { value: 'board', label: 'Board' },
+                { value: 'list', label: 'List' },
+              ]}
+            />
+          }
+        >
+          <Button size="sm" variant="secondary">
+            Classify selected
+          </Button>
+          <Tooltip content="Download the current view as CSV">
+            <Button size="sm" variant="ghost">
+              Export
+            </Button>
+          </Tooltip>
+          <Divider orientation="vertical" spacing="none" />
+          <Tooltip content="Moves documents to the archive column">
+            <Button size="sm" variant="ghost">
+              Archive
+            </Button>
+          </Tooltip>
+        </Toolbar>
 
         {state === 'loading' && (
           <SkeletonGroup label="Loading documents" className="bh-kanban__skeleton">
@@ -303,6 +401,22 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
           </Board>
         )}
       </div>
+      <StatusBar
+        ariaLabel="Board status"
+        items={[
+          { label: 'Documents', value: docs.length },
+          { label: 'Owner', value: OWNERS.find((entry) => entry.value === owner)?.label ?? 'Anyone' },
+          { label: 'Uploaded', value: uploaded === 'custom' ? 'Custom range' : `${uploaded} days` },
+        ]}
+        // The board keeps its own live region for moves; this one carries the
+        // ambient filter state, which is never urgent.
+        message={
+          onlyMine || needsReview
+            ? 'Filtered view — some documents are hidden.'
+            : 'Showing every document in this workspace.'
+        }
+        end={<Badge tone="neutral">{layout === 'board' ? 'Board view' : 'List view'}</Badge>}
+      />
     </AppShell>
   );
 }
