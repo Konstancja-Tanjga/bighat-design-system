@@ -1,0 +1,81 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as ListStories from './List.stories';
+
+<Meta of={ListStories} />
+
+# List
+
+A vertical list of records.
+
+<Canvas of={ListStories.Default} />
+
+## List, ListView, or Table
+
+| It is a…  | when the user…                              | so use…    |
+| --------- | ------------------------------------------- | ---------- |
+| List      | reads records and occasionally opens one    | `List`     |
+| List view | picks one and studies it in a detail pane   | `ListView` |
+| Table     | compares values across rows, sorts, filters | `Table`    |
+
+## Do and don't
+
+### A real `<ul>`
+
+<Guidance>
+  <Do reason="A list element announces 'list, 12 items' and lets a screen reader user jump from list to list. The count alone changes how someone decides whether to read or skip.">
+    <p style={{ margin: 0, fontSize: 13 }}>“List, 12 items. Item 1 of 12, INV-2043…”</p>
+  </Do>
+  <Dont reason="A stack of divs. It announces nothing, is indistinguishable from prose, and gives no way to skip past — the user has to read every row to find out how many there were.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      “INV-2043 … INV-2042 …”
+    </p>
+  </Dont>
+</Guidance>
+
+### One control per row, and the metadata outside it
+
+<Canvas of={ListStories.WithAvatarsAndActions} />
+
+`href` makes the row a link; `onSelect` makes it a button; passing both is a
+type error rather than a runtime guess. A row that both navigates and acts is
+two controls wearing one coat, and the user cannot tell which one they hit.
+
+The `trailing` slot is rendered **outside** the row's own control. A button
+inside a link is unreachable, and metadata inside one is read out as part of
+its name — "INV-2043, 12 400 zł, Pending, link".
+
+### One supporting line
+
+<Guidance>
+  <Do reason="Title and one line of context. The list stays scannable at a glance, which is the only reason to choose a list over a table.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      <strong>INV-2043</strong>
+      <br />
+      Nordwind sp. z o.o. · 12 400 zł
+    </p>
+  </Do>
+  <Dont reason="Three lines and four chips per row. That is a card, and a column of cards is a layout the user scrolls rather than a list they scan.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Title / customer / amount / due date / owner / two badges / a description
+    </p>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  A scannable list lets the eye recognise the row it wants. Every extra line per row lengthens the
+  distance between two titles, and the scan turns into reading.
+</Heuristic>
+
+### Name the list when there is more than one
+
+`ariaLabel` is what tells "Recent invoices" from "Team members" when a screen
+reader lists the landmarks on the page.
+
+## Accessibility
+
+- `<ul>` and `<li>`, so the list announces its length and can be skipped.
+- Leading icons and avatars are `aria-hidden` — the title carries the meaning.
+- Interactive rows are real links or buttons, so they arrive in the tab order
+  with the right role and no `tabindex` juggling.

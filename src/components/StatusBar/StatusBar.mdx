@@ -1,0 +1,76 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as StatusBarStories from './StatusBar.stories';
+
+<Meta of={StatusBarStories} />
+
+# Status Bar
+
+Ambient state at the foot of an application.
+
+<Canvas of={StatusBarStories.Default} />
+
+## Why it is a component
+
+Because of one line: the message slot is a **polite live region**, so a change
+is spoken without stealing focus. A `<div>` at the bottom of the page is
+silent, and a user who cannot see it never learns that the document saved.
+
+That same property is the constraint. "Polite" waits for the user to pause, so
+anything urgent belongs somewhere else.
+
+| Use `StatusBar` for                            | Use something else for                   |
+| ---------------------------------------------- | ---------------------------------------- |
+| Counts, selection, position, saved-at          | A failure the user must act on — `Toast` |
+| Environment and connection tags                | A validation error — inline by the field |
+| Anything the user only checks when they wonder | Actions — that is `Toolbar`              |
+
+## Do and don't
+
+### The region exists before it has anything to say
+
+<Guidance>
+  <Do reason="The message element is always rendered, even when empty. A live region added to the DOM at the same moment its text appears is not announced at all — the browser has nothing to compare against.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      <code>{'<p role="status" aria-live="polite">{message}</p>'}</code> — always in the tree.
+    </p>
+  </Do>
+  <Dont reason="Rendering the whole element only when there is a message. It looks identical, and it is silent every single time.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      <code>{'{message && <p role="status">{message}</p>}'}</code>
+    </p>
+  </Dont>
+</Guidance>
+
+### Labels that make sense spoken
+
+<Canvas of={StatusBarStories.LiveMessage} />
+
+Each item is read as "label, value" — "Rows, 1 248". Abbreviations that work
+visually because of their position ("Sel: 3") become nonsense out loud. Write
+the label as the word you would say.
+
+<Heuristic name="Visibility of system status">
+  The bar answers the questions a user asks only occasionally — how many, which filter, saved when.
+  Its value is that the answer is always there, not that it draws attention.
+</Heuristic>
+
+### Do not put urgency here
+
+A failed save in a polite region may be announced minutes later, or not at all
+if the user is typing. That belongs in `Toast` with an assertive region, or
+inline next to the control that caused it.
+
+### Keep it to a handful of items
+
+The bar is 24px tall and the user reads it sideways. Five items is already
+crowded; ten is a second toolbar with no affordances.
+
+## Accessibility
+
+- `role="contentinfo"` with a label, so it is a findable landmark.
+- The message is `role="status"` and `aria-live="polite"`, permanently in the
+  DOM.
+- Values use tabular numerals, so a changing count does not shift the layout
+  beside it.

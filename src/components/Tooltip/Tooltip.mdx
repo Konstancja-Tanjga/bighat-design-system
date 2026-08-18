@@ -1,0 +1,84 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Tooltip } from './Tooltip';
+import { Button } from '../Button/Button';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as TooltipStories from './Tooltip.stories';
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+A short label for a control that has none.
+
+<Canvas of={TooltipStories.Default} />
+
+## What WCAG 1.4.13 rules out
+
+Hover-triggered content has three obligations, and each one removes a common
+design:
+
+- **Dismissible** — Escape closes it without moving the pointer.
+- **Hoverable** — the pointer can travel into it, so it does not vanish mid-read.
+- **Persistent** — it stays until focus or hover leaves. Never on a timer.
+
+It follows that a tooltip cannot hold a link, a button, or anything the user
+has to reach. If it does, it is a popover, and that is a different component.
+
+## Do and don't
+
+### It describes; it never names
+
+<Guidance>
+  <Do reason="The icon button keeps its own aria-label. The tooltip is wired with aria-describedby, so a screen reader hears the name and then the description — and a voice-control user can still say the visible label.">
+    <Tooltip content="Download as PDF">
+      <Button variant="ghost" aria-label="Download as PDF">
+        ↓
+      </Button>
+    </Tooltip>
+  </Do>
+  <Dont reason="Using the tooltip as the button's only name. The name now exists solely in content that appears on hover — unreachable by touch, absent from the accessibility tree until the pointer arrives.">
+    <Button variant="ghost">↓</Button>
+  </Dont>
+</Guidance>
+
+### Never the only place the information lives
+
+<Guidance>
+  <Do reason="A short reminder of something already discoverable. Nothing is lost by never seeing it, which matters because touch users largely never do.">
+    <Tooltip content="Archives the invoice. You can restore it for 30 days.">
+      <Button variant="secondary">Archive</Button>
+    </Tooltip>
+  </Do>
+  <Dont reason="Password rules, a required format, an error explanation. On a phone there is no hover, so this content simply does not exist — and it was the content the user needed to succeed.">
+    <Tooltip content="Must be 12+ characters with a number and a symbol">
+      <Button variant="secondary">Password rules</Button>
+    </Tooltip>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Help and documentation">
+  Help that only appears on hover is help that a third of your users will never see. Anything
+  required to complete the task belongs in `description`, next to the field.
+</Heuristic>
+
+### Focus shows it immediately, hover waits
+
+A keyboard user has already committed to the control, so the tooltip appears at
+once. A pointer sweeping across a toolbar has not, so a short delay keeps six
+tooltips from flashing on the way past.
+
+### Six pixels of gap, deliberately
+
+The bubble sits close enough that the pointer can cross into it without
+leaving the trigger. A larger gap looks tidier and breaks the "hoverable"
+requirement, because the tooltip closes halfway to itself.
+
+## Accessibility
+
+- `role="tooltip"`, connected with `aria-describedby` only while visible.
+- Escape closes it from anywhere, including while the pointer stays put.
+- Shown on `focus` as well as hover — a control reachable by keyboard shows its
+  tooltip to keyboard users.
+- Plain text only. Interactive content inside a tooltip cannot be reached
+  without violating one of the three requirements above.

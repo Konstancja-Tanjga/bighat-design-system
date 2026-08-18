@@ -1,0 +1,71 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Progress } from './Progress';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as ProgressStories from './Progress.stories';
+
+<Meta of={ProgressStories} />
+
+# Progress
+
+How far along something is.
+
+<Canvas of={ProgressStories.Determinate} />
+
+## Two honest states
+
+A determinate bar reports a real percentage. An indeterminate one admits it
+does not know. The component keeps them apart on purpose, because the third
+option — a bar that crawls to 90% and waits — is a lie the user learns to
+distrust, and then distrusts everywhere else in the product.
+
+## Do and don't
+
+### Never fake the number
+
+<Guidance>
+  <Do reason="No value means indeterminate, and the bar says so by moving without claiming a position. The user knows the system is working and knows nobody can promise when it ends.">
+    <Progress label="Contacting the payment provider" />
+  </Do>
+  <Dont reason="An animated fill with no data behind it. The user plans around 90%, waits four more minutes, and next time ignores the bar completely — including on the screens where it is accurate.">
+    <Progress label="Almost done" value={90} />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Visibility of system status">
+  Status has to be true to be status. A progress bar that reports an invented number is worse than a
+  spinner, because it converts uncertainty into a false promise.
+</Heuristic>
+
+### The number is text, not just width
+
+<Canvas of={ProgressStories.WithCount} />
+
+Length and colour are the two cues that fail first — in greyscale, in high
+contrast, at a glance from across a room. The percentage is rendered beside the
+label, and `valueText` replaces it with something more useful when there is a
+better unit: "12 of 40 files" beats "30%".
+
+### Progress or skeleton
+
+| Use `Progress` for                       | Use `Skeleton` for                       |
+| ---------------------------------------- | ---------------------------------------- |
+| A task with a measurable end — an upload | A layout that is about to appear         |
+| A wait the user started deliberately     | A page loading its own content           |
+| Anything longer than about ten seconds   | A wait short enough not to need a number |
+
+### One bar per wait
+
+Six bars stacked in a list are a progress display nobody reads. Aggregate them
+into one bar with a count — `valueText="12 of 40 files"` — and put the per-item
+detail behind a disclosure if it is genuinely needed.
+
+## Accessibility
+
+- `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax`
+  and `aria-valuetext` when determinate; all omitted when indeterminate, which
+  is how assistive tech recognises the unknown state.
+- `label` is required and linked with `aria-labelledby` — "Loading" is a state,
+  not a name.
+- The indeterminate animation is suppressed by the global reduced-motion rule,
+  leaving a static bar rather than a stuck one.
