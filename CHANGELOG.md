@@ -1,6 +1,6 @@
 # @bighatpoland/ui
 
-## 3.0.0
+## 2.0.0
 
 ### Major Changes
 
@@ -8,8 +8,8 @@
   (`primary` | `secondary` | `ghost`) and `tone` for consequence (`default` |
   `critical`).
 
-  `variant="danger"` still renders identically and warns once in development. It
-  is removed in 3.0. Migration, including a scripted rename, is in `MIGRATION.md`.
+  `variant="danger"` still renders identically and warns once in development,
+  and is removed in 3.0. Migration, including a scripted rename, is in `MIGRATION.md`.
 
   Why: `variant` conflated weight with consequence, so a quiet destructive action
   — a delete inside a row of table actions — could only be expressed with an
