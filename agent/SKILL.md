@@ -196,11 +196,35 @@ Machine-readable in `components.json`. Human-readable in the Storybook at
 | `Badge`      | Short status on an object           | Counts on their own, buttons         |
 | `StateBlock` | Empty, loading and error surfaces   | The happy path                       |
 
+| Component          | Use it for                              | Do not use it for                     |
+| ------------------ | --------------------------------------- | ------------------------------------- |
+| `Checkbox`         | Yes/no submitted with a form            | Immediate settings — use `Switch`     |
+| `RadioGroup`       | One of a small visible set              | >6 options — use `Select`/`Combobox`  |
+| `Switch`           | A setting that applies at once          | Anything with a Save button           |
+| `SegmentedControl` | 2–5 options, all visible                | A filter with a cleared state         |
+| `Slider`           | An approximate value on a range         | Exact numbers — use `Input`           |
+| `Combobox`         | A long list filtered by typing          | Free text — the value comes from list |
+| `DatePicker`       | A date, in the native picker            | A hand-built calendar grid            |
+| `IconPicker`       | One icon from a searchable grid         | Unnamed icons                         |
+| `Tabs`             | Filtering one screen                    | Content with its own URL — use links  |
+| `Accordion`        | One topic at a time, in place           | Navigation                            |
+| `Menu`             | Actions behind a trigger                | Destinations, or picking a value      |
+| `Toolbar`          | Controls acting on content below        | Page navigation — use `AppBar`        |
+| `Tooltip`          | A short label for an unlabelled control | Anything the user must reach or read  |
+| `Progress`         | Real progress, or an honest unknown     | A bar that fakes what it cannot know  |
+| `Breadcrumbs`      | Position in a hierarchy                 | Click history                         |
+| `List`             | Records with a title and one line       | Comparable data — use `Table`         |
+| `ListView`         | A selectable master pane                | Multi-select — use `Table`            |
+| `Avatar`           | A person, name behind the initials      | Status on its own                     |
+| `UserProfile`      | Who is signed in, plus account actions  | Showing someone else — use `Avatar`   |
+| `StatusBar`        | Ambient state at the foot of the app    | Anything urgent — use `Toast`         |
+| `Divider`          | A line between things                   | Spacing — use the gap tokens          |
+| `ScrollArea`       | A keyboard-reachable scroll region      | Scrollbars drawn out of divs          |
+
 ## Not in the system yet
 
 Named here so an agent stops looking rather than quietly widening something
 adjacent. If a screen needs one, build it locally per rule 7 and say so.
 
-`Tabs`, `Textarea`, `Chip` (filter and removable), `ToggleGroup` (segmented
-control), `FileDropzone`, `Avatar`, `Combobox`, `Checkbox`, `Radio`,
-`Tooltip`, `Pagination`, `Breadcrumbs`.
+`Textarea`, `Chip` (filter and removable), `FileDropzone`, `Pagination`,
+`Tree`, `Stepper`.

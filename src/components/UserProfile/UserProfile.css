@@ -1,0 +1,56 @@
+.bh-user-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+  padding: var(--bh-gap-tight) var(--bh-gap-snug);
+  border-radius: var(--bh-radius-pill);
+  font-family: var(--bh-font-family);
+  color: var(--bh-text-primary);
+  max-width: 260px;
+}
+
+.bh-user-profile--button {
+  border: 1px solid transparent;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.bh-user-profile--button:hover {
+  background: var(--bh-surface-sunken);
+}
+
+.bh-user-profile__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+}
+
+.bh-user-profile__name {
+  font-size: 14px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bh-user-profile__secondary {
+  color: var(--bh-text-muted);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bh-user-profile__badge {
+  flex: none;
+}
+
+.bh-user-profile__caret {
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--bh-text-muted);
+  border-bottom: 2px solid var(--bh-text-muted);
+  transform: translateY(-2px) rotate(45deg);
+}

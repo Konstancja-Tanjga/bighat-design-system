@@ -127,6 +127,38 @@ diff.
 | `Badge`      | Short status on an object           | Bare counts, anything clickable        |
 | `StateBlock` | Empty, loading, error               | The happy path                         |
 
+Form controls beyond the two above:
+
+|                    | Use it for                                   | Not for                                   |
+| ------------------ | -------------------------------------------- | ----------------------------------------- |
+| `Checkbox`         | An independent yes/no, submitted with a form | An immediate setting — use `Switch`       |
+| `RadioGroup`       | One choice from a small visible set          | More than about six options               |
+| `Switch`           | A setting that takes effect immediately      | Anything with a Save button               |
+| `SegmentedControl` | Two to five options, all visible at once     | A filter with a cleared state             |
+| `Slider`           | An approximate value on a continuum          | A number the user needs to type exactly   |
+| `Combobox`         | A list too long to scan, filtered by typing  | Free text — the value comes from the list |
+| `DatePicker`       | A date, in the browser's own picker          | A hand-built calendar grid                |
+| `IconPicker`       | One icon from a searchable grid              | An icon set whose icons have no names     |
+
+And the parts that carry structure, state and actions:
+
+|               | Use it for                                    | Not for                                  |
+| ------------- | --------------------------------------------- | ---------------------------------------- |
+| `Tabs`        | A filter over one screen                      | Content with its own URL — use links     |
+| `Accordion`   | One topic at a time, expanded in place        | Navigation                               |
+| `Menu`        | Actions behind a trigger                      | Destinations, or choosing a value        |
+| `Toolbar`     | Controls acting on the content below          | Page-level navigation — use `AppBar`     |
+| `Tooltip`     | A short label for a control that has none     | Anything the user has to reach or read   |
+| `Progress`    | How far along something is                    | A bar that fakes progress it cannot know |
+| `Breadcrumbs` | Position in a hierarchy                       | The path the user clicked                |
+| `List`        | Records with a title and a supporting line    | Data the user compares — use `Table`     |
+| `ListView`    | A selectable master list beside a detail pane | Multi-select — that is a `Table`         |
+| `Avatar`      | A person, with the name behind the initials   | Carrying status on its own               |
+| `UserProfile` | Who is signed in, and account actions         | Showing someone else — use `Avatar`      |
+| `StatusBar`   | Ambient state at the foot of the app          | Anything urgent — use `Toast`            |
+| `Divider`     | A line between things                         | Spacing — use the gap tokens             |
+| `ScrollArea`  | A scrollable region reachable by keyboard     | Replacing the scrollbar with divs        |
+
 And the frame those sit in:
 
 |             | Use it for                               | Not for                                  |
@@ -151,12 +183,19 @@ The examples are rendered components, not screenshots — a screenshot of
 guidance goes stale the moment the component changes, and nobody notices,
 because images have no build step.
 
-Two omissions are deliberate. `Select` wraps the **native** element — a custom
-listbox is ~400 lines of roving tabindex, typeahead and mobile fallback, and
-the platform already gives us autofill and correct assistive-technology
+Several omissions are deliberate. `Select` wraps the **native** element — a
+custom listbox is ~400 lines of roving tabindex, typeahead and mobile fallback,
+and the platform already gives us autofill and correct assistive-technology
 behaviour for free. `Dialog` is the **native `<dialog>`** — focus trapping,
 focus restoration, page inertness and the top layer are not worth
-reimplementing badly.
+reimplementing badly. `DatePicker` is a native date input and `Slider` a native
+range, for the same reason. `ScrollArea` styles the platform scrollbar rather
+than drawing one.
+
+`Combobox` is the single place that bargain is refused, because a native
+`<select>` cannot be typed into and `<datalist>` is inconsistent across
+browsers — so it pays the full ARIA bill instead: `aria-activedescendant`,
+a live result count, and Escape twice to clear.
 
 ---
 

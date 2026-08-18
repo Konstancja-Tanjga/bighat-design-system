@@ -1,0 +1,57 @@
+.bh-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+  border-radius: var(--bh-radius-pill);
+  background: var(--bh-surface-sunken);
+  color: var(--bh-text-secondary);
+  border: 1px solid var(--bh-border-subtle);
+  font-family: var(--bh-font-family);
+  font-weight: 600;
+  line-height: 1;
+  user-select: none;
+}
+
+.bh-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bh-avatar--sm {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+.bh-avatar--md {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+}
+.bh-avatar--lg {
+  width: 44px;
+  height: 44px;
+  font-size: 16px;
+}
+
+.bh-avatar-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.bh-avatar-group .bh-avatar + .bh-avatar {
+  margin-left: -8px;
+}
+
+/* The ring separates overlapping avatars against any surface. */
+.bh-avatar-group .bh-avatar {
+  box-shadow: 0 0 0 2px var(--bh-surface-base);
+}
+
+.bh-avatar--overflow {
+  background: var(--bh-surface-inverse);
+  color: var(--bh-text-inverse);
+  border-color: transparent;
+}

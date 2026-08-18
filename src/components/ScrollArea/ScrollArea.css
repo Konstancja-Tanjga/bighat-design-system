@@ -1,0 +1,64 @@
+.bh-scroll-area {
+  position: relative;
+  overscroll-behavior: contain;
+  /* Thin, tokenised, and still the platform's scrollbar: thumb then track. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--bh-border-strong) transparent;
+}
+
+.bh-scroll-area--vertical {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.bh-scroll-area--horizontal {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.bh-scroll-area--both {
+  overflow: auto;
+}
+
+/* WebKit needs the explicit parts. Sized to match scrollbar-width: thin. */
+.bh-scroll-area::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.bh-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.bh-scroll-area::-webkit-scrollbar-thumb {
+  border-radius: var(--bh-radius-pill);
+  background: var(--bh-border-strong);
+  /* Border, not margin: it fakes the inset without shrinking the hit area. */
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.bh-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: var(--bh-text-muted);
+  background-clip: content-box;
+}
+
+.bh-scroll-area--fade {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 8px,
+    #000 calc(100% - 8px),
+    transparent 100%
+  );
+}
+
+.bh-scroll-area--horizontal.bh-scroll-area--fade {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 8px,
+    #000 calc(100% - 8px),
+    transparent 100%
+  );
+}
