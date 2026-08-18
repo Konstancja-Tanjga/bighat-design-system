@@ -1,0 +1,688 @@
+<title>Adopting bighat</title>
+<style>
+  /* ---- Layer 1: the palette is the design system's own semantic layer, ---- */
+  /* ---- rendered here in the same two themes the library ships.        ---- */
+  :root {
+    --surface-base: #ffffff;
+    --surface-sunken: #f7f8f9;
+    --surface-raised: #ffffff;
+    --surface-inverse: #14181c;
+
+    --text-primary: #14181c;
+    --text-secondary: #39414a;
+    --text-muted: #59636f;
+    --text-inverse: #f7f8f9;
+
+    --rule-subtle: #eef0f2;
+    --rule-strong: #dfe3e7;
+
+    --accent: #3563e9;
+    --accent-quiet: #eef4ff;
+    --critical: #c02a2f;
+    --critical-quiet: #fef2f2;
+    --success: #0a6b48;
+    --success-quiet: #ecfdf5;
+    --warning: #95580a;
+    --warning-quiet: #fffbeb;
+
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+    --measure: 68ch;
+    --gutter: 12.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface-base: #14181c;
+      --surface-sunken: #0f1215;
+      --surface-raised: #1c2126;
+      --surface-inverse: #f7f8f9;
+
+      --text-primary: #f7f8f9;
+      --text-secondary: #c5ccd3;
+      --text-muted: #9aa4af;
+      --text-inverse: #14181c;
+
+      --rule-subtle: #252b32;
+      --rule-strong: #39414a;
+
+      --accent: #8fb0ff;
+      --accent-quiet: #17307f;
+      --critical: #f87171;
+      --critical-quiet: #6f1c1f;
+      --success: #34d399;
+      --success-quiet: #0a3a29;
+      --warning: #fbbf24;
+      --warning-quiet: #523211;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --surface-base: #14181c;
+    --surface-sunken: #0f1215;
+    --surface-raised: #1c2126;
+    --surface-inverse: #f7f8f9;
+
+    --text-primary: #f7f8f9;
+    --text-secondary: #c5ccd3;
+    --text-muted: #9aa4af;
+    --text-inverse: #14181c;
+
+    --rule-subtle: #252b32;
+    --rule-strong: #39414a;
+
+    --accent: #8fb0ff;
+    --accent-quiet: #17307f;
+    --critical: #f87171;
+    --critical-quiet: #6f1c1f;
+    --success: #34d399;
+    --success-quiet: #0a3a29;
+    --warning: #fbbf24;
+    --warning-quiet: #523211;
+  }
+
+  /* ---- Base ---- */
+  body {
+    background: var(--surface-base);
+    color: var(--text-primary);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  p { max-width: var(--measure); }
+
+  a {
+    color: var(--accent);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  code, .mono { font-family: var(--mono); }
+
+  code {
+    font-size: 0.86em;
+    background: var(--surface-sunken);
+    border: 1px solid var(--rule-subtle);
+    border-radius: 3px;
+    padding: 0.08em 0.34em;
+  }
+
+  /* ---- Masthead ---- */
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .stamp {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+  }
+  .stamp b { color: var(--accent); font-weight: 600; }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(2rem, 6vw, 3.1rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .standfirst {
+    font-size: 1.125rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  /* ---- Sections: mono kicker in a left gutter ---- */
+  .section {
+    display: grid;
+    grid-template-columns: var(--gutter) minmax(0, 1fr);
+    gap: 0 2.5rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule-subtle);
+  }
+  .section:last-of-type { border-bottom: 0; }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding-top: 0.55rem;
+  }
+
+  .body { display: flex; flex-direction: column; gap: 1.1rem; }
+  .body > * { margin: 0; }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 1.55rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+
+  .lede { color: var(--text-secondary); }
+
+  /* ---- Counters ---- */
+  .counters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1px;
+    background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+    margin-top: 0.5rem;
+  }
+  .counter {
+    background: var(--surface-base);
+    padding: 1.25rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .counter .n {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 2.4rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+  .counter.is-gap .n { color: var(--critical); }
+  .counter h3 { font-size: 0.85rem; }
+  .counter p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* ---- Three questions ---- */
+  .questions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  .question {
+    border-top: 2px solid var(--text-primary);
+    padding-top: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .question p { font-size: 0.9rem; color: var(--text-secondary); }
+  .enforcer {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-top: auto;
+    padding-top: 0.4rem;
+  }
+  .enforcer b { color: var(--text-primary); font-weight: 600; }
+
+  /* ---- Diagram ---- */
+  .figure { margin-top: 0.75rem; }
+  .figure-scroll { overflow-x: auto; padding-bottom: 0.5rem; }
+  .figure svg { display: block; min-width: 640px; width: 100%; height: auto; }
+  figcaption {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    max-width: var(--measure);
+    padding-top: 0.9rem;
+  }
+  .d-label { font-family: var(--mono); font-size: 12px; fill: var(--text-primary); }
+  .d-small { font-family: var(--mono); font-size: 10.5px; fill: var(--text-muted); letter-spacing: 0.05em; }
+  .d-accent { fill: var(--accent); }
+
+  /* ---- Code ---- */
+  pre {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    background: var(--surface-sunken);
+    border: 1px solid var(--rule-subtle);
+    border-left: 2px solid var(--rule-strong);
+    padding: 0.9rem 1.1rem;
+    overflow-x: auto;
+    margin: 0;
+    color: var(--text-primary);
+  }
+  pre .c { color: var(--text-muted); }
+
+  /* ---- Prompt list ---- */
+  .prompts { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule-subtle); }
+  .prompt {
+    display: grid;
+    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+    gap: 0.35rem 2rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule-subtle);
+  }
+  .prompt q {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    quotes: "“" "”";
+  }
+  .prompt span { font-size: 0.9rem; color: var(--text-muted); }
+
+  /* ---- Verdicts ---- */
+  .verdicts { display: flex; flex-direction: column; gap: 1.1rem; }
+  .verdict { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 0.4rem 1.5rem; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    font-weight: 600;
+    align-self: start;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    justify-self: start;
+  }
+  .tag.pass { color: var(--success); background: var(--success-quiet); }
+  .tag.fail { color: var(--critical); background: var(--critical-quiet); }
+  .tag.unenforced { color: var(--warning); background: var(--warning-quiet); }
+  .verdict p { font-size: 0.95rem; }
+
+  .callout {
+    border: 1px solid var(--rule-strong);
+    border-top: 2px solid var(--accent);
+    background: var(--surface-raised);
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .callout h3 { font-size: 0.9rem; }
+  .callout p { font-size: 0.92rem; color: var(--text-secondary); }
+
+  /* ---- Ordered procedure: the one place order carries meaning ---- */
+  ol.steps { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.25rem; counter-reset: step; }
+  ol.steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: 0.3rem 1rem;
+  }
+  ol.steps li::before {
+    content: counter(step);
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 2px solid var(--rule-strong);
+    padding-top: 0.35rem;
+    grid-row: span 2;
+  }
+  ol.steps h3 { padding-top: 0.15rem; }
+  ol.steps p { font-size: 0.92rem; color: var(--text-secondary); }
+
+  /* ---- Facts table ---- */
+  .facts { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  .facts th, .facts td { text-align: left; vertical-align: top; padding: 0.75rem 1rem 0.75rem 0; border-bottom: 1px solid var(--rule-subtle); }
+  .facts th {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    width: 9rem;
+    color: var(--text-primary);
+  }
+  .facts td { color: var(--text-secondary); }
+  .facts tr:last-child th, .facts tr:last-child td { border-bottom: 0; }
+
+  ul.plain { padding-left: 1.1rem; margin: 0; color: var(--text-secondary); font-size: 0.95rem; }
+  ul.plain li { margin-bottom: 0.3rem; }
+
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule-strong);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    line-height: 1.9;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 46rem) {
+    .section { grid-template-columns: 1fr; gap: 0.9rem; }
+    .kicker { padding-top: 0; }
+    .prompt, .verdict { grid-template-columns: 1fr; gap: 0.3rem; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <p class="stamp"><b>@bighatpoland/ui</b> <span>v3.1.0</span> <span>39 components</span> <span>MIT</span></p>
+    <h1>Adopting bighat</h1>
+    <p class="standfirst">Three rules stand between installing this library and shipping a screen with it. Here is what they are, what enforces each one, and what the build cannot see for you.</p>
+  </header>
+
+  <section class="section">
+    <p class="kicker">Why this exists</p>
+    <div class="body">
+      <h2>Four things a passing build cannot see</h2>
+      <p class="lede">Every rule in this system exists because correct-looking, type-checking, lint-passing code can still break it. That is the only kind of rule worth writing down — the rest are already the compiler's job.</p>
+
+      <div class="counters">
+        <div class="counter">
+          <span class="n">2</span>
+          <h3>token layers, one API</h3>
+          <p>Primitives say what a value <em>is</em>. Semantics say what it <em>means</em>. Product code may only touch the second — but importing the first compiles perfectly.</p>
+        </div>
+        <div class="counter">
+          <span class="n">58</span>
+          <h3>contrast assertions in CI</h3>
+          <p>Every foreground/background pair the system promises to keep legible, checked in both themes against the WCAG rule that actually applies to it.</p>
+        </div>
+        <div class="counter">
+          <span class="n">39</span>
+          <h3>components, and a list of what each is <em>not</em> for</h3>
+          <p>Reaching for the adjacent component is invisible to every tool. <code>components.json</code> carries the negative case for exactly that reason.</p>
+        </div>
+        <div class="counter is-gap">
+          <span class="n">0</span>
+          <h3>typography tokens</h3>
+          <p>The system exports none. Type sizes are the one place you will be pushed off-system today — named here rather than discovered by you in week three.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="kicker">The rules</p>
+    <div class="body">
+      <h2>Three questions, kept apart</h2>
+      <p class="lede">A screen can use only approved tokens and still be unusable. It can be usable and still fall apart the moment a request returns nothing. Different failures, so they get different answers — never one summary that hides two of them.</p>
+
+      <div class="questions">
+        <div class="question">
+          <h3>Is it token-legal?</h3>
+          <p>Colour from the semantic layer only — <code>var(--bh-text-muted)</code>, never <code>#59636f</code> and never <code>color.neutral[600]</code>. Every gap, padding and margin from the scale. <code>padding: 13px</code> is wrong including when it looks better.</p>
+          <p class="enforcer">Enforced by <b>npm run tokens:check</b>, the lint rule, and review</p>
+        </div>
+        <div class="question">
+          <h3>Is it usable?</h3>
+          <p>A required label on every field. Colour never the only carrier of meaning. No <code>outline: none</code>, ever. Named landmarks on every panel and rail. A pointer-free equivalent for every drag.</p>
+          <p class="enforcer">Enforced by <b>required props</b>, the contrast gate, and review</p>
+        </div>
+        <div class="question">
+          <h3>Is it state-complete?</h3>
+          <p>Empty, loading and error are <code>StateBlock</code> — not a bespoke div, not <code>null</code>, not red text. And "empty" is two screens: nothing yet wants onboarding, nothing matching wants a way out of the filter.</p>
+          <p class="enforcer">Enforced by <b>nothing automatic</b> — this one is on you</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="kicker">Where the checks fire</p>
+    <div class="body">
+      <h2>One direction, and a way back</h2>
+      <figure class="figure">
+        <div class="figure-scroll">
+          <svg viewBox="0 0 760 340" role="img" aria-labelledby="flow-title flow-desc">
+            <title id="flow-title">The token chain, its gates, and the return path for a missing role</title>
+            <desc id="flow-desc">Primitives feed semantics, semantics feed components, components feed your product. A token sync check guards the first link and the contrast gate guards the second; both run in CI before Storybook deploys. When no semantic role fits, the path returns to the semantic layer as a proposed role rather than continuing into product code.</desc>
+
+            <defs>
+              <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--rule-strong)" />
+              </marker>
+              <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)" />
+              </marker>
+            </defs>
+
+            <g fill="none" stroke="var(--rule-strong)" stroke-width="1">
+              <path d="M150 70 H190" marker-end="url(#a)" />
+              <path d="M330 70 H370" marker-end="url(#a)" />
+              <path d="M504 70 H544" marker-end="url(#a)" />
+            </g>
+
+            <g>
+              <rect x="10" y="42" width="140" height="56" fill="var(--surface-sunken)" stroke="var(--rule-strong)" />
+              <text class="d-label" x="26" y="68">primitives</text>
+              <text class="d-small" x="26" y="86">blue-500 · space-4</text>
+
+              <rect x="196" y="42" width="134" height="56" fill="var(--surface-sunken)" stroke="var(--rule-strong)" />
+              <text class="d-label" x="212" y="68">semantics</text>
+              <text class="d-small" x="212" y="86">roles, not values</text>
+
+              <rect x="376" y="42" width="128" height="56" fill="var(--surface-sunken)" stroke="var(--rule-strong)" />
+              <text class="d-label" x="392" y="68">components</text>
+              <text class="d-small" x="392" y="86">39 · 2 templates</text>
+
+              <rect x="550" y="42" width="150" height="56" fill="var(--surface-raised)" stroke="var(--text-primary)" stroke-width="1.5" />
+              <text class="d-label" x="566" y="68">your product</text>
+              <text class="d-small" x="566" y="86">semantic layer only</text>
+            </g>
+
+            <g stroke="var(--rule-strong)" stroke-width="1" stroke-dasharray="3 3" fill="none">
+              <path d="M170 98 V154" />
+              <path d="M350 98 V154" />
+            </g>
+
+            <g>
+              <rect x="96" y="154" width="150" height="48" fill="none" stroke="var(--rule-strong)" />
+              <text class="d-small" x="112" y="175">GATE · CI</text>
+              <text class="d-label" x="112" y="193">tokens:check</text>
+
+              <rect x="300" y="154" width="154" height="48" fill="none" stroke="var(--rule-strong)" />
+              <text class="d-small" x="316" y="175">GATE · CI</text>
+              <text class="d-label" x="316" y="193">58 contrast tests</text>
+            </g>
+
+            <text class="d-small" x="96" y="306">the generated CSS still matches its TypeScript source</text>
+            <text class="d-small" x="96" y="324">no declared pair has dropped below AA, in either theme</text>
+
+            <g fill="none" stroke="var(--accent)" stroke-width="1.5">
+              <path d="M625 98 V268 H273 V104" marker-end="url(#b)" />
+            </g>
+            <text class="d-label d-accent" x="330" y="252">no role fits — stop, and propose one</text>
+            <text class="d-small" x="330" y="270">never reach one layer down</text>
+          </svg>
+        </div>
+        <figcaption>The chain runs one way. The blue path is the part teams skip: when no semantic role fits what you are building, that is the system missing a role, not a licence to use a primitive. Say so and stop — a hand-rolled value ships as though it were supported.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="kicker">Day one</p>
+    <div class="body">
+      <h2>Install, mount, theme</h2>
+      <p class="lede">The package is not on a registry — versioning is automated here, publication is not, and a dead <code>npm install</code> line at the top of a README helps nobody. Install from the repository:</p>
+      <pre>npm install github:bighatpoland/bighat-design-system</pre>
+      <p>Mount once per application. The <code>bh-root</code> class is where the token values land; <code>ToastProvider</code> is what makes <code>toast()</code> reachable from anywhere below it.</p>
+      <pre>import '@bighatpoland/ui/styles.css';
+import { ToastProvider, Button } from '@bighatpoland/ui';
+
+export function App() {
+  return (
+    &lt;div className="bh-root"&gt;
+      &lt;ToastProvider&gt;
+        &lt;Button tone="critical"&gt;Delete workspace&lt;/Button&gt;
+      &lt;/ToastProvider&gt;
+    &lt;/div&gt;
+  );
+}</pre>
+      <p>Dark theme is one attribute: <code>document.documentElement.setAttribute('data-theme', 'dark')</code>. Users who never touch a toggle get <code>prefers-color-scheme</code> without you writing anything.</p>
+      <h3>Working on the system itself</h3>
+      <pre>npm install
+npm run storybook   <span class="c"># localhost:6006</span>
+npm test            <span class="c"># 134 tests, including the contrast gate</span>
+npm run verify      <span class="c"># what CI runs, in the order CI runs it</span></pre>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="kicker">Prototype to handoff</p>
+    <div class="body">
+      <h2>Say what you want</h2>
+      <p class="lede">You never need to remember a rule number or a script name. A prototype built on these components is handed over by describing the outcome you want checked — <code>agent/SKILL.md</code> holds the rules the types cannot express, <code>components.json</code> holds the inventory including what each component is <em>not</em> for, and the agent routes from there.</p>
+
+      <div class="prompts">
+        <div class="prompt"><q>Review the UX quality of this prototype.</q><span>Runs the automated sweep — <code>npm run verify</code>: lint, token sync, 134 tests including the 58 contrast assertions — then walks the checks a script cannot make, and returns one verdict per rule rather than a summary.</span></div>
+        <div class="prompt"><q>Is this handoff-safe?</q><span>All three gates plus the closeout: no primitives and no off-scale values left in product code, four states present on every surface that can be empty, every local component named as local. Reported as separate verdicts, because they fail for different reasons.</span></div>
+        <div class="prompt"><q>The spacing on this screen looks off.</q><span>Answered in scale steps — <code>tight</code>, <code>snug</code>, <code>normal</code>, <code>loose</code> — and in the relations between them, never in pixels. A pixel answer is a value that will drift the moment the scale moves.</span></div>
+        <div class="prompt"><q>bighat cannot do what I need here.</q><span>Checks whether that is true against the inventory and the six named gaps first, then builds it locally in semantic tokens and says out loud that it is local — so the next screen finds a documented gap instead of a lookalike.</span></div>
+        <div class="prompt"><q>Should this become a bighat component?</q><span>Weighs it honestly, including the case against — most things should stay in the product — and drafts a proposal for you to file. The second occurrence in a different screen is the evidence; the first is a local component.</span></div>
+      </div>
+
+      <p>Two of those answers end at your desk on purpose. Filing a proposal, and deciding that a prototype is done, are commitments on somebody&rsquo;s behalf, and they should carry the name of the person who stands behind them.</p>
+
+      <div class="callout">
+        <h3>Whether that changes anything is a testable claim, so it was tested</h3>
+        <p><code>agent/EVIDENCE.md</code> is the comparison: same model, same prompt, skill file present or absent, both outputs committed verbatim. <strong>The result contradicted the hypothesis.</strong> None of the four predicted rule failures happened in either run — because the rules are also in the component source, in the README, and in required props. What the skill file changed was architectural: without it, a table with a toolbar and no landmarks; with it, a full <code>AppShell</code> with named regions and a skip link. Both runs then left raw font sizes inline, because the system exports no typography tokens.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="kicker">Reading a result</p>
+    <div class="body">
+      <h2>Three verdicts, and one of them is not a verdict</h2>
+      <p class="lede"><code>npm run verify</code> runs lint, formatting, the token sync check, 134 tests and both builds, in that order, and stops at the first failure.</p>
+
+      <div class="verdicts">
+        <div class="verdict">
+          <span class="tag pass">Pass</span>
+          <p>Measured, and it holds. The contrast gate knows a focus ring is non-text, so it asks 3:1 rather than pushing the palette to mud for an absurd 4.5:1.</p>
+        </div>
+        <div class="verdict">
+          <span class="tag fail">Fail</span>
+          <p>Measured, and it breaches. You get the pair, the theme, the required ratio and the observed one — enough to fix it without a follow-up question. A palette tweak that looks better but drops <code>text.muted</code> to 4.3:1 lands here.</p>
+        </div>
+        <div class="verdict">
+          <span class="tag unenforced">Not enforceable</span>
+          <p>No gate can tell you that <code>ariaLabel="Panel"</code> names nothing, that your empty state answers the wrong one of the two empty cases, or that a board card can only be moved by dragging. These are in <code>agent/SKILL.md</code> precisely because CI cannot reach them.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h3>Not enforceable is not a soft pass</h3>
+        <p>It blocks a review exactly as a failure does. The difference is what fixes it: a failure needs a change to the code, an unenforceable rule needs somebody to look. A rule nobody checked is never reported as holding — that is the whole reason these results are worth reading.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="kicker">When the system can't</p>
+    <div class="body">
+      <h2>What to do when nothing maps</h2>
+      <p class="lede">This is the part that goes wrong quietly, because the wrong version compiles. Follow it in order.</p>
+
+      <ol class="steps">
+        <li>
+          <h3>Use the component, and prefer the higher-level one</h3>
+          <p><code>Table</code> takes a <code>state</code> prop typed as <code>StateBlockProps</code> and renders it across every column. <code>AppShell</code> owns the four landmark regions. Composing that yourself from smaller parts is not neutral — it is a second implementation to keep correct.</p>
+        </li>
+        <li>
+          <h3>If nothing maps, stop</h3>
+          <p>Do not approximate. A hand-built control that looks like the system is worse than a documented gap, because it ships as though it were supported. Six components are named as missing on purpose — <code>Textarea</code>, <code>Chip</code>, <code>FileDropzone</code>, <code>Pagination</code>, <code>Tree</code>, <code>Stepper</code> — so nobody quietly widens something adjacent instead.</p>
+        </li>
+        <li>
+          <h3>Build it locally, in semantic tokens, and say that it is local</h3>
+          <p>Product code is the right place for a one-off. Say plainly in the code and in the review that it is a local component. What is not acceptable is adding a prop to a system component to cover a single screen: <code>Button</code> will not grow <code>variant="link"</code> — that is an anchor.</p>
+        </li>
+        <li>
+          <h3>Propose the role or the component, and name the cost</h3>
+          <p>A new colour needs a <em>role</em> before it can be used, which means a hex on its own is not a handover. That friction is the feature. A proposal that survives says what it is for, what it is not for, and what breaks if it is refused.</p>
+        </li>
+        <li>
+          <h3>Second occurrence is the evidence, not the first</h3>
+          <p>One screen needing something is a local component. The same gap in two products is a case the system can act on. Filing that stays a human step: asking a design system to grow is a maintenance commitment, and it should carry the name of the person who stands behind it.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="kicker">Before you touch it</p>
+    <div class="body">
+      <h2>Five things worth knowing first</h2>
+      <table class="facts">
+        <tbody>
+          <tr>
+            <th>14px base</th>
+            <td>Not 16. The type scale runs 11 / 13 / 14 / 16 / 20 / 26, and there are no typography tokens exported yet — so a size you set today is a size you will migrate later. Keep them in one place.</td>
+          </tr>
+          <tr>
+            <th>4px scale</th>
+            <td>Spacing is <code>--bh-gap-tight | snug | normal | loose</code> (4 / 8 / 12 / 16) and <code>--bh-padding-inline | block | section</code> (12 / 8 / 24). Names, not numbers, so the values can move without a find-and-replace.</td>
+          </tr>
+          <tr>
+            <th>native first</th>
+            <td><code>Select</code>, <code>Dialog</code>, <code>DatePicker</code>, <code>Slider</code> and <code>ScrollArea</code> are the platform's own, wrapped. Focus trapping, autofill, page inertness and mobile behaviour are not worth reimplementing badly. <code>Combobox</code> is the single refusal of that bargain, and it pays the full ARIA bill.</td>
+          </tr>
+          <tr>
+            <th>templates are copies</th>
+            <td>The two page templates live in Storybook and are deliberately not exported. A template you install becomes a dependency, and then a team is blocked on the design system to change its own layout. Copy one in, and keep all four states — deleting the error story deletes the part that was hard.</td>
+          </tr>
+          <tr>
+            <th>tokens.css is generated</th>
+            <td><code>src/styles/tokens.css</code> comes from <code>src/tokens/*.ts</code> via <code>npm run tokens</code>. Edit the TypeScript, never the CSS. CI fails if the committed CSS has drifted from its source.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="kicker">Upgrading</p>
+    <div class="body">
+      <h2>If it behaves differently for you</h2>
+      <p class="lede">Run <code>npm run verify</code> first. When one machine disagrees with another it is almost always drift rather than the library — a hand-edited <code>tokens.css</code>, a stale <code>dist</code>, or a branch that has not caught up with main.</p>
+      <p>If you are arriving from 2.x, one thing was removed rather than deprecated forever. <code>Button variant="danger"</code> was doing two jobs — four values described visual weight, one described consequence — so 3.0 split it into <code>variant</code> for weight and <code>tone</code> for consequence. Through the whole of 2.x the old value kept rendering byte-identically, asserted by a test, while warning once in development; that is what let a team take the major on a Tuesday and do the rename whenever they got to it. 3.0 closed the window. A deprecation that never ends is not a deprecation, it is a second API you have quietly agreed to maintain forever.</p>
+      <ul class="plain">
+        <li><code>MIGRATION.md</code> — the reasoning, the timeline, and a scripted rename.</li>
+        <li>If verify comes back clean and the behaviour still differs, that is worth reporting: it means a check is missing, and the fix is to add one rather than to remember the workaround.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    README.md holds the four decisions · agent/SKILL.md holds the rules a build cannot enforce · components.json is the machine-readable inventory · MIGRATION.md holds the 2.0 → 3.0 rename · the Storybook is the human-readable one, with a Do / Don&rsquo;t page per component
+  </footer>
+
+</div>

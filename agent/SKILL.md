@@ -12,6 +12,9 @@ third category somewhere an agent can read it.
 Everything below is a rule that a correct-looking, type-checking, lint-passing
 piece of code can still break.
 
+Reviewing or handing over a prototype rather than building one? Read
+[`HANDOFF.md`](./HANDOFF.md) — it routes the request and defines the verdicts.
+
 ## 1. Never use a primitive token in product code
 
 `@bighatpoland/ui` exports two layers. Only one of them is an API.
