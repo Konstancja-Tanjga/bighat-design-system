@@ -1,0 +1,97 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import { Accordion, AccordionItem } from './Accordion';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as AccordionStories from './Accordion.stories';
+
+<Meta of={AccordionStories} />
+
+# Accordion
+
+Disclosure in place: a heading the user opens to read more.
+
+<Canvas of={AccordionStories.Default} />
+
+## When to use it
+
+| Use `Accordion` for                              | Use something else for                         |
+| ------------------------------------------------ | ---------------------------------------------- |
+| Reference content read occasionally — FAQ, terms | Alternatives the user compares — that is `Tab` |
+| Long forms broken into sections users can skip   | Content everyone needs — just show it          |
+| A dense list where each row has a detail view    | Navigation                                     |
+
+## Do and don't
+
+### A button inside a heading, not a clickable div
+
+<Guidance>
+  <Do reason="The trigger is a real <button> inside an <h3>, so it is reachable by keyboard, announces expanded or collapsed, and appears in a screen reader's heading list — which is how people actually navigate a long page.">
+    <Accordion defaultOpen={['a']}>
+      <AccordionItem id="a" title="Shipping" meta="3 options">
+        Delivery is quoted at checkout and depends on the destination.
+      </AccordionItem>
+    </Accordion>
+  </Do>
+  <Dont reason="A div with an onClick and a chevron. No tab stop, no state announcement, and invisible to heading navigation — so a screen reader user has to read the whole page linearly to discover the sections exist.">
+    <div
+      style={{
+        border: '1px solid var(--bh-border-subtle)',
+        borderRadius: 8,
+        padding: '10px 14px',
+        color: 'var(--bh-text-muted)',
+        fontSize: 14,
+      }}
+    >
+      ▸ Shipping
+    </div>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  Headings are the map of a long page. A section whose heading is not a heading has removed itself
+  from that map without removing itself from the page.
+</Heuristic>
+
+### Set `headingLevel` to match the page
+
+The default is `h3`, which is right inside a section under an `h2`. It is
+wrong directly under the page title, and it is wrong nested three levels deep.
+A skipped heading level breaks outline navigation exactly the way it does in
+prose — the difference is that nobody notices in a component until someone
+audits it.
+
+### One at a time, unless the user compares
+
+<Canvas of={AccordionStories.Multiple} />
+
+Single-open is the default because an accordion is usually a way to keep a long
+page navigable: opening the fourth panel while three others are open puts the
+user back where they started. Use `multiple` only when the panels are meant to
+be read side by side.
+
+### Do not hide the primary path
+
+<Guidance>
+  <Do reason="Secondary detail behind the disclosure: shipping rules, invoicing terms, the small print. The user's main task never requires opening anything.">
+    <p style={{ margin: 0, fontSize: 13 }}>Order summary visible · “Delivery details” collapsed</p>
+  </Do>
+  <Dont reason="The Pay button inside a collapsed panel. Every extra click before the goal costs conversions, and the users who never open it never find out the action exists.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      ▸ Payment — contains the only Pay button on the page
+    </p>
+  </Dont>
+</Guidance>
+
+### The chevron is decoration
+
+The rotation is a nicety. The state lives in `aria-expanded`, which is why the
+component still works correctly when animations are suppressed under
+`prefers-reduced-motion`.
+
+## Accessibility
+
+- Trigger is a `<button>` inside a heading of the level you specify.
+- `aria-expanded` on the trigger, `aria-controls` pointing at the panel,
+  `aria-labelledby` pointing back at the trigger.
+- Collapsed panels use the `hidden` attribute, so find-in-page matches nothing
+  inside them — the same promise the native `<details>` element makes.
