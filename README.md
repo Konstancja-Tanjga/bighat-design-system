@@ -3,11 +3,11 @@
 A small design system built to answer the question interviews actually ask:
 **not "can you make a button", but "what did you decide, and what did it cost".**
 
-Seventeen components in two layers — the everyday controls, and the frame they
+Thirty-nine components in two layers — the everyday controls, and the frame they
 sit in. Two token layers. WCAG AA enforced by a failing build rather than a
-review comment. One breaking change, argued for and shipped with a migration
-path. Two whole-page templates. And a skill file that lets a coding agent
-follow the system's rules instead of inventing its own.
+review comment. A deprecation carried from announcement to removal across two
+major versions. Two whole-page templates. And a skill file that lets a coding
+agent follow the system's rules instead of inventing its own.
 
 **[Storybook →](https://bighatpoland.github.io/bighat-design-system/)**
 
@@ -108,70 +108,46 @@ focus ring. `components.json` is the machine-readable inventory — every
 component, its props, and crucially what it is **not** for.
 
 Whether that actually changes what an agent writes is a testable claim, not a
-slogan — `agent/EVIDENCE.md` sets it up as a controlled comparison: same model,
-same prompt, skill file present or absent, four specific failures checked in the
-diff.
+slogan — so it was tested. `agent/EVIDENCE.md` has the comparison: same model,
+same prompt, skill file present or absent, both outputs committed verbatim.
+
+**The result contradicted the hypothesis.** None of the four failures the
+protocol predicted occurred in either arm — because the rules are also in the
+component source, in the README, and in required props. What the skill file
+actually changed was architectural: without it the agent produced a table with a
+toolbar and no landmarks; with it, a full `AppShell` with named regions and a
+skip link. Both arms then left raw font sizes inline, because the system exports
+no typography tokens — the second gap an outside consumer has found that the
+author could not see.
 
 ---
 
 ## Components
 
-|              | Use it for                          | Not for                                |
-| ------------ | ----------------------------------- | -------------------------------------- |
-| `Button`     | An action the user takes            | Navigation                             |
-| `Input`      | Single-line text entry              | Controls with their own keyboard model |
-| `Select`     | One value from a short known list   | Search, multi-select, async options    |
-| `Dialog`     | A decision that must block the page | Non-blocking feedback                  |
-| `Toast`      | Confirming something happened       | Errors the user must act on in place   |
-| `Table`      | Comparable rows of structured data  | Layout                                 |
-| `Badge`      | Short status on an object           | Bare counts, anything clickable        |
-| `StateBlock` | Empty, loading, error               | The happy path                         |
+**Controls**
 
-Form controls beyond the two above:
+`Button` · `Input` · `Select` · `Combobox` · `Checkbox` · `RadioGroup` ·
+`Switch` · `Slider` · `DatePicker` · `SegmentedControl` · `Menu` · `Toolbar`
 
-|                    | Use it for                                   | Not for                                   |
-| ------------------ | -------------------------------------------- | ----------------------------------------- |
-| `Checkbox`         | An independent yes/no, submitted with a form | An immediate setting — use `Switch`       |
-| `RadioGroup`       | One choice from a small visible set          | More than about six options               |
-| `Switch`           | A setting that takes effect immediately      | Anything with a Save button               |
-| `SegmentedControl` | Two to five options, all visible at once     | A filter with a cleared state             |
-| `Slider`           | An approximate value on a continuum          | A number the user needs to type exactly   |
-| `Combobox`         | A list too long to scan, filtered by typing  | Free text — the value comes from the list |
-| `DatePicker`       | A date, in the browser's own picker          | A hand-built calendar grid                |
-| `IconPicker`       | One icon from a searchable grid              | An icon set whose icons have no names     |
+**Structure and navigation**
 
-And the parts that carry structure, state and actions:
+`AppShell` · `AppBar` · `NavRail` · `SidePanel` · `NavList` · `Tabs` ·
+`Breadcrumbs` · `Accordion` · `Divider` · `ScrollArea` · `StatusBar`
 
-|               | Use it for                                    | Not for                                  |
-| ------------- | --------------------------------------------- | ---------------------------------------- |
-| `Tabs`        | A filter over one screen                      | Content with its own URL — use links     |
-| `Accordion`   | One topic at a time, expanded in place        | Navigation                               |
-| `Menu`        | Actions behind a trigger                      | Destinations, or choosing a value        |
-| `Toolbar`     | Controls acting on the content below          | Page-level navigation — use `AppBar`     |
-| `Tooltip`     | A short label for a control that has none     | Anything the user has to reach or read   |
-| `Progress`    | How far along something is                    | A bar that fakes progress it cannot know |
-| `Breadcrumbs` | Position in a hierarchy                       | The path the user clicked                |
-| `List`        | Records with a title and a supporting line    | Data the user compares — use `Table`     |
-| `ListView`    | A selectable master list beside a detail pane | Multi-select — that is a `Table`         |
-| `Avatar`      | A person, with the name behind the initials   | Carrying status on its own               |
-| `UserProfile` | Who is signed in, and account actions         | Showing someone else — use `Avatar`      |
-| `StatusBar`   | Ambient state at the foot of the app          | Anything urgent — use `Toast`            |
-| `Divider`     | A line between things                         | Spacing — use the gap tokens             |
-| `ScrollArea`  | A scrollable region reachable by keyboard     | Replacing the scrollbar with divs        |
+**Data and feedback**
 
-And the frame those sit in:
+`Table` · `List` · `ListView` · `Board` · `Card` · `Badge` · `Avatar` ·
+`UserProfile` · `Progress` · `Skeleton` · `Tooltip` · `Toast` · `Dialog` ·
+**`StateBlock`**
 
-|             | Use it for                               | Not for                                  |
-| ----------- | ---------------------------------------- | ---------------------------------------- |
-| `AppShell`  | The application frame and its landmarks  | Document or marketing pages              |
-| `AppBar`    | Brand, screen title, screen actions      | Repeating the product name               |
-| `NavRail`   | Top-level destinations, icon-first       | Actions — a rail holds places, not verbs |
-| `SidePanel` | A persistent panel beside the content    | Blocking interaction — use `Dialog`      |
-| `NavList`   | Grouped list inside a panel              | Tabular data, deep nesting               |
-| `Composer`  | Prompt input for conversational products | Short single-line values                 |
-| `Board`     | Columns of cards moving through stages   | Data the user compares — use `Table`     |
-| `Card`      | A surface acted on as a unit             | Wrapping a paragraph                     |
-| `Skeleton`  | Placeholder where the shape is known     | A wait of unknown shape                  |
+**Conversational**
+
+`Composer` · `IconPicker`
+
+The one to look at is `StateBlock`. It covers empty, loading and error with
+three different announcement strategies, and `Table` and `Board` delegate their
+own empty bodies to it rather than owning a second vocabulary for "nothing
+here".
 
 Every component ships a **Do / Don't** page in the Storybook: live examples of
 the right and the wrong version side by side, each with the reason rather than
@@ -252,7 +228,7 @@ Users who never touch a toggle get `prefers-color-scheme` automatically.
 ```bash
 npm install
 npm run storybook      # localhost:6006
-npm test               # 85 tests, including the contrast gate
+npm test               # 134 tests, including the contrast gate
 npm run verify         # what CI runs: lint, format, tokens, tests, both builds
 ```
 
