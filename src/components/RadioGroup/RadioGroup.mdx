@@ -1,0 +1,116 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { RadioGroup } from './RadioGroup';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as RadioStories from './RadioGroup.stories';
+
+<Meta of={RadioStories} />
+
+# Radio
+
+One choice out of a small, mutually exclusive set — with every option visible.
+
+<Canvas of={RadioStories.Default} />
+
+## When to use it
+
+| Use `RadioGroup` for                                | Use something else for                           |
+| --------------------------------------------------- | ------------------------------------------------ |
+| Two to six options the user compares before picking | A longer list — that is `Select` or `Combobox`   |
+| Options whose differences need a line of copy       | An on/off state — that is `Switch`               |
+| A choice with no sensible default                   | Several things true at once — that is `Checkbox` |
+
+## Do and don't
+
+### The group is the component, and that is the point
+
+<Guidance>
+  <Do reason="A fieldset with a legend, and one shared name. The legend is what a screen reader reads before the options, so the user hears the question; the shared name is what makes arrow keys move between them.">
+    <RadioGroup
+      legend="Invoice format"
+      defaultValue="pdf"
+      orientation="horizontal"
+      options={[
+        { value: 'pdf', label: 'PDF' },
+        { value: 'xml', label: 'XML' },
+      ]}
+    />
+  </Do>
+  <Dont reason="Loose radios with a heading above them. The heading is not associated with anything, so the user arrives at 'PDF, radio button, one of two' with no idea what is being chosen — and tabs through every option instead of arrowing.">
+    <div>
+      <strong style={{ display: 'block', marginBottom: 8, fontSize: 13 }}>Invoice format</strong>
+      <label style={{ marginRight: 12 }}>
+        <input type="radio" name="loose-demo" /> PDF
+      </label>
+      <label>
+        <input type="radio" name="loose-demo-2" /> XML
+      </label>
+    </div>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  All the options are on screen precisely so nobody has to remember them. That advantage disappears
+  the moment the question itself is not attached to the answers.
+
+</Heuristic>
+
+### Put the difference in the option, not in a paragraph above
+
+<Canvas of={RadioStories.Default} />
+
+`description` on each option is read out with that option. A block of
+explanatory copy above the group is read once, before the user knows which
+option it applies to, and then never again while they arrow through.
+
+### Do not preselect a choice the user must actually make
+
+<Guidance>
+  <Do reason="No default, and the invalid state states the consequence. The user's choice is recorded because they made it, which matters for anything they are later held to.">
+    <RadioGroup
+      legend="Account type"
+      required
+      error="Choose an account type to continue."
+      options={[
+        { value: 'personal', label: 'Personal' },
+        { value: 'business', label: 'Business' },
+      ]}
+    />
+  </Do>
+  <Dont reason="A default on a consequential choice converts inaction into consent. Most users submit it unchanged, and the data now says they picked something they never read.">
+    <RadioGroup
+      legend="Account type"
+      defaultValue="business"
+      options={[
+        { value: 'personal', label: 'Personal' },
+        { value: 'business', label: 'Business' },
+      ]}
+    />
+  </Dont>
+</Guidance>
+
+A default is right for a genuine convenience — a delivery method most people
+want, a format most people export. It is wrong for anything the user is
+accountable for.
+
+### Horizontal only for two or three short labels
+
+<Canvas of={RadioStories.Horizontal} />
+
+A horizontal group with long labels wraps unpredictably, and it stops being
+obvious which label belongs to which button. Vertical is the default for a
+reason: the eye scans down a single column without deciding anything.
+
+## Accessibility
+
+- `<fieldset>` and `<legend>` — the question is part of every option's
+  announcement, and it survives zoom and reflow where a visual heading does not.
+- One `name` for the group, so the platform gives arrow keys, wrapping and a
+  single tab stop with no JavaScript involved.
+- `error` sets `aria-invalid` on the group and is linked with
+  `aria-describedby`, so the reason is heard at the group, not after submitting.
+- Each option's `description` is tied to that radio, not to the group.
+
+## Props
+
+<Controls of={RadioStories.Horizontal} />

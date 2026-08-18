@@ -1,0 +1,83 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as IconPickerStories from './IconPicker.stories';
+
+<Meta of={IconPickerStories} />
+
+# Icon picker
+
+Choosing one icon out of a grid of them.
+
+<Canvas of={IconPickerStories.Default} />
+
+## The name is not optional
+
+Every icon here is a picture of a word. The word is what makes it pickable at
+all: it is the accessible label, the search term, and the thing a screen reader
+reads instead of "graphic". So `name` is required, and `keywords` only widens
+the search — an icon nobody can name is an icon nobody can find.
+
+## Do and don't
+
+### A radio group, not a wall of buttons
+
+<Guidance>
+  <Do reason="Native radios inside a fieldset: one tab stop, arrow keys between tiles, and a state that announces as selected. Choosing an icon is choosing a value, so it uses the control that means 'choose one'.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      Tab once into the grid, then arrow to the icon you want.
+    </p>
+  </Do>
+  <Dont reason="Forty buttons in a grid. Every one takes a tab stop, none of them announces as selected, and the current choice is carried by a border colour that says nothing out loud.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      Tab, tab, tab, tab… thirty-six more times.
+    </p>
+  </Dont>
+</Guidance>
+
+### Search by what people call it, not by what you filed it under
+
+<Guidance>
+  <Do reason="keywords catch the word the user actually types. Somebody looking for a bin, a delete or a remove all end up at the same trash icon.">
+    <p style={{ margin: 0, fontSize: 13 }}>
+      <code>{"{ name: 'trash', keywords: ['bin', 'remove', 'delete'] }"}</code>
+    </p>
+  </Do>
+  <Dont reason="Matching only the internal name. The user types 'bin', gets 'No icon matches', and concludes the icon does not exist — while it sits three rows down.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      <code>{"{ name: 'trash' }"}</code>
+    </p>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  A picker only helps if the search accepts the user's vocabulary. Forcing them to guess the
+  designer's naming turns recognition back into recall.
+</Heuristic>
+
+### Say how many matched
+
+Filtering a grid down to two tiles is obvious to someone looking at it and
+invisible to someone who is not. The result count goes into a polite live
+region, in the same way `Combobox` does it — the two components have the same
+problem and should not solve it differently.
+
+### Hide the search when the set is small
+
+<Canvas of={IconPickerStories.WithoutSearch} />
+
+Six icons do not need a search field. An empty field above a grid the user can
+already see in full is a control that only adds a tab stop.
+
+## Accessibility
+
+- `<fieldset>` and `<legend>` name the choice; each tile's icon is
+  `aria-hidden` and the visually hidden name is the label.
+- Tiles are 36px square, so the pointer target clears the comfortable minimum
+  even at the densest column count.
+- The selected tile carries a background **and** a border, not colour alone.
+- The search input has its own label, derived from the picker's label.
+
+## Props
+
+<Controls of={IconPickerStories.Default} />

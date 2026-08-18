@@ -1,0 +1,125 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { SegmentedControl } from './SegmentedControl';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as SegmentedStories from './SegmentedControl.stories';
+
+<Meta of={SegmentedStories} />
+
+# Segmented Button
+
+Two to five mutually exclusive options, all visible, switching immediately.
+
+<Canvas of={SegmentedStories.Default} />
+
+## It looks like buttons and behaves like radios
+
+That is the whole design, and it is why the component exists rather than a row
+of `Button`s with an `active` class. Underneath are native radio inputs with a
+shared `name`: one tab stop, arrow keys between the segments, and a state that
+announces as **selected** instead of **pressed**.
+
+| Use `SegmentedControl` for                      | Use something else for                                     |
+| ----------------------------------------------- | ---------------------------------------------------------- |
+| A view switch — day, week, month                | More than five options — that is `Select`                  |
+| Density, granularity, sort direction            | A filter the user can clear — that needs a state for "off" |
+| A choice that changes what is on screen at once | A choice submitted with a form — that is `RadioGroup`      |
+
+## Do and don't
+
+### Short, parallel labels
+
+<Guidance>
+  <Do reason="One word each, the same part of speech, roughly the same width. The control can be read in a glance, which is the only reason to spend this much horizontal space on a choice.">
+    <SegmentedControl
+      legend="Period"
+      value="month"
+      onChange={() => {}}
+      options={[
+        { value: 'day', label: 'Day' },
+        { value: 'week', label: 'Week' },
+        { value: 'month', label: 'Month' },
+      ]}
+    />
+  </Do>
+  <Dont reason="Uneven phrases turn the control into a paragraph split across boxes. It stops being scannable, it wraps badly on a narrow screen, and it was a Select all along.">
+    <SegmentedControl
+      legend="Period"
+      value="month"
+      onChange={() => {}}
+      options={[
+        { value: 'day', label: 'Today only' },
+        { value: 'week', label: 'The last seven days' },
+        { value: 'month', label: 'This calendar month' },
+      ]}
+    />
+  </Dont>
+</Guidance>
+
+### Never five plus one
+
+<Guidance>
+  <Do reason="Three segments, each wide enough to hit and read. Past five, the segments are narrower than a comfortable target and the labels start truncating before the layout does.">
+    <SegmentedControl
+      legend="Row density"
+      showLegend
+      size="sm"
+      value="comfortable"
+      onChange={() => {}}
+      options={[
+        { value: 'compact', label: 'Compact' },
+        { value: 'comfortable', label: 'Comfortable' },
+      ]}
+    />
+  </Do>
+  <Dont reason="Seven segments in the space of three. On a phone this is a horizontal scroll containing a choice, which means the options the user cannot see may as well not exist.">
+    <SegmentedControl
+      legend="Month"
+      value="mar"
+      onChange={() => {}}
+      options={[
+        { value: 'jan', label: 'Jan' },
+        { value: 'feb', label: 'Feb' },
+        { value: 'mar', label: 'Mar' },
+        { value: 'apr', label: 'Apr' },
+        { value: 'may', label: 'May' },
+        { value: 'jun', label: 'Jun' },
+        { value: 'jul', label: 'Jul' },
+      ]}
+    />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Aesthetic and minimalist design">
+  Every additional segment competes for the same fixed width, so the cost of the sixth option is
+  paid by the five that were already there.
+</Heuristic>
+
+### The legend is required, even when hidden
+
+<Canvas of={SegmentedStories.WithVisibleLegend} />
+
+Sighted users read the choice from context — the segmented control sits next
+to the chart it filters. A screen reader user gets no such context, so
+`legend` is required and defaults to visually hidden. `showLegend` makes it
+visible when the control stands alone.
+
+### Selection is not only a colour
+
+The selected segment gets a raised surface, a heavier weight and a shadow, not
+just a tint. Where a single background colour is the only difference, the
+control fails for anyone in high-contrast mode or looking at a washed-out
+projector — the two states become one.
+
+## Accessibility
+
+- Native `<input type="radio">` per segment inside a `<fieldset>`: one tab
+  stop, arrow keys, wrapping, all from the platform.
+- The focus ring is drawn on the label, since the input itself is transparent
+  and stacked underneath.
+- `aria-checked` is not used — these are real radios, so the platform's own
+  `checked` state does the announcing.
+
+## Props
+
+<Controls of={SegmentedStories.Default} />

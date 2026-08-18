@@ -1,0 +1,89 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Switch } from './Switch';
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as SwitchStories from './Switch.stories';
+
+<Meta of={SwitchStories} />
+
+# Toggle switch
+
+A setting that takes effect the moment it is flipped.
+
+<Canvas of={SwitchStories.Default} />
+
+## Switch or checkbox
+
+One question decides it: **is there a Save button?**
+
+| Use `Switch` for                                  | Use `Checkbox` for                              |
+| ------------------------------------------------- | ----------------------------------------------- |
+| A preference that applies immediately             | A value submitted with the rest of a form       |
+| Something with a visible on/off state — a mode    | Accepting terms, choosing options, filters      |
+| A setting the user might flip back a second later | Anything that needs confirming before it counts |
+
+The distinction is not cosmetic. A switch that waits for a Save button lies
+about what it did, and the user leaves the screen believing the setting is on.
+
+## Do and don't
+
+### `role="switch"`, so the state is spoken as on and off
+
+<Guidance>
+  <Do reason="Built as a button with role='switch' and aria-checked. A screen reader says 'Two-factor authentication, switch, on' — the state arrives with the name, in the words the visible control uses.">
+    <Switch label="Two-factor authentication" checked onChange={() => {}} />
+  </Do>
+  <Dont reason="A styled checkbox announces 'checked', which is the vocabulary of a form field about to be submitted. The user hears a promise that a Save button exists somewhere on the screen.">
+    <label style={{ display: 'inline-flex', gap: 8, alignItems: 'center' }}>
+      <input type="checkbox" defaultChecked />
+      Two-factor authentication
+    </label>
+  </Dont>
+</Guidance>
+
+### Label the thing, not the action
+
+<Guidance>
+  <Do reason="The label names what is being controlled and the switch itself carries the state. This reads correctly in both positions, which a verb does not.">
+    <Switch label="Weekly digest" checked onChange={() => {}} />
+  </Do>
+  <Dont reason="'Enable weekly digest' next to an on switch asks the user to enable something already enabled. The label and the state now contradict each other, and the user reaches for the control to resolve it.">
+    <Switch label="Enable weekly digest" checked onChange={() => {}} />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Visibility of system status">
+  The control must say what is true right now. A label phrased as an instruction describes a future
+  action, so on any screen where the setting is already on, the two disagree.
+</Heuristic>
+
+### Say what happens, when it is not obvious
+
+<Canvas of={SwitchStories.WithDescription} />
+
+A switch with consequences — one that signs the user out of other devices,
+starts charging money, or emails their team — needs the consequence in
+`description`, before the flip. A confirmation dialog after the fact is a
+worse version of the same sentence, arriving too late to be a choice.
+
+### Disabled means the user cannot change it, not that it failed
+
+<Canvas of={SwitchStories.Disabled} />
+
+A disabled switch with no explanation is a dead end: the user cannot tell
+whether it is broken, still loading, or forbidden. If policy locks it, the
+label or the description says so.
+
+## Accessibility
+
+- `role="switch"` with `aria-checked` — the state is part of the accessible
+  name announcement, not a visual property.
+- `label` is required and connected with `aria-labelledby`; the text is
+  clickable too, so the target is the whole row rather than a 40px pill.
+- Space and Enter both operate it, because it is a real `<button>`.
+- The thumb animates, and the animation is suppressed by the global
+  reduced-motion rule — the position, not the movement, is the signal.
+
+## Props
+
+<Controls of={SwitchStories.Default} />
