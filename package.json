@@ -1,6 +1,6 @@
 {
   "name": "@bighatpoland/ui",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A small, opinionated design system: two token layers, WCAG AA enforced in CI, and rules an agent can read.",
   "license": "MIT",
   "author": "Konstancja Tanjga-Nawrot",
