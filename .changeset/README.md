@@ -14,5 +14,11 @@ for the person upgrading, not for the person who wrote the code:
 - **Good:** "`Button` splits `variant` into `variant` and `tone`. `variant="danger"` still works and warns; see MIGRATION.md."
 
 Merging to `main` opens a _Version Packages_ pull request that collects the
-pending changesets. Publishing to npm happens when that PR is merged — so
-bumping a version is always a separate, reviewed decision.
+pending changesets. Merging **that** pull request bumps the version and writes
+`CHANGELOG.md` — so a version bump is always a separate, reviewed decision
+rather than a side effect of merging a feature.
+
+Publication to a registry is deliberately not automated. It has its own
+credentials and its own failure modes, and wiring it into every merge to `main`
+means the pipeline can go red for a reason that has nothing to do with the
+code. To publish, run `npm run release` locally with an npm token.

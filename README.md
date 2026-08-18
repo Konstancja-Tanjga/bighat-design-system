@@ -3,10 +3,11 @@
 A small design system built to answer the question interviews actually ask:
 **not "can you make a button", but "what did you decide, and what did it cost".**
 
-Eight components. Two token layers. WCAG AA enforced by a failing build rather
-than a review comment. One breaking change, argued for and shipped with a
-migration path. And a skill file that lets a coding agent follow the system's
-rules instead of inventing its own.
+Seventeen components in two layers — the everyday controls, and the frame they
+sit in. Two token layers. WCAG AA enforced by a failing build rather than a
+review comment. One breaking change, argued for and shipped with a migration
+path. Two whole-page templates. And a skill file that lets a coding agent
+follow the system's rules instead of inventing its own.
 
 **[Storybook →](https://bighatpoland.github.io/bighat-design-system/)**
 
@@ -122,6 +123,20 @@ diff.
 | `Badge`      | Short status on an object           | Bare counts, anything clickable        |
 | `StateBlock` | Empty, loading, error               | The happy path                         |
 
+And the frame those sit in:
+
+|             | Use it for                               | Not for                                  |
+| ----------- | ---------------------------------------- | ---------------------------------------- |
+| `AppShell`  | The application frame and its landmarks  | Document or marketing pages              |
+| `AppBar`    | Brand, screen title, screen actions      | Repeating the product name               |
+| `NavRail`   | Top-level destinations, icon-first       | Actions — a rail holds places, not verbs |
+| `SidePanel` | A persistent panel beside the content    | Blocking interaction — use `Dialog`      |
+| `NavList`   | Grouped list inside a panel              | Tabular data, deep nesting               |
+| `Composer`  | Prompt input for conversational products | Short single-line values                 |
+| `Board`     | Columns of cards moving through stages   | Data the user compares — use `Table`     |
+| `Card`      | A surface acted on as a unit             | Wrapping a paragraph                     |
+| `Skeleton`  | Placeholder where the shape is known     | A wait of unknown shape                  |
+
 Every component ships a **Do / Don't** page in the Storybook: live examples of
 the right and the wrong version side by side, each with the reason rather than
 the instruction, anchored to a named usability heuristic. "Don't do X" gets
@@ -141,10 +156,32 @@ reimplementing badly.
 
 ---
 
+## Templates
+
+Two whole-page templates, in the Storybook rather than in the package — a
+template you can install becomes a dependency, and then a team is blocked on
+the design system to change their own layout.
+
+|                  | The pattern                       | The decision it carries                                                                    |
+| ---------------- | --------------------------------- | ------------------------------------------------------------------------------------------ |
+| **AI Chat**      | Conversational analysis workspace | The prompt field is a `<textarea>` in a `<form>`, and the response modes are a radio group |
+| **Kanban board** | Documents moving through stages   | Moving a card works without a pointer — WCAG 2.5.1                                         |
+
+Each ships four or five stories, not one: ready, loading, empty and error.
+Assembling a happy path from good components is the easy half; remembering on
+every screen that a request can return nothing is the half that costs teams
+weeks.
+
+---
+
 ## Install
 
+Not published to a registry — versioning is automated, publication is not, and
+pretending otherwise would put a dead `npm install` line at the top of the
+README. Install from the repository:
+
 ```bash
-npm install @bighatpoland/ui
+npm install github:bighatpoland/bighat-design-system
 ```
 
 ```tsx

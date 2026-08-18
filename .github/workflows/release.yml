@@ -1,4 +1,4 @@
-name: Release
+name: Version
 
 on:
   push:
@@ -7,10 +7,9 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  id-token: write
 
 concurrency:
-  group: release
+  group: version
   cancel-in-progress: false
 
 jobs:
@@ -25,22 +24,26 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          registry-url: https://registry.npmjs.org
 
       - run: npm ci
 
       - run: npm run verify
 
-      # Opens (or updates) a "Version Packages" PR collecting every changeset.
-      # Merging that PR is what publishes — so the version bump is a reviewed
-      # decision, not a side effect of merging a feature.
+      # Opens (or updates) a "Version Packages" pull request collecting every
+      # pending changeset. Merging it bumps the version and writes CHANGELOG.md
+      # — so the version bump is a reviewed decision rather than a side effect
+      # of merging a feature.
+      #
+      # There is deliberately no `publish` step. Registry publication is a
+      # separate concern with its own credentials and its own failure modes,
+      # and wiring it in here would mean every merge to main could fail for a
+      # reason that has nothing to do with the code. To publish, run
+      # `npm run release` locally with an npm token, or add the step back
+      # together with an NPM_TOKEN secret.
       - uses: changesets/action@v1
         with:
           version: npx changeset version
-          publish: npx changeset publish
           commit: 'chore: version packages'
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
