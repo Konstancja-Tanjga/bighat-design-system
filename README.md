@@ -1,4 +1,4 @@
-# @bighatpoland/ui
+# [Storybook](https://konstancja-tanjga.github.io/bighat-design-system/)
 
 A small design system built to answer the question interviews actually ask:
 **not "can you make a button", but "what did you decide, and what did it cost".**
