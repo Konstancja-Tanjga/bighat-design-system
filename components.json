@@ -1,6 +1,6 @@
 {
   "name": "@bighatpoland/ui",
-  "version": "3.0.0",
+  "version": "3.2.0",
   "skill": "./agent/SKILL.md",
   "storybook": "https://bighatpoland.github.io/bighat-design-system/",
   "tokens": {
@@ -18,14 +18,26 @@
       "gap",
       "padding",
       "radius",
-      "elevation"
+      "elevation",
+      "textSize",
+      "textLeading",
+      "breakpoint"
     ],
     "contrast": {
       "standard": "WCAG 2.1 AA",
       "bodyText": 4.5,
       "largeText": 3,
       "nonText": 3,
-      "enforcedBy": "src/tokens/contrast.test.ts — runs in CI, fails the build"
+      "enforcedBy": "src/tokens/contrast.test.ts \u2014 runs in CI, fails the build"
+    },
+    "breakpoints": {
+      "values": {
+        "sm": "480px",
+        "md": "900px",
+        "lg": "1200px"
+      },
+      "note": "Container widths, not viewport widths. A component responds to the space it was given \u2014 the same Table sits in main at 1200px, in a SidePanel at 432px and in a Card at 280px on one screen. Component CSS uses @container, and the literals are duplicated there because CSS cannot read a custom property inside a query.",
+      "enforcedBy": "src/tokens/breakpoints.test.ts \u2014 walks every stylesheet, fails the build on any query threshold that is not a declared token"
     }
   },
   "components": [
@@ -61,7 +73,7 @@
     {
       "name": "AppBar",
       "purpose": "The top bar. Three slots in reading order: brand, title, actions.",
-      "notFor": ["Repeating the product name in title — brand already carries it"],
+      "notFor": ["Repeating the product name in title \u2014 brand already carries it"],
       "props": {
         "brand": {
           "type": "ReactNode",
@@ -88,8 +100,8 @@
     },
     {
       "name": "AppShell",
-      "purpose": "The frame every application screen sits in. Owns the landmark structure — header, nav, main, complementary.",
-      "notFor": ["Documentation and marketing pages — use height=\"flow\" or no shell at all"],
+      "purpose": "The frame every application screen sits in. Owns the landmark structure \u2014 header, nav, main, complementary.",
+      "notFor": ["Documentation and marketing pages \u2014 use height=\"flow\" or no shell at all"],
       "props": {
         "header": {
           "type": "ReactNode",
@@ -101,11 +113,11 @@
         },
         "sidebar": {
           "type": "ReactNode",
-          "note": "Leading panel — navigation, a tree."
+          "note": "Leading panel \u2014 navigation, a tree."
         },
         "aside": {
           "type": "ReactNode",
-          "note": "Trailing panel — inspector, context."
+          "note": "Trailing panel \u2014 inspector, context."
         },
         "children": {
           "type": "ReactNode",
@@ -116,6 +128,22 @@
           "type": "'fill' | 'flow'",
           "default": "fill",
           "meaning": "fill pins to the viewport and scrolls each region independently"
+        },
+        "navOpen": {
+          "type": "boolean",
+          "default": false,
+          "note": "Below breakpoint.md the rail and sidebar leave the grid; with onNavToggle they return as an overlay instead of simply vanishing."
+        },
+        "onNavToggle": {
+          "type": "() => void",
+          "note": "Omit and the panels stay hidden below the breakpoint \u2014 honest, but the reader has no route back to them."
+        },
+        "asideOpen": {
+          "type": "boolean",
+          "default": false
+        },
+        "onAsideToggle": {
+          "type": "() => void"
         }
       },
       "exports": ["AppShell", "SkipLink"],
@@ -171,14 +199,14 @@
         "children": {
           "type": "ReactNode",
           "required": true,
-          "note": "Required by design — colour alone fails WCAG 1.4.1."
+          "note": "Required by design \u2014 colour alone fails WCAG 1.4.1."
         }
       }
     },
     {
       "name": "Board",
-      "purpose": "Columns of cards — kanban, pipeline, review queue.",
-      "notFor": ["Ordered data the user compares — that is Table"],
+      "purpose": "Columns of cards \u2014 kanban, pipeline, review queue.",
+      "notFor": ["Ordered data the user compares \u2014 that is Table"],
       "props": {
         "Board.ariaLabel": {
           "type": "string",
@@ -198,7 +226,7 @@
         },
         "BoardColumn.limit": {
           "type": "number",
-          "note": "WIP limit — surfaced, never enforced."
+          "note": "WIP limit \u2014 surfaced, never enforced."
         },
         "BoardColumn.empty": {
           "type": "ReactNode",
@@ -209,14 +237,14 @@
         },
         "BoardCard.onMove": {
           "type": "(targetId: string) => void",
-          "note": "Required for a pointer-free move — WCAG 2.5.1."
+          "note": "Required for a pointer-free move \u2014 WCAG 2.5.1."
         }
       }
     },
     {
       "name": "Breadcrumbs",
       "purpose": "Position in a hierarchy. The last crumb is the current page and is not a link.",
-      "notFor": ["Click history", "A two-level hierarchy — a back link is enough"],
+      "notFor": ["Click history", "A two-level hierarchy \u2014 a back link is enough"],
       "props": {
         "items": {
           "type": "BreadcrumbItem[]",
@@ -236,7 +264,7 @@
     {
       "name": "Button",
       "purpose": "An action the user takes.",
-      "notFor": ["Navigation — use an anchor styled as a link"],
+      "notFor": ["Navigation \u2014 use an anchor styled as a link"],
       "props": {
         "variant": {
           "type": "'primary' | 'secondary' | 'ghost'",
@@ -263,7 +291,7 @@
         },
         "iconStart": {
           "type": "ReactNode",
-          "note": "Decorative — hidden from assistive tech."
+          "note": "Decorative \u2014 hidden from assistive tech."
         },
         "iconEnd": {
           "type": "ReactNode"
@@ -286,7 +314,7 @@
       "name": "Card",
       "purpose": "A bounded surface around content the user might act on as a unit.",
       "notFor": [
-        "A paragraph — that is a border with extra steps",
+        "A paragraph \u2014 that is a border with extra steps",
         "Cards with two actions inside"
       ],
       "props": {
@@ -309,7 +337,7 @@
         "accent": {
           "type": "'none' | 'info' | 'success' | 'warning' | 'critical'",
           "default": "none",
-          "note": "Decorative — never the only carrier of a status."
+          "note": "Decorative \u2014 never the only carrier of a status."
         },
         "padding": {
           "type": "'snug' | 'normal'",
@@ -325,8 +353,8 @@
       "name": "Checkbox",
       "purpose": "An independent yes/no that is submitted with a form.",
       "notFor": [
-        "An immediate setting — that is Switch",
-        "Mutually exclusive options — that is RadioGroup"
+        "An immediate setting \u2014 that is Switch",
+        "Mutually exclusive options \u2014 that is RadioGroup"
       ],
       "props": {
         "label": {
@@ -351,8 +379,8 @@
       "name": "Combobox",
       "purpose": "A text field that filters a list. The one custom listbox in the system.",
       "notFor": [
-        "A short, fixed set — use Select",
-        "Free text — the value must come from the list"
+        "A short, fixed set \u2014 use Select",
+        "Free text \u2014 the value must come from the list"
       ],
       "props": {
         "label": {
@@ -384,7 +412,7 @@
     },
     {
       "name": "Composer",
-      "purpose": "The prompt input — a textarea in a form, with optional single-choice modes.",
+      "purpose": "The prompt input \u2014 a textarea in a form, with optional single-choice modes.",
       "notFor": ["Ordinary multi-line form fields"],
       "props": {
         "label": {
@@ -439,12 +467,12 @@
           "default": 8
         }
       },
-      "note": "Enter submits, Shift+Enter adds a line — and the form still submits the ordinary way, so switch access and voice control work without knowing the key handler."
+      "note": "Enter submits, Shift+Enter adds a line \u2014 and the form still submits the ordinary way, so switch access and voice control work without knowing the key handler."
     },
     {
       "name": "DatePicker",
       "purpose": "A native date input, with the format and range stated in the description.",
-      "notFor": ["A custom calendar grid", "A duration — that is two fields"],
+      "notFor": ["A custom calendar grid", "A duration \u2014 that is two fields"],
       "props": {
         "label": {
           "type": "string",
@@ -472,9 +500,35 @@
       "exports": ["DatePicker", "DateRangePicker"]
     },
     {
+      "name": "DescriptionList",
+      "purpose": "Term and value pairs \u2014 a record read rather than a form filled. A real <dl>, so a screen reader knows which label owns which value.",
+      "notFor": ["A form \u2014 these are values, not inputs", "Two columns of unrelated data"],
+      "props": {
+        "items": {
+          "type": "DescriptionItem[]",
+          "required": true,
+          "note": "{ term, value, wide? }. `wide` spans both columns in layout=columns."
+        },
+        "layout": {
+          "type": "'rows' | 'columns'",
+          "default": "columns",
+          "note": "rows stacks term above value \u2014 right in a narrow panel. columns puts the term in a gutter so values align and can be read down."
+        },
+        "density": {
+          "type": "'comfortable' | 'compact'",
+          "default": "comfortable"
+        },
+        "ariaLabel": {
+          "type": "string",
+          "note": "Makes it a labelled group. Omit inside an already-labelled region \u2014 a nameless group is noise."
+        }
+      },
+      "exports": ["DescriptionList"]
+    },
+    {
       "name": "Dialog",
       "purpose": "A decision that must block the rest of the page. Native <dialog>.",
-      "notFor": ["Non-blocking feedback — use Toast"],
+      "notFor": ["Non-blocking feedback \u2014 use Toast"],
       "props": {
         "open": {
           "type": "boolean",
@@ -509,7 +563,7 @@
     {
       "name": "Divider",
       "purpose": "A line between things. Decorative unless it carries a label.",
-      "notFor": ["Spacing — use the gap tokens"],
+      "notFor": ["Spacing \u2014 use the gap tokens"],
       "props": {
         "orientation": {
           "type": "'horizontal' | 'vertical'",
@@ -528,7 +582,7 @@
     {
       "name": "IconPicker",
       "purpose": "Choosing one icon from a searchable grid. A radio group, not a wall of buttons.",
-      "notFor": ["An icon set with no names — the name is the accessible label"],
+      "notFor": ["An icon set with no names \u2014 the name is the accessible label"],
       "props": {
         "label": {
           "type": "string",
@@ -559,7 +613,7 @@
     {
       "name": "Input",
       "purpose": "Single-line text entry with label, description and error wired to ARIA.",
-      "notFor": ["Controls with their own keyboard model — date pickers, comboboxes"],
+      "notFor": ["Controls with their own keyboard model \u2014 date pickers, comboboxes"],
       "props": {
         "label": {
           "type": "string",
@@ -584,8 +638,8 @@
       "name": "List",
       "purpose": "A vertical list of records: leading media, title, supporting line, trailing slot.",
       "notFor": [
-        "Data the user compares or sorts — that is Table",
-        "A selectable master pane — that is ListView"
+        "Data the user compares or sorts \u2014 that is Table",
+        "A selectable master pane \u2014 that is ListView"
       ],
       "props": {
         "ariaLabel": {
@@ -618,8 +672,8 @@
       "name": "ListView",
       "purpose": "A selectable master list driving a detail pane. One tab stop, arrows, type-ahead.",
       "notFor": [
-        "Multi-select — that is a Table with a checkbox column",
-        "Static records — that is List"
+        "Multi-select \u2014 that is a Table with a checkbox column",
+        "Static records \u2014 that is List"
       ],
       "props": {
         "ariaLabel": {
@@ -646,7 +700,7 @@
     {
       "name": "Menu",
       "purpose": "A list of actions behind a trigger. Focus moves in on open and back on close.",
-      "notFor": ["Navigation — those are links", "Choosing a value — that is Select"],
+      "notFor": ["Navigation \u2014 those are links", "Choosing a value \u2014 that is Select"],
       "props": {
         "label": {
           "type": "ReactNode",
@@ -669,9 +723,9 @@
     },
     {
       "name": "NavList",
-      "purpose": "Grouped list inside a side panel — saved views, recent items, a shallow tree.",
-      "notFor": ["Tabular data — use Table"],
-      "usage": "<NavGroup label=\"Pinned\"><NavItem item={…} active onSelect={…} /></NavGroup>",
+      "purpose": "Grouped list inside a side panel \u2014 saved views, recent items, a shallow tree.",
+      "notFor": ["Tabular data \u2014 use Table"],
+      "usage": "<NavGroup label=\"Pinned\"><NavItem item={\u2026} active onSelect={\u2026} /></NavGroup>",
       "exports": ["NavList", "NavGroup", "NavItem"],
       "props": {
         "item": {
@@ -688,7 +742,7 @@
         },
         "label": {
           "type": "string",
-          "note": "On NavGroup — wired with aria-labelledby."
+          "note": "On NavGroup \u2014 wired with aria-labelledby."
         },
         "ariaLabel": {
           "type": "string",
@@ -726,12 +780,54 @@
           "note": "Names the landmark."
         }
       },
-      "note": "NavRailItem.label is required — it is the accessible name, the tooltip and the optional caption. An icon-only rail without it is a memory test."
+      "note": "NavRailItem.label is required \u2014 it is the accessible name, the tooltip and the optional caption. An icon-only rail without it is a memory test."
+    },
+    {
+      "name": "Pagination",
+      "purpose": "Paging over a set too large to render. Reports a range and a total, because '21\u201340 of 312' is a fact about the data and 'page 2 of 16' is a fact about the component.",
+      "notFor": ["Infinite scroll", "Fewer rows than one page holds \u2014 then show them all"],
+      "props": {
+        "page": {
+          "type": "number",
+          "required": true,
+          "note": "Zero-based, so it indexes the data without arithmetic at the call site."
+        },
+        "pageSize": {
+          "type": "number",
+          "required": true
+        },
+        "total": {
+          "type": "number",
+          "note": "Rows in the whole set. Omit for a cursor-paged endpoint that does not know."
+        },
+        "onPageChange": {
+          "type": "(page: number) => void",
+          "required": true
+        },
+        "pageSizeOptions": {
+          "type": "number[]",
+          "note": "Omit to hide the size control."
+        },
+        "onPageSizeChange": {
+          "type": "(pageSize: number) => void"
+        },
+        "unit": {
+          "type": "string",
+          "default": "results",
+          "note": "What is counted: 'invoices', 'documents'."
+        },
+        "busy": {
+          "type": "boolean",
+          "default": false,
+          "note": "Disables both controls while a request is in flight."
+        }
+      },
+      "exports": ["Pagination"]
     },
     {
       "name": "Progress",
       "purpose": "How far along something is. Determinate or honestly indeterminate.",
-      "notFor": ["A fake bar that waits at 90%", "A skeleton's job — an unknown layout"],
+      "notFor": ["A fake bar that waits at 90%", "A skeleton's job \u2014 an unknown layout"],
       "props": {
         "label": {
           "type": "string",
@@ -763,8 +859,8 @@
       "name": "RadioGroup",
       "purpose": "One choice out of a visible, mutually exclusive set. The group is the component.",
       "notFor": [
-        "More than about six options — that is Select or Combobox",
-        "Independent toggles — that is Checkbox"
+        "More than about six options \u2014 that is Select or Combobox",
+        "Independent toggles \u2014 that is Checkbox"
       ],
       "props": {
         "legend": {
@@ -875,7 +971,7 @@
     {
       "name": "SidePanel",
       "purpose": "A persistent panel beside the main content.",
-      "notFor": ["Anything blocking — use Dialog", "Transient drawers"],
+      "notFor": ["Anything blocking \u2014 use Dialog", "Transient drawers"],
       "props": {
         "ariaLabel": {
           "type": "string",
@@ -913,12 +1009,12 @@
           "type": "() => void"
         }
       },
-      "note": "Never traps focus and never makes the page inert — the user works in main and reads the panel at the same time."
+      "note": "Never traps focus and never makes the page inert \u2014 the user works in main and reads the panel at the same time."
     },
     {
       "name": "Skeleton",
       "purpose": "A placeholder for content whose shape is already known.",
-      "notFor": ["Waits with no known shape — use StateBlock state=\"loading\""],
+      "notFor": ["Waits with no known shape \u2014 use StateBlock state=\"loading\""],
       "usage": "Wrap bones in <SkeletonGroup label=\"Loading documents\">; the group makes the single announcement.",
       "exports": ["Skeleton", "SkeletonGroup"],
       "props": {
@@ -951,7 +1047,7 @@
       "name": "Slider",
       "purpose": "A native range input for an approximate value on a continuum.",
       "notFor": [
-        "A value the user needs to type exactly — that is Input",
+        "A value the user needs to type exactly \u2014 that is Input",
         "Fewer than about ten steps"
       ],
       "props": {
@@ -977,7 +1073,7 @@
         },
         "formatValue": {
           "type": "(value: number) => string",
-          "note": "Becomes aria-valuetext — '24' alone means nothing."
+          "note": "Becomes aria-valuetext \u2014 '24' alone means nothing."
         }
       }
     },
@@ -1020,15 +1116,15 @@
         }
       },
       "announcements": {
-        "loading": "role=status — polite, must not interrupt",
-        "error": "role=alert — assertive, the user's action failed",
-        "empty": "no live region — a successful response with nothing in it"
+        "loading": "role=status \u2014 polite, must not interrupt",
+        "error": "role=alert \u2014 assertive, the user's action failed",
+        "empty": "no live region \u2014 a successful response with nothing in it"
       }
     },
     {
       "name": "StatusBar",
       "purpose": "The thin bar at the bottom of an application. Its message slot is a polite live region.",
-      "notFor": ["Anything urgent — that is Toast", "Actions — that is Toolbar"],
+      "notFor": ["Anything urgent \u2014 that is Toast", "Actions \u2014 that is Toolbar"],
       "props": {
         "items": {
           "type": "StatusBarItem[]",
@@ -1050,7 +1146,7 @@
     {
       "name": "Switch",
       "purpose": "An immediate setting. Takes effect on click, with no Save button.",
-      "notFor": ["A value submitted with a form — that is Checkbox"],
+      "notFor": ["A value submitted with a form \u2014 that is Checkbox"],
       "props": {
         "label": {
           "type": "ReactNode",
@@ -1076,7 +1172,7 @@
     },
     {
       "name": "Table",
-      "purpose": "Comparable rows of structured data.",
+      "purpose": "Dense enterprise data. Sort and paging are controlled, empty/loading/error delegate to StateBlock, and the narrow form is declared rather than guessed.",
       "notFor": ["Layout"],
       "props": {
         "caption": {
@@ -1098,7 +1194,7 @@
         },
         "sort": {
           "type": "{ key: string; direction: 'ascending' | 'descending' }",
-          "note": "Controlled — the same component works with server-side sorting."
+          "note": "Controlled \u2014 the same component works with server-side sorting."
         },
         "onSortChange": {
           "type": "(sort) => void"
@@ -1106,6 +1202,45 @@
         "state": {
           "type": "StateBlockProps",
           "note": "Replaces the body with a StateBlock across every column."
+        },
+        "responsive": {
+          "type": "'scroll' | 'stack' | 'priority'",
+          "default": "scroll",
+          "note": "scroll keeps the grid and scrolls the container \u2014 right when the reader is comparing across columns. stack turns each row into term/value pairs via DescriptionList \u2014 right at six columns or fewer. priority moves low-priority columns into a per-row disclosure \u2014 right for a wide table with one identifying column. Queries are @container, so it responds to its own width and works in a SidePanel."
+        },
+        "selection": {
+          "type": "{ selected: Set<string>, onChange, label? }",
+          "note": "Checkbox column plus a tri-state select-all. Partial resolves to 'select the rest', never to 'clear'."
+        },
+        "rowActions": {
+          "type": "(row) => MenuItem[]",
+          "note": "Per-row overflow Menu, which already solves focus return."
+        },
+        "stickyHeader": {
+          "type": "boolean",
+          "default": false,
+          "note": "Column meaning is lost the moment the header scrolls away."
+        },
+        "density": {
+          "type": "'comfortable' | 'compact'",
+          "default": "comfortable"
+        },
+        "totals": {
+          "type": "(rows) => ReactNode[]",
+          "note": "Rendered in <tfoot>, so a sort cannot move it into the data."
+        },
+        "Column.numeric": {
+          "type": "boolean",
+          "note": "Aligns end and sets tabular-nums. Two things always wanted together."
+        },
+        "Column.priority": {
+          "type": "1 | 2 | 3",
+          "default": 1,
+          "note": "What survives when the container narrows, under responsive=priority. Declared by whoever knows the domain."
+        },
+        "Column.hideWhenStacked": {
+          "type": "boolean",
+          "note": "For a column with no value to label, such as actions."
         }
       }
     },
@@ -1113,7 +1248,7 @@
       "name": "Tabs",
       "purpose": "A filter over one screen. Roving tabindex, arrows to move, panel is the next tab stop.",
       "notFor": [
-        "Content with its own URL — those are links",
+        "Content with its own URL \u2014 those are links",
         "More tabs than fit without scrolling"
       ],
       "props": {
@@ -1151,7 +1286,7 @@
     {
       "name": "Toast",
       "purpose": "Ephemeral confirmation that something happened.",
-      "notFor": ["Errors the user must act on in place — use StateBlock"],
+      "notFor": ["Errors the user must act on in place \u2014 use StateBlock"],
       "usage": "Wrap the app in <ToastProvider>, then call useToast().notify(...).",
       "props": {
         "tone": {
@@ -1174,7 +1309,7 @@
     {
       "name": "Toolbar",
       "purpose": "A row of controls acting on the content below it. One tab stop, arrows between controls.",
-      "notFor": ["Page-level navigation — that is AppBar", "A single button"],
+      "notFor": ["Page-level navigation \u2014 that is AppBar", "A single button"],
       "props": {
         "ariaLabel": {
           "type": "string",
@@ -1203,7 +1338,7 @@
       "name": "Tooltip",
       "purpose": "A short label for a control that has none. Dismissible, hoverable, persistent.",
       "notFor": [
-        "Anything interactive inside it — that is a popover",
+        "Anything interactive inside it \u2014 that is a popover",
         "Text the user must read to succeed"
       ],
       "props": {
@@ -1232,7 +1367,7 @@
     {
       "name": "UserProfile",
       "purpose": "Who is signed in, and the account actions. Name as text, not only as initials.",
-      "notFor": ["Showing another person — that is Avatar", "App navigation"],
+      "notFor": ["Showing another person \u2014 that is Avatar", "App navigation"],
       "props": {
         "name": {
           "type": "string",
@@ -1240,7 +1375,7 @@
         },
         "secondary": {
           "type": "string",
-          "note": "E-mail or tenant — what tells two accounts apart."
+          "note": "E-mail or tenant \u2014 what tells two accounts apart."
         },
         "items": {
           "type": "MenuItem[]",
@@ -1260,19 +1395,19 @@
   "rules": [
     "Never reference a primitive token from product code.",
     "Never use a spacing value outside the 4px scale.",
-    "Never write a bespoke empty, loading or error state — use StateBlock.",
+    "Never write a bespoke empty, loading or error state \u2014 use StateBlock.",
     "Never let colour be the only carrier of meaning.",
     "Never remove a focus outline; add className=\"bh-focusable\" instead.",
     "Never use a placeholder in place of a label.",
     "Prefer a new component over a new prop on an existing one.",
-    "Never rebuild the application frame out of divs — AppShell carries the named landmarks.",
+    "Never rebuild the application frame out of divs \u2014 AppShell carries the named landmarks.",
     "Never ship a drag-only interaction; BoardCard.onMove is the pointer-free path (WCAG 2.5.1).",
-    "Never use a Skeleton for a wait whose shape is unknown — it promises a layout that never arrives.",
+    "Never use a Skeleton for a wait whose shape is unknown \u2014 it promises a layout that never arrives.",
     "Never leave a SidePanel or NavRail without an ariaLabel.",
-    "Never use role=\"toolbar\", \"tablist\" or \"listbox\" without the arrow-key handling they promise — Toolbar, Tabs and ListView already implement it.",
+    "Never use role=\"toolbar\", \"tablist\" or \"listbox\" without the arrow-key handling they promise \u2014 Toolbar, Tabs and ListView already implement it.",
     "Never put an interactive element inside a Tooltip; a tooltip the user has to reach is a popover.",
     "Never use a Switch for a value that is submitted with a form, or a Checkbox for one that takes effect immediately.",
-    "Never let a Combobox commit free text — the value must come from the list.",
+    "Never let a Combobox commit free text \u2014 the value must come from the list.",
     "Never build a scrollable region without a keyboard path to it; ScrollArea adds the tab stop only while it overflows."
   ],
   "templates": {

@@ -161,6 +161,30 @@ promises a layout that never arrives — use `StateBlock state="loading"`.
 Wrap a set in `SkeletonGroup` so one polite announcement covers all of them;
 individual bones are `aria-hidden` and must stay that way.
 
+## 11b. A responsive table declares its form
+
+`Table` takes `responsive`, and the default `'scroll'` is what it always did.
+Choose deliberately:
+
+- `'scroll'` — the reader is comparing across columns, and collapsing destroys
+  the comparison.
+- `'stack'` — six columns or fewer, every value load-bearing. Each row becomes
+  term/value pairs through `DescriptionList`.
+- `'priority'` — a wide table with one identifying column. Give every column a
+  `priority`; 2 and 3 move into a per-row disclosure.
+
+Never pick by guessing from column count alone — the right form depends on
+whether the reader is scanning for one row or comparing across many, which is a
+fact about the screen.
+
+Two more rules that are easy to get wrong:
+
+- Responsive rules here are `@container`, not `@media`. Write no viewport media
+  query to make a library component fit a library container; if one seems
+  necessary, that is a bug to report rather than to work around.
+- Any width threshold you write in CSS must be a value from `breakpoint`.
+  `src/tokens/breakpoints.test.ts` fails the build otherwise.
+
 ## 12. Templates are a starting point, not a dependency
 
 Templates live in Storybook and are deliberately **not** exported from the
@@ -223,6 +247,8 @@ Machine-readable in `components.json`. Human-readable in the Storybook at
 | `StatusBar`        | Ambient state at the foot of the app    | Anything urgent — use `Toast`         |
 | `Divider`          | A line between things                   | Spacing — use the gap tokens          |
 | `ScrollArea`       | A keyboard-reachable scroll region      | Scrollbars drawn out of divs          |
+| `DescriptionList`  | A record read — term and value pairs    | A form; unrelated columns             |
+| `Pagination`       | Paging a set too large to render        | Infinite scroll; one page of rows     |
 
 ## Not in the system yet
 

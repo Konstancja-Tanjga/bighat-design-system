@@ -52,7 +52,13 @@ export { StateBlock } from './components/StateBlock/StateBlock';
 export type { StateBlockProps, StateBlockState } from './components/StateBlock/StateBlock';
 
 export { Table } from './components/Table/Table';
-export type { Column, SortDirection, TableProps } from './components/Table/Table';
+export type {
+  Column,
+  SortDirection,
+  TableProps,
+  TableResponsive,
+  TableSelection,
+} from './components/Table/Table';
 
 export { ToastProvider, useToast } from './components/Toast/Toast';
 export type { Toast, ToastTone } from './components/Toast/Toast';
@@ -75,6 +81,12 @@ export type { ComboboxOption, ComboboxProps } from './components/Combobox/Combob
 export { DatePicker, DateRangePicker } from './components/DatePicker/DatePicker';
 export type { DatePickerProps, DateRangePickerProps } from './components/DatePicker/DatePicker';
 
+export { DescriptionList } from './components/DescriptionList/DescriptionList';
+export type {
+  DescriptionItem,
+  DescriptionListProps,
+} from './components/DescriptionList/DescriptionList';
+
 export { Divider } from './components/Divider/Divider';
 export type { DividerProps } from './components/Divider/Divider';
 
@@ -89,6 +101,9 @@ export type { ListViewItem, ListViewProps } from './components/ListView/ListView
 
 export { Menu } from './components/Menu/Menu';
 export type { MenuItem, MenuProps } from './components/Menu/Menu';
+
+export { Pagination } from './components/Pagination/Pagination';
+export type { PaginationProps } from './components/Pagination/Pagination';
 
 export { Progress } from './components/Progress/Progress';
 export type { ProgressProps } from './components/Progress/Progress';

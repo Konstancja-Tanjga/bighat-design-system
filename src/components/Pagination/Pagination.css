@@ -1,0 +1,48 @@
+.bh-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bh-gap-loose);
+  padding: var(--bh-padding-block) var(--bh-padding-inline);
+  font-family: var(--bh-font-family);
+  font-size: var(--bh-text-size-body);
+  color: var(--bh-text-secondary);
+}
+
+.bh-pagination__summary {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The range is the one thing here that changes, so it holds its width and
+   the buttons beside it do not shuffle as the reader pages through. */
+.bh-pagination__summary {
+  min-width: 14ch;
+}
+
+.bh-pagination__controls {
+  display: flex;
+  gap: var(--bh-gap-snug);
+  margin-left: auto;
+}
+
+/* The size control keeps its label — the system does not ship hidden
+   labels — so the field lays out inline instead of stacking. */
+.bh-pagination__size .bh-field {
+  display: flex;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+}
+
+.bh-pagination__size .bh-field__label {
+  margin: 0;
+  white-space: nowrap;
+  color: var(--bh-text-muted);
+}
+
+@container (max-width: 480px) {
+  .bh-pagination__controls {
+    margin-left: 0;
+    width: 100%;
+  }
+}

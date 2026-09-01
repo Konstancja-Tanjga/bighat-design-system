@@ -11,7 +11,7 @@
  * not a production bug.
  */
 
-import { color, radius, shadow, space } from './primitives';
+import { breakpoint, color, fontSize, lineHeight, radius, shadow, space } from './primitives';
 
 export type ThemeName = 'light' | 'dark';
 
@@ -152,6 +152,20 @@ export const themes: Record<ThemeName, SemanticColors> = { light, dark };
 /** Non-colour semantics. Same idea: a role, not a measurement. */
 export const size = {
   control: { sm: '28px', md: '36px', lg: '44px' },
+  /**
+   * Type sizes by role, so a component can switch density without every
+   * stylesheet hard-coding px. `body` is the default reading size in a
+   * dense application; `dense` is the same role one step tighter.
+   */
+  textSize: {
+    caption: fontSize.md,
+    body: fontSize.sm,
+    dense: fontSize.xs,
+    label: fontSize.xs,
+  },
+  textLeading: { tight: lineHeight.tight, normal: lineHeight.normal },
+  /** Emitted for documentation and JS; queries use the literals. */
+  breakpoint,
   gap: { tight: space[1], snug: space[2], normal: space[3], loose: space[4] },
   padding: { inline: space[3], block: space[2], section: space[6] },
   radius: { control: radius.md, surface: radius.lg, pill: radius.full },

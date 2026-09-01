@@ -1,0 +1,52 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import * as Stories from './Pagination.stories';
+
+<Meta of={Stories} />
+
+# Pagination
+
+Paging over a set that is too large to render.
+
+<Canvas of={Stories.Default} />
+
+## Controlled, like sort
+
+The day the data outgrows one response, paging moves to the server. A component
+that owned the page number locally has to be rewritten on that day; one that
+never owned it does not. This is the same argument `Table` makes about sort, and
+adding `Pagination` uncontrolled would have reintroduced exactly the problem
+sort already avoided.
+
+## A range, not a page count
+
+“21–40 of 312 invoices” is a fact about the data. “Page 2 of 16” is a fact about
+the component — it changes when the page size changes, and it tells the reader
+nothing they came to find out.
+
+The summary is the component's output, so it is the live region: a screen reader
+hears the new range after **Next**, not just the word “button”.
+
+<Canvas of={Stories.UnknownTotal} />
+
+A cursor-paged endpoint does not know the total, so `total` is optional and the
+component does not invent one. **Next** stays available, because there may be
+more.
+
+<Canvas of={Stories.Nothing} />
+
+## Do and don't
+
+**Do** pass `unit`. “No invoices” is a sentence; “No results” is a system
+message.
+
+**Do** set `busy` while a request is in flight, so the reader cannot queue three
+pages they did not mean to ask for.
+
+**Don't** change the page size without returning to the first page — the
+component does this for you, because a reader on page five of twenty-per-page
+has no idea where page five of a hundred-per-page is.
+
+**Don't** use this for a set that fits on one page. Then show them all.
+
+<Controls />

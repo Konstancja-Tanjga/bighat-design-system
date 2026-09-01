@@ -30,6 +30,25 @@ export type AppShellProps = {
    * scroll as one document, which suits documentation and marketing pages.
    */
   height?: 'fill' | 'flow';
+  /**
+   * Narrow-width behaviour for the leading regions — the rail and the sidebar.
+   *
+   * Below `breakpoint.md` there is no room for a 240px panel beside the
+   * content, so the panels leave the grid. Passing `onNavToggle` makes them
+   * an overlay the reader can summon instead: the shell renders a scrim, and
+   * `navOpen` says whether it is showing.
+   *
+   * Controlled, like everything else in this library that a product will
+   * eventually want to drive from a route.
+   *
+   * Omit both and the behaviour is what it has always been — hidden below the
+   * breakpoint, which is honest but leaves the reader no way back to them.
+   */
+  navOpen?: boolean;
+  onNavToggle?: () => void;
+  /** The same, for the trailing region. */
+  asideOpen?: boolean;
+  onAsideToggle?: () => void;
 };
 
 export function AppShell({
@@ -39,9 +58,27 @@ export function AppShell({
   aside,
   children,
   height = 'fill',
+  navOpen = false,
+  onNavToggle,
+  asideOpen = false,
+  onAsideToggle,
 }: AppShellProps) {
+  // A region is only collapsible if the consumer gave it somewhere to go.
+  const navCollapsible = Boolean(onNavToggle && (rail || sidebar));
+  const asideCollapsible = Boolean(onAsideToggle && aside);
+
+  const showNavScrim = navCollapsible && navOpen;
+  const showAsideScrim = asideCollapsible && asideOpen;
+
   return (
-    <div className={`bh-shell bh-shell--${height}`} data-has-rail={rail ? '' : undefined}>
+    <div
+      className={`bh-shell bh-shell--${height}`}
+      data-has-rail={rail ? '' : undefined}
+      data-nav-collapsible={navCollapsible ? '' : undefined}
+      data-nav-open={showNavScrim ? '' : undefined}
+      data-aside-collapsible={asideCollapsible ? '' : undefined}
+      data-aside-open={showAsideScrim ? '' : undefined}
+    >
       {header && <header className="bh-shell__header">{header}</header>}
       {rail && <div className="bh-shell__rail">{rail}</div>}
       {sidebar && <div className="bh-shell__sidebar">{sidebar}</div>}
@@ -52,6 +89,26 @@ export function AppShell({
       </main>
 
       {aside && <div className="bh-shell__aside">{aside}</div>}
+
+      {/* A real button, not a div: dismissing an overlay is an action, and a
+          keyboard user needs to reach it. Only rendered while open, so it is
+          never a phantom tab stop. */}
+      {showNavScrim && (
+        <button
+          type="button"
+          className="bh-shell__scrim"
+          onClick={onNavToggle}
+          aria-label="Close navigation"
+        />
+      )}
+      {showAsideScrim && (
+        <button
+          type="button"
+          className="bh-shell__scrim"
+          onClick={onAsideToggle}
+          aria-label="Close panel"
+        />
+      )}
     </div>
   );
 }
