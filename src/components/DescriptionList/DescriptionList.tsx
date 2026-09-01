@@ -53,10 +53,7 @@ export function DescriptionList({
       {items.map((item, index) => (
         // The wrapper is what makes a term and its value one unit at every
         // width. `display: contents` in `columns` keeps the grid two-track.
-        <div
-          className={item.wide ? 'bh-dl__pair bh-dl__pair--wide' : 'bh-dl__pair'}
-          key={index}
-        >
+        <div className={item.wide ? 'bh-dl__pair bh-dl__pair--wide' : 'bh-dl__pair'} key={index}>
           <dt className="bh-dl__term">{item.term}</dt>
           <dd className="bh-dl__value">{item.value}</dd>
         </div>

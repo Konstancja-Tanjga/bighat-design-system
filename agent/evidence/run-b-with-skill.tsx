@@ -201,7 +201,9 @@ export function InvoicesScreen({
       header: 'Status',
       sortable: true,
       width: TRACKS[2],
-      cell: (invoice) => <Badge tone={STATUS[invoice.status].tone}>{STATUS[invoice.status].label}</Badge>,
+      cell: (invoice) => (
+        <Badge tone={STATUS[invoice.status].tone}>{STATUS[invoice.status].label}</Badge>
+      ),
     },
     {
       key: 'amount',
@@ -256,7 +258,10 @@ export function InvoicesScreen({
           <AppBar
             brand={
               <>
-                <span aria-hidden="true" style={{ fontWeight: 700, color: cssVar('action.primary.bg') }}>
+                <span
+                  aria-hidden="true"
+                  style={{ fontWeight: 700, color: cssVar('action.primary.bg') }}
+                >
                   bh<sup>◆</sup>
                 </span>
                 <span className="bh-visually-hidden">Big Hat Poland</span>
@@ -268,7 +273,12 @@ export function InvoicesScreen({
             actions={
               <>
                 {onExport && (
-                  <Button variant="secondary" size="sm" onClick={onExport} disabled={loading || !!error}>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={onExport}
+                    disabled={loading || !!error}
+                  >
                     Export
                   </Button>
                 )}
@@ -389,7 +399,11 @@ export function InvoicesScreen({
                 >
                   <Skeleton width={row === 0 ? 64 : 96} height={row === 0 ? 10 : 13} />
                   <Skeleton width={row === 0 ? 72 : '70%'} height={row === 0 ? 10 : 13} />
-                  <Skeleton width={row === 0 ? 52 : 84} height={row === 0 ? 10 : 20} radius="pill" />
+                  <Skeleton
+                    width={row === 0 ? 52 : 84}
+                    height={row === 0 ? 10 : 20}
+                    radius="pill"
+                  />
                   <Skeleton width={row === 0 ? 56 : 88} height={row === 0 ? 10 : 13} />
                 </div>
               ))}

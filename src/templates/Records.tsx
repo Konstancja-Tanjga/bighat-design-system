@@ -57,13 +57,69 @@ const currency = new Intl.NumberFormat('en-GB', { style: 'currency', currency: '
 const NONE: Invoice[] = [];
 
 const INVOICES: Invoice[] = [
-  { id: 'INV-2041', customer: 'Northwind Trading', status: 'paid', issued: '2026-07-02', due: '2026-08-01', amount: 12400, owner: 'Ada Lovelace' },
-  { id: 'INV-2042', customer: 'Contoso Logistics', status: 'pending', issued: '2026-07-04', due: '2026-08-03', amount: 3120, owner: 'Grace Hopper' },
-  { id: 'INV-2043', customer: 'Fabrikam Energy', status: 'overdue', issued: '2026-06-11', due: '2026-07-11', amount: 28950, owner: 'Ada Lovelace' },
-  { id: 'INV-2044', customer: 'Tailspin Aviation', status: 'paid', issued: '2026-07-09', due: '2026-08-08', amount: 640, owner: 'Katherine Johnson' },
-  { id: 'INV-2045', customer: 'Proseware Media', status: 'pending', issued: '2026-07-12', due: '2026-08-11', amount: 8410, owner: 'Grace Hopper' },
-  { id: 'INV-2046', customer: 'Wingtip Toys', status: 'overdue', issued: '2026-05-30', due: '2026-06-29', amount: 1975, owner: 'Katherine Johnson' },
-  { id: 'INV-2047', customer: 'Adventure Works', status: 'paid', issued: '2026-07-15', due: '2026-08-14', amount: 22300, owner: 'Ada Lovelace' },
+  {
+    id: 'INV-2041',
+    customer: 'Northwind Trading',
+    status: 'paid',
+    issued: '2026-07-02',
+    due: '2026-08-01',
+    amount: 12400,
+    owner: 'Ada Lovelace',
+  },
+  {
+    id: 'INV-2042',
+    customer: 'Contoso Logistics',
+    status: 'pending',
+    issued: '2026-07-04',
+    due: '2026-08-03',
+    amount: 3120,
+    owner: 'Grace Hopper',
+  },
+  {
+    id: 'INV-2043',
+    customer: 'Fabrikam Energy',
+    status: 'overdue',
+    issued: '2026-06-11',
+    due: '2026-07-11',
+    amount: 28950,
+    owner: 'Ada Lovelace',
+  },
+  {
+    id: 'INV-2044',
+    customer: 'Tailspin Aviation',
+    status: 'paid',
+    issued: '2026-07-09',
+    due: '2026-08-08',
+    amount: 640,
+    owner: 'Katherine Johnson',
+  },
+  {
+    id: 'INV-2045',
+    customer: 'Proseware Media',
+    status: 'pending',
+    issued: '2026-07-12',
+    due: '2026-08-11',
+    amount: 8410,
+    owner: 'Grace Hopper',
+  },
+  {
+    id: 'INV-2046',
+    customer: 'Wingtip Toys',
+    status: 'overdue',
+    issued: '2026-05-30',
+    due: '2026-06-29',
+    amount: 1975,
+    owner: 'Katherine Johnson',
+  },
+  {
+    id: 'INV-2047',
+    customer: 'Adventure Works',
+    status: 'paid',
+    issued: '2026-07-15',
+    due: '2026-08-14',
+    amount: 22300,
+    owner: 'Ada Lovelace',
+  },
 ];
 
 export type RecordsProps = {
@@ -128,7 +184,13 @@ export function Records({ variant = 'ready' }: RecordsProps) {
       width: '130px',
       priority: 1,
     },
-    { key: 'customer', header: 'Customer', cell: (row) => row.customer, sortable: true, priority: 1 },
+    {
+      key: 'customer',
+      header: 'Customer',
+      cell: (row) => row.customer,
+      sortable: true,
+      priority: 1,
+    },
     {
       key: 'status',
       header: 'Status',
@@ -136,7 +198,14 @@ export function Records({ variant = 'ready' }: RecordsProps) {
       width: '120px',
       priority: 2,
     },
-    { key: 'due', header: 'Due', cell: (row) => row.due, sortable: true, width: '120px', priority: 2 },
+    {
+      key: 'due',
+      header: 'Due',
+      cell: (row) => row.due,
+      sortable: true,
+      width: '120px',
+      priority: 2,
+    },
     { key: 'owner', header: 'Owner', cell: (row) => row.owner, width: '160px', priority: 3 },
     {
       key: 'amount',
@@ -167,8 +236,7 @@ export function Records({ variant = 'ready' }: RecordsProps) {
               // action that creates one.
               state: 'empty' as const,
               title: 'No invoices yet',
-              description:
-                'An invoice appears here once an order is confirmed and billed.',
+              description: 'An invoice appears here once an order is confirmed and billed.',
               action: <Button>Create invoice</Button>,
             }
           : sorted.length === 0

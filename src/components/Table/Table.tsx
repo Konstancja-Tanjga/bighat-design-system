@@ -150,7 +150,8 @@ export function Table<Row>({
   const secondary = responsive === 'priority' ? columns.filter((c) => (c.priority ?? 1) > 1) : [];
   const hasDisclosure = secondary.length > 0;
 
-  const columnCount = columns.length + (selection ? 1 : 0) + (rowActions ? 1 : 0) + (hasDisclosure ? 1 : 0);
+  const columnCount =
+    columns.length + (selection ? 1 : 0) + (rowActions ? 1 : 0) + (hasDisclosure ? 1 : 0);
 
   return (
     <div
@@ -240,10 +241,7 @@ export function Table<Row>({
                       {/* Native disclosure: the platform already owns the
                           expanded state and announces it. */}
                       <details>
-                        <summary
-                          className="bh-focusable"
-                          aria-label="More detail for this row"
-                        >
+                        <summary className="bh-focusable" aria-label="More detail for this row">
                           <span aria-hidden="true">▸</span>
                         </summary>
                         <div className="bh-table__disclose-body">
@@ -305,9 +303,7 @@ export function Table<Row>({
               {totals(rows).map((cell, index) => (
                 <td
                   key={columns[index]?.key ?? index}
-                  data-align={
-                    columns[index]?.numeric ? 'end' : (columns[index]?.align ?? 'start')
-                  }
+                  data-align={columns[index]?.numeric ? 'end' : (columns[index]?.align ?? 'start')}
                   data-numeric={columns[index]?.numeric || undefined}
                 >
                   {cell}

@@ -30,7 +30,7 @@ viewport query gets two of those three wrong.
 **Also on Table:** `selection` with a tri-state select-all (partial resolves to
 _select the rest_, never to _clear_), `rowActions`, `stickyHeader`, `density`,
 `totals` rendered in `tfoot` so a sort cannot move them into the data, and
-`Column.numeric`, which aligns end *and* sets `tabular-nums` — two things always
+`Column.numeric`, which aligns end _and_ sets `tabular-nums` — two things always
 wanted together and until now available one at a time.
 
 **Two new components.** `DescriptionList`, a real `<dl>` for a record read

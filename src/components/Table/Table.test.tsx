@@ -92,9 +92,7 @@ describe('Table selection', () => {
   });
 
   it('is checked only when every row is selected', () => {
-    render(
-      <Table {...base} selection={{ selected: new Set(['1', '2']), onChange: () => {} }} />,
-    );
+    render(<Table {...base} selection={{ selected: new Set(['1', '2']), onChange: () => {} }} />);
     expect(screen.getByRole('checkbox', { name: 'Select all customers' })).toBeChecked();
   });
 
@@ -145,12 +143,7 @@ describe('Table row actions', () => {
 
   it('builds the items from the row it belongs to', async () => {
     const onSelect = vi.fn();
-    render(
-      <Table
-        {...base}
-        rowActions={(row) => [{ label: `Archive ${row.name}`, onSelect }]}
-      />,
-    );
+    render(<Table {...base} rowActions={(row) => [{ label: `Archive ${row.name}`, onSelect }]} />);
 
     await userEvent.click(screen.getAllByRole('button', { name: 'Row actions' })[0]);
     await userEvent.click(screen.getByRole('menuitem', { name: 'Archive Northwind' }));

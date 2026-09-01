@@ -4,10 +4,7 @@
   "skill": "./agent/SKILL.md",
   "storybook": "https://bighatpoland.github.io/bighat-design-system/",
   "tokens": {
-    "layers": [
-      "primitive",
-      "semantic"
-    ],
+    "layers": ["primitive", "semantic"],
     "productApi": "semantic",
     "cssPrefix": "--bh",
     "note": "Product code and generated code may reference semantic tokens only. Primitives exist to define semantics and are not part of the public API.",
@@ -47,10 +44,7 @@
     {
       "name": "Accordion",
       "purpose": "Disclosure of one topic at a time. Headers are real buttons inside headings.",
-      "notFor": [
-        "Navigation between screens",
-        "Hiding content the user always needs"
-      ],
+      "notFor": ["Navigation between screens", "Hiding content the user always needs"],
       "props": {
         "multiple": {
           "type": "boolean",
@@ -74,17 +68,12 @@
           "note": "Count or status next to the title."
         }
       },
-      "exports": [
-        "Accordion",
-        "AccordionItem"
-      ]
+      "exports": ["Accordion", "AccordionItem"]
     },
     {
       "name": "AppBar",
       "purpose": "The top bar. Three slots in reading order: brand, title, actions.",
-      "notFor": [
-        "Repeating the product name in title \u2014 brand already carries it"
-      ],
+      "notFor": ["Repeating the product name in title \u2014 brand already carries it"],
       "props": {
         "brand": {
           "type": "ReactNode",
@@ -112,9 +101,7 @@
     {
       "name": "AppShell",
       "purpose": "The frame every application screen sits in. Owns the landmark structure \u2014 header, nav, main, complementary.",
-      "notFor": [
-        "Documentation and marketing pages \u2014 use height=\"flow\" or no shell at all"
-      ],
+      "notFor": ["Documentation and marketing pages \u2014 use height=\"flow\" or no shell at all"],
       "props": {
         "header": {
           "type": "ReactNode",
@@ -159,19 +146,13 @@
           "type": "() => void"
         }
       },
-      "exports": [
-        "AppShell",
-        "SkipLink"
-      ],
+      "exports": ["AppShell", "SkipLink"],
       "note": "Slots are optional. A screen without a rail is this component with a prop left out, not a second layout."
     },
     {
       "name": "Avatar",
       "purpose": "A person, as a picture with a name behind it.",
-      "notFor": [
-        "A logo",
-        "Carrying status on its own"
-      ],
+      "notFor": ["A logo", "Carrying status on its own"],
       "props": {
         "name": {
           "type": "string",
@@ -199,18 +180,12 @@
           "default": 4
         }
       },
-      "exports": [
-        "Avatar",
-        "AvatarGroup"
-      ]
+      "exports": ["Avatar", "AvatarGroup"]
     },
     {
       "name": "Badge",
       "purpose": "Short status attached to an object.",
-      "notFor": [
-        "Bare counts",
-        "Anything clickable"
-      ],
+      "notFor": ["Bare counts", "Anything clickable"],
       "props": {
         "tone": {
           "type": "'neutral' | 'info' | 'success' | 'warning' | 'critical'",
@@ -231,9 +206,7 @@
     {
       "name": "Board",
       "purpose": "Columns of cards \u2014 kanban, pipeline, review queue.",
-      "notFor": [
-        "Ordered data the user compares \u2014 that is Table"
-      ],
+      "notFor": ["Ordered data the user compares \u2014 that is Table"],
       "props": {
         "Board.ariaLabel": {
           "type": "string",
@@ -271,10 +244,7 @@
     {
       "name": "Breadcrumbs",
       "purpose": "Position in a hierarchy. The last crumb is the current page and is not a link.",
-      "notFor": [
-        "Click history",
-        "A two-level hierarchy \u2014 a back link is enough"
-      ],
+      "notFor": ["Click history", "A two-level hierarchy \u2014 a back link is enough"],
       "props": {
         "items": {
           "type": "BreadcrumbItem[]",
@@ -294,9 +264,7 @@
     {
       "name": "Button",
       "purpose": "An action the user takes.",
-      "notFor": [
-        "Navigation \u2014 use an anchor styled as a link"
-      ],
+      "notFor": ["Navigation \u2014 use an anchor styled as a link"],
       "props": {
         "variant": {
           "type": "'primary' | 'secondary' | 'ghost'",
@@ -445,9 +413,7 @@
     {
       "name": "Composer",
       "purpose": "The prompt input \u2014 a textarea in a form, with optional single-choice modes.",
-      "notFor": [
-        "Ordinary multi-line form fields"
-      ],
+      "notFor": ["Ordinary multi-line form fields"],
       "props": {
         "label": {
           "type": "string",
@@ -506,10 +472,7 @@
     {
       "name": "DatePicker",
       "purpose": "A native date input, with the format and range stated in the description.",
-      "notFor": [
-        "A custom calendar grid",
-        "A duration \u2014 that is two fields"
-      ],
+      "notFor": ["A custom calendar grid", "A duration \u2014 that is two fields"],
       "props": {
         "label": {
           "type": "string",
@@ -534,18 +497,12 @@
           "required": true
         }
       },
-      "exports": [
-        "DatePicker",
-        "DateRangePicker"
-      ]
+      "exports": ["DatePicker", "DateRangePicker"]
     },
     {
       "name": "DescriptionList",
       "purpose": "Term and value pairs \u2014 a record read rather than a form filled. A real <dl>, so a screen reader knows which label owns which value.",
-      "notFor": [
-        "A form \u2014 these are values, not inputs",
-        "Two columns of unrelated data"
-      ],
+      "notFor": ["A form \u2014 these are values, not inputs", "Two columns of unrelated data"],
       "props": {
         "items": {
           "type": "DescriptionItem[]",
@@ -566,16 +523,12 @@
           "note": "Makes it a labelled group. Omit inside an already-labelled region \u2014 a nameless group is noise."
         }
       },
-      "exports": [
-        "DescriptionList"
-      ]
+      "exports": ["DescriptionList"]
     },
     {
       "name": "Dialog",
       "purpose": "A decision that must block the rest of the page. Native <dialog>.",
-      "notFor": [
-        "Non-blocking feedback \u2014 use Toast"
-      ],
+      "notFor": ["Non-blocking feedback \u2014 use Toast"],
       "props": {
         "open": {
           "type": "boolean",
@@ -610,9 +563,7 @@
     {
       "name": "Divider",
       "purpose": "A line between things. Decorative unless it carries a label.",
-      "notFor": [
-        "Spacing \u2014 use the gap tokens"
-      ],
+      "notFor": ["Spacing \u2014 use the gap tokens"],
       "props": {
         "orientation": {
           "type": "'horizontal' | 'vertical'",
@@ -631,9 +582,7 @@
     {
       "name": "IconPicker",
       "purpose": "Choosing one icon from a searchable grid. A radio group, not a wall of buttons.",
-      "notFor": [
-        "An icon set with no names \u2014 the name is the accessible label"
-      ],
+      "notFor": ["An icon set with no names \u2014 the name is the accessible label"],
       "props": {
         "label": {
           "type": "string",
@@ -664,9 +613,7 @@
     {
       "name": "Input",
       "purpose": "Single-line text entry with label, description and error wired to ARIA.",
-      "notFor": [
-        "Controls with their own keyboard model \u2014 date pickers, comboboxes"
-      ],
+      "notFor": ["Controls with their own keyboard model \u2014 date pickers, comboboxes"],
       "props": {
         "label": {
           "type": "string",
@@ -719,10 +666,7 @@
           "note": "Rendered outside the row's own control."
         }
       },
-      "exports": [
-        "List",
-        "ListItem"
-      ]
+      "exports": ["List", "ListItem"]
     },
     {
       "name": "ListView",
@@ -756,10 +700,7 @@
     {
       "name": "Menu",
       "purpose": "A list of actions behind a trigger. Focus moves in on open and back on close.",
-      "notFor": [
-        "Navigation \u2014 those are links",
-        "Choosing a value \u2014 that is Select"
-      ],
+      "notFor": ["Navigation \u2014 those are links", "Choosing a value \u2014 that is Select"],
       "props": {
         "label": {
           "type": "ReactNode",
@@ -783,15 +724,9 @@
     {
       "name": "NavList",
       "purpose": "Grouped list inside a side panel \u2014 saved views, recent items, a shallow tree.",
-      "notFor": [
-        "Tabular data \u2014 use Table"
-      ],
+      "notFor": ["Tabular data \u2014 use Table"],
       "usage": "<NavGroup label=\"Pinned\"><NavItem item={\u2026} active onSelect={\u2026} /></NavGroup>",
-      "exports": [
-        "NavList",
-        "NavGroup",
-        "NavItem"
-      ],
+      "exports": ["NavList", "NavGroup", "NavItem"],
       "props": {
         "item": {
           "type": "NavListItem",
@@ -819,9 +754,7 @@
     {
       "name": "NavRail",
       "purpose": "Narrow icon navigation rail.",
-      "notFor": [
-        "Destinations whose meaning needs more than two words"
-      ],
+      "notFor": ["Destinations whose meaning needs more than two words"],
       "props": {
         "items": {
           "type": "NavRailItem[]",
@@ -852,10 +785,7 @@
     {
       "name": "Pagination",
       "purpose": "Paging over a set too large to render. Reports a range and a total, because '21\u201340 of 312' is a fact about the data and 'page 2 of 16' is a fact about the component.",
-      "notFor": [
-        "Infinite scroll",
-        "Fewer rows than one page holds \u2014 then show them all"
-      ],
+      "notFor": ["Infinite scroll", "Fewer rows than one page holds \u2014 then show them all"],
       "props": {
         "page": {
           "type": "number",
@@ -892,17 +822,12 @@
           "note": "Disables both controls while a request is in flight."
         }
       },
-      "exports": [
-        "Pagination"
-      ]
+      "exports": ["Pagination"]
     },
     {
       "name": "Progress",
       "purpose": "How far along something is. Determinate or honestly indeterminate.",
-      "notFor": [
-        "A fake bar that waits at 90%",
-        "A skeleton's job \u2014 an unknown layout"
-      ],
+      "notFor": ["A fake bar that waits at 90%", "A skeleton's job \u2014 an unknown layout"],
       "props": {
         "label": {
           "type": "string",
@@ -964,10 +889,7 @@
     {
       "name": "ScrollArea",
       "purpose": "A scrollable region that is reachable by keyboard and keeps the platform scrollbar.",
-      "notFor": [
-        "Replacing the scrollbar with divs",
-        "A region that never overflows"
-      ],
+      "notFor": ["Replacing the scrollbar with divs", "A region that never overflows"],
       "props": {
         "ariaLabel": {
           "type": "string",
@@ -992,10 +914,7 @@
     {
       "name": "SegmentedControl",
       "purpose": "Two to five mutually exclusive options, all visible. A radio group that looks like buttons.",
-      "notFor": [
-        "More than five options",
-        "A filter with a cleared state"
-      ],
+      "notFor": ["More than five options", "A filter with a cleared state"],
       "props": {
         "legend": {
           "type": "string",
@@ -1027,11 +946,7 @@
     {
       "name": "Select",
       "purpose": "Choosing one value from a short, known list. Native element underneath.",
-      "notFor": [
-        "Search",
-        "Multi-select",
-        "Async or very long option lists"
-      ],
+      "notFor": ["Search", "Multi-select", "Async or very long option lists"],
       "props": {
         "label": {
           "type": "string",
@@ -1056,10 +971,7 @@
     {
       "name": "SidePanel",
       "purpose": "A persistent panel beside the main content.",
-      "notFor": [
-        "Anything blocking \u2014 use Dialog",
-        "Transient drawers"
-      ],
+      "notFor": ["Anything blocking \u2014 use Dialog", "Transient drawers"],
       "props": {
         "ariaLabel": {
           "type": "string",
@@ -1102,14 +1014,9 @@
     {
       "name": "Skeleton",
       "purpose": "A placeholder for content whose shape is already known.",
-      "notFor": [
-        "Waits with no known shape \u2014 use StateBlock state=\"loading\""
-      ],
+      "notFor": ["Waits with no known shape \u2014 use StateBlock state=\"loading\""],
       "usage": "Wrap bones in <SkeletonGroup label=\"Loading documents\">; the group makes the single announcement.",
-      "exports": [
-        "Skeleton",
-        "SkeletonGroup"
-      ],
+      "exports": ["Skeleton", "SkeletonGroup"],
       "props": {
         "width": {
           "type": "number | string",
@@ -1173,9 +1080,7 @@
     {
       "name": "StateBlock",
       "purpose": "The empty, loading and error surfaces of any data view.",
-      "notFor": [
-        "The happy path"
-      ],
+      "notFor": ["The happy path"],
       "props": {
         "state": {
           "type": "'empty' | 'loading' | 'error'",
@@ -1219,10 +1124,7 @@
     {
       "name": "StatusBar",
       "purpose": "The thin bar at the bottom of an application. Its message slot is a polite live region.",
-      "notFor": [
-        "Anything urgent \u2014 that is Toast",
-        "Actions \u2014 that is Toolbar"
-      ],
+      "notFor": ["Anything urgent \u2014 that is Toast", "Actions \u2014 that is Toolbar"],
       "props": {
         "items": {
           "type": "StatusBarItem[]",
@@ -1244,9 +1146,7 @@
     {
       "name": "Switch",
       "purpose": "An immediate setting. Takes effect on click, with no Save button.",
-      "notFor": [
-        "A value submitted with a form \u2014 that is Checkbox"
-      ],
+      "notFor": ["A value submitted with a form \u2014 that is Checkbox"],
       "props": {
         "label": {
           "type": "ReactNode",
@@ -1273,9 +1173,7 @@
     {
       "name": "Table",
       "purpose": "Dense enterprise data. Sort and paging are controlled, empty/loading/error delegate to StateBlock, and the narrow form is declared rather than guessed.",
-      "notFor": [
-        "Layout"
-      ],
+      "notFor": ["Layout"],
       "props": {
         "caption": {
           "type": "string",
@@ -1383,19 +1281,12 @@
           "required": true
         }
       },
-      "exports": [
-        "Tabs",
-        "TabList",
-        "Tab",
-        "TabPanel"
-      ]
+      "exports": ["Tabs", "TabList", "Tab", "TabPanel"]
     },
     {
       "name": "Toast",
       "purpose": "Ephemeral confirmation that something happened.",
-      "notFor": [
-        "Errors the user must act on in place \u2014 use StateBlock"
-      ],
+      "notFor": ["Errors the user must act on in place \u2014 use StateBlock"],
       "usage": "Wrap the app in <ToastProvider>, then call useToast().notify(...).",
       "props": {
         "tone": {
@@ -1418,10 +1309,7 @@
     {
       "name": "Toolbar",
       "purpose": "A row of controls acting on the content below it. One tab stop, arrows between controls.",
-      "notFor": [
-        "Page-level navigation \u2014 that is AppBar",
-        "A single button"
-      ],
+      "notFor": ["Page-level navigation \u2014 that is AppBar", "A single button"],
       "props": {
         "ariaLabel": {
           "type": "string",
@@ -1479,10 +1367,7 @@
     {
       "name": "UserProfile",
       "purpose": "Who is signed in, and the account actions. Name as text, not only as initials.",
-      "notFor": [
-        "Showing another person \u2014 that is Avatar",
-        "App navigation"
-      ],
+      "notFor": ["Showing another person \u2014 that is Avatar", "App navigation"],
       "props": {
         "name": {
           "type": "string",
@@ -1531,23 +1416,12 @@
       {
         "name": "AI Chat",
         "pattern": "Conversational analysis workspace",
-        "states": [
-          "ready",
-          "loading",
-          "error",
-          "returning user"
-        ]
+        "states": ["ready", "loading", "error", "returning user"]
       },
       {
         "name": "Kanban board",
         "pattern": "Documents moving through stages",
-        "states": [
-          "ready",
-          "over WIP limit",
-          "empty columns",
-          "loading",
-          "error"
-        ]
+        "states": ["ready", "over WIP limit", "empty columns", "loading", "error"]
       }
     ]
   }
