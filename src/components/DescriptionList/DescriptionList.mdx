@@ -1,0 +1,54 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import * as Stories from './DescriptionList.stories';
+
+<Meta of={Stories} />
+
+# DescriptionList
+
+Term and value pairs — a record **read**, not a form filled.
+
+<Canvas of={Stories.Columns} />
+
+## Why this is a component
+
+Two reasons, and neither is spacing.
+
+It is a real `<dl>`. A detail panel built from `div`s tells a screen reader
+nothing about which label owns which value — and that relationship is the only
+information a detail panel contains. Get it wrong and the panel reads as a list
+of unattributed strings.
+
+It is also **the narrow form of a table row**. `Table` with
+`responsive="stack"` renders each row through this component, so a value keeps
+its label when the column header it belonged to is gone. One component, so the
+two can never drift apart.
+
+## Two layouts, two different readings
+
+<Canvas of={Stories.Rows} />
+
+`columns` puts the term in a fixed gutter beside its value. The values then line
+up and can be read **down** as a set — right when there is room.
+
+`rows` stacks the term above its value and sets it as a label. Right in a narrow
+panel, and the form `Table` uses when it stacks.
+
+Below 480px of *container* width, `columns` gives up its gutter on its own. The
+query is `@container`, so a list inside a 432px `SidePanel` behaves correctly on
+a wide screen.
+
+## Do and don't
+
+**Do** give it an `ariaLabel` when it sits on its own. **Don't** when it is
+already inside a labelled region such as a `SidePanel` — a nameless group is
+skipped, and a doubly-named one is announced twice.
+
+**Do** use `wide` for lineage, a path, or a sentence. A long value squeezed into
+a value column wraps four times and the gutter beside it stays empty.
+
+**Don't** reach for this to lay out two columns of unrelated content. It is a
+description list; the semantics are a promise that each value belongs to the
+term beside it.
+
+<Controls />

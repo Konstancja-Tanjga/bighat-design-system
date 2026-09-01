@@ -121,6 +121,27 @@ export const shadow = {
   lg: '0 12px 32px rgba(20, 24, 28, 0.18)',
 } as const;
 
+/**
+ * Container widths, not viewport widths.
+ *
+ * A component responds to the space it was given: the same table sits in
+ * `main` at 1200px, in a `SidePanel` at 432px and inside a `Card` at 280px,
+ * on one screen. A viewport query gets two of those three wrong, so these
+ * feed `@container` queries.
+ *
+ * CSS cannot read a custom property inside a container or media query, so
+ * these values appear twice — here, and as literals in component CSS.
+ * `breakpoints.test.ts` reads the stylesheets and fails the build if the
+ * two ever disagree.
+ */
+export const breakpoint = {
+  /** Below this a table stops being a grid. */
+  sm: '480px',
+  /** Below this a shell hides its rail and panels. */
+  md: '900px',
+  lg: '1200px',
+} as const;
+
 export const duration = {
   instant: '80ms',
   fast: '140ms',

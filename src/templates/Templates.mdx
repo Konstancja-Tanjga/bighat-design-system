@@ -8,12 +8,13 @@ A template is not a component. It is an argument about **which components
 belong together and in what arrangement**, held in one file so a product team
 can copy it and start from a screen that already handles its own states.
 
-The system ships two:
+The system ships three:
 
 | Template         | The pattern                       | The decision it carries                                                              |
 | ---------------- | --------------------------------- | ------------------------------------------------------------------------------------ |
 | **AI Chat**      | Conversational analysis workspace | Prompt input as a real form control; suggestions, working memory, governance visible |
 | **Kanban board** | Documents moving through stages   | Moving a card without a pointer                                                      |
+| **Records**      | List and detail over a table      | Reading one record never costs the reader their place among the others               |
 
 ## Why templates and not just components
 
@@ -22,11 +23,13 @@ the question that actually costs teams weeks: _what does a whole screen of
 this product look like when the data has not arrived, or has arrived empty, or
 failed?_
 
-Every template here ships four stories, not one:
+Every template here ships four states, not one:
 
 - **Ready** — the happy path, which is the only one most portfolios show
 - **Loading** — skeletons where the shape is known, `StateBlock` where it is not
-- **Empty** — per-surface copy, not one generic "no data"
+- **Empty** — per-surface copy, not one generic "no data". Records splits it in
+  two: _nothing exists_ and _nothing matches_ are the same zero rows with
+  opposite meanings, and opposite actions
 - **Error** — what did _not_ happen to the user's data, plus a way forward
 
 That is the whole reason for the template layer. Assembling a happy path from
@@ -64,10 +67,17 @@ in a medical records product.
 
 ## Responsive behaviour
 
-Below 900px the rail and both panels are hidden rather than squeezed. This is
-the honest answer rather than the impressive one: a 260px sidebar on a 375px
-screen leaves nothing for the content, and a board with five columns is not a
-phone layout in any arrangement.
+Below `breakpoint.md` — 900px — the rail and both panels leave the grid. A 260px
+sidebar on a 375px screen leaves nothing for the content, and a board with five
+columns is not a phone layout in any arrangement.
 
-A production implementation would move the panels behind a toggle. That is
-listed as a gap rather than pretended away — see each template's source.
+**They no longer simply vanish.** `AppShell` takes `onNavToggle` and
+`onAsideToggle`; wire either one and the region returns as an overlay with a real
+dismiss button, above the content and without reflowing it. This was listed here
+as a gap through 3.0 and 3.1, and 3.2 closes it. Omit the handlers and the old
+behaviour is unchanged.
+
+Inside the content, components respond to **their own** width rather than the
+window's. `Table` and `DescriptionList` use `@container`, which is what lets the
+same table be correct in `main` at 1200px and in a `SidePanel` at 432px on one
+screen — something no viewport query can express.

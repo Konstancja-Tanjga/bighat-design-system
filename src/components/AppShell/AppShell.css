@@ -59,8 +59,23 @@
   outline: none;
 }
 
-/* Below this width the panels stop being panels. Stacking them is the honest
-   answer — a 240px sidebar on a 375px screen leaves nothing for the content. */
+/* The scrim behind an overlaid panel. Only present while one is open. */
+.bh-shell__scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  border: 0;
+  padding: 0;
+  background: rgb(20 24 28 / 0.52);
+  cursor: pointer;
+}
+
+/* Below this width there is no room for a 240px panel beside the content, so
+   the panels leave the grid.
+   Where the consumer wired a toggle they come back as an overlay; where they
+   did not, they stay hidden — which is honest, and leaves the reader no route
+   to them. That is why the toggle exists. */
 @media (max-width: 900px) {
   .bh-shell {
     grid-template-columns: minmax(0, 1fr);
@@ -73,6 +88,43 @@
   .bh-shell__sidebar,
   .bh-shell__aside {
     display: none;
+  }
+
+  .bh-shell__scrim {
+    display: block;
+  }
+
+  /* Overlaid, not squeezed: full height under the header, above the content,
+     and the content does not reflow — so the reader's place is kept. */
+  .bh-shell[data-nav-open] .bh-shell__rail,
+  .bh-shell[data-nav-open] .bh-shell__sidebar,
+  .bh-shell[data-aside-open] .bh-shell__aside {
+    display: flex;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 4;
+    max-width: min(88vw, 320px);
+    overflow-y: auto;
+    box-shadow: var(--bh-elevation-modal);
+  }
+
+  .bh-shell[data-nav-open] .bh-shell__rail {
+    left: 0;
+  }
+
+  /* The sidebar sits beside the rail when both are present, and against the
+     edge when it is alone. */
+  .bh-shell[data-nav-open] .bh-shell__sidebar {
+    left: 0;
+  }
+
+  .bh-shell[data-nav-open][data-has-rail] .bh-shell__sidebar {
+    left: var(--bh-control-lg);
+  }
+
+  .bh-shell[data-aside-open] .bh-shell__aside {
+    right: 0;
   }
 
   .bh-shell--fill {

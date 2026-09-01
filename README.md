@@ -135,6 +135,10 @@ to what each one runs and what it returns. The same guidance for humans is
 `Button` · `Input` · `Select` · `Combobox` · `Checkbox` · `RadioGroup` ·
 `Switch` · `Slider` · `DatePicker` · `SegmentedControl` · `Menu` · `Toolbar`
 
+**Data**
+
+`Table` · `DescriptionList` · `Pagination` · `List` · `ListView`
+
 **Structure and navigation**
 
 `AppShell` · `AppBar` · `NavRail` · `SidePanel` · `NavList` · `Tabs` ·
@@ -183,7 +187,7 @@ a live result count, and Escape twice to clear.
 
 ## Templates
 
-Two whole-page templates, in the Storybook rather than in the package — a
+Three whole-page templates, in the Storybook rather than in the package — a
 template you can install becomes a dependency, and then a team is blocked on
 the design system to change their own layout.
 
@@ -191,8 +195,11 @@ the design system to change their own layout.
 | ---------------- | --------------------------------- | ------------------------------------------------------------------------------------------ |
 | **AI Chat**      | Conversational analysis workspace | The prompt field is a `<textarea>` in a `<form>`, and the response modes are a radio group |
 | **Kanban board** | Documents moving through stages   | Moving a card works without a pointer — WCAG 2.5.1                                         |
+| **Records**      | List and detail over a table      | Reading one record never costs the reader their place among the others                     |
 
-Each ships four or five stories, not one: ready, loading, empty and error.
+Each ships four or five stories, not one: ready, loading, empty and error —
+and Records splits empty in two, because _nothing exists_ and _nothing matches_
+are the same zero rows with opposite meanings and opposite actions.
 Assembling a happy path from good components is the easy half; remembering on
 every screen that a request can return nothing is the half that costs teams
 weeks.
