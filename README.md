@@ -9,7 +9,7 @@ review comment. A deprecation carried from announcement to removal across two
 major versions. Two whole-page templates. And a skill file that lets a coding
 agent follow the system's rules instead of inventing its own.
 
-**[Storybook →](https://bighatpoland.github.io/bighat-design-system/)**
+**[Storybook →]([https://konstancja-tanjga.github.io/bighat-design-system/])**
 
 [![CI](https://github.com/bighatpoland/bighat-design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/bighatpoland/bighat-design-system/actions/workflows/ci.yml)
 [![Storybook](https://img.shields.io/badge/Storybook-live-3563e9)](https://bighatpoland.github.io/bighat-design-system/)
