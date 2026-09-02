@@ -4,8 +4,12 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # @bighatpoland/ui
 
-Eight components, two token layers, and a build that fails on a contrast
-regression.
+Forty-one components, three templates, two token layers, and a build that fails
+on a contrast regression.
+
+- **Owner** — Konstancja Tanjga
+- **Contributors** — Big Hat Poland & Konstancja Tanjga
+- **Licence** — MIT
 
 This system is small on purpose. It is not trying to cover every surface an
 enterprise product needs — it is trying to be legible about **why** each
@@ -25,12 +29,33 @@ systems work that never survives into a portfolio.
 
 ## What is deliberately missing
 
-A `Combobox`. A date picker. A layout grid. Icons.
+Two of the four things this page used to list here have since been built, which
+is the honest state of it: `Combobox` and `DatePicker` shipped in 3.1.0, once
+there was a real product need that `Select` could not meet. The argument for
+leaving them out was never "never" — it was "not until something forces it".
 
-Each of those is a real need in a real product, and each would have been a way
-to make this repository look bigger without making any new argument. `Select`
-wraps the native element and `Dialog` uses native `<dialog>` for the same
-reason: the interesting decision was choosing not to build them.
+What is still missing, and why:
+
+- **A layout grid.** CSS grid is the layout engine, and wrapping it in
+  components mostly renames it. The gap is real all the same — it is on the
+  roadmap below.
+- **Icons.** A set is a commitment to draw and maintain every glyph six
+  products ask for. Components take `ReactNode` for their icon slots so a
+  product can pass its own; the roadmap below is where that changes.
+- **A `DataGrid`** — virtualised rows, column resize, frozen panes. Refused in
+  3.2.0 on purpose: a different component with a windowing dependency, and this
+  library has no runtime dependencies at all.
+- **A `Tree`** — a file or dossier hierarchy. `NavList` is flat by design.
+- **Charts.** Bind a chart library to the tokens instead of redrawing one.
+
+`Select` still wraps the native element and `Dialog` still uses native
+`<dialog>`, for the reason that has not changed: the interesting decision is
+often choosing not to build something, and the platform already got those two
+right.
+
+Everything the library does not cover, with the evidence for each gap and what
+the hand-rolled alternative does worse, is in
+[`DS-GAPS.md`](https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/DS-GAPS.md).
 
 ## Conventions
 
