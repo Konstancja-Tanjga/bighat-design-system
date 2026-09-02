@@ -11,6 +11,7 @@
  * not a production bug.
  */
 
+import { extremes } from './contrast';
 import { breakpoint, color, fontSize, lineHeight, radius, shadow, space } from './primitives';
 
 export type ThemeName = 'light' | 'dark';
@@ -49,6 +50,44 @@ export type SemanticColors = {
     warning: { bg: string; fg: string; border: string };
     critical: { bg: string; fg: string; border: string };
   };
+  /**
+   * Chrome that floats over media — a close button on a photograph, a caption
+   * over a still, a page indicator on a slide.
+   *
+   * This is the one group not defined against a `surface`, and it is the
+   * exception that proves the rule rather than breaking it. Everything else
+   * here is a foreground on a known background, which is what lets
+   * `contrast.test.ts` check the pair. A glyph sitting on an image has no
+   * known background: the image is whatever the author uploaded, and no test
+   * can say anything about it.
+   *
+   * So the rule is not a value, it is a constraint:
+   *
+   *   **Chrome over media brings its own background.**
+   *
+   * A control here is never a translucent foreground alone. It carries `bg`
+   * with it — opaque enough to be the background in its own right — and then
+   * the pair `fg` on `bg` is knowable again and is tested below like any
+   * other. `scrim` is the same idea applied to a whole surface rather than
+   * one control.
+   *
+   * The values do not change between themes. A photograph is not lighter in
+   * light mode, so chrome over it must not be either.
+   */
+  onMedia: {
+    /** Text and glyphs, on `onMedia.bg`. Never straight on the image. */
+    fg: string;
+    /** The control's own background. Opaque enough to be tested against. */
+    bg: string;
+    /** Hover and active, so the control is not the only thing that moves. */
+    bgHover: string;
+    /** A hairline, for a control that needs an edge against a light image. */
+    border: string;
+  };
+  /** A full-surface dim, for the ground behind an overlay. */
+  scrim: string;
+  /** A translucent, blurred surface — a sheet over a page or an image. */
+  material: string;
 };
 
 const light: SemanticColors = {
@@ -97,6 +136,17 @@ const light: SemanticColors = {
     warning: { bg: color.amber[50], fg: color.amber[700], border: color.amber[200] },
     critical: { bg: color.red[50], fg: color.red[700], border: color.red[200] },
   },
+  onMedia: {
+    fg: color.neutral[0],
+    // 0.62 alpha over an unknown image still lands above 4.5:1 against its
+    // own white foreground; the alpha is what makes it a background rather
+    // than a tint. Tested in `contrastPairs` at the composited value.
+    bg: 'rgba(20, 24, 28, 0.62)',
+    bgHover: 'rgba(20, 24, 28, 0.82)',
+    border: 'rgba(255, 255, 255, 0.24)',
+  },
+  scrim: 'rgba(8, 10, 12, 0.72)',
+  material: 'rgba(20, 23, 26, 0.92)',
 };
 
 const dark: SemanticColors = {
@@ -145,6 +195,17 @@ const dark: SemanticColors = {
     warning: { bg: color.neutral[800], fg: color.amber[300], border: color.amber[700] },
     critical: { bg: color.neutral[800], fg: color.red[300], border: color.red[700] },
   },
+  onMedia: {
+    fg: color.neutral[0],
+    // 0.62 alpha over an unknown image still lands above 4.5:1 against its
+    // own white foreground; the alpha is what makes it a background rather
+    // than a tint. Tested in `contrastPairs` at the composited value.
+    bg: 'rgba(20, 24, 28, 0.62)',
+    bgHover: 'rgba(20, 24, 28, 0.82)',
+    border: 'rgba(255, 255, 255, 0.24)',
+  },
+  scrim: 'rgba(8, 10, 12, 0.72)',
+  material: 'rgba(20, 23, 26, 0.92)',
 };
 
 export const themes: Record<ThemeName, SemanticColors> = { light, dark };
@@ -318,6 +379,37 @@ export const contrastPairs: ContrastPair[] = [
     fg: (t) => t.status.critical.fg,
     bg: (t) => t.status.critical.bg,
     requirement: 'bodyText',
+  },
+
+  // Chrome over media. There is no known background, so each pair is tested
+  // against the two extremes an image can present: the control's own
+  // translucent background composited over pure white, and over pure black. A
+  // pair that clears both clears every photograph — which is what makes the
+  // rule "chrome over media brings its own background" enforceable rather
+  // than merely stated.
+  {
+    name: 'onMedia.fg on onMedia.bg over a white image',
+    fg: (t) => t.onMedia.fg,
+    bg: (t) => extremes(t.onMedia.bg).overWhite,
+    requirement: 'bodyText',
+  },
+  {
+    name: 'onMedia.fg on onMedia.bg over a black image',
+    fg: (t) => t.onMedia.fg,
+    bg: (t) => extremes(t.onMedia.bg).overBlack,
+    requirement: 'bodyText',
+  },
+  {
+    name: 'onMedia.fg on onMedia.bgHover over a white image',
+    fg: (t) => t.onMedia.fg,
+    bg: (t) => extremes(t.onMedia.bgHover).overWhite,
+    requirement: 'bodyText',
+  },
+  {
+    name: 'onMedia.border on onMedia.bg over a white image',
+    fg: (t) => extremes(t.onMedia.border).overWhite,
+    bg: (t) => extremes(t.onMedia.bg).overWhite,
+    requirement: 'nonText',
   },
 
   // Non-text: control boundaries and the focus ring. WCAG 1.4.11, so 3:1.

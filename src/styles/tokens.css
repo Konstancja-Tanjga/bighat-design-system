@@ -38,6 +38,12 @@
   --bh-status-critical-bg: #fef2f2;
   --bh-status-critical-fg: #a31f24;
   --bh-status-critical-border: #fecaca;
+  --bh-on-media-fg: #ffffff;
+  --bh-on-media-bg: rgba(20, 24, 28, 0.62);
+  --bh-on-media-bg-hover: rgba(20, 24, 28, 0.82);
+  --bh-on-media-border: rgba(255, 255, 255, 0.24);
+  --bh-scrim: rgba(8, 10, 12, 0.72);
+  --bh-material: rgba(20, 23, 26, 0.92);
   --bh-control-sm: 28px;
   --bh-control-md: 36px;
   --bh-control-lg: 44px;
@@ -106,6 +112,12 @@
   --bh-status-critical-bg: #252b32;
   --bh-status-critical-fg: #fca5a5;
   --bh-status-critical-border: #a31f24;
+  --bh-on-media-fg: #ffffff;
+  --bh-on-media-bg: rgba(20, 24, 28, 0.62);
+  --bh-on-media-bg-hover: rgba(20, 24, 28, 0.82);
+  --bh-on-media-border: rgba(255, 255, 255, 0.24);
+  --bh-scrim: rgba(8, 10, 12, 0.72);
+  --bh-material: rgba(20, 23, 26, 0.92);
   --bh-control-sm: 28px;
   --bh-control-md: 36px;
   --bh-control-lg: 44px;
@@ -173,6 +185,12 @@
     --bh-status-critical-bg: #252b32;
     --bh-status-critical-fg: #fca5a5;
     --bh-status-critical-border: #a31f24;
+    --bh-on-media-fg: #ffffff;
+    --bh-on-media-bg: rgba(20, 24, 28, 0.62);
+    --bh-on-media-bg-hover: rgba(20, 24, 28, 0.82);
+    --bh-on-media-border: rgba(255, 255, 255, 0.24);
+    --bh-scrim: rgba(8, 10, 12, 0.72);
+    --bh-material: rgba(20, 23, 26, 0.92);
     --bh-control-sm: 28px;
     --bh-control-md: 36px;
     --bh-control-lg: 44px;

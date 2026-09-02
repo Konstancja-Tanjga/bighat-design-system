@@ -92,6 +92,8 @@ export const radius = {
   sm: '3px',
   md: '6px',
   lg: '10px',
+  /** A sheet or a viewer, where the corner is part of the form. */
+  xl: '20px',
   full: '9999px',
 } as const;
 

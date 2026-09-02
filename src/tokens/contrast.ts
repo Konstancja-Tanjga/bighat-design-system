@@ -48,6 +48,54 @@ export function contrastRatio(foreground: string, background: string): number {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
+/** `rgba(20, 24, 28, 0.62)` → its parts. Throws on anything else. */
+export function parseRgba(value: string): Rgb & { a: number } {
+  const match = value
+    .trim()
+    .match(/^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)(?:[\s,/]+([\d.]+))?\s*\)$/);
+  if (!match) throw new Error(`Not an rgb/rgba colour: ${value}`);
+  return {
+    r: Number(match[1]),
+    g: Number(match[2]),
+    b: Number(match[3]),
+    a: match[4] === undefined ? 1 : Number(match[4]),
+  };
+}
+
+/**
+ * Flatten a translucent layer onto an opaque base, returning the hex the
+ * viewer actually sees.
+ *
+ * This exists for one reason: chrome that floats over media has no known
+ * background, so `contrastRatio` — which only speaks opaque — cannot be
+ * pointed at it. Compositing the control's own translucent background over
+ * the two extremes an image can present, pure white and pure black, turns an
+ * untestable colour into two testable ones. See `onMedia` in `semantic.ts`.
+ */
+export function composite(layer: string, base: string): string {
+  const { r, g, b, a } = parseRgba(layer);
+  const under = hexToRgb(base);
+  const mix = (top: number, bottom: number) => Math.round(top * a + bottom * (1 - a));
+  return (
+    '#' +
+    [mix(r, under.r), mix(g, under.g), mix(b, under.b)]
+      .map((channel) => channel.toString(16).padStart(2, '0'))
+      .join('')
+  );
+}
+
+/**
+ * The worst two backgrounds an image can put behind a translucent control:
+ * the layer over white, and the layer over black. A pair that clears both
+ * clears every photograph.
+ */
+export function extremes(layer: string): { overWhite: string; overBlack: string } {
+  return {
+    overWhite: composite(layer, '#ffffff'),
+    overBlack: composite(layer, '#000000'),
+  };
+}
+
 /**
  * The thresholds this system treats as non-negotiable.
  *
