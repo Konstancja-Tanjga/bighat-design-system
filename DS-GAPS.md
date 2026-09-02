@@ -11,7 +11,7 @@ incomplete without it.
 
 > Kept in the repository rather than an issue tracker so that the evidence sits
 > next to the code it is about, and so an agent reading `agent/SKILL.md` can
-> find out what is *not* here before inventing it locally.
+> find out what is _not_ here before inventing it locally.
 
 ---
 
@@ -37,14 +37,14 @@ fill the sheet rather than sit in padded prose.
 
 **What it does worse:**
 
-| | `Dialog` (native) | The hand-rolled version |
-|---|---|---|
-| Focus trap | yes | **no** — Tab escapes to the page behind |
-| Page inert | yes | **no** — a screen reader can wander out |
-| Top layer | yes | `z-index: 200` and hope |
-| Scroll lock | n/a | manual `body.style.overflow`, lost on unmount race |
+|             | `Dialog` (native) | The hand-rolled version                            |
+| ----------- | ----------------- | -------------------------------------------------- |
+| Focus trap  | yes               | **no** — Tab escapes to the page behind            |
+| Page inert  | yes               | **no** — a screen reader can wander out            |
+| Top layer   | yes               | `z-index: 200` and hope                            |
+| Scroll lock | n/a               | manual `body.style.overflow`, lost on unmount race |
 
-The focus-trap gap is the serious one: `aria-modal="true"` *tells* assistive
+The focus-trap gap is the serious one: `aria-modal="true"` _tells_ assistive
 technology the rest of the page is unavailable while leaving it perfectly
 reachable. That is worse than not claiming it.
 
@@ -111,12 +111,12 @@ and it is the piece both the grid and the viewer stage need.
 
 ### 5. Token gaps
 
-| Gap | Now | Needed for |
-|---|---|---|
-| `radius` stops at `lg: 10px` | 0 / 3 / 6 / 10 / full | A sheet or viewer wants 20–24px. The portfolio hard-codes `24px` and `12px`. |
-| No material | — | A translucent, blurred overlay surface. Hard-coded `rgb(20 23 26 / 0.92)` plus `backdrop-filter`. |
-| No overlay scrim | — | Hard-coded `rgb(8 10 12 / 0.72)` in two places. |
-| Dark-on-media colours | Semantic colours assume a page ground | Chrome sitting on top of an image is neither theme; the portfolio hard-codes six `rgb(255 255 255 / …)` values. |
+| Gap                          | Now                                   | Needed for                                                                                                      |
+| ---------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `radius` stops at `lg: 10px` | 0 / 3 / 6 / 10 / full                 | A sheet or viewer wants 20–24px. The portfolio hard-codes `24px` and `12px`.                                    |
+| No material                  | —                                     | A translucent, blurred overlay surface. Hard-coded `rgb(20 23 26 / 0.92)` plus `backdrop-filter`.               |
+| No overlay scrim             | —                                     | Hard-coded `rgb(8 10 12 / 0.72)` in two places.                                                                 |
+| Dark-on-media colours        | Semantic colours assume a page ground | Chrome sitting on top of an image is neither theme; the portfolio hard-codes six `rgb(255 255 255 / …)` values. |
 
 The last one is the interesting one. The system's semantic colours are defined
 against `surface.*`, and a control floating over a photograph has no surface —
@@ -142,11 +142,11 @@ None of these has been reached for in a real build yet, so none has an argument:
 
 ## Closed
 
-| Gap | Closed by |
-|---|---|
-| No responsive table | `Table` `responsive` — 3.2.0 |
-| No term/value list | `DescriptionList` — 3.2.0 |
-| No paging control | `Pagination` — 3.2.0 |
-| Shell panels vanished below 900px | `AppShell` `onNavToggle` — 3.2.0 |
-| No breakpoint tokens | `breakpoint` + `breakpoints.test.ts` — 3.2.0 |
-| Type sizes not tokenised | `--bh-text-size-*` — 3.2.0, partially: 35 stylesheets still hard-code theirs |
+| Gap                               | Closed by                                                                    |
+| --------------------------------- | ---------------------------------------------------------------------------- |
+| No responsive table               | `Table` `responsive` — 3.2.0                                                 |
+| No term/value list                | `DescriptionList` — 3.2.0                                                    |
+| No paging control                 | `Pagination` — 3.2.0                                                         |
+| Shell panels vanished below 900px | `AppShell` `onNavToggle` — 3.2.0                                             |
+| No breakpoint tokens              | `breakpoint` + `breakpoints.test.ts` — 3.2.0                                 |
+| Type sizes not tokenised          | `--bh-text-size-*` — 3.2.0, partially: 35 stylesheets still hard-code theirs |
