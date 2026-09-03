@@ -2,7 +2,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Foundations/Introduction" />
 
-# @bighatpoland/ui
+# @bighat/ui
 
 Forty-one components, three templates, two token layers, and a build that fails
 on a contrast regression.
@@ -16,6 +16,10 @@ enterprise product needs — it is trying to be legible about **why** each
 decision was made and **what** each one cost, because that is the part of design
 systems work that never survives into a portfolio.
 
+What the library does not cover, and the evidence behind each gap, is tracked
+in [`DS-GAPS.md`](https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/DS-GAPS.md)
+rather than here — this page is for what is in it.
+
 ## What to look at
 
 - **Foundations → Tokens** — the two layers, and why product code may only
@@ -26,36 +30,6 @@ systems work that never survives into a portfolio.
   three different announcement strategies.
 - **Components → Button** — the one breaking change this system has shipped,
   and the deprecation still in flight.
-
-## What is deliberately missing
-
-Two of the four things this page used to list here have since been built, which
-is the honest state of it: `Combobox` and `DatePicker` shipped in 3.1.0, once
-there was a real product need that `Select` could not meet. The argument for
-leaving them out was never "never" — it was "not until something forces it".
-
-What is still missing, and why:
-
-- **A layout grid.** CSS grid is the layout engine, and wrapping it in
-  components mostly renames it. The gap is real all the same — it is on the
-  roadmap below.
-- **Icons.** A set is a commitment to draw and maintain every glyph six
-  products ask for. Components take `ReactNode` for their icon slots so a
-  product can pass its own; the roadmap below is where that changes.
-- **A `DataGrid`** — virtualised rows, column resize, frozen panes. Refused in
-  3.2.0 on purpose: a different component with a windowing dependency, and this
-  library has no runtime dependencies at all.
-- **A `Tree`** — a file or dossier hierarchy. `NavList` is flat by design.
-- **Charts.** Bind a chart library to the tokens instead of redrawing one.
-
-`Select` still wraps the native element and `Dialog` still uses native
-`<dialog>`, for the reason that has not changed: the interesting decision is
-often choosing not to build something, and the platform already got those two
-right.
-
-Everything the library does not cover, with the evidence for each gap and what
-the hand-rolled alternative does worse, is in
-[`DS-GAPS.md`](https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/DS-GAPS.md).
 
 ## Conventions
 
