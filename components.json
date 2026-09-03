@@ -1,8 +1,8 @@
 {
-  "name": "@bighatpoland/ui",
+  "name": "@bighat/ui",
   "version": "3.2.0",
   "skill": "./agent/SKILL.md",
-  "storybook": "https://bighatpoland.github.io/bighat-design-system/",
+  "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/",
   "tokens": {
     "layers": ["primitive", "semantic"],
     "productApi": "semantic",

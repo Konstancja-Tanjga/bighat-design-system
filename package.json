@@ -1,14 +1,14 @@
 {
-  "name": "@bighatpoland/ui",
+  "name": "@bighat/ui",
   "version": "3.2.0",
   "description": "A small, opinionated design system: two token layers, WCAG AA enforced in CI, and rules an agent can read.",
   "license": "MIT",
   "author": "Konstancja Tanjga-Nawrot",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bighatpoland/bighat-design-system.git"
+    "url": "git+https://github.com/Konstancja-Tanjga/bighat-design-system.git"
   },
-  "homepage": "https://bighatpoland.github.io/bighat-design-system/",
+  "homepage": "https://konstancja-tanjga.github.io/bighat-design-system/",
   "keywords": [
     "design-system",
     "design-tokens",

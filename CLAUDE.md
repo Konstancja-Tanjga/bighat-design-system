@@ -1,6 +1,6 @@
 # Working in this repository
 
-`@bighatpoland/ui` — a React design system. Two token layers, WCAG AA enforced
+`@bighat/ui` — a React design system. Two token layers, WCAG AA enforced
 in CI, 39 components, 2 page templates in Storybook.
 
 ## Before writing any UI

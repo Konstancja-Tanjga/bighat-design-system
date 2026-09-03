@@ -11,8 +11,8 @@ agent follow the system's rules instead of inventing its own.
 
 **[Storybook →]([https://konstancja-tanjga.github.io/bighat-design-system/])**
 
-[![CI](https://github.com/bighatpoland/bighat-design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/bighatpoland/bighat-design-system/actions/workflows/ci.yml)
-[![Storybook](https://img.shields.io/badge/Storybook-live-3563e9)](https://bighatpoland.github.io/bighat-design-system/)
+[![CI](https://github.com/Konstancja-Tanjga/bighat-design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/Konstancja-Tanjga/bighat-design-system/actions/workflows/ci.yml)
+[![Storybook](https://img.shields.io/badge/Storybook-live-3563e9)](https://konstancja-tanjga.github.io/bighat-design-system/)
 [![WCAG AA](https://img.shields.io/badge/WCAG_AA-58_assertions_in_CI-0a7f55)](#2-contrast-is-a-build-error)
 [![License](https://img.shields.io/badge/license-MIT-59636f)](./LICENSE)
 
@@ -213,12 +213,12 @@ pretending otherwise would put a dead `npm install` line at the top of the
 README. Install from the repository:
 
 ```bash
-npm install github:bighatpoland/bighat-design-system
+npm install github:Konstancja-Tanjga/bighat-design-system
 ```
 
 ```tsx
-import '@bighatpoland/ui/styles.css';
-import { ToastProvider, Button } from '@bighatpoland/ui';
+import '@bighat/ui/styles.css';
+import { ToastProvider, Button } from '@bighat/ui';
 
 export function App() {
   return (
@@ -257,4 +257,4 @@ Konstancja Tanjga-Nawrot — design engineer. I build design systems as code:
 tokens, component APIs, review gates, versioning, and the migration work that
 decides whether teams actually adopt a new version.
 
-[GitHub](https://github.com/bighatpoland) · MIT licensed
+[GitHub](https://github.com/Konstancja-Tanjga) · MIT licensed

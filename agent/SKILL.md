@@ -1,9 +1,9 @@
 ---
 name: bighat-ui
-description: Build UI with @bighatpoland/ui. Load this before writing any component, screen, or style that will use this design system — it encodes the rules the library cannot enforce at the type level.
+description: Build UI with @bighat/ui. Load this before writing any component, screen, or style that will use this design system — it encodes the rules the library cannot enforce at the type level.
 ---
 
-# Building with @bighatpoland/ui
+# Building with @bighat/ui
 
 A design system's rules live in three places: the types, the linter, and the
 heads of the four people who wrote it. This file is an attempt to move the
@@ -17,7 +17,7 @@ Reviewing or handing over a prototype rather than building one? Read
 
 ## 1. Never use a primitive token in product code
 
-`@bighatpoland/ui` exports two layers. Only one of them is an API.
+`@bighat/ui` exports two layers. Only one of them is an API.
 
 ```tsx
 // Wrong — a primitive. It says what the colour is, not what it means.
@@ -109,8 +109,8 @@ Silently widening a system component is how systems rot.
 ## 8. Setup, once per application
 
 ```tsx
-import '@bighatpoland/ui/styles.css';
-import { ToastProvider } from '@bighatpoland/ui';
+import '@bighat/ui/styles.css';
+import { ToastProvider } from '@bighat/ui';
 
 export function App({ children }) {
   return (
@@ -202,7 +202,7 @@ it is now a type error. Use `tone="critical"`. See `MIGRATION.md`.
 ## Component inventory
 
 Machine-readable in `components.json`. Human-readable in the Storybook at
-<https://bighatpoland.github.io/bighat-design-system/>.
+<https://konstancja-tanjga.github.io/bighat-design-system/>.
 
 | Component    | Use it for                          | Do not use it for                    |
 | ------------ | ----------------------------------- | ------------------------------------ |
