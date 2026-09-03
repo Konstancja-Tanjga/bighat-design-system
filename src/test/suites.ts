@@ -64,9 +64,7 @@ export function runKeyboardSuite(harness: Harness): void {
     });
 
     for (const contract of contracts) {
-      const implemented = ['parity', 'diverged'].includes(
-        contract.implementations?.status ?? '',
-      );
+      const implemented = ['parity', 'diverged'].includes(contract.implementations?.status ?? '');
 
       describe(contract.name, () => {
         for (const [key, behaviour] of Object.entries(contract.keyboard ?? {})) {
@@ -168,14 +166,32 @@ export function runAnatomySuite(harness: Harness): void {
               // Only the ones that apply in the default state. A component whose
               // aria-busy is absent until loading is correct, not broken.
               const role = contract.aria?.role;
-              if (role && !role.includes('implicit') && !role.includes('varies')) {
-                const carrier = root.getAttribute('role')
-                  ? root
-                  : root.querySelector('[role]');
-                expect(
-                  carrier?.getAttribute('role'),
-                  `${contract.name}: contract declares role="${role}"`,
-                ).toBe(role);
+              if (role) {
+                const carrier = root.getAttribute('role') ? root : root.querySelector('[role]');
+                const rendered = carrier?.getAttribute('role') ?? null;
+
+                // A role can be conditional — StateBlock is status while
+                // loading, alert on error and nothing at all when empty,
+                // because announcing a successful empty result is noise. That
+                // is prose, not a token, so matching it literally asserted the
+                // sentence rather than the behaviour. Where the contract names
+                // more than one role, the rendered one has to be among them;
+                // absence stays legal, since "none when empty" is an outcome
+                // the contract explicitly allows.
+                const named = role.match(
+                  /\b(status|alert|dialog|region|list|listbox|menu|grid|table|tablist|tab|tabpanel|navigation|banner|main|complementary|contentinfo|search|form|group|toolbar|tooltip|progressbar|switch|checkbox|radiogroup|combobox|option|separator|presentation|none)\b/g,
+                );
+                const conditional = /\s/.test(role);
+
+                if (!conditional) {
+                  expect(rendered, `${contract.name}: contract declares role="${role}"`).toBe(role);
+                } else if (named?.length && rendered !== null) {
+                  expect(
+                    named,
+                    `${contract.name}: rendered role="${rendered}", but the contract ` +
+                      `only names ${named.join(', ')} — "${role}"`,
+                  ).toContain(rendered);
+                }
               }
             } finally {
               cleanup();
