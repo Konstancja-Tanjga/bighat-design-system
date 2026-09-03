@@ -67,7 +67,7 @@
     "test": "vitest run",
     "lint": "oxlint",
     "format": "prettier --write .",
-    "verify": "npm run tokens:check && npm run spec:validate && npm run audit:drift && npm run aria && npm run docs:check && npm run check:docs && npm test"
+    "verify": "npm run lint && npm run tokens:check && npm run spec:validate && npm run audit:drift && npm run aria && npm run docs:check && npm test && npm run build"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.0",

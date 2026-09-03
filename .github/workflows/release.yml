@@ -1,0 +1,54 @@
+name: Version
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: version
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # `verify` deliberately excludes check:docs. That gate is red on the
+      # scaffolded doc pages by design, and a gate that is meant to be red
+      # cannot also be the thing that decides whether a release may happen —
+      # it would mean no version ever ships. CI runs it in its own job, with
+      # continue-on-error, so it stays visible without blocking.
+      - run: npm run verify
+
+      # Opens (or updates) a "Version Packages" pull request collecting every
+      # pending changeset. Merging it bumps the version and writes CHANGELOG.md
+      # — so the version bump is a reviewed decision rather than a side effect
+      # of merging a feature.
+      #
+      # There is deliberately no `publish` step. Registry publication is a
+      # separate concern with its own credentials and its own failure modes,
+      # and wiring it in here would mean every merge to main could fail for a
+      # reason that has nothing to do with the code. To publish, run
+      # `npm run release` locally with an npm token, or add the step back
+      # together with an NPM_TOKEN secret.
+      - uses: changesets/action@v1
+        with:
+          version: npx changeset version
+          commit: 'chore: version packages'
+          title: 'chore: version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

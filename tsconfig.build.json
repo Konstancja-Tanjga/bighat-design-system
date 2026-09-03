@@ -19,5 +19,15 @@
     "outDir": "dist"
   },
   "include": ["src"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.stories.tsx", "src/test"]
+  // src/docs holds Storybook-only components. They are not exported from
+  // src/index.ts, so emitting declarations for them shipped types nobody can
+  // import — and it forced the docs to stay inside rootDir, which is why the
+  // token table could not read the generated dist/tokens.ts.
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx",
+    "src/test",
+    "src/docs"
+  ]
 }

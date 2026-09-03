@@ -1,9 +1,13 @@
 node_modules
 storybook-static
 documentation.json
-# dist/ IS committed: dist/tokens.css is the runtime API and `tokens:check`
-# compares the committed copy against the DTCG source, which is what makes a
-# hand-edit fail the build instead of surviving until the next rebuild.
-dist/index.js
-dist/index.d.ts
-dist/*.map
+# Only the four token artefacts are committed. dist/tokens.css is the runtime
+# API and `tokens:check` compares the committed copy against the DTCG source,
+# which is what makes a hand-edit fail the build instead of surviving until the
+# next rebuild. Everything else under dist/ is bundler and declaration output
+# that changes on every build.
+dist/*
+!dist/tokens.css
+!dist/tokens.scss
+!dist/tokens.ts
+!dist/tokens.flat.json

@@ -53,14 +53,6 @@ export function loadContracts(): Contract[] {
     .map((f) => JSON.parse(readFileSync(resolve(SPECS, f), 'utf8')) as Contract);
 }
 
-/**
- * Keys the platform provides on the element the component renders. Asserting
- * these is not testing the browser — it is testing that the component still
- * renders the element that gets them, which is exactly what breaks when someone
- * swaps a `<button>` for a `<div role="button">` to fix a styling problem.
- */
-const NATIVE = /Native\.$/;
-
 export function runKeyboardSuite(harness: Harness): void {
   const contracts = loadContracts().filter(
     (c) => c.interactive !== false && Object.keys(c.keyboard ?? {}).length > 0,

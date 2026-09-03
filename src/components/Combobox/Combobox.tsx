@@ -1,6 +1,5 @@
 import { useId, useRef, useState, type ReactNode } from 'react';
 
-import '../Input/Input.css';
 /**
  * A text field that filters a list — the one place this system does build a
  * custom listbox, because the native `<select>` it prefers cannot be typed

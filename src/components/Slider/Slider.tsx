@@ -1,6 +1,5 @@
 import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from 'react';
 
-import '../Input/Input.css';
 /**
  * A native `<input type="range">`, restyled rather than rebuilt.
  *
