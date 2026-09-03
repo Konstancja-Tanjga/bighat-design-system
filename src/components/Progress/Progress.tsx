@@ -1,6 +1,8 @@
-import { useId } from 'react';
+import type { ProgressTone } from '../../tokens/vocabulary';
 
-import './Progress.css';
+import type { Size } from '../../tokens/vocabulary';
+
+import { useId } from 'react';
 
 /**
  * How far along something is.
@@ -22,8 +24,8 @@ export type ProgressProps = {
   hideLabel?: boolean;
   /** Shown at the end of the label row, e.g. "12 of 40 files". */
   valueText?: string;
-  tone?: 'default' | 'success' | 'critical';
-  size?: 'sm' | 'md';
+  tone?: ProgressTone;
+  size?: Extract<Size, 'sm' | 'md'>;
 };
 
 export function Progress({
@@ -32,7 +34,7 @@ export function Progress({
   max = 100,
   hideLabel = false,
   valueText,
-  tone = 'default',
+  tone = 'neutral',
   size = 'md',
 }: ProgressProps) {
   const labelId = useId();

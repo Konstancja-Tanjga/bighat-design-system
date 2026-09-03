@@ -1,0 +1,126 @@
+.bh-ai {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--bh-padding-section) var(--bh-padding-section) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-padding-section);
+}
+
+.bh-ai__logo {
+  font-size: var(--bh-text-size-display);
+  font-weight: var(--bh-text-weight-heading);
+  letter-spacing: -0.02em;
+  color: var(--bh-action-primary-bg);
+}
+
+.bh-ai__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+}
+
+.bh-ai__title {
+  margin: 0;
+  font-size: var(--bh-text-size-display);
+  font-weight: var(--bh-text-weight-heading);
+  line-height: 1.25;
+}
+
+.bh-ai__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+}
+
+.bh-ai__governance {
+  font-size: var(--bh-text-size-body);
+  color: var(--bh-text-muted);
+}
+
+.bh-ai__explainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+}
+
+.bh-ai__explainer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bh-gap-snug);
+}
+
+.bh-ai__eyebrow {
+  margin: 0;
+  font-size: var(--bh-text-size-body);
+  font-weight: var(--bh-text-weight-heading);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bh-text-muted);
+}
+
+.bh-ai__explainer-title {
+  margin: 0;
+  font-size: var(--bh-text-size-display);
+  font-weight: var(--bh-text-weight-heading);
+}
+
+.bh-ai__explainer-body {
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--bh-text-size-caption);
+  line-height: 1.6;
+  color: var(--bh-text-secondary);
+}
+
+.bh-ai__section-title {
+  margin: 0 0 var(--bh-padding-inline);
+  font-size: var(--bh-text-size-heading);
+  font-weight: var(--bh-text-weight-heading);
+  text-align: center;
+}
+
+.bh-ai__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--bh-gap-normal);
+}
+
+.bh-ai__suggestion-title {
+  display: block;
+  font-size: var(--bh-text-size-caption);
+  font-weight: var(--bh-text-weight-heading);
+  color: var(--bh-text-primary);
+  margin-bottom: var(--bh-gap-tight);
+}
+
+.bh-ai__suggestion-detail {
+  display: block;
+  font-size: var(--bh-text-size-body);
+  line-height: 1.5;
+  color: var(--bh-text-muted);
+}
+
+/* Sticky rather than fixed: it stays with the scrolling region it belongs to,
+   so it cannot end up floating over a different panel. */
+.bh-ai__composer {
+  position: sticky;
+  bottom: 0;
+  margin-top: var(--bh-padding-section);
+  padding: var(--bh-padding-inline) var(--bh-padding-section) var(--bh-padding-section);
+  background: linear-gradient(to bottom, transparent, var(--bh-surface-sunken) 30%);
+}
+
+.bh-ai__composer > * {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.bh-ai__memory-intro {
+  margin: 0 var(--bh-gap-snug) var(--bh-gap-normal);
+  font-size: var(--bh-text-size-body);
+  line-height: 1.5;
+  color: var(--bh-text-muted);
+}

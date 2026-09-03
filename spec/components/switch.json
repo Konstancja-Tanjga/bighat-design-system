@@ -1,0 +1,101 @@
+{
+  "$schema": "../schema.json",
+  "name": "Switch",
+  "layer": "control",
+  "purpose": "An immediate setting. Takes effect on click, with no Save button.",
+  "notFor": [
+    "A value submitted with a form — that is Checkbox"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-switch-field",
+      "element": "div"
+    },
+    {
+      "part": "bh-switch-row",
+      "element": "div"
+    },
+    {
+      "part": "bh-switch",
+      "element": "button[type=button]",
+      "required": false
+    },
+    {
+      "part": "bh-switch__thumb",
+      "element": "span"
+    },
+    {
+      "part": "bh-switch__label",
+      "element": "span"
+    },
+    {
+      "part": "bh-field__description",
+      "element": "p"
+    },
+    {
+      "part": "bh-switch__hint",
+      "element": "p"
+    }
+  ],
+  "props": {
+    "label": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "checked": {
+      "kind": "boolean"
+    },
+    "onChange": {
+      "kind": "event"
+    },
+    "description": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "labelPosition": {
+      "kind": "enum",
+      "values": [
+        "start",
+        "end"
+      ],
+      "default": "end"
+    }
+  },
+  "states": [
+    "default",
+    "disabled"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "switch",
+    "attributes": {
+      "aria-checked": "checked",
+      "aria-labelledby": "labelId",
+      "aria-describedby": "description",
+      "aria-hidden": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.primary.bg",
+    "border.strong",
+    "duration.fast",
+    "font.family",
+    "gap.hairline",
+    "gap.snug",
+    "gap.tight",
+    "radius.pill",
+    "surface.base",
+    "surface.sunken",
+    "text.primary",
+    "text.sizeCaption"
+  ],
+  "interactive": true
+}

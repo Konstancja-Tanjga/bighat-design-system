@@ -1,0 +1,83 @@
+{
+  "$schema": "../schema.json",
+  "name": "UserProfile",
+  "layer": "control",
+  "purpose": "Who is signed in, and the account actions. Name as text, not only as initials.",
+  "notFor": [
+    "Showing another person — that is Avatar",
+    "App navigation"
+  ],
+  "composition": "leaf",
+  "anatomy": [
+    {
+      "part": "bh-user-profile__text",
+      "element": "span"
+    },
+    {
+      "part": "bh-user-profile__name",
+      "element": "span"
+    },
+    {
+      "part": "bh-user-profile__secondary",
+      "element": "span"
+    },
+    {
+      "part": "bh-user-profile__badge",
+      "element": "span"
+    },
+    {
+      "part": "bh-user-profile",
+      "element": "div"
+    },
+    {
+      "part": "bh-user-profile__caret",
+      "element": "span"
+    }
+  ],
+  "props": {
+    "name": {
+      "kind": "string"
+    },
+    "secondary": {
+      "kind": "string",
+      "note": "E-mail or tenant — what tells two accounts apart."
+    },
+    "items": {
+      "kind": "data",
+      "note": "Sign out last. Without them it renders as static identity."
+    },
+    "compact": {
+      "kind": "boolean",
+      "default": false,
+      "note": "Hides the text; the button then names the account itself."
+    },
+    "badge": {
+      "kind": "slot",
+      "content": "TODO"
+    }
+  },
+  "states": [
+    "default",
+    "hover"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "TODO"
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "font.family",
+    "gap.snug",
+    "gap.tight",
+    "radius.pill",
+    "surface.sunken",
+    "text.muted",
+    "text.primary",
+    "text.sizeCaption",
+    "text.weightEmphasis"
+  ],
+  "interactive": false
+}

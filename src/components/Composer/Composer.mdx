@@ -1,0 +1,86 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as ComposerStories from './Composer.stories';
+
+<Meta of={ComposerStories} />
+
+# Composer
+
+The prompt input — a textarea in a form, with optional single-choice modes.
+
+<Canvas of={ComposerStories.Default} />
+
+## When to use it
+
+| Use `Composer` for | Use something else for |
+| --- | --- |
+| TODO | Ordinary multi-line form fields |
+
+
+TODO: one paragraph on why the boundary sits where it does. The `notFor`
+entries above came from the contract; the reason they are the boundary did not.
+
+## Anatomy
+
+| part | element | rendered | note |
+| --- | --- | --- | --- |
+| `bh-composer` | `<form>` | always |  |
+| `bh-composer__field` | `<div>` | always |  |
+| `bh-composer__input` | `<textarea>` | conditional |  |
+| `bh-composer__tools` | `<div>` | always |  |
+| `bh-composer__submit` | `<button[type=submit]>` | always |  |
+| `bh-composer__modes` | `<fieldset>` | always |  |
+| `bh-composer__mode` | `<label>` | conditional |  |
+| `bh-composer__mode-icon` | `<span>` | always |  |
+| `bh-composer__hint` | `<p>` | always |  |
+
+## Props
+
+| prop | values | default | meaning |
+| --- | --- | --- | --- |
+| `label` | string | — | TODO |
+| `placeholder` | string | `Ask anything` | TODO |
+| `value` | string | — | TODO |
+| `onValueChange` | event | — | TODO |
+| `onSubmit` | event | — | TODO |
+| `modes` | data | — | Rendered as a radio group, not buttons. |
+| `activeMode` | string | — | TODO |
+| `onModeChange` | event | — | TODO |
+| `tools` | slot | — | Icon buttons still need labels. |
+| `submitLabel` | string | `Ask` | TODO |
+| `busy` | boolean | `false` | TODO |
+| `disabled` | boolean | `false` | TODO |
+| `hint` | slot | — | The place for an accuracy notice. |
+| `maxRows` | number | `8` | TODO |
+
+<Controls />
+
+## States
+
+`default` · `hover` · `focus-visible` · `disabled`
+
+## Keyboard
+
+| key | action |
+| --- | --- |
+| <kbd>Enter</kbd> | TODO |
+
+## Accessibility
+
+- **Role** — textbox (implicit, from <textarea>)
+- **Labelling** — TODO: is a label required, or merely supported?
+- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
+- **Announcements** — TODO: the live-region policy, not the role it produced.
+
+
+## Do and don't
+
+<Guidance>
+  <Do reason="TODO">TODO</Do>
+  <Dont reason="TODO">TODO</Dont>
+</Guidance>
+
+## Tokens consumed
+
+`action.primary.bg` · `action.primary.bgHover` · `action.primary.fg` · `action.secondary.bgHover` · `border.focus` · `border.strong` · `font.family` · `gap.snug` · `gap.tight` · `padding.inline` · `radius.control` · `radius.pill` · `radius.surface` · `status.info.bg` · `status.info.fg` · `surface.base` · `text.muted` · `text.primary` · `text.secondary` · `text.sizeBody` · `text.sizeCaption` · `text.weightEmphasis` · `text.weightHeading`

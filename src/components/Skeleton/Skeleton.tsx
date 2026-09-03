@@ -1,5 +1,3 @@
-import './Skeleton.css';
-
 /**
  * A placeholder for content that is on its way.
  *

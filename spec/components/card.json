@@ -1,0 +1,94 @@
+{
+  "$schema": "../schema.json",
+  "name": "Card",
+  "layer": "frame",
+  "purpose": "A bounded surface around content the user might act on as a unit.",
+  "notFor": [
+    "A paragraph — that is a border with extra steps",
+    "Cards with two actions inside"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-card",
+      "element": "TODO",
+      "note": "TODO: read it off the React render"
+    }
+  ],
+  "props": {
+    "children": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "onClick": {
+      "kind": "event",
+      "note": "Makes the whole surface one button."
+    },
+    "ariaLabel": {
+      "kind": "string",
+      "note": "Its accessible name when onClick is set."
+    },
+    "elevation": {
+      "kind": "enum",
+      "values": [
+        "flat",
+        "raised"
+      ],
+      "default": "flat"
+    },
+    "accent": {
+      "kind": "enum",
+      "values": [
+        "none",
+        "info",
+        "success",
+        "warning",
+        "critical"
+      ],
+      "default": "none",
+      "note": "Decorative — never the only carrier of a status."
+    },
+    "padding": {
+      "kind": "enum",
+      "values": [
+        "snug",
+        "normal"
+      ],
+      "default": "normal"
+    },
+    "dragging": {
+      "kind": "boolean",
+      "default": false
+    }
+  },
+  "states": [
+    "default",
+    "hover"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "TODO"
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.strong",
+    "border.subtle",
+    "duration.fast",
+    "elevation.overlay",
+    "elevation.raised",
+    "font.family",
+    "padding.inline",
+    "padding.section",
+    "radius.surface",
+    "status.critical.fg",
+    "status.info.fg",
+    "status.success.fg",
+    "status.warning.fg",
+    "surface.raised",
+    "text.primary"
+  ],
+  "interactive": true
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "../schema.json",
+  "name": "DatePicker",
+  "layer": "control",
+  "purpose": "A native date input, with the format and range stated in the description.",
+  "notFor": [
+    "A custom calendar grid",
+    "A duration — that is two fields"
+  ],
+  "composition": "leaf",
+  "anatomy": [
+    {
+      "part": "bh-field",
+      "element": "div"
+    },
+    {
+      "part": "bh-field__label",
+      "element": "label"
+    },
+    {
+      "part": "bh-field__required",
+      "element": "span"
+    },
+    {
+      "part": "bh-field__description",
+      "element": "p"
+    },
+    {
+      "part": "bh-input",
+      "element": "input",
+      "required": false
+    },
+    {
+      "part": "bh-datepicker",
+      "element": "input",
+      "required": false
+    },
+    {
+      "part": "bh-field__error",
+      "element": "p"
+    },
+    {
+      "part": "bh-date-range",
+      "element": "fieldset",
+      "required": false
+    },
+    {
+      "part": "bh-date-range__fields",
+      "element": "div"
+    }
+  ],
+  "props": {
+    "label": {
+      "kind": "string"
+    },
+    "granularity": {
+      "kind": "enum",
+      "values": [
+        "date",
+        "month",
+        "week",
+        "datetime-local"
+      ],
+      "default": "date"
+    },
+    "min": {
+      "kind": "string",
+      "note": "Named in the hint automatically."
+    },
+    "max": {
+      "kind": "string"
+    },
+    "error": {
+      "kind": "string"
+    },
+    "DateRangePicker.legend": {
+      "kind": "string"
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "TODO"
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "font.family",
+    "gap.normal",
+    "gap.snug"
+  ],
+  "interactive": true
+}

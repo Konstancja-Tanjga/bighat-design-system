@@ -1,0 +1,91 @@
+{
+  "$schema": "../schema.json",
+  "name": "DescriptionList",
+  "layer": "data",
+  "purpose": "Term and value pairs — a record read rather than a form filled. A real <dl>, so a screen reader knows which label owns which value.",
+  "notFor": [
+    "A form — these are values, not inputs",
+    "Two columns of unrelated data"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-dl",
+      "element": "dl",
+      "required": false
+    },
+    {
+      "part": "bh-dl__pair",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-dl__term",
+      "element": "dt"
+    },
+    {
+      "part": "bh-dl__value",
+      "element": "dd"
+    }
+  ],
+  "props": {
+    "items": {
+      "kind": "data",
+      "note": "{ term, value, wide? }. `wide` spans both columns in layout=columns."
+    },
+    "layout": {
+      "kind": "enum",
+      "values": [
+        "rows",
+        "columns"
+      ],
+      "default": "columns",
+      "note": "rows stacks term above value — right in a narrow panel. columns puts the term in a gutter so values align and can be read down."
+    },
+    "density": {
+      "kind": "density",
+      "values": [
+        "comfortable",
+        "compact"
+      ],
+      "default": "comfortable"
+    },
+    "ariaLabel": {
+      "kind": "string",
+      "note": "Makes it a labelled group. Omit inside an already-labelled region — a nameless group is noise."
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "varies — see announcements",
+    "attributes": {
+      "aria-label": "ariaLabel"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "font.family",
+    "gap.hairline",
+    "gap.loose",
+    "padding.block",
+    "text.leadingNormal",
+    "text.muted",
+    "text.primary",
+    "text.sizeBody",
+    "text.sizeDense",
+    "text.sizeLabel",
+    "text.weightBody",
+    "text.weightHeading"
+  ],
+  "interactive": false
+}

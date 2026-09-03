@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './Board.css';
-
 /**
  * Columns of cards — a kanban board, a pipeline, a review queue.
  *

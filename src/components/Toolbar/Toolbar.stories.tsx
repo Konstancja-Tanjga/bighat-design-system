@@ -7,7 +7,7 @@ import { Divider } from '../Divider/Divider';
 import { SegmentedControl } from '../SegmentedControl/SegmentedControl';
 
 const meta: Meta<typeof Toolbar> = {
-  title: 'Components/Function Bar',
+  title: 'Components/Toolbar',
   component: Toolbar,
 };
 

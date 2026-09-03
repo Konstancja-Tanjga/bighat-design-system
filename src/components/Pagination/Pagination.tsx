@@ -1,7 +1,5 @@
 import { Button } from '../Button/Button';
 import { Select } from '../Select/Select';
-import './Pagination.css';
-
 /**
  * Paging over a set that is too large to render.
  *

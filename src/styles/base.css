@@ -10,7 +10,7 @@
   background: var(--bh-surface-base);
   color: var(--bh-text-primary);
   font-family: var(--bh-font-family);
-  font-size: 14px;
+  font-size: var(--bh-text-size-caption);
   line-height: 1.5;
 }
 

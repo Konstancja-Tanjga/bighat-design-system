@@ -1,0 +1,73 @@
+{
+  "$schema": "../schema.json",
+  "name": "Skeleton",
+  "layer": "feedback",
+  "purpose": "A placeholder for content whose shape is already known.",
+  "notFor": [
+    "Waits with no known shape — use StateBlock state=\"loading\""
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-skeleton",
+      "element": "span",
+      "required": false
+    }
+  ],
+  "props": {
+    "width": {
+      "kind": "data",
+      "default": "100%"
+    },
+    "height": {
+      "kind": "data",
+      "default": 16
+    },
+    "radius": {
+      "kind": "enum",
+      "values": [
+        "control",
+        "surface",
+        "pill"
+      ],
+      "default": "control"
+    },
+    "animated": {
+      "kind": "boolean",
+      "default": true,
+      "note": "Shimmer is off under prefers-reduced-motion regardless."
+    },
+    "label": {
+      "kind": "string",
+      "note": "On SkeletonGroup."
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "status",
+    "attributes": {
+      "aria-hidden": "true",
+      "aria-busy": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "duration.sweep",
+    "radius.control",
+    "radius.pill",
+    "radius.surface",
+    "surface.base",
+    "surface.sunken"
+  ],
+  "interactive": false
+}

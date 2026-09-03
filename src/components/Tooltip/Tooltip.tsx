@@ -8,8 +8,6 @@ import {
   type ReactNode,
 } from 'react';
 
-import './Tooltip.css';
-
 /**
  * A short label for a control that has none — an icon button, a truncated cell.
  *

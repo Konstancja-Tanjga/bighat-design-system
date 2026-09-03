@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { SegmentedControl } from './SegmentedControl';
 
 const meta: Meta<typeof SegmentedControl> = {
-  title: 'Components/Segmented Button',
+  title: 'Components/SegmentedControl',
   component: SegmentedControl,
 };
 

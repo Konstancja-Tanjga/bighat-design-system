@@ -1,0 +1,68 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as AppBarStories from './AppBar.stories';
+
+<Meta of={AppBarStories} />
+
+# AppBar
+
+The top bar. Three slots in reading order: brand, title, actions.
+
+<Canvas of={AppBarStories.Default} />
+
+## When to use it
+
+| Use `AppBar` for | Use something else for |
+| --- | --- |
+| TODO | Repeating the product name in title — brand already carries it |
+
+
+TODO: one paragraph on why the boundary sits where it does. The `notFor`
+entries above came from the contract; the reason they are the boundary did not.
+
+## Anatomy
+
+| part | element | rendered | note |
+| --- | --- | --- | --- |
+| `bh-appbar` | `<div>` | always |  |
+| `bh-appbar__brand` | `<div>` | always |  |
+| `bh-appbar__title` | `<h1>` | always |  |
+| `bh-appbar__center` | `<div>` | always |  |
+| `bh-appbar__actions` | `<div>` | always |  |
+
+## Props
+
+| prop | values | default | meaning |
+| --- | --- | --- | --- |
+| `brand` | slot | — | Logo or wordmark. |
+| `title` | slot | — | Names the current screen, not the product. |
+| `titleAsHeading` | boolean | `true` | false when the screen has its own visible <h1>. |
+| `center` | slot | — | Search or filters acting on this screen. |
+| `actions` | slot | — | Primary action last. |
+
+<Controls />
+
+## States
+
+`default`
+
+
+## Accessibility
+
+- **Role** — TODO
+- **Labelling** — TODO: is a label required, or merely supported?
+- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
+- **Announcements** — TODO: the live-region policy, not the role it produced.
+
+
+## Do and don't
+
+<Guidance>
+  <Do reason="TODO">TODO</Do>
+  <Dont reason="TODO">TODO</Dont>
+</Guidance>
+
+## Tokens consumed
+
+`font.family` · `gap.normal` · `gap.snug` · `padding.inline` · `surface.base` · `text.primary` · `text.sizeHeading` · `text.weightHeading`

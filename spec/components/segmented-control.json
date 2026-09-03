@@ -1,0 +1,105 @@
+{
+  "$schema": "../schema.json",
+  "name": "SegmentedControl",
+  "layer": "control",
+  "purpose": "Two to five mutually exclusive options, all visible. A radio group that looks like buttons.",
+  "notFor": [
+    "More than five options",
+    "A filter with a cleared state"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-segmented-field",
+      "element": "fieldset"
+    },
+    {
+      "part": "bh-segmented__legend",
+      "element": "legend",
+      "required": false
+    },
+    {
+      "part": "bh-segmented",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-segmented__segment",
+      "element": "div"
+    },
+    {
+      "part": "bh-segmented__input",
+      "element": "input[type=radio]"
+    },
+    {
+      "part": "bh-segmented__label",
+      "element": "label"
+    }
+  ],
+  "props": {
+    "legend": {
+      "kind": "string",
+      "note": "Visually hidden unless showLegend."
+    },
+    "showLegend": {
+      "kind": "boolean",
+      "default": false
+    },
+    "options": {
+      "kind": "data"
+    },
+    "value": {
+      "kind": "string"
+    },
+    "onChange": {
+      "kind": "event"
+    },
+    "size": {
+      "kind": "size",
+      "values": [
+        "sm",
+        "md"
+      ],
+      "default": "md"
+    }
+  },
+  "states": [
+    "default",
+    "focus-visible",
+    "disabled"
+  ],
+  "keyboard": {
+    "Arrow keys": "Moves between options in the group. Native.",
+    "Space": "Selects. Native."
+  },
+  "aria": {
+    "role": "radio (implicit, from <input[type=radio]>)",
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.focus",
+    "border.strong",
+    "control.md",
+    "control.sm",
+    "elevation.raised",
+    "font.family",
+    "gap.hairline",
+    "gap.tight",
+    "padding.inline",
+    "radius.control",
+    "surface.base",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.sizeBody",
+    "text.sizeCaption",
+    "text.weightEmphasis"
+  ],
+  "interactive": true
+}

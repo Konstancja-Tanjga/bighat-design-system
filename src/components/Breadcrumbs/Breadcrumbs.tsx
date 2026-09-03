@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './Breadcrumbs.css';
-
 /**
  * Where the user is in a hierarchy — never the path they clicked to get here.
  * A history trail that changes shape per visit is a worse map than no map.

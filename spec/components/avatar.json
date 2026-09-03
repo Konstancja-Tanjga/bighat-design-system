@@ -1,0 +1,88 @@
+{
+  "$schema": "../schema.json",
+  "name": "Avatar",
+  "layer": "control",
+  "purpose": "A person, as a picture with a name behind it.",
+  "notFor": [
+    "A logo",
+    "Carrying status on its own"
+  ],
+  "composition": "leaf",
+  "anatomy": [
+    {
+      "part": "bh-avatar",
+      "element": "span",
+      "required": false
+    },
+    {
+      "part": "bh-avatar__initials",
+      "element": "span"
+    },
+    {
+      "part": "bh-avatar-group",
+      "element": "span"
+    }
+  ],
+  "props": {
+    "name": {
+      "kind": "string",
+      "note": "Initials and accessible name come from it."
+    },
+    "src": {
+      "kind": "string"
+    },
+    "size": {
+      "kind": "size",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    },
+    "decorative": {
+      "kind": "boolean",
+      "default": false,
+      "note": "True when the name is already visible next to it."
+    },
+    "AvatarGroup.label": {
+      "kind": "string"
+    },
+    "AvatarGroup.max": {
+      "kind": "number",
+      "default": 4
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "group",
+    "attributes": {
+      "aria-label": "decorative",
+      "aria-hidden": "decorative"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "font.family",
+    "padding.block",
+    "radius.pill",
+    "surface.base",
+    "surface.inverse",
+    "surface.sunken",
+    "text.inverse",
+    "text.secondary",
+    "text.sizeHeading",
+    "text.weightHeading"
+  ],
+  "interactive": false
+}

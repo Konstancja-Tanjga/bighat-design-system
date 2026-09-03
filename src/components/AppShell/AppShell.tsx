@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './AppShell.css';
-
 /**
  * The frame every application screen sits in.
  *

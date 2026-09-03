@@ -1,0 +1,75 @@
+{
+  "$schema": "../schema.json",
+  "name": "Tooltip",
+  "layer": "feedback",
+  "purpose": "A short label for a control that has none. Dismissible, hoverable, persistent.",
+  "notFor": [
+    "Anything interactive inside it — that is a popover",
+    "Text the user must read to succeed"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-tooltip-anchor",
+      "element": "span"
+    },
+    {
+      "part": "bh-tooltip",
+      "element": "span"
+    }
+  ],
+  "props": {
+    "content": {
+      "kind": "slot",
+      "note": "Plain text.",
+      "content": "TODO"
+    },
+    "children": {
+      "kind": "data",
+      "note": "One focusable element."
+    },
+    "placement": {
+      "kind": "enum",
+      "values": [
+        "top",
+        "bottom"
+      ],
+      "default": "top"
+    },
+    "delay": {
+      "kind": "number",
+      "default": 200,
+      "note": "Hover only. Focus shows it immediately."
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {
+    "Escape": "TODO"
+  },
+  "aria": {
+    "role": "tooltip",
+    "labelling": null,
+    "focus": null,
+    "announcements": null,
+    "wcag": [
+      "1.4.13"
+    ]
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "elevation.overlay",
+    "font.family",
+    "gap.snug",
+    "gap.tight",
+    "layer.rail",
+    "radius.control",
+    "surface.inverse",
+    "text.inverse"
+  ],
+  "interactive": true
+}

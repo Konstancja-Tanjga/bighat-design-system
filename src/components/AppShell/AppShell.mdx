@@ -1,0 +1,81 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as AppShellStories from './AppShell.stories';
+
+<Meta of={AppShellStories} />
+
+# AppShell
+
+The frame every application screen sits in. Owns the landmark structure — header, nav, main, complementary.
+
+<Canvas of={AppShellStories.Default} />
+
+## When to use it
+
+| Use `AppShell` for | Use something else for |
+| --- | --- |
+| TODO | Documentation and marketing pages — use height="flow" or no shell at all |
+
+
+TODO: one paragraph on why the boundary sits where it does. The `notFor`
+entries above came from the contract; the reason they are the boundary did not.
+
+## Anatomy
+
+| part | element | rendered | note |
+| --- | --- | --- | --- |
+| `bh-shell` | `<div>` | conditional |  |
+| `bh-shell__header` | `<header>` | always |  |
+| `bh-shell__rail` | `<div>` | always |  |
+| `bh-shell__sidebar` | `<div>` | always |  |
+| `bh-shell__main` | `<main>` | always |  |
+| `bh-shell__aside` | `<div>` | always |  |
+| `bh-shell__scrim` | `<button[type=button]>` | always |  |
+| `bh-skip-link` | `<a>` | always |  |
+
+## Props
+
+| prop | values | default | meaning |
+| --- | --- | --- | --- |
+| `header` | slot | — | Rendered as <header>. |
+| `rail` | slot | — | Narrow icon rail on the leading edge. |
+| `sidebar` | slot | — | Leading panel — navigation, a tree. |
+| `aside` | slot | — | Trailing panel — inspector, context. |
+| `children` | slot | — | Becomes the only <main>. |
+| `height` | `fill` · `flow` | `fill` | fill pins to the viewport and scrolls each region independently |
+| `navOpen` | boolean | `false` | Below breakpoint.md the rail and sidebar leave the grid; with onNavToggle they return as an overlay instead of simply vanishing. |
+| `onNavToggle` | event | — | Omit and the panels stay hidden below the breakpoint — honest, but the reader has no route back to them. |
+| `asideOpen` | boolean | `false` | TODO |
+| `onAsideToggle` | event | — | TODO |
+
+<Controls />
+
+## States
+
+`default` · `focus-visible`
+
+## Keyboard
+
+| key | action |
+| --- | --- |
+| <kbd>Enter</kbd> | Follows the link. Native. |
+
+## Accessibility
+
+- **Role** — banner (in a landmark context) (implicit, from <header>)
+- **Labelling** — TODO: is a label required, or merely supported?
+- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
+- **Announcements** — TODO: the live-region policy, not the role it produced.
+
+
+## Do and don't
+
+<Guidance>
+  <Do reason="TODO">TODO</Do>
+  <Dont reason="TODO">TODO</Dont>
+</Guidance>
+
+## Tokens consumed
+
+`border.strong` · `border.subtle` · `control.lg` · `elevation.modal` · `font.family` · `gap.snug` · `layer.overlay` · `padding.block` · `padding.inline` · `radius.control` · `surface.base` · `surface.sunken` · `text.link` · `text.primary` · `text.sizeCaption` · `text.weightEmphasis`

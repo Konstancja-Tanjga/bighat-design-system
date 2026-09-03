@@ -1,5 +1,11 @@
-import './styles/tokens.css';
-import './styles/base.css';
+/**
+ * The entire appearance of the library, in one import.
+ *
+ * Was two local files (tokens.css, base.css) plus 43 per-component imports.
+ * All 45 now live in @bighat/css, which the Angular library imports
+ * unchanged — so there is exactly one copy of every rule in the system.
+ */
+import './styles/index.css';
 
 export { AppBar } from './components/AppBar/AppBar';
 export type { AppBarProps } from './components/AppBar/AppBar';
@@ -141,4 +147,3 @@ export type { TooltipProps } from './components/Tooltip/Tooltip';
 export { UserProfile } from './components/UserProfile/UserProfile';
 export type { UserProfileProps } from './components/UserProfile/UserProfile';
 
-export * from './tokens';

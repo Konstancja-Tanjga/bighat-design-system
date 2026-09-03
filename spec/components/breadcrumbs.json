@@ -1,0 +1,88 @@
+{
+  "$schema": "../schema.json",
+  "name": "Breadcrumbs",
+  "layer": "frame",
+  "purpose": "Position in a hierarchy. The last crumb is the current page and is not a link.",
+  "notFor": [
+    "Click history",
+    "A two-level hierarchy — a back link is enough"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-breadcrumbs",
+      "element": "nav"
+    },
+    {
+      "part": "bh-breadcrumbs__list",
+      "element": "ol"
+    },
+    {
+      "part": "bh-breadcrumbs__item",
+      "element": "li"
+    },
+    {
+      "part": "bh-breadcrumbs__separator",
+      "element": "span"
+    },
+    {
+      "part": "bh-breadcrumbs__ellipsis",
+      "element": "span"
+    },
+    {
+      "part": "bh-breadcrumbs__current",
+      "element": "span"
+    },
+    {
+      "part": "bh-breadcrumbs__link",
+      "element": "a",
+      "required": false
+    }
+  ],
+  "props": {
+    "items": {
+      "kind": "data"
+    },
+    "ariaLabel": {
+      "kind": "string",
+      "default": "Breadcrumb"
+    },
+    "maxItems": {
+      "kind": "number",
+      "default": 5,
+      "note": "Beyond this the middle collapses; root and leaf always show."
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {
+    "Enter": "Follows the link. Native."
+  },
+  "aria": {
+    "role": "navigation (implicit, from <nav>)",
+    "attributes": {
+      "aria-current": "page`",
+      "aria-label": "ariaLabel",
+      "aria-hidden": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "font.family",
+    "gap.tight",
+    "radius.control",
+    "text.link",
+    "text.muted",
+    "text.primary",
+    "text.sizeBody",
+    "text.weightEmphasis"
+  ],
+  "interactive": true
+}

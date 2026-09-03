@@ -1,0 +1,111 @@
+{
+  "$schema": "../schema.json",
+  "name": "IconPicker",
+  "layer": "control",
+  "purpose": "Choosing one icon from a searchable grid. A radio group, not a wall of buttons.",
+  "notFor": [
+    "An icon set with no names — the name is the accessible label"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-icon-picker",
+      "element": "fieldset"
+    },
+    {
+      "part": "bh-field__label",
+      "element": "legend"
+    },
+    {
+      "part": "bh-input",
+      "element": "input[type=search]"
+    },
+    {
+      "part": "bh-icon-picker__grid",
+      "element": "div"
+    },
+    {
+      "part": "bh-icon-picker__cell",
+      "element": "div"
+    },
+    {
+      "part": "bh-icon-picker__input",
+      "element": "input[type=radio]"
+    },
+    {
+      "part": "bh-icon-picker__tile",
+      "element": "label"
+    },
+    {
+      "part": "bh-icon-picker__glyph",
+      "element": "span"
+    },
+    {
+      "part": "bh-field__description",
+      "element": "p"
+    }
+  ],
+  "props": {
+    "label": {
+      "kind": "string"
+    },
+    "icons": {
+      "kind": "data",
+      "note": "Each needs a name; keywords widen the search."
+    },
+    "value": {
+      "kind": "string"
+    },
+    "onChange": {
+      "kind": "event"
+    },
+    "searchable": {
+      "kind": "boolean",
+      "default": true
+    },
+    "columns": {
+      "kind": "number",
+      "default": 8
+    }
+  },
+  "states": [
+    "default",
+    "hover",
+    "focus-visible"
+  ],
+  "keyboard": {
+    "Arrow keys": "Moves between options in the group. Native.",
+    "Space": "Selects. Native."
+  },
+  "aria": {
+    "role": "status",
+    "attributes": {
+      "aria-label": "`Search",
+      "aria-hidden": "true",
+      "aria-live": "polite"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.primary.bg",
+    "border.focus",
+    "border.subtle",
+    "font.family",
+    "gap.snug",
+    "gap.tight",
+    "radius.control",
+    "radius.surface",
+    "status.info.bg",
+    "surface.base",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary"
+  ],
+  "interactive": true
+}

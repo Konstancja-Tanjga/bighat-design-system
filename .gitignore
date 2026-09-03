@@ -1,19 +1,9 @@
-# Dependencies
 node_modules
-
-# Build output
-dist
 storybook-static
-*.tsbuildinfo
-
-# Logs
-logs
-*.log
-npm-debug.log*
-
-# Editors and OS
-.DS_Store
-.idea
-.vscode/*
-!.vscode/extensions.json
-*.local
+documentation.json
+# dist/ IS committed: dist/tokens.css is the runtime API and `tokens:check`
+# compares the committed copy against the DTCG source, which is what makes a
+# hand-edit fail the build instead of surviving until the next rebuild.
+dist/index.js
+dist/index.d.ts
+dist/*.map

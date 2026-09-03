@@ -1,260 +1,78 @@
-# [Storybook](https://konstancja-tanjga.github.io/bighat-design-system/)
+# [Big Hat — React](https://konstancja-tanjga.github.io/bighat-design-system/)
 
-A small design system built to answer the question interviews actually ask:
-**not "can you make a button", but "what did you decide, and what did it cost".**
+**[Open the Storybook →](https://konstancja-tanjga.github.io/bighat-design-system/)**
 
-Thirty-nine components in two layers — the everyday controls, and the frame they
-sit in. Two token layers. WCAG AA enforced by a failing build rather than a
-review comment. A deprecation carried from announcement to removal across two
-major versions. Two whole-page templates. And a skill file that lets a coding
-agent follow the system's rules instead of inventing its own.
+A design system built to answer the question interviews actually ask: not
+"can you make a button", but *what did you decide, and what did it cost*.
 
-**[Storybook →]([https://konstancja-tanjga.github.io/bighat-design-system/])**
+Forty-one components. Two token layers, one of which is an API. Eight classes
+of value that cannot be written as a literal anywhere in the library. WCAG AA
+enforced by a failing build rather than a review comment.
 
-[![CI](https://github.com/Konstancja-Tanjga/bighat-design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/Konstancja-Tanjga/bighat-design-system/actions/workflows/ci.yml)
-[![Storybook](https://img.shields.io/badge/Storybook-live-3563e9)](https://konstancja-tanjga.github.io/bighat-design-system/)
-[![WCAG AA](https://img.shields.io/badge/WCAG_AA-58_assertions_in_CI-0a7f55)](#2-contrast-is-a-build-error)
-[![License](https://img.shields.io/badge/license-MIT-59636f)](./LICENSE)
+The Storybook is the artefact — the case study, the foundations, the ARIA
+conformance report and the token drift report are all pages in it, and the
+reports are generated from the same audits that gate CI. This file is just the
+front door.
 
-![Three states of StateBlock — empty, loading and error — each with its announcement strategy](./docs/images/04_stateblock.png)
-
----
-
-## The four decisions
-
-### 1. Two token layers, and only one of them is an API
-
-Primitives (`blue-500`, `space-4`) say what a value _is_. Semantics
-(`action.primary.hover`, `text.muted`, `border.focus`) say what it _means_.
-Components may only touch the second layer.
-
-This is the difference between a theme switch that works and one that needs a
-find-and-replace. Dark mode here is a swap of the semantic layer alone —
-`src/tokens/semantic.ts` is 150 lines and there is no second stylesheet.
-
-The cost is real and worth naming: every new colour needs a _role_ before it
-can be used, which means designers cannot hand over a hex and be done. That
-friction is the feature.
-
-![Primitives feed semantics, semantics feed components, and the shortcut from components straight to primitives is marked never](./docs/images/01_token_layers.png)
-
-### 2. Contrast is a build error
-
-`src/tokens/semantic.ts` declares every foreground/background pair the system
-promises to keep legible, along with the WCAG rule that actually applies to it —
-4.5:1 for body text, 3:1 for large text and for non-text like focus rings and
-control boundaries.
-
-`src/tokens/contrast.test.ts` iterates that list across both themes. **58
-assertions, run in CI before Storybook deploys.** A palette tweak that looks
-better but drops `text.muted` to 4.3:1 turns the build red.
-
-Two things this design gets right that a generic linter cannot:
-
-- It knows a focus ring is non-text, so it does not demand an absurd 4.5:1 and
-  push the palette to mud.
-- Adding a token that renders text without declaring its pair is a review
-  comment, not a silent gap — because the pair list _is_ the coverage.
-
-![Table of measured contrast ratios per semantic pair, with one rejected candidate at 2.53:1](./docs/images/03_contrast_gate.png)
-
-### 3. The states nobody designs are a component
-
-`StateBlock` covers empty, loading and error. It exists because those three
-screens get reinvented by every team, with a different tone of voice each time
-and none of them announced correctly:
-
-| State     | Live region                | Why                                                               |
-| --------- | -------------------------- | ----------------------------------------------------------------- |
-| `loading` | `role="status"` — polite   | Transient. Must not cut across what the user is reading.          |
-| `error`   | `role="alert"` — assertive | Their action failed. They need to know now.                       |
-| `empty`   | none                       | A successful response with nothing in it. Announcing it is noise. |
-
-`Table` does not own an empty state — it renders a `StateBlock` across its
-columns. One vocabulary for "nothing here", whether the surface is a table, a
-panel or a route.
-
-It also distinguishes the two situations everyone collapses into one: _you have
-no invoices yet_ needs an onboarding action; _no invoices match these filters_
-needs a way out of the filter.
-
-### 4. One breaking change, with the argument written down
-
-`Button`'s `variant` prop was doing two jobs — four values described visual
-weight, one (`danger`) described consequence. It held up until someone needed a
-destructive action that was not the loudest thing on screen, and product code
-filled with inline colour overrides.
-
-2.0 split it into `variant` (weight) and `tone` (consequence). `variant="danger"`
-kept rendering **byte-identically** through the whole of 2.x — asserted by a
-test — while warning once in development. That is what let a team take the new
-major on a Tuesday and do the rename whenever they got to it: the version bump
-and the migration were two separate decisions.
-
-3.0 closed the window and removed it. A deprecation that never ends is not a
-deprecation; it is a second API you have quietly agreed to maintain forever.
-
-![Before: one variant enum doing two jobs. After: a variant by tone grid, with the previously impossible combination highlighted](./docs/images/02_variant_tone.png)
-
-Full reasoning, deprecation timeline and a scripted rename: **[MIGRATION.md](./MIGRATION.md)**
-
----
-
-## Rules an agent can follow
-
-`agent/SKILL.md` encodes what the types cannot: never reach for a primitive,
-never invent an empty state, never let colour be the only cue, never remove a
-focus ring. `components.json` is the machine-readable inventory — every
-component, its props, and crucially what it is **not** for.
-
-Whether that actually changes what an agent writes is a testable claim, not a
-slogan — so it was tested. `agent/EVIDENCE.md` has the comparison: same model,
-same prompt, skill file present or absent, both outputs committed verbatim.
-
-**The result contradicted the hypothesis.** None of the four failures the
-protocol predicted occurred in either arm — because the rules are also in the
-component source, in the README, and in required props. What the skill file
-actually changed was architectural: without it the agent produced a table with a
-toolbar and no landmarks; with it, a full `AppShell` with named regions and a
-skip link. Both arms then left raw font sizes inline, because the system exports
-no typography tokens — the second gap an outside consumer has found that the
-author could not see.
-
-`CLAUDE.md` routes an agent arriving at this repository for the first time,
-and `agent/HANDOFF.md` maps the questions people actually ask — _is this
-handoff-safe?_, _the spacing looks off_, _bighat cannot do what I need here_ —
-to what each one runs and what it returns. The same guidance for humans is
-`docs/handoff-guide.html`.
-
----
-
-## Components
-
-**Controls**
-
-`Button` · `Input` · `Select` · `Combobox` · `Checkbox` · `RadioGroup` ·
-`Switch` · `Slider` · `DatePicker` · `SegmentedControl` · `Menu` · `Toolbar`
-
-**Data**
-
-`Table` · `DescriptionList` · `Pagination` · `List` · `ListView`
-
-**Structure and navigation**
-
-`AppShell` · `AppBar` · `NavRail` · `SidePanel` · `NavList` · `Tabs` ·
-`Breadcrumbs` · `Accordion` · `Divider` · `ScrollArea` · `StatusBar`
-
-**Data and feedback**
-
-`Table` · `List` · `ListView` · `Board` · `Card` · `Badge` · `Avatar` ·
-`UserProfile` · `Progress` · `Skeleton` · `Tooltip` · `Toast` · `Dialog` ·
-**`StateBlock`**
-
-**Conversational**
-
-`Composer` · `IconPicker`
-
-The one to look at is `StateBlock`. It covers empty, loading and error with
-three different announcement strategies, and `Table` and `Board` delegate their
-own empty bodies to it rather than owning a second vocabulary for "nothing
-here".
-
-Every component ships a **Do / Don't** page in the Storybook: live examples of
-the right and the wrong version side by side, each with the reason rather than
-the instruction, anchored to a named usability heuristic. "Don't do X" gets
-argued with in review; "don't do X, because a screen reader user never hears
-the failure" gets followed.
-
-The examples are rendered components, not screenshots — a screenshot of
-guidance goes stale the moment the component changes, and nobody notices,
-because images have no build step.
-
-Several omissions are deliberate. `Select` wraps the **native** element — a
-custom listbox is ~400 lines of roving tabindex, typeahead and mobile fallback,
-and the platform already gives us autofill and correct assistive-technology
-behaviour for free. `Dialog` is the **native `<dialog>`** — focus trapping,
-focus restoration, page inertness and the top layer are not worth
-reimplementing badly. `DatePicker` is a native date input and `Slider` a native
-range, for the same reason. `ScrollArea` styles the platform scrollbar rather
-than drawing one.
-
-`Combobox` is the single place that bargain is refused, because a native
-`<select>` cannot be typed into and `<datalist>` is inconsistent across
-browsers — so it pays the full ARIA bill instead: `aria-activedescendant`,
-a live result count, and Escape twice to clear.
-
----
-
-## Templates
-
-Three whole-page templates, in the Storybook rather than in the package — a
-template you can install becomes a dependency, and then a team is blocked on
-the design system to change their own layout.
-
-|                  | The pattern                       | The decision it carries                                                                    |
-| ---------------- | --------------------------------- | ------------------------------------------------------------------------------------------ |
-| **AI Chat**      | Conversational analysis workspace | The prompt field is a `<textarea>` in a `<form>`, and the response modes are a radio group |
-| **Kanban board** | Documents moving through stages   | Moving a card works without a pointer — WCAG 2.5.1                                         |
-| **Records**      | List and detail over a table      | Reading one record never costs the reader their place among the others                     |
-
-Each ships four or five stories, not one: ready, loading, empty and error —
-and Records splits empty in two, because _nothing exists_ and _nothing matches_
-are the same zero rows with opposite meanings and opposite actions.
-Assembling a happy path from good components is the easy half; remembering on
-every screen that a request can return nothing is the half that costs teams
-weeks.
-
----
+There is a sibling: **[Big Hat — Angular](https://github.com/Konstancja-Tanjga/bighat-design-system-angular)**,
+built from the same component contracts.
 
 ## Install
 
-Not published to a registry — versioning is automated, publication is not, and
-pretending otherwise would put a dead `npm install` line at the top of the
-README. Install from the repository:
-
 ```bash
-npm install github:Konstancja-Tanjga/bighat-design-system
+npm i @bighat/ui
 ```
 
 ```tsx
 import '@bighat/ui/styles.css';
-import { ToastProvider, Button } from '@bighat/ui';
-
-export function App() {
-  return (
-    <div className="bh-root">
-      <ToastProvider>
-        <Button tone="critical">Delete workspace</Button>
-      </ToastProvider>
-    </div>
-  );
-}
+import { Button, StateBlock, ToastProvider } from '@bighat/ui';
 ```
 
-Dark theme: `document.documentElement.setAttribute('data-theme', 'dark')`.
-Users who never touch a toggle get `prefers-color-scheme` automatically.
+## What is in here
 
----
+| path | what |
+| --- | --- |
+| `tokens/*.tokens.json` | the DTCG 2025.10 source. Everything else is generated from it |
+| `src/components/` | 41 components, one directory each |
+| `src/styles/` | 45 stylesheets. `bh-*` classes, container queries, tokens only |
+| `spec/components/` | one machine-readable contract per component |
+| `agent/` | rules a coding agent can follow instead of inventing its own |
+| `docs/` | the Storybook's own pages |
+| `scripts/` | the gates, the audits, and every codemod that produced this version |
 
-## Development
+## The gates
 
 ```bash
-npm install
-npm run storybook      # localhost:6006
-npm test               # 134 tests, including the contrast gate
-npm run verify         # what CI runs: lint, format, tokens, tests, both builds
+npm run verify
 ```
 
-`src/styles/tokens.css` is **generated** from `src/tokens/*.ts` by
-`npm run tokens`. CI runs `npm run tokens:check` and fails if the committed CSS
-has drifted from its source — one source of truth, enforced rather than agreed.
+| script | fails when |
+| --- | --- |
+| `tokens:check` | a committed token artefact drifted from the DTCG source |
+| `spec:validate` | a contract leaks a framework type, breaks the prop vocabulary, or a component ships against an unfinished contract |
+| `audit:drift` | a literal appears where a token belongs, in any of eight value classes |
+| `aria` | a component's contract misses a key or attribute its APG pattern requires |
+| `docs:check` | the published conformance page claims numbers the build does not produce |
+| `test` | contrast (26 pairs × 2 themes), or a contract's keyboard map against the implementation |
+| `check:docs` | a component has no story, no doc, or an unfinished scaffold |
 
----
+The last one is currently red, on purpose: nine frame components have generated
+stories and docs whose prose is unwritten. An invisibly incomplete library is
+worse than a visibly incomplete one.
 
-## Who made this
+## Scripts that produced 4.0
 
-Konstancja Tanjga-Nawrot — design engineer. I build design systems as code:
-tokens, component APIs, review gates, versioning, and the migration work that
-decides whether teams actually adopt a new version.
+Each takes a source path and has a `--dry` mode that prints every edit first.
 
-[GitHub](https://github.com/Konstancja-Tanjga) · MIT licensed
+| script | what it did |
+| --- | --- |
+| `codemod-tokens.mjs` | rewrote 132 literals that already equalled a token's value |
+| `apply-decisions.mjs` | applied the 56 off-scale decisions in `DECISIONS-4.0.md` |
+| `rename-stories.mjs` | aligned 14 Storybook titles with their export names |
+| `apply-vocabulary.mjs` | replaced local prop unions with the shared vocabulary |
+| `extract-contract.mjs` | filled anatomy, states, roles and tokens for 37 contracts from the source |
+| `scaffold-docs.mjs` | generated stories and docs for the 9 undocumented components |
+
+## Licence
+
+MIT.

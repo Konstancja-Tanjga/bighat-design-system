@@ -1,0 +1,119 @@
+{
+  "$schema": "../schema.json",
+  "name": "SidePanel",
+  "layer": "frame",
+  "purpose": "A persistent panel beside the main content.",
+  "notFor": [
+    "Anything blocking — use Dialog",
+    "Transient drawers"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-panel",
+      "element": "div"
+    },
+    {
+      "part": "bh-panel__toggle",
+      "element": "button[type=button]"
+    },
+    {
+      "part": "bh-panel__titlebar",
+      "element": "div"
+    },
+    {
+      "part": "bh-panel__title",
+      "element": "h2"
+    },
+    {
+      "part": "bh-panel__header",
+      "element": "div"
+    },
+    {
+      "part": "bh-panel__body",
+      "element": "div"
+    },
+    {
+      "part": "bh-panel__footer",
+      "element": "div"
+    }
+  ],
+  "props": {
+    "ariaLabel": {
+      "kind": "string",
+      "note": "Names the landmark."
+    },
+    "side": {
+      "kind": "enum",
+      "values": [
+        "start",
+        "end"
+      ],
+      "default": "start"
+    },
+    "title": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "header": {
+      "kind": "slot",
+      "note": "Pinned above the scroll area.",
+      "content": "TODO"
+    },
+    "footer": {
+      "kind": "slot",
+      "note": "Pinned below it.",
+      "content": "TODO"
+    },
+    "children": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "width": {
+      "kind": "number",
+      "default": 260
+    },
+    "collapsed": {
+      "kind": "boolean",
+      "default": false
+    },
+    "onToggle": {
+      "kind": "event"
+    }
+  },
+  "states": [
+    "default",
+    "hover"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "button (implicit, from <button[type=button]>)",
+    "attributes": {
+      "aria-expanded": "false",
+      "aria-label": "`Expand",
+      "aria-hidden": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.secondary.bgHover",
+    "border.subtle",
+    "font.family",
+    "gap.snug",
+    "padding.block",
+    "padding.inline",
+    "radius.control",
+    "surface.base",
+    "text.primary",
+    "text.secondary",
+    "text.sizeBody",
+    "text.weightHeading"
+  ],
+  "interactive": true
+}

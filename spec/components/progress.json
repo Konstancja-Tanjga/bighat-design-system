@@ -1,0 +1,119 @@
+{
+  "$schema": "../schema.json",
+  "name": "Progress",
+  "layer": "feedback",
+  "purpose": "How far along something is. Determinate or honestly indeterminate.",
+  "notFor": [
+    "A fake bar that waits at 90%",
+    "A skeleton's job — an unknown layout"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-progress",
+      "element": "div"
+    },
+    {
+      "part": "bh-progress__row",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-progress__label",
+      "element": "span"
+    },
+    {
+      "part": "bh-progress__value",
+      "element": "span"
+    },
+    {
+      "part": "bh-progress__track",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-progress__fill",
+      "element": "div",
+      "required": false
+    }
+  ],
+  "props": {
+    "label": {
+      "kind": "string"
+    },
+    "value": {
+      "kind": "number",
+      "note": "Omit for the indeterminate state."
+    },
+    "max": {
+      "kind": "number",
+      "default": 100
+    },
+    "valueText": {
+      "kind": "string",
+      "note": "e.g. '12 of 40 files'."
+    },
+    "tone": {
+      "kind": "tone",
+      "values": [
+        "neutral",
+        "success",
+        "critical"
+      ],
+      "default": "neutral",
+      "note": "Renamed from \"default\" in 4.0. Button and Progress were the only two components whose tone scale started somewhere other than neutral, and they disagreed with each other about which values existed."
+    },
+    "hideLabel": {
+      "kind": "boolean",
+      "default": false
+    }
+  },
+  "states": [
+    "default",
+    "indeterminate"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "progressbar",
+    "attributes": {
+      "aria-labelledby": "labelId",
+      "aria-valuemin": "indeterminate",
+      "aria-valuemax": "indeterminate",
+      "aria-valuenow": "indeterminate",
+      "aria-valuetext": "indeterminate"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null,
+    "wcag": [
+      "1.4.1"
+    ]
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "removed": {
+    "tone=\"default\"": {
+      "replacement": "tone=\"neutral\"",
+      "deprecatedIn": "4.0.0",
+      "removedIn": "5.0.0",
+      "reason": "the tone axis now has one vocabulary across all 41 components"
+    }
+  },
+  "tokensUsed": [
+    "action.primary.bg",
+    "border.subtle",
+    "font.family",
+    "gap.normal",
+    "gap.tight",
+    "radius.pill",
+    "status.critical.fg",
+    "status.success.fg",
+    "surface.sunken",
+    "text.muted",
+    "text.primary",
+    "text.sizeBody"
+  ],
+  "interactive": false
+}

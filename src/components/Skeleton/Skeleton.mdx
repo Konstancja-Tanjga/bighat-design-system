@@ -1,0 +1,64 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as SkeletonStories from './Skeleton.stories';
+
+<Meta of={SkeletonStories} />
+
+# Skeleton
+
+A placeholder for content whose shape is already known.
+
+<Canvas of={SkeletonStories.Default} />
+
+## When to use it
+
+| Use `Skeleton` for | Use something else for |
+| --- | --- |
+| TODO | Waits with no known shape — use StateBlock state="loading" |
+
+
+TODO: one paragraph on why the boundary sits where it does. The `notFor`
+entries above came from the contract; the reason they are the boundary did not.
+
+## Anatomy
+
+| part | element | rendered | note |
+| --- | --- | --- | --- |
+| `bh-skeleton` | `<span>` | conditional |  |
+
+## Props
+
+| prop | values | default | meaning |
+| --- | --- | --- | --- |
+| `width` | data | `100%` | TODO |
+| `height` | data | `16` | TODO |
+| `radius` | `control` · `surface` · `pill` | `control` | TODO |
+| `animated` | boolean | `true` | Shimmer is off under prefers-reduced-motion regardless. |
+| `label` | string | — | On SkeletonGroup. |
+
+<Controls />
+
+## States
+
+`default`
+
+
+## Accessibility
+
+- **Role** — status
+- **Labelling** — TODO: is a label required, or merely supported?
+- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
+- **Announcements** — TODO: the live-region policy, not the role it produced.
+
+
+## Do and don't
+
+<Guidance>
+  <Do reason="TODO">TODO</Do>
+  <Dont reason="TODO">TODO</Dont>
+</Guidance>
+
+## Tokens consumed
+
+`border.subtle` · `duration.sweep` · `radius.control` · `radius.pill` · `radius.surface` · `surface.base` · `surface.sunken`

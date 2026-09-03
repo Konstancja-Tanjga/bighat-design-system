@@ -1,0 +1,106 @@
+{
+  "$schema": "../schema.json",
+  "name": "Accordion",
+  "layer": "data",
+  "purpose": "Disclosure of one topic at a time. Headers are real buttons inside headings.",
+  "notFor": [
+    "Navigation between screens",
+    "Hiding content the user always needs"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-accordion",
+      "element": "div"
+    },
+    {
+      "part": "bh-accordion__item",
+      "element": "div"
+    },
+    {
+      "part": "bh-accordion__trigger",
+      "element": "button[type=button]"
+    },
+    {
+      "part": "bh-accordion__chevron",
+      "element": "span"
+    },
+    {
+      "part": "bh-accordion__title",
+      "element": "span"
+    },
+    {
+      "part": "bh-accordion__meta",
+      "element": "span"
+    },
+    {
+      "part": "bh-accordion__panel",
+      "element": "div"
+    }
+  ],
+  "props": {
+    "multiple": {
+      "kind": "boolean",
+      "default": false
+    },
+    "defaultOpen": {
+      "kind": "data",
+      "note": "Ids open on first render."
+    },
+    "headingLevel": {
+      "kind": "data",
+      "default": 3,
+      "note": "Where the accordion sits in the document outline."
+    },
+    "AccordionItem.title": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "AccordionItem.meta": {
+      "kind": "slot",
+      "note": "Count or status next to the title.",
+      "content": "TODO"
+    }
+  },
+  "states": [
+    "default",
+    "hover"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "region",
+    "attributes": {
+      "aria-expanded": "expanded",
+      "aria-controls": "panelId",
+      "aria-hidden": "true",
+      "aria-labelledby": "buttonId"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "control.lg",
+    "duration.fast",
+    "font.family",
+    "gap.snug",
+    "padding.block",
+    "padding.inline",
+    "padding.section",
+    "radius.surface",
+    "surface.base",
+    "surface.sunken",
+    "text.muted",
+    "text.primary",
+    "text.secondary",
+    "text.sizeBody",
+    "text.weightBody",
+    "text.weightEmphasis"
+  ],
+  "interactive": true
+}

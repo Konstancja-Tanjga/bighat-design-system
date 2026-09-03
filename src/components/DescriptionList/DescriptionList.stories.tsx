@@ -4,7 +4,7 @@ import { Badge } from '../Badge/Badge';
 import { DescriptionList } from './DescriptionList';
 
 const meta = {
-  title: 'Data/DescriptionList',
+  title: 'Components/DescriptionList',
   component: DescriptionList,
   parameters: {
     docs: {

@@ -1,6 +1,6 @@
-import { useId, type ReactNode } from 'react';
+import type { Size } from '../../tokens/vocabulary';
 
-import './SegmentedControl.css';
+import { useId, type ReactNode } from 'react';
 
 /**
  * Two to five mutually exclusive options, all visible at once — a chart's
@@ -27,7 +27,7 @@ export type SegmentedControlProps = {
   options: SegmentedOption[];
   value: string;
   onChange: (value: string) => void;
-  size?: 'sm' | 'md';
+  size?: Extract<Size, 'sm' | 'md'>;
   fullWidth?: boolean;
 };
 

@@ -1,6 +1,6 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import type { MenuItemTone } from '../../tokens/vocabulary';
 
-import './Menu.css';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 
 /**
  * A list of actions behind a trigger.
@@ -18,7 +18,9 @@ export type MenuItem = {
   label: ReactNode;
   onSelect?: () => void;
   /** Renders the item in the critical tone. Still needs a clear label. */
-  tone?: 'default' | 'critical';
+  tone?: MenuItemTone;
+  /** @deprecated Use `tone="neutral"`. Removed in 5.0. */
+  toneLegacy?: never;
   disabled?: boolean;
   /** Keyboard shortcut shown on the trailing edge. Display only. */
   shortcut?: string;

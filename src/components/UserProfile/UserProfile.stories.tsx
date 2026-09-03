@@ -4,7 +4,7 @@ import { UserProfile } from './UserProfile';
 import { Badge } from '../Badge/Badge';
 
 const meta: Meta<typeof UserProfile> = {
-  title: 'Components/User Profile',
+  title: 'Components/UserProfile',
   component: UserProfile,
 };
 

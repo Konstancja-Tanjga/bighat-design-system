@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './NavRail.css';
-
 /**
  * The narrow icon rail.
  *

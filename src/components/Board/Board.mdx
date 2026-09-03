@@ -1,0 +1,85 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as BoardStories from './Board.stories';
+
+<Meta of={BoardStories} />
+
+# Board
+
+Columns of cards — kanban, pipeline, review queue.
+
+<Canvas of={BoardStories.Default} />
+
+## When to use it
+
+| Use `Board` for | Use something else for |
+| --- | --- |
+| TODO | Ordered data the user compares — that is Table |
+
+
+TODO: one paragraph on why the boundary sits where it does. The `notFor`
+entries above came from the contract; the reason they are the boundary did not.
+
+## Anatomy
+
+| part | element | rendered | note |
+| --- | --- | --- | --- |
+| `bh-board` | `<section>` | always |  |
+| `bh-board__columns` | `<div>` | always |  |
+| `bh-board__column` | `<div>` | conditional |  |
+| `bh-board__column-head` | `<div>` | always |  |
+| `bh-board__column-title` | `<h3>` | always |  |
+| `bh-board__count` | `<span>` | always |  |
+| `bh-board__warning` | `<p>` | always |  |
+| `bh-board__cards` | `<ul>` | always |  |
+| `bh-board__card` | `<li>` | always |  |
+| `bh-board__card-inner` | `<div>` | always |  |
+| `bh-board__card-open` | `<button[type=button]>` | always |  |
+| `bh-board__move` | `<div>` | always |  |
+| `bh-board__move-select` | `<select>` | always |  |
+
+## Props
+
+| prop | values | default | meaning |
+| --- | --- | --- | --- |
+| `Board.ariaLabel` | string | — | TODO |
+| `Board.announcement` | string | — | Spoken by the board's live region after a move. |
+| `BoardColumn.title` | string | — | TODO |
+| `BoardColumn.count` | number | — | TODO |
+| `BoardColumn.limit` | number | — | WIP limit — surfaced, never enforced. |
+| `BoardColumn.empty` | slot | — | Use a StateBlock with copy specific to the column. |
+| `BoardCard.moveTargets` | data | — | TODO |
+| `BoardCard.onMove` | event | — | Required for a pointer-free move — WCAG 2.5.1. |
+
+<Controls />
+
+## States
+
+`default` · `hover`
+
+## Keyboard
+
+| key | action |
+| --- | --- |
+| <kbd>Arrow keys</kbd> | Moves between options. Native. |
+| <kbd>Enter</kbd> | Commits. Native. |
+
+## Accessibility
+
+- **Role** — status
+- **Labelling** — TODO: is a label required, or merely supported?
+- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
+- **Announcements** — TODO: the live-region policy, not the role it produced.
+
+
+## Do and don't
+
+<Guidance>
+  <Do reason="TODO">TODO</Do>
+  <Dont reason="TODO">TODO</Dont>
+</Guidance>
+
+## Tokens consumed
+
+`border.strong` · `border.subtle` · `font.family` · `gap.normal` · `gap.snug` · `gap.tight` · `padding.block` · `padding.inline` · `radius.control` · `radius.pill` · `radius.surface` · `status.warning.bg` · `status.warning.fg` · `surface.base` · `surface.raised` · `surface.sunken` · `text.muted` · `text.primary` · `text.secondary` · `text.sizeBody` · `text.sizeDense` · `text.weightHeading`

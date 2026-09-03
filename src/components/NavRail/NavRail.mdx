@@ -1,0 +1,70 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as NavRailStories from './NavRail.stories';
+
+<Meta of={NavRailStories} />
+
+# NavRail
+
+Narrow icon navigation rail.
+
+<Canvas of={NavRailStories.Default} />
+
+## When to use it
+
+| Use `NavRail` for | Use something else for |
+| --- | --- |
+| TODO | Destinations whose meaning needs more than two words |
+
+
+TODO: one paragraph on why the boundary sits where it does. The `notFor`
+entries above came from the contract; the reason they are the boundary did not.
+
+## Anatomy
+
+| part | element | rendered | note |
+| --- | --- | --- | --- |
+| `bh-rail__item` | `<button[type=button]>` | conditional |  |
+| `bh-rail__icon` | `<span>` | always |  |
+| `bh-rail__dot` | `<span>` | always |  |
+| `bh-rail__label` | `<span>` | always |  |
+| `bh-rail` | `<nav>` | conditional |  |
+| `bh-rail__list` | `<ul>` | always |  |
+
+## Props
+
+| prop | values | default | meaning |
+| --- | --- | --- | --- |
+| `items` | data | — | TODO |
+| `activeId` | string | — | TODO |
+| `onSelect` | event | — | TODO |
+| `footerItems` | data | — | Pinned to the bottom. |
+| `showLabels` | boolean | `false` | Prefer it past about five destinations. |
+| `ariaLabel` | string | — | Names the landmark. |
+
+<Controls />
+
+## States
+
+`default` · `hover`
+
+
+## Accessibility
+
+- **Role** — button (implicit, from <button[type=button]>)
+- **Labelling** — TODO: is a label required, or merely supported?
+- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
+- **Announcements** — TODO: the live-region policy, not the role it produced.
+
+
+## Do and don't
+
+<Guidance>
+  <Do reason="TODO">TODO</Do>
+  <Dont reason="TODO">TODO</Dont>
+</Guidance>
+
+## Tokens consumed
+
+`action.secondary.bgHover` · `font.family` · `gap.hairline` · `gap.snug` · `gap.tight` · `radius.control` · `status.critical.fg` · `status.info.bg` · `status.info.fg` · `surface.base` · `text.primary` · `text.secondary`

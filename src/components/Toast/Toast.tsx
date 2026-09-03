@@ -8,8 +8,6 @@ import {
   type ReactNode,
 } from 'react';
 
-import './Toast.css';
-
 /**
  * Ephemeral messages.
  *

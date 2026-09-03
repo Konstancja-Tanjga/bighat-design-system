@@ -1,0 +1,81 @@
+{
+  "$schema": "../schema.json",
+  "name": "AppBar",
+  "layer": "frame",
+  "purpose": "The top bar. Three slots in reading order: brand, title, actions.",
+  "notFor": [
+    "Repeating the product name in title — brand already carries it"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-appbar",
+      "element": "div"
+    },
+    {
+      "part": "bh-appbar__brand",
+      "element": "div"
+    },
+    {
+      "part": "bh-appbar__title",
+      "element": "h1"
+    },
+    {
+      "part": "bh-appbar__center",
+      "element": "div"
+    },
+    {
+      "part": "bh-appbar__actions",
+      "element": "div"
+    }
+  ],
+  "props": {
+    "brand": {
+      "kind": "slot",
+      "note": "Logo or wordmark.",
+      "content": "TODO"
+    },
+    "title": {
+      "kind": "slot",
+      "note": "Names the current screen, not the product.",
+      "content": "TODO"
+    },
+    "titleAsHeading": {
+      "kind": "boolean",
+      "default": true,
+      "note": "false when the screen has its own visible <h1>."
+    },
+    "center": {
+      "kind": "slot",
+      "note": "Search or filters acting on this screen.",
+      "content": "TODO"
+    },
+    "actions": {
+      "kind": "slot",
+      "note": "Primary action last.",
+      "content": "TODO"
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "TODO"
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "font.family",
+    "gap.normal",
+    "gap.snug",
+    "padding.inline",
+    "surface.base",
+    "text.primary",
+    "text.sizeHeading",
+    "text.weightHeading"
+  ],
+  "interactive": false
+}

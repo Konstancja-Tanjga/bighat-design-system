@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Combobox } from './Combobox';
 
 const meta: Meta<typeof Combobox> = {
-  title: 'Components/Combobox (Autocomplete)',
+  title: 'Components/Combobox',
   component: Combobox,
 };
 

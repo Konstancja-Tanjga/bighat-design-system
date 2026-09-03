@@ -1,0 +1,72 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as NavListStories from './NavList.stories';
+
+<Meta of={NavListStories} />
+
+# NavList
+
+Grouped list inside a side panel — saved views, recent items, a shallow tree.
+
+<Canvas of={NavListStories.Default} />
+
+## When to use it
+
+| Use `NavList` for | Use something else for |
+| --- | --- |
+| TODO | Tabular data — use Table |
+
+
+TODO: one paragraph on why the boundary sits where it does. The `notFor`
+entries above came from the contract; the reason they are the boundary did not.
+
+## Anatomy
+
+| part | element | rendered | note |
+| --- | --- | --- | --- |
+| `bh-navgroup` | `<div>` | always |  |
+| `bh-navgroup__label` | `<p>` | always |  |
+| `bh-navlist` | `<ul>` | always |  |
+| `bh-navitem` | `<button[type=button]>` | conditional |  |
+| `bh-navitem__icon` | `<span>` | always |  |
+| `bh-navitem__text` | `<span>` | always |  |
+| `bh-navitem__label` | `<span>` | always |  |
+| `bh-navitem__subline` | `<span>` | always |  |
+| `bh-navitem__meta` | `<span>` | always |  |
+
+## Props
+
+| prop | values | default | meaning |
+| --- | --- | --- | --- |
+| `item` | data | — | On NavItem. |
+| `active` | boolean | `false` | TODO |
+| `onSelect` | event | — | TODO |
+| `label` | string | — | On NavGroup — wired with aria-labelledby. |
+| `ariaLabel` | string | — | On NavList. |
+
+<Controls />
+
+## States
+
+`default` · `hover`
+
+
+## Accessibility
+
+- **Role** — list (implicit, from <ul>)
+- **Labelling** — TODO: is a label required, or merely supported?
+- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
+- **Announcements** — TODO: the live-region policy, not the role it produced.
+
+
+## Do and don't
+
+<Guidance>
+  <Do reason="TODO">TODO</Do>
+  <Dont reason="TODO">TODO</Dont>
+</Guidance>
+
+## Tokens consumed
+
+`action.secondary.bgHover` · `gap.hairline` · `gap.loose` · `gap.snug` · `gap.tight` · `radius.control` · `status.info.bg` · `status.info.border` · `text.muted` · `text.primary` · `text.sizeBody` · `text.sizeCaption` · `text.sizeDense` · `text.weightBody` · `text.weightHeading`

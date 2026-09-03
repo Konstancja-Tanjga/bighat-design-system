@@ -4,21 +4,13 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # @bighat/ui
 
-Forty-one components, three templates, two token layers, and a build that fails
-on a contrast regression.
-
-- **Owner** — Konstancja Tanjga
-- **Contributors** — Big Hat Poland & Konstancja Tanjga
-- **Licence** — MIT
+Eight components, two token layers, and a build that fails on a contrast
+regression.
 
 This system is small on purpose. It is not trying to cover every surface an
 enterprise product needs — it is trying to be legible about **why** each
 decision was made and **what** each one cost, because that is the part of design
 systems work that never survives into a portfolio.
-
-What the library does not cover, and the evidence behind each gap, is tracked
-in [`DS-GAPS.md`](https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/DS-GAPS.md)
-rather than here — this page is for what is in it.
 
 ## What to look at
 
@@ -30,6 +22,15 @@ rather than here — this page is for what is in it.
   three different announcement strategies.
 - **Components → Button** — the one breaking change this system has shipped,
   and the deprecation still in flight.
+
+## What is deliberately missing
+
+A `Combobox`. A date picker. A layout grid. Icons.
+
+Each of those is a real need in a real product, and each would have been a way
+to make this repository look bigger without making any new argument. `Select`
+wraps the native element and `Dialog` uses native `<dialog>` for the same
+reason: the interesting decision was choosing not to build them.
 
 ## Conventions
 

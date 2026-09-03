@@ -1,8 +1,6 @@
 import { forwardRef, useId, type ReactNode } from 'react';
 
 import '../Input/Input.css';
-import './Switch.css';
-
 /**
  * A switch takes effect immediately. A checkbox is submitted with a form.
  * That is the whole distinction, and it is the one that decides which of the

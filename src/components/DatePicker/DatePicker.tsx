@@ -1,8 +1,6 @@
 import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from 'react';
 
 import '../Input/Input.css';
-import './DatePicker.css';
-
 /**
  * A native `<input type="date">`, for the same reason `Select` is native.
  *

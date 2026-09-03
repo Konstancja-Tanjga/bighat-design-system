@@ -1,8 +1,6 @@
 import { useId, useMemo, useState, type ReactNode } from 'react';
 
 import '../Input/Input.css';
-import './IconPicker.css';
-
 /**
  * Choosing one icon out of a grid of them.
  *

@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './Divider.css';
-
 /**
  * A line between things.
  *

@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './NavList.css';
-
 /**
  * The grouped list inside a side panel — pinned and recent conversations,
  * saved views, a folder tree one level deep.

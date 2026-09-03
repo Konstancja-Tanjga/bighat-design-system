@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import type { Size } from '../../tokens/vocabulary';
 
-import './Avatar.css';
+import { useState } from 'react';
 
 /**
  * An avatar is a picture of a person, and a picture of a person is decoration
@@ -11,7 +11,7 @@ import './Avatar.css';
  * name is right next to me", instead of every caller inventing their own
  * `alt=""`.
  */
-export type AvatarSize = 'sm' | 'md' | 'lg';
+export type AvatarSize = Size;
 
 export type AvatarProps = {
   /** Full name. Used for initials and for the accessible name. */

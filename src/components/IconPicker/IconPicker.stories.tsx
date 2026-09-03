@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { IconPicker } from './IconPicker';
 
 const meta: Meta<typeof IconPicker> = {
-  title: 'Components/Icon picker',
+  title: 'Components/IconPicker',
   component: IconPicker,
 };
 

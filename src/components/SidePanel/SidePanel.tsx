@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './SidePanel.css';
-
 /**
  * A persistent panel beside the main content — chat history on the leading
  * edge, an inspector on the trailing one.

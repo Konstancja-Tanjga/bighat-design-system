@@ -1,11 +1,11 @@
+import type { Density } from '../../tokens/vocabulary';
+
 import type { ReactNode } from 'react';
 
 import { Checkbox } from '../Checkbox/Checkbox';
 import { DescriptionList } from '../DescriptionList/DescriptionList';
 import { Menu, type MenuItem } from '../Menu/Menu';
 import { StateBlock, type StateBlockProps } from '../StateBlock/StateBlock';
-import './Table.css';
-
 /**
  * Dense enterprise data.
  *
@@ -90,7 +90,7 @@ export type TableProps<Row> = {
   rowActions?: (row: Row) => MenuItem[];
   /** Keeps the header in view while the body scrolls. */
   stickyHeader?: boolean;
-  density?: 'comfortable' | 'compact';
+  density?: Density;
   /** A `tfoot` row. In `tfoot` rather than `tbody` so a sort cannot move it. */
   totals?: (rows: Row[]) => ReactNode[];
   /** Defaults to `scroll`, which is what the table did before this existed. */

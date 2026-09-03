@@ -1,0 +1,111 @@
+{
+  "$schema": "../schema.json",
+  "name": "Menu",
+  "layer": "control",
+  "purpose": "A list of actions behind a trigger. Focus moves in on open and back on close.",
+  "notFor": [
+    "Navigation — those are links",
+    "Choosing a value — that is Select"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-menu",
+      "element": "div"
+    },
+    {
+      "part": "bh-menu__caret",
+      "element": "span"
+    },
+    {
+      "part": "bh-menu__list",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-menu__item",
+      "element": "button[type=button]",
+      "required": false
+    },
+    {
+      "part": "bh-menu__shortcut",
+      "element": "kbd"
+    }
+  ],
+  "props": {
+    "label": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "items": {
+      "kind": "data",
+      "note": "tone='critical' for destructive items."
+    },
+    "align": {
+      "kind": "enum",
+      "values": [
+        "start",
+        "end"
+      ],
+      "default": "start"
+    },
+    "renderTrigger": {
+      "kind": "event",
+      "note": "For an icon button or an avatar trigger."
+    }
+  },
+  "states": [
+    "default",
+    "hover",
+    "focus-visible",
+    "disabled"
+  ],
+  "keyboard": {
+    "ArrowDown": "TODO",
+    "Enter": "TODO",
+    "ArrowUp": "TODO",
+    "Escape": "TODO",
+    "Home": "TODO",
+    "End": "TODO",
+    "Tab": "TODO"
+  },
+  "aria": {
+    "role": "menu",
+    "attributes": {
+      "aria-hidden": "true",
+      "aria-label": "typeof"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.secondary.bg",
+    "action.secondary.bgHover",
+    "action.secondary.border",
+    "action.secondary.fg",
+    "border.focus",
+    "border.subtle",
+    "control.md",
+    "elevation.overlay",
+    "font.family",
+    "gap.loose",
+    "gap.snug",
+    "gap.tight",
+    "layer.sticky",
+    "padding.inline",
+    "radius.control",
+    "radius.surface",
+    "status.critical.fg",
+    "surface.overlay",
+    "surface.sunken",
+    "text.muted",
+    "text.primary",
+    "text.sizeCaption"
+  ],
+  "interactive": true
+}
