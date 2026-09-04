@@ -1,0 +1,66 @@
+{
+  "$schema": "../schema.json",
+  "name": "Divider",
+  "layer": "control",
+  "purpose": "A line between things. Decorative unless it carries a label.",
+  "notFor": [
+    "Spacing — use the gap tokens"
+  ],
+  "composition": "leaf",
+  "anatomy": [
+    {
+      "part": "bh-divider__label",
+      "element": "span"
+    }
+  ],
+  "props": {
+    "orientation": {
+      "kind": "enum",
+      "values": [
+        "horizontal",
+        "vertical"
+      ],
+      "default": "horizontal"
+    },
+    "children": {
+      "kind": "slot",
+      "note": "Turns it into a labelled role=separator.",
+      "content": "TODO"
+    },
+    "spacing": {
+      "kind": "enum",
+      "values": [
+        "none",
+        "snug",
+        "loose"
+      ],
+      "default": "snug"
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "separator",
+    "attributes": {
+      "aria-orientation": "orientation",
+      "aria-hidden": "orientation"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "font.family",
+    "gap.normal",
+    "padding.section",
+    "text.muted"
+  ],
+  "interactive": false
+}

@@ -1,7 +1,5 @@
 import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from 'react';
 
-import './Input.css';
-
 /**
  * A text field is the component where accessibility is most often faked: a
  * styled `<div>` label, an error message floating unconnected below, and a red

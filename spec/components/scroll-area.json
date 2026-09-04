@@ -1,0 +1,65 @@
+{
+  "$schema": "../schema.json",
+  "name": "ScrollArea",
+  "layer": "control",
+  "purpose": "A scrollable region that is reachable by keyboard and keeps the platform scrollbar.",
+  "notFor": [
+    "Replacing the scrollbar with divs",
+    "A region that never overflows"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-scroll-area",
+      "element": "div",
+      "required": false
+    }
+  ],
+  "props": {
+    "ariaLabel": {
+      "kind": "string",
+      "note": "Used once the region becomes focusable."
+    },
+    "maxHeight": {
+      "kind": "data",
+      "default": 240
+    },
+    "axis": {
+      "kind": "enum",
+      "values": [
+        "vertical",
+        "horizontal",
+        "both"
+      ],
+      "default": "vertical"
+    },
+    "fade": {
+      "kind": "boolean",
+      "default": true
+    }
+  },
+  "states": [
+    "default",
+    "hover"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "group",
+    "attributes": {
+      "aria-label": "overflowing"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.strong",
+    "radius.pill",
+    "text.muted"
+  ],
+  "interactive": true
+}

@@ -1,7 +1,5 @@
 import { useId, useRef, useState, type ReactNode } from 'react';
 
-import './ListView.css';
-
 /**
  * The selectable half of a list: a master pane whose current row drives a
  * detail pane next to it.

@@ -1,6 +1,6 @@
-import { useEffect, useId, useRef, type ReactNode } from 'react';
+import type { Size } from '../../tokens/vocabulary';
 
-import './Dialog.css';
+import { useEffect, useId, useRef, type ReactNode } from 'react';
 
 /**
  * Built on the native `<dialog>` element rather than a portal plus a hand-
@@ -31,7 +31,7 @@ export type DialogProps = {
    * confirmations where an accidental dismissal loses the user's work.
    */
   dismissible?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: Size;
 };
 
 export function Dialog({

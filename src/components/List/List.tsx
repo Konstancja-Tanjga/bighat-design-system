@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './List.css';
-
 /**
  * A vertical list of records: leading media, a title, a supporting line, a
  * trailing control.

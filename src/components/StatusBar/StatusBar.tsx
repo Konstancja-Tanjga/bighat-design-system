@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './StatusBar.css';
-
 /**
  * The thin bar at the bottom of an application: what is selected, whether the
  * document is saved, which environment this is.

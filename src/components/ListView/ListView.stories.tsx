@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ListView } from './ListView';
 
 const meta: Meta<typeof ListView> = {
-  title: 'Components/List View',
+  title: 'Components/ListView',
   component: ListView,
 };
 

@@ -1,7 +1,5 @@
 import { useId, useRef, useState, type ReactNode } from 'react';
 
-import './Composer.css';
-
 /**
  * The prompt input.
  *

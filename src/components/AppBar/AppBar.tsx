@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './AppBar.css';
-
 /**
  * The top bar.
  *

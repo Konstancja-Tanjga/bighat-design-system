@@ -1,0 +1,97 @@
+{
+  "$schema": "../schema.json",
+  "name": "NavRail",
+  "layer": "frame",
+  "purpose": "Narrow icon navigation rail.",
+  "notFor": [
+    "Destinations whose meaning needs more than two words"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-rail__item",
+      "element": "button[type=button]",
+      "required": false
+    },
+    {
+      "part": "bh-rail__icon",
+      "element": "span"
+    },
+    {
+      "part": "bh-rail__dot",
+      "element": "span"
+    },
+    {
+      "part": "bh-rail__label",
+      "element": "span"
+    },
+    {
+      "part": "bh-rail",
+      "element": "nav",
+      "required": false
+    },
+    {
+      "part": "bh-rail__list",
+      "element": "ul"
+    }
+  ],
+  "props": {
+    "items": {
+      "kind": "data"
+    },
+    "activeId": {
+      "kind": "string"
+    },
+    "onSelect": {
+      "kind": "event"
+    },
+    "footerItems": {
+      "kind": "data",
+      "note": "Pinned to the bottom."
+    },
+    "showLabels": {
+      "kind": "boolean",
+      "default": false,
+      "note": "Prefer it past about five destinations."
+    },
+    "ariaLabel": {
+      "kind": "string",
+      "note": "Names the landmark."
+    }
+  },
+  "states": [
+    "default",
+    "hover"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "button (implicit, from <button[type=button]>)",
+    "attributes": {
+      "aria-current": "page`",
+      "aria-label": "showLabels",
+      "aria-hidden": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.secondary.bgHover",
+    "font.family",
+    "gap.hairline",
+    "gap.snug",
+    "gap.tight",
+    "radius.control",
+    "status.critical.fg",
+    "status.info.bg",
+    "status.info.fg",
+    "surface.base",
+    "text.primary",
+    "text.secondary"
+  ],
+  "interactive": true
+}

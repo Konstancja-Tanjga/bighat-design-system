@@ -17,8 +17,6 @@ import { Table, type Column, type SortDirection } from '../components/Table/Tabl
 import { Toolbar } from '../components/Toolbar/Toolbar';
 import { UserProfile } from '../components/UserProfile/UserProfile';
 import { IconDoc, IconFlow, IconGrid, IconHome, IconInbox, IconStar } from './icons';
-import './Records.css';
-
 /**
  * Template — records list and detail.
  *

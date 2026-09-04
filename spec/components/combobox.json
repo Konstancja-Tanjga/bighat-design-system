@@ -1,0 +1,135 @@
+{
+  "$schema": "../schema.json",
+  "name": "Combobox",
+  "layer": "control",
+  "purpose": "A text field that filters a list. The one custom listbox in the system.",
+  "notFor": [
+    "A short, fixed set — use Select",
+    "Free text — the value must come from the list"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-field",
+      "element": "div"
+    },
+    {
+      "part": "bh-combobox",
+      "element": "div"
+    },
+    {
+      "part": "bh-field__label",
+      "element": "label"
+    },
+    {
+      "part": "bh-field__description",
+      "element": "p"
+    },
+    {
+      "part": "bh-combobox__control",
+      "element": "div"
+    },
+    {
+      "part": "bh-input",
+      "element": "input[type=text]",
+      "required": false
+    },
+    {
+      "part": "bh-combobox__list",
+      "element": "ul"
+    },
+    {
+      "part": "bh-combobox__option",
+      "element": "li",
+      "required": false
+    },
+    {
+      "part": "bh-combobox__option-label",
+      "element": "span"
+    },
+    {
+      "part": "bh-combobox__option-hint",
+      "element": "span"
+    },
+    {
+      "part": "bh-combobox__empty",
+      "element": "li"
+    },
+    {
+      "part": "bh-field__error",
+      "element": "p"
+    }
+  ],
+  "props": {
+    "label": {
+      "kind": "string"
+    },
+    "options": {
+      "kind": "data"
+    },
+    "value": {
+      "kind": "data"
+    },
+    "onChange": {
+      "kind": "event"
+    },
+    "filter": {
+      "kind": "event",
+      "note": "Defaults to case-insensitive contains."
+    },
+    "emptyMessage": {
+      "kind": "string",
+      "default": "No matches"
+    }
+  },
+  "states": [
+    "default",
+    "selected"
+  ],
+  "keyboard": {
+    "ArrowDown": "TODO",
+    "ArrowUp": "TODO",
+    "Enter": "TODO",
+    "Escape": "TODO"
+  },
+  "aria": {
+    "role": "combobox",
+    "attributes": {
+      "aria-expanded": "open",
+      "aria-controls": "listId",
+      "aria-autocomplete": "list",
+      "aria-activedescendant": "{",
+      "aria-invalid": "error",
+      "aria-describedby": "describedBy",
+      "aria-label": "label",
+      "aria-selected": "option.value",
+      "aria-live": "polite"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "elevation.overlay",
+    "gap.hairline",
+    "gap.snug",
+    "gap.tight",
+    "layer.sticky",
+    "padding.inline",
+    "radius.control",
+    "radius.surface",
+    "surface.overlay",
+    "surface.sunken",
+    "text.link",
+    "text.muted",
+    "text.primary",
+    "text.sizeBody",
+    "text.sizeCaption"
+  ],
+  "interactive": true
+}

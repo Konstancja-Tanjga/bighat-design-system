@@ -1,0 +1,79 @@
+{
+  "$schema": "../schema.json",
+  "name": "Badge",
+  "layer": "feedback",
+  "purpose": "Short status attached to an object.",
+  "notFor": [
+    "Bare counts",
+    "Anything clickable"
+  ],
+  "composition": "leaf",
+  "anatomy": [
+    {
+      "part": "bh-badge",
+      "element": "span"
+    },
+    {
+      "part": "bh-badge__dot",
+      "element": "span"
+    }
+  ],
+  "props": {
+    "tone": {
+      "kind": "tone",
+      "values": [
+        "neutral",
+        "info",
+        "success",
+        "warning",
+        "critical"
+      ],
+      "default": "neutral"
+    },
+    "dot": {
+      "kind": "boolean",
+      "default": false,
+      "note": "Decorative. The label still carries the meaning."
+    },
+    "children": {
+      "kind": "slot",
+      "note": "Required by design — colour alone fails WCAG 1.4.1.",
+      "content": "TODO"
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "TODO"
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "font.family",
+    "gap.hairline",
+    "gap.tight",
+    "padding.block",
+    "radius.pill",
+    "status.critical.bg",
+    "status.critical.border",
+    "status.critical.fg",
+    "status.info.bg",
+    "status.info.border",
+    "status.info.fg",
+    "status.success.bg",
+    "status.success.border",
+    "status.success.fg",
+    "status.warning.bg",
+    "status.warning.border",
+    "status.warning.fg",
+    "surface.sunken",
+    "text.secondary",
+    "text.weightEmphasis"
+  ],
+  "interactive": false
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "../schema.json",
+  "name": "Slider",
+  "layer": "control",
+  "purpose": "A native range input for an approximate value on a continuum.",
+  "notFor": [
+    "A value the user needs to type exactly — that is Input",
+    "Fewer than about ten steps"
+  ],
+  "composition": "leaf",
+  "anatomy": [
+    {
+      "part": "bh-field",
+      "element": "div"
+    },
+    {
+      "part": "bh-slider-field",
+      "element": "div"
+    },
+    {
+      "part": "bh-slider__header",
+      "element": "div"
+    },
+    {
+      "part": "bh-field__label",
+      "element": "label"
+    },
+    {
+      "part": "bh-slider__value",
+      "element": "span"
+    },
+    {
+      "part": "bh-field__description",
+      "element": "p"
+    },
+    {
+      "part": "bh-slider",
+      "element": "input[type=range]",
+      "required": false
+    },
+    {
+      "part": "bh-slider-percent",
+      "element": "input[type=range]",
+      "required": false
+    }
+  ],
+  "props": {
+    "label": {
+      "kind": "string"
+    },
+    "value": {
+      "kind": "number"
+    },
+    "onChange": {
+      "kind": "event"
+    },
+    "min": {
+      "kind": "number",
+      "default": 0
+    },
+    "max": {
+      "kind": "number",
+      "default": 100
+    },
+    "formatValue": {
+      "kind": "event",
+      "note": "Becomes aria-valuetext — '24' alone means nothing."
+    }
+  },
+  "states": [
+    "default",
+    "disabled"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "slider (implicit, from <input[type=range]>)",
+    "attributes": {
+      "aria-valuetext": "formatValue",
+      "aria-describedby": "description"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.primary.bg",
+    "border.subtle",
+    "elevation.raised",
+    "gap.normal",
+    "padding.block",
+    "radius.pill",
+    "slider.percent",
+    "surface.base",
+    "surface.sunken",
+    "text.secondary",
+    "text.sizeBody"
+  ],
+  "interactive": true
+}

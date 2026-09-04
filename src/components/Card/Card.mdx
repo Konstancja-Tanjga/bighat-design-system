@@ -1,0 +1,66 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as CardStories from './Card.stories';
+
+<Meta of={CardStories} />
+
+# Card
+
+A bounded surface around content the user might act on as a unit.
+
+<Canvas of={CardStories.Default} />
+
+## When to use it
+
+| Use `Card` for | Use something else for |
+| --- | --- |
+| TODO | A paragraph — that is a border with extra steps |
+| TODO | Cards with two actions inside |
+
+TODO: one paragraph on why the boundary sits where it does. The `notFor`
+entries above came from the contract; the reason they are the boundary did not.
+
+## Anatomy
+
+| part | element | rendered | note |
+| --- | --- | --- | --- |
+| `bh-card` | `<TODO>` | always | TODO: read it off the React render |
+
+## Props
+
+| prop | values | default | meaning |
+| --- | --- | --- | --- |
+| `children` | slot | — | TODO |
+| `onClick` | event | — | Makes the whole surface one button. |
+| `ariaLabel` | string | — | Its accessible name when onClick is set. |
+| `elevation` | `flat` · `raised` | `flat` | TODO |
+| `accent` | `none` · `info` · `success` · `warning` · `critical` | `none` | Decorative — never the only carrier of a status. |
+| `padding` | `snug` · `normal` | `normal` | TODO |
+| `dragging` | boolean | `false` | TODO |
+
+<Controls />
+
+## States
+
+`default` · `hover`
+
+
+## Accessibility
+
+- **Role** — TODO
+- **Labelling** — TODO: is a label required, or merely supported?
+- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
+- **Announcements** — TODO: the live-region policy, not the role it produced.
+
+
+## Do and don't
+
+<Guidance>
+  <Do reason="TODO">TODO</Do>
+  <Dont reason="TODO">TODO</Dont>
+</Guidance>
+
+## Tokens consumed
+
+`border.strong` · `border.subtle` · `duration.fast` · `elevation.overlay` · `elevation.raised` · `font.family` · `padding.inline` · `padding.section` · `radius.surface` · `status.critical.fg` · `status.info.fg` · `status.success.fg` · `status.warning.fg` · `surface.raised` · `text.primary`

@@ -1,0 +1,122 @@
+{
+  "$schema": "../schema.json",
+  "name": "RadioGroup",
+  "layer": "control",
+  "purpose": "One choice out of a visible, mutually exclusive set. The group is the component.",
+  "notFor": [
+    "More than about six options — that is Select or Combobox",
+    "Independent toggles — that is Checkbox"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-radio-group",
+      "element": "fieldset",
+      "required": false
+    },
+    {
+      "part": "bh-field__label",
+      "element": "legend"
+    },
+    {
+      "part": "bh-field__required",
+      "element": "span"
+    },
+    {
+      "part": "bh-field__description",
+      "element": "p"
+    },
+    {
+      "part": "bh-radio-group__options",
+      "element": "div"
+    },
+    {
+      "part": "bh-radio",
+      "element": "div"
+    },
+    {
+      "part": "bh-radio__input",
+      "element": "input[type=radio]",
+      "required": false
+    },
+    {
+      "part": "bh-radio__dot",
+      "element": "span"
+    },
+    {
+      "part": "bh-radio__label",
+      "element": "label"
+    },
+    {
+      "part": "bh-radio__hint",
+      "element": "p"
+    },
+    {
+      "part": "bh-field__error",
+      "element": "p"
+    }
+  ],
+  "props": {
+    "legend": {
+      "kind": "string"
+    },
+    "options": {
+      "kind": "data"
+    },
+    "value": {
+      "kind": "string"
+    },
+    "onChange": {
+      "kind": "event"
+    },
+    "orientation": {
+      "kind": "enum",
+      "values": [
+        "vertical",
+        "horizontal"
+      ],
+      "default": "vertical"
+    },
+    "error": {
+      "kind": "string"
+    }
+  },
+  "states": [
+    "default",
+    "focus-visible",
+    "disabled"
+  ],
+  "keyboard": {
+    "Arrow keys": "Moves between options in the group. Native.",
+    "Space": "Selects. Native."
+  },
+  "aria": {
+    "role": "radio (implicit, from <input[type=radio]>)",
+    "attributes": {
+      "aria-describedby": "describedBy",
+      "aria-invalid": "error",
+      "aria-required": "required",
+      "aria-hidden": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.primary.bg",
+    "border.focus",
+    "border.strong",
+    "font.family",
+    "gap.loose",
+    "gap.snug",
+    "surface.base",
+    "text.muted",
+    "text.primary",
+    "text.sizeCaption"
+  ],
+  "interactive": true
+}

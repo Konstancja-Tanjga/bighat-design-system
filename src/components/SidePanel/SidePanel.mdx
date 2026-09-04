@@ -1,0 +1,74 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import * as SidePanelStories from './SidePanel.stories';
+
+<Meta of={SidePanelStories} />
+
+# SidePanel
+
+A persistent panel beside the main content.
+
+<Canvas of={SidePanelStories.Default} />
+
+## When to use it
+
+| Use `SidePanel` for | Use something else for |
+| --- | --- |
+| TODO | Anything blocking — use Dialog |
+| TODO | Transient drawers |
+
+TODO: one paragraph on why the boundary sits where it does. The `notFor`
+entries above came from the contract; the reason they are the boundary did not.
+
+## Anatomy
+
+| part | element | rendered | note |
+| --- | --- | --- | --- |
+| `bh-panel` | `<div>` | always |  |
+| `bh-panel__toggle` | `<button[type=button]>` | always |  |
+| `bh-panel__titlebar` | `<div>` | always |  |
+| `bh-panel__title` | `<h2>` | always |  |
+| `bh-panel__header` | `<div>` | always |  |
+| `bh-panel__body` | `<div>` | always |  |
+| `bh-panel__footer` | `<div>` | always |  |
+
+## Props
+
+| prop | values | default | meaning |
+| --- | --- | --- | --- |
+| `ariaLabel` | string | — | Names the landmark. |
+| `side` | `start` · `end` | `start` | TODO |
+| `title` | slot | — | TODO |
+| `header` | slot | — | Pinned above the scroll area. |
+| `footer` | slot | — | Pinned below it. |
+| `children` | slot | — | TODO |
+| `width` | number | `260` | TODO |
+| `collapsed` | boolean | `false` | TODO |
+| `onToggle` | event | — | TODO |
+
+<Controls />
+
+## States
+
+`default` · `hover`
+
+
+## Accessibility
+
+- **Role** — button (implicit, from <button[type=button]>)
+- **Labelling** — TODO: is a label required, or merely supported?
+- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
+- **Announcements** — TODO: the live-region policy, not the role it produced.
+
+
+## Do and don't
+
+<Guidance>
+  <Do reason="TODO">TODO</Do>
+  <Dont reason="TODO">TODO</Dont>
+</Guidance>
+
+## Tokens consumed
+
+`action.secondary.bgHover` · `border.subtle` · `font.family` · `gap.snug` · `padding.block` · `padding.inline` · `radius.control` · `surface.base` · `text.primary` · `text.secondary` · `text.sizeBody` · `text.weightHeading`

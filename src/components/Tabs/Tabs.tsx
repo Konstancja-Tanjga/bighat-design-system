@@ -1,7 +1,5 @@
 import { createContext, useContext, useId, useRef, useState, type ReactNode } from 'react';
 
-import './Tabs.css';
-
 /**
  * Tabs are a filter on one screen, not navigation between screens. If the
  * content has its own URL, it wants links.

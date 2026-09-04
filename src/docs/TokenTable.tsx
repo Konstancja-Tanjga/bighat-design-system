@@ -1,4 +1,5 @@
-import { contrastPairs, contrastRatio, size, themes, WCAG_AA } from '../tokens';
+import { contrast, tokens } from '../../dist/tokens';
+import { contrastRatio } from '../tokens/contrast';
 
 /**
  * Documentation rendered from the token source rather than transcribed from
@@ -7,14 +8,17 @@ import { contrastPairs, contrastRatio, size, themes, WCAG_AA } from '../tokens';
  * build step. This one does.
  */
 
-type Entry = { path: string; value: string };
+type Entry = { path: string; light: string; dark: string };
 
-function flatten(value: unknown, path: string[] = []): Entry[] {
-  if (typeof value === 'string') return [{ path: path.join('.'), value }];
-  if (typeof value === 'object' && value !== null) {
-    return Object.entries(value).flatMap(([key, child]) => flatten(child, [...path, key]));
-  }
-  return [];
+/**
+ * 4.0 resolves both themes into one flat record keyed by dotted path, so the
+ * recursive flatten this used to need is gone — the shape the generator emits
+ * is already the shape the table renders.
+ */
+function entriesFor(group: string): Entry[] {
+  return Object.entries(tokens)
+    .filter(([path]) => path.startsWith(`${group}.`))
+    .map(([path, value]) => ({ path, light: value.light, dark: value.dark }));
 }
 
 const isColour = (value: string) => value.startsWith('#');
@@ -27,8 +31,7 @@ const cell: React.CSSProperties = {
 };
 
 export function TokenTable({ group }: { group: string }) {
-  const source: Record<string, unknown> = { ...themes.light, ...size };
-  const entries = flatten(source[group], [group]);
+  const entries = entriesFor(group);
 
   if (entries.length === 0) return <p>No tokens in “{group}”.</p>;
 
@@ -44,15 +47,11 @@ export function TokenTable({ group }: { group: string }) {
         </tr>
       </thead>
       <tbody>
-        {entries.map(({ path, value }) => {
+        {entries.map(({ path, light, dark }) => {
           const cssName = `--bh-${path
             .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
             .toLowerCase()
             .replace(/\./g, '-')}`;
-          const darkEntry = flatten({ ...themes.dark, ...size }[group as never], [group]).find(
-            (entry) => entry.path === path,
-          );
-
           return (
             <tr key={path}>
               <td style={{ ...cell, fontFamily: 'ui-monospace, monospace' }}>{path}</td>
@@ -66,9 +65,11 @@ export function TokenTable({ group }: { group: string }) {
                 {cssName}
               </td>
               <td style={cell}>
-                <Swatch value={value} />
+                <Swatch value={light} />
               </td>
-              <td style={cell}>{darkEntry && <Swatch value={darkEntry.value} />}</td>
+              <td style={cell}>
+                <Swatch value={dark} />
+              </td>
             </tr>
           );
         })}
@@ -110,16 +111,17 @@ export function ContrastTable() {
         </tr>
       </thead>
       <tbody>
-        {contrastPairs.map((pair) => {
-          const light = contrastRatio(pair.fg(themes.light), pair.bg(themes.light));
-          const dark = contrastRatio(pair.fg(themes.dark), pair.bg(themes.dark));
-          const threshold = WCAG_AA[pair.requirement];
+        {contrast.pairs.map(([fg, bg, requirement]) => {
+          const name = `${fg} on ${bg}`;
+          const light = contrastRatio(tokens[fg].light, tokens[bg].light);
+          const dark = contrastRatio(tokens[fg].dark, tokens[bg].dark);
+          const threshold = contrast.thresholds[requirement];
 
           return (
-            <tr key={pair.name}>
-              <td style={{ ...cell, fontFamily: 'ui-monospace, monospace' }}>{pair.name}</td>
+            <tr key={name}>
+              <td style={{ ...cell, fontFamily: 'ui-monospace, monospace' }}>{name}</td>
               <td style={{ ...cell, color: 'var(--bh-text-muted)' }}>
-                {threshold}:1 · {pair.requirement}
+                {threshold}:1 · {requirement}
               </td>
               <td style={cell}>
                 <Ratio value={light} threshold={threshold} />

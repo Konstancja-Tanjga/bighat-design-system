@@ -1,6 +1,6 @@
 # Prototype to handoff
 
-A prototype built on `@bighatpoland/ui` is handed over by describing the outcome
+A prototype built on `@bighat/ui` is handed over by describing the outcome
 you want checked. Nobody needs to remember a rule number or a script name — this
 file maps the request to what it runs and what it returns.
 

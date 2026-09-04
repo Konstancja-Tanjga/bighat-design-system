@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Pagination } from './Pagination';
 
 const meta = {
-  title: 'Data/Pagination',
+  title: 'Components/Pagination',
   component: Pagination,
   parameters: {
     docs: {

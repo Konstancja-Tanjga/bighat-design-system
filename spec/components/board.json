@@ -1,0 +1,143 @@
+{
+  "$schema": "../schema.json",
+  "name": "Board",
+  "layer": "frame",
+  "purpose": "Columns of cards — kanban, pipeline, review queue.",
+  "notFor": [
+    "Ordered data the user compares — that is Table"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-board",
+      "element": "section"
+    },
+    {
+      "part": "bh-board__columns",
+      "element": "div"
+    },
+    {
+      "part": "bh-board__column",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-board__column-head",
+      "element": "div"
+    },
+    {
+      "part": "bh-board__column-title",
+      "element": "h3"
+    },
+    {
+      "part": "bh-board__count",
+      "element": "span"
+    },
+    {
+      "part": "bh-board__warning",
+      "element": "p"
+    },
+    {
+      "part": "bh-board__cards",
+      "element": "ul"
+    },
+    {
+      "part": "bh-board__card",
+      "element": "li"
+    },
+    {
+      "part": "bh-board__card-inner",
+      "element": "div"
+    },
+    {
+      "part": "bh-board__card-open",
+      "element": "button[type=button]"
+    },
+    {
+      "part": "bh-board__move",
+      "element": "div"
+    },
+    {
+      "part": "bh-board__move-select",
+      "element": "select"
+    }
+  ],
+  "props": {
+    "Board.ariaLabel": {
+      "kind": "string"
+    },
+    "Board.announcement": {
+      "kind": "string",
+      "note": "Spoken by the board's live region after a move."
+    },
+    "BoardColumn.title": {
+      "kind": "string"
+    },
+    "BoardColumn.count": {
+      "kind": "number"
+    },
+    "BoardColumn.limit": {
+      "kind": "number",
+      "note": "WIP limit — surfaced, never enforced."
+    },
+    "BoardColumn.empty": {
+      "kind": "slot",
+      "note": "Use a StateBlock with copy specific to the column.",
+      "content": "TODO"
+    },
+    "BoardCard.moveTargets": {
+      "kind": "data"
+    },
+    "BoardCard.onMove": {
+      "kind": "event",
+      "note": "Required for a pointer-free move — WCAG 2.5.1."
+    }
+  },
+  "states": [
+    "default",
+    "hover"
+  ],
+  "keyboard": {
+    "Arrow keys": "Moves between options. Native.",
+    "Enter": "Commits. Native."
+  },
+  "aria": {
+    "role": "status",
+    "attributes": {
+      "aria-label": "ariaLabel",
+      "aria-hidden": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.strong",
+    "border.subtle",
+    "font.family",
+    "gap.normal",
+    "gap.snug",
+    "gap.tight",
+    "padding.block",
+    "padding.inline",
+    "radius.control",
+    "radius.pill",
+    "radius.surface",
+    "status.warning.bg",
+    "status.warning.fg",
+    "surface.base",
+    "surface.raised",
+    "surface.sunken",
+    "text.muted",
+    "text.primary",
+    "text.secondary",
+    "text.sizeBody",
+    "text.sizeDense",
+    "text.weightHeading"
+  ],
+  "interactive": true
+}

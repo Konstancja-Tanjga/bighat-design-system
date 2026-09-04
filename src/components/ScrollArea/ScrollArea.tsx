@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 
-import './ScrollArea.css';
-
 /**
  * A scrollable region with a scrollbar this system is willing to own.
  *

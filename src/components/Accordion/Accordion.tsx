@@ -1,7 +1,5 @@
 import { createContext, useContext, useId, useState, type ReactNode } from 'react';
 
-import './Accordion.css';
-
 /**
  * Disclosure, not navigation.
  *

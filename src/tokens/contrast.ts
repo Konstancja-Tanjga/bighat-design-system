@@ -1,9 +1,13 @@
 /**
  * WCAG 2.1 relative luminance and contrast ratio.
  *
- * This lives in `src/` rather than in a test helper on purpose: the same
- * function that guards the build is exported to consumers, so a product team
- * composing a one-off colour can check it against the same rule we do.
+ * 4.0 moved the token *source* to DTCG JSON and the resolved values to
+ * `dist/tokens.ts`, but the arithmetic that turns two colours into a ratio is
+ * not a token — it is a rule, and it has to run somewhere both the build and
+ * the documentation can reach. It lives in `src/` rather than in a test helper
+ * for the same reason it always did: the function that guards the build is the
+ * one a product team gets when it composes a one-off colour and wants to check
+ * it against the rule we hold ourselves to.
  */
 
 export type Rgb = { r: number; g: number; b: number };
@@ -46,26 +50,4 @@ export function contrastRatio(foreground: string, background: string): number {
   const lighter = Math.max(a, b);
   const darker = Math.min(a, b);
   return (lighter + 0.05) / (darker + 0.05);
-}
-
-/**
- * The thresholds this system treats as non-negotiable.
- *
- * `largeText` covers 18.66px bold or 24px regular and up. `nonText` covers
- * borders, icons and focus rings — WCAG 1.4.11.
- */
-export const WCAG_AA = {
-  bodyText: 4.5,
-  largeText: 3,
-  nonText: 3,
-} as const;
-
-export type ContrastRequirement = keyof typeof WCAG_AA;
-
-export function meetsAA(
-  foreground: string,
-  background: string,
-  requirement: ContrastRequirement = 'bodyText',
-): boolean {
-  return contrastRatio(foreground, background) >= WCAG_AA[requirement];
 }

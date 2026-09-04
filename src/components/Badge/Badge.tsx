@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import type { Tone } from '../../tokens/vocabulary';
 
-import './Badge.css';
+import type { ReactNode } from 'react';
 
 /**
  * The smallest component in the system and the one under the most contrast
@@ -10,7 +10,7 @@ import './Badge.css';
  * its colour fails WCAG 1.4.1 for anyone who cannot see the difference, so the
  * label is required and the tone only reinforces it.
  */
-export type BadgeTone = 'neutral' | 'info' | 'success' | 'warning' | 'critical';
+export type BadgeTone = Tone;
 
 export type BadgeProps = {
   tone?: BadgeTone;

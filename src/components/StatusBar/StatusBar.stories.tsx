@@ -6,7 +6,7 @@ import { Badge } from '../Badge/Badge';
 import { Button } from '../Button/Button';
 
 const meta: Meta<typeof StatusBar> = {
-  title: 'Components/Status Bar',
+  title: 'Components/StatusBar',
   component: StatusBar,
 };
 

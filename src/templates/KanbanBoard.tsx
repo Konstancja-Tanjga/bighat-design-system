@@ -22,8 +22,6 @@ import { Toolbar } from '../components/Toolbar/Toolbar';
 import { Tooltip } from '../components/Tooltip/Tooltip';
 import { UserProfile } from '../components/UserProfile/UserProfile';
 import { IconDoc, IconFlow, IconGrid, IconHome, IconInbox, IconStar } from './icons';
-import './KanbanBoard.css';
-
 /**
  * Template — document management board.
  *

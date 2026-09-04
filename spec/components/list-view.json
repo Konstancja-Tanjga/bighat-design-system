@@ -1,0 +1,105 @@
+{
+  "$schema": "../schema.json",
+  "name": "ListView",
+  "layer": "data",
+  "purpose": "A selectable master list driving a detail pane. One tab stop, arrows, type-ahead.",
+  "notFor": [
+    "Multi-select — that is a Table with a checkbox column",
+    "Static records — that is List"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-list-view",
+      "element": "div"
+    },
+    {
+      "part": "bh-list-view__row",
+      "element": "div"
+    },
+    {
+      "part": "bh-list-view__body",
+      "element": "span"
+    },
+    {
+      "part": "bh-list-view__title",
+      "element": "span"
+    },
+    {
+      "part": "bh-list-view__description",
+      "element": "span"
+    },
+    {
+      "part": "bh-list-view__meta",
+      "element": "span"
+    }
+  ],
+  "props": {
+    "ariaLabel": {
+      "kind": "string"
+    },
+    "items": {
+      "kind": "data"
+    },
+    "value": {
+      "kind": "data",
+      "note": "Controlled selection."
+    },
+    "onChange": {
+      "kind": "event"
+    },
+    "empty": {
+      "kind": "slot",
+      "note": "Use StateBlock for anything richer than a line.",
+      "content": "TODO"
+    }
+  },
+  "states": [
+    "default",
+    "hover",
+    "selected",
+    "disabled",
+    "empty"
+  ],
+  "keyboard": {
+    "ArrowDown": "TODO",
+    "ArrowUp": "TODO",
+    "Home": "TODO",
+    "End": "TODO"
+  },
+  "aria": {
+    "role": "listbox",
+    "attributes": {
+      "aria-label": "ariaLabel",
+      "aria-activedescendant": "selectedId",
+      "aria-selected": "item.id",
+      "aria-disabled": "item.disabled"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.primary.bg",
+    "border.subtle",
+    "font.family",
+    "gap.normal",
+    "gap.snug",
+    "padding.inline",
+    "padding.section",
+    "radius.surface",
+    "status.info.bg",
+    "surface.base",
+    "surface.sunken",
+    "text.muted",
+    "text.primary",
+    "text.secondary",
+    "text.sizeBody",
+    "text.sizeCaption"
+  ],
+  "interactive": true
+}

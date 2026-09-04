@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import type { Density } from '../../tokens/vocabulary';
 
-import './DescriptionList.css';
+import type { ReactNode } from 'react';
 
 /**
  * Term and value pairs — a record read rather than a form filled.
@@ -31,7 +31,7 @@ export type DescriptionListProps = {
    * there is room, because the values then line up and can be compared.
    */
   layout?: 'rows' | 'columns';
-  density?: 'comfortable' | 'compact';
+  density?: Density;
   /** Names the list when it is not already inside a labelled region. */
   ariaLabel?: string;
 };

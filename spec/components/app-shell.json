@@ -1,0 +1,136 @@
+{
+  "$schema": "../schema.json",
+  "name": "AppShell",
+  "layer": "frame",
+  "purpose": "The frame every application screen sits in. Owns the landmark structure — header, nav, main, complementary.",
+  "notFor": [
+    "Documentation and marketing pages — use height=\"flow\" or no shell at all"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-shell",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-shell__header",
+      "element": "header"
+    },
+    {
+      "part": "bh-shell__rail",
+      "element": "div"
+    },
+    {
+      "part": "bh-shell__sidebar",
+      "element": "div"
+    },
+    {
+      "part": "bh-shell__main",
+      "element": "main"
+    },
+    {
+      "part": "bh-shell__aside",
+      "element": "div"
+    },
+    {
+      "part": "bh-shell__scrim",
+      "element": "button[type=button]"
+    },
+    {
+      "part": "bh-skip-link",
+      "element": "a"
+    }
+  ],
+  "props": {
+    "header": {
+      "kind": "slot",
+      "note": "Rendered as <header>.",
+      "content": "TODO"
+    },
+    "rail": {
+      "kind": "slot",
+      "note": "Narrow icon rail on the leading edge.",
+      "content": "TODO"
+    },
+    "sidebar": {
+      "kind": "slot",
+      "note": "Leading panel — navigation, a tree.",
+      "content": "TODO"
+    },
+    "aside": {
+      "kind": "slot",
+      "note": "Trailing panel — inspector, context.",
+      "content": "TODO"
+    },
+    "children": {
+      "kind": "slot",
+      "note": "Becomes the only <main>.",
+      "content": "TODO"
+    },
+    "height": {
+      "kind": "enum",
+      "values": [
+        "fill",
+        "flow"
+      ],
+      "default": "fill",
+      "meaning": "fill pins to the viewport and scrolls each region independently"
+    },
+    "navOpen": {
+      "kind": "boolean",
+      "default": false,
+      "note": "Below breakpoint.md the rail and sidebar leave the grid; with onNavToggle they return as an overlay instead of simply vanishing."
+    },
+    "onNavToggle": {
+      "kind": "event",
+      "note": "Omit and the panels stay hidden below the breakpoint — honest, but the reader has no route back to them."
+    },
+    "asideOpen": {
+      "kind": "boolean",
+      "default": false
+    },
+    "onAsideToggle": {
+      "kind": "event"
+    }
+  },
+  "states": [
+    "default",
+    "focus-visible"
+  ],
+  "keyboard": {
+    "Enter": "Follows the link. Native."
+  },
+  "aria": {
+    "role": "banner (in a landmark context) (implicit, from <header>)",
+    "attributes": {
+      "aria-label": "Close"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.strong",
+    "border.subtle",
+    "control.lg",
+    "elevation.modal",
+    "font.family",
+    "gap.snug",
+    "layer.overlay",
+    "padding.block",
+    "padding.inline",
+    "radius.control",
+    "surface.base",
+    "surface.sunken",
+    "text.link",
+    "text.primary",
+    "text.sizeCaption",
+    "text.weightEmphasis"
+  ],
+  "interactive": true
+}

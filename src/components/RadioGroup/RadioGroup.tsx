@@ -1,8 +1,5 @@
 import { useId, type ReactNode } from 'react';
 
-import '../Input/Input.css';
-import './RadioGroup.css';
-
 /**
  * Radios only exist in groups, so the group is the component and the single
  * radio is not exported.

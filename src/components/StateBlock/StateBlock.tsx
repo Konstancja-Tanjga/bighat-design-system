@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import './StateBlock.css';
+import type { StateBlockScope } from '../../tokens/vocabulary';
 
 /**
  * The screens nobody designs.
@@ -32,7 +32,13 @@ export type StateBlockProps = {
    * `section` fills a panel, `page` fills a route, `inline` sits inside a
    * table body or a card without imposing its own vertical rhythm.
    */
-  density?: 'inline' | 'section' | 'page';
+  scope?: StateBlockScope;
+  /**
+   * @deprecated Renamed to `scope` in 4.0, removed in 5.0. `density` now means
+   * row spacing everywhere else in the system (Table, DescriptionList), and one
+   * name for two unrelated concepts is how a vocabulary stops being one.
+   */
+  density?: StateBlockScope;
   /**
    * Technical detail for an error — a correlation id, a status code. Rendered
    * in a `<details>` so it is available to whoever needs it and invisible to
@@ -64,14 +70,21 @@ export function StateBlock({
   action,
   secondaryAction,
   icon,
-  density = 'section',
+  scope,
+  density,
   diagnostics,
 }: StateBlockProps) {
+  if (import.meta.env?.DEV && density !== undefined) {
+    console.warn(
+      '[bighat] StateBlock: the density prop is deprecated and removed in 5.0. Use scope.',
+    );
+  }
+  const resolvedScope = scope ?? density ?? 'section';
   const role = liveRegionRole[state];
 
   return (
     <div
-      className={`bh-stateblock bh-stateblock--${state} bh-stateblock--${density}`}
+      className={`bh-stateblock bh-stateblock--${state} bh-stateblock--${resolvedScope}`}
       role={role}
       aria-busy={state === 'loading' || undefined}
       data-state={state}

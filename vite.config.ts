@@ -18,6 +18,11 @@ export default defineConfig({
       external: ['react', 'react-dom', 'react/jsx-runtime'],
     },
     sourcemap: true,
+    // `npm run tokens` writes dist/tokens.{css,scss,ts,flat.json} before this
+    // step, and package.json exports all four. Vite empties the output
+    // directory by default, which deleted them again — so the published
+    // package advertised ./tokens and shipped without it.
+    emptyOutDir: false,
   },
   test: {
     environment: 'jsdom',

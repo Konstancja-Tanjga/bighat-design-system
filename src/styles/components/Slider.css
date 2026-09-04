@@ -1,0 +1,77 @@
+.bh-slider-field {
+  min-width: 200px;
+}
+
+.bh-slider__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--bh-gap-normal);
+}
+
+.bh-slider__value {
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.bh-slider {
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* The filled portion is painted on the track with a hard-stop gradient, so the
+   value is visible without a second element to keep in sync. */
+.bh-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: var(--bh-radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--bh-action-primary-bg) var(--bh-slider-percent, 0%),
+    var(--bh-surface-sunken) var(--bh-slider-percent, 0%)
+  );
+  border: 1px solid var(--bh-border-subtle);
+}
+
+.bh-slider::-moz-range-track {
+  height: 4px;
+  border-radius: var(--bh-radius-pill);
+  background: var(--bh-surface-sunken);
+  border: 1px solid var(--bh-border-subtle);
+}
+
+.bh-slider::-moz-range-progress {
+  height: 4px;
+  border-radius: var(--bh-radius-pill);
+  background: var(--bh-action-primary-bg);
+}
+
+/* 20px thumb: the smallest target that still clears the 24×24 minimum once the
+   surrounding 20px-tall input is counted as the hit area. */
+.bh-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: calc(-1 * var(--bh-padding-block));
+  border-radius: 50%;
+  background: var(--bh-surface-base);
+  border: 2px solid var(--bh-action-primary-bg);
+  box-shadow: var(--bh-elevation-raised);
+}
+
+.bh-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bh-surface-base);
+  border: 2px solid var(--bh-action-primary-bg);
+}
+
+.bh-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

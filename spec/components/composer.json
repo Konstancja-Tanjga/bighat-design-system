@@ -1,0 +1,154 @@
+{
+  "$schema": "../schema.json",
+  "name": "Composer",
+  "layer": "frame",
+  "purpose": "The prompt input — a textarea in a form, with optional single-choice modes.",
+  "notFor": [
+    "Ordinary multi-line form fields"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-composer",
+      "element": "form"
+    },
+    {
+      "part": "bh-composer__field",
+      "element": "div"
+    },
+    {
+      "part": "bh-composer__input",
+      "element": "textarea",
+      "required": false
+    },
+    {
+      "part": "bh-composer__tools",
+      "element": "div"
+    },
+    {
+      "part": "bh-composer__submit",
+      "element": "button[type=submit]"
+    },
+    {
+      "part": "bh-composer__modes",
+      "element": "fieldset"
+    },
+    {
+      "part": "bh-composer__mode",
+      "element": "label",
+      "required": false
+    },
+    {
+      "part": "bh-composer__mode-icon",
+      "element": "span"
+    },
+    {
+      "part": "bh-composer__hint",
+      "element": "p"
+    }
+  ],
+  "props": {
+    "label": {
+      "kind": "string"
+    },
+    "placeholder": {
+      "kind": "string",
+      "default": "Ask anything"
+    },
+    "value": {
+      "kind": "string"
+    },
+    "onValueChange": {
+      "kind": "event"
+    },
+    "onSubmit": {
+      "kind": "event"
+    },
+    "modes": {
+      "kind": "data",
+      "note": "Rendered as a radio group, not buttons."
+    },
+    "activeMode": {
+      "kind": "string"
+    },
+    "onModeChange": {
+      "kind": "event"
+    },
+    "tools": {
+      "kind": "slot",
+      "note": "Icon buttons still need labels.",
+      "content": "TODO"
+    },
+    "submitLabel": {
+      "kind": "string",
+      "default": "Ask"
+    },
+    "busy": {
+      "kind": "boolean",
+      "default": false
+    },
+    "disabled": {
+      "kind": "boolean",
+      "default": false
+    },
+    "hint": {
+      "kind": "slot",
+      "note": "The place for an accuracy notice.",
+      "content": "TODO"
+    },
+    "maxRows": {
+      "kind": "number",
+      "default": 8
+    }
+  },
+  "states": [
+    "default",
+    "hover",
+    "focus-visible",
+    "disabled"
+  ],
+  "keyboard": {
+    "Enter": "TODO"
+  },
+  "aria": {
+    "role": "textbox (implicit, from <textarea>)",
+    "attributes": {
+      "aria-describedby": "hint",
+      "aria-disabled": "busy",
+      "aria-hidden": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.primary.bg",
+    "action.primary.bgHover",
+    "action.primary.fg",
+    "action.secondary.bgHover",
+    "border.focus",
+    "border.strong",
+    "font.family",
+    "gap.snug",
+    "gap.tight",
+    "padding.inline",
+    "radius.control",
+    "radius.pill",
+    "radius.surface",
+    "status.info.bg",
+    "status.info.fg",
+    "surface.base",
+    "text.muted",
+    "text.primary",
+    "text.secondary",
+    "text.sizeBody",
+    "text.sizeCaption",
+    "text.weightEmphasis",
+    "text.weightHeading"
+  ],
+  "interactive": true
+}

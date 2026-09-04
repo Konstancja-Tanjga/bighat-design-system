@@ -1,0 +1,84 @@
+{
+  "$schema": "../schema.json",
+  "name": "Toolbar",
+  "layer": "frame",
+  "purpose": "A row of controls acting on the content below it. One tab stop, arrows between controls.",
+  "notFor": [
+    "Page-level navigation — that is AppBar",
+    "A single button"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-toolbar",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-toolbar__group",
+      "element": "div"
+    },
+    {
+      "part": "bh-toolbar__end",
+      "element": "div"
+    }
+  ],
+  "props": {
+    "ariaLabel": {
+      "kind": "string",
+      "note": "Names what the toolbar acts on."
+    },
+    "children": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "end": {
+      "kind": "slot",
+      "note": "Trailing slot: search, view switches, counts.",
+      "content": "TODO"
+    },
+    "orientation": {
+      "kind": "enum",
+      "values": [
+        "horizontal",
+        "vertical"
+      ],
+      "default": "horizontal"
+    },
+    "flush": {
+      "kind": "boolean",
+      "default": false
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {
+    "Home": "TODO",
+    "End": "TODO",
+    "Arrow keys": "TODO"
+  },
+  "aria": {
+    "role": "toolbar",
+    "attributes": {
+      "aria-label": "ariaLabel",
+      "aria-orientation": "orientation"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "font.family",
+    "gap.snug",
+    "padding.inline",
+    "radius.surface",
+    "surface.sunken"
+  ],
+  "interactive": true
+}

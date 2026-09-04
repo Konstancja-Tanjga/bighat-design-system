@@ -1,0 +1,109 @@
+{
+  "$schema": "../schema.json",
+  "name": "List",
+  "layer": "data",
+  "purpose": "A vertical list of records: leading media, title, supporting line, trailing slot.",
+  "notFor": [
+    "Data the user compares or sorts — that is Table",
+    "A selectable master pane — that is ListView"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-list",
+      "element": "ul",
+      "required": false
+    },
+    {
+      "part": "bh-list__leading",
+      "element": "span"
+    },
+    {
+      "part": "bh-list__body",
+      "element": "span"
+    },
+    {
+      "part": "bh-list__title",
+      "element": "span"
+    },
+    {
+      "part": "bh-list__description",
+      "element": "span"
+    },
+    {
+      "part": "bh-list__item",
+      "element": "li"
+    },
+    {
+      "part": "bh-list__row",
+      "element": "a"
+    },
+    {
+      "part": "bh-list__trailing",
+      "element": "span"
+    }
+  ],
+  "props": {
+    "ariaLabel": {
+      "kind": "string"
+    },
+    "dividers": {
+      "kind": "boolean",
+      "default": true
+    },
+    "ListItem.title": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "ListItem.href": {
+      "kind": "string",
+      "note": "Makes the row a link. Mutually exclusive with onSelect."
+    },
+    "ListItem.onSelect": {
+      "kind": "event",
+      "note": "Makes the row a button."
+    },
+    "ListItem.trailing": {
+      "kind": "slot",
+      "note": "Rendered outside the row's own control.",
+      "content": "TODO"
+    }
+  },
+  "states": [
+    "default",
+    "hover"
+  ],
+  "keyboard": {
+    "Enter": "Follows the link. Native."
+  },
+  "aria": {
+    "role": "list (implicit, from <ul>)",
+    "attributes": {
+      "aria-label": "ariaLabel",
+      "aria-hidden": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "font.family",
+    "gap.normal",
+    "gap.snug",
+    "padding.inline",
+    "radius.control",
+    "surface.base",
+    "surface.sunken",
+    "text.muted",
+    "text.primary",
+    "text.secondary",
+    "text.sizeBody",
+    "text.sizeCaption"
+  ],
+  "interactive": true
+}

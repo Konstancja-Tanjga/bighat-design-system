@@ -1,0 +1,148 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="About this system" />
+
+# Big Hat — React
+
+A design system built to answer the question interviews actually ask: **not
+"can you make a button", but "what did you decide, and what did it cost".**
+
+Forty-one components in two layers. Two token layers, one of which is an API
+and one of which is not. WCAG AA enforced by a failing build rather than a
+review comment. Eight classes of value that cannot be written as a literal
+anywhere in the library. A deprecation carried from announcement to removal
+across two major versions. And a skill file that lets a coding agent follow the
+system's rules instead of inventing its own.
+
+There is a sibling system, **[Big Hat — Angular](https://konstancja-tanjga.github.io/bighat-design-system-angular/)**,
+built from the same component contracts. The two are separate repositories on
+purpose, and the last section of this page is about why and what it cost.
+
+---
+
+## Six decisions
+
+### 1. Two token layers, and only one is an API
+
+Primitives (`color.blue.500`, `space.4`) say what a value *is*. Semantics
+(`action.primary.hover`, `text.muted`, `border.focus`) say what it *means*.
+Product code may reference semantics only — 91 of them.
+
+The source is [DTCG 2025.10](https://www.designtokens.org/), the format that
+reached its first stable version in October 2025, so the tokens are readable by
+Figma, Tokens Studio, Style Dictionary and Penpot without a bespoke export
+script. Everything else — the CSS custom properties, the SCSS, the typed TS
+helper, the flat JSON — is generated from it, and CI fails if a committed
+artefact has drifted from the source.
+
+If no semantic role fits, that is a signal the system is missing a role, not a
+licence to reach one layer down. See **Foundations → Colour & tone**.
+
+### 2. Contrast is a build error
+
+Twenty-six declared foreground/background pairs, across both themes, asserted
+in CI. The thresholds are not all 4.5:1 — a focus ring is non-text at 3:1
+(WCAG 1.4.11), and getting that distinction wrong in either direction is a real
+failure: too lax ships unreadable UI, too strict forces a washed-out palette
+nobody wants.
+
+Adding a token that renders text or a control boundary means adding a line to
+the pairs list. That list is not documentation.
+
+### 3. Eight value classes cannot be written as literals
+
+Not just spacing. Font size, font weight, spacing, duration, easing, z-index,
+border-radius and the inset properties all resolve to tokens, and a literal
+anywhere in the library's 45 stylesheets fails the build.
+
+The last two were added late, and the reason is the most useful thing on this
+page: **a 4px corner radius and an 18px box width survived the first six
+rules.** Those six covered the properties where drift is obvious. They missed
+the ones where a literal encodes a *relationship* — a corner radius, a
+control's own size, an inset that centres something — and those are worse,
+because `left: 3px` centring a bar in an 18px box is correct exactly once and
+nothing tells you when the box moved.
+
+**Foundations → Token drift** is generated from that gate on every build.
+
+### 4. Components respond to their container, not the viewport
+
+The same `Table` sits in `main` at 1200px, in a `SidePanel` at 432px and inside
+a `Card` at 280px — on one screen, at one moment. A viewport query gets two of
+those three wrong.
+
+So every responsive rule is a `@container` query, and there are no `@media`
+width queries in component CSS at all. CSS cannot read a custom property inside
+a container query, so each threshold necessarily exists twice — and a test
+walks every stylesheet and fails on any threshold the token layer does not
+declare. See **Foundations → Layout & container queries**.
+
+### 5. Empty, loading and error are one component, not a guideline
+
+Every list, table and panel spends real time in a state that is not the happy
+path. Left to individual teams those get invented three times per product, each
+with a different tone of voice and none announced to a screen reader.
+
+`StateBlock` makes the announcement policy structural: loading is polite,
+error is assertive, and empty gets no live region at all, because it is the
+rendered result of a successful request and announcing it is noise. The pattern
+is enforced by import, not by whether anyone read this page.
+
+### 6. The rules are machine-readable
+
+`spec/components/*.json` — one contract per component, with its purpose, what
+it is *not* for, its DOM anatomy, states, keyboard map, ARIA contract and the
+tokens it consumes. `agent/SKILL.md` turns those into rules a coding agent can
+follow.
+
+The contracts are also what the Angular sibling was built from, which is the
+only reason two implementations of the same system agree about anything.
+
+---
+
+## What this system does not claim
+
+**Thirty-five of forty-one contracts are unfinished**, and
+**Accessibility → ARIA conformance** says which. The mechanical fields —
+anatomy, states, roles, attributes, tokens consumed — were extracted from the
+source, because they were already recorded there and retyping them would have
+introduced errors the code does not have. What is missing is the part no script
+can produce: whether a label is *required* or merely supported, where focus goes
+on close and why the obvious answer is wrong, and what the live-region policy
+is rather than which role it produced.
+
+Fourteen components currently fail their WAI-ARIA APG pattern for exactly that
+reason, and the conformance page is generated from the audit rather than
+written by hand. Publishing that is deliberate. A design system that shows its
+own gaps is making a claim you can verify; one that shows none is making a
+claim you cannot.
+
+**No screen reader has been run against it.** The announcement policies in the
+contracts are testable claims, and nobody has tested them. Static analysis
+finds what was never built; it does not find what sounds wrong in NVDA.
+
+---
+
+## What splitting from the Angular library cost
+
+The two systems began as one repository with a shared token package, a shared
+stylesheet and one set of contracts. That is the better engineering answer, and
+it had a property this arrangement does not: a script that read both libraries
+and asserted they implemented the same contracts — same props, same story
+names, same keyboard maps — and failed when they diverged.
+
+It caught nine real problems while it existed. Four were mechanism differences
+that needed recording rather than fixing; five drove additions to the contract
+schema, because the checker was right and the schema was too thin to express
+the truth.
+
+**That check is gone.** This repository can no longer assert anything about the
+Angular library, and nothing will fail when the two drift apart. The token
+source is duplicated, so a colour change is two commits in two places with
+nothing comparing them.
+
+What was gained is that each system is a complete, installable, separately
+deployable thing that can be read on its own — which for two systems whose
+whole point is being evaluated by someone who has ten minutes, is the trade
+worth making. It is still a trade, and pretending otherwise would undo the
+point of the rest of this page.

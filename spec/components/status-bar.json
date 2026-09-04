@@ -1,0 +1,92 @@
+{
+  "$schema": "../schema.json",
+  "name": "StatusBar",
+  "layer": "frame",
+  "purpose": "The thin bar at the bottom of an application. Its message slot is a polite live region.",
+  "notFor": [
+    "Anything urgent — that is Toast",
+    "Actions — that is Toolbar"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-status-bar",
+      "element": "div"
+    },
+    {
+      "part": "bh-status-bar__items",
+      "element": "div"
+    },
+    {
+      "part": "bh-status-bar__item",
+      "element": "span"
+    },
+    {
+      "part": "bh-status-bar__label",
+      "element": "span"
+    },
+    {
+      "part": "bh-status-bar__value",
+      "element": "span"
+    },
+    {
+      "part": "bh-status-bar__message",
+      "element": "p"
+    },
+    {
+      "part": "bh-status-bar__end",
+      "element": "div"
+    }
+  ],
+  "props": {
+    "items": {
+      "kind": "data",
+      "note": "Label and value pairs, read out together."
+    },
+    "message": {
+      "kind": "slot",
+      "note": "Announced politely. Always rendered so the region exists before it fills.",
+      "content": "TODO"
+    },
+    "end": {
+      "kind": "slot",
+      "content": "TODO"
+    },
+    "ariaLabel": {
+      "kind": "string",
+      "default": "Status"
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "contentinfo",
+    "attributes": {
+      "aria-label": "ariaLabel",
+      "aria-live": "polite"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "border.subtle",
+    "control.sm",
+    "font.family",
+    "gap.loose",
+    "gap.snug",
+    "gap.tight",
+    "padding.inline",
+    "surface.sunken",
+    "text.muted",
+    "text.primary",
+    "text.secondary"
+  ],
+  "interactive": false
+}

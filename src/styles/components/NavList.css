@@ -1,0 +1,86 @@
+.bh-navgroup + .bh-navgroup {
+  margin-top: var(--bh-gap-loose);
+}
+
+.bh-navgroup__label {
+  margin: 0 0 var(--bh-gap-tight);
+  padding: 0 var(--bh-gap-snug);
+  font-size: var(--bh-text-size-dense);
+  font-weight: var(--bh-text-weight-heading);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bh-text-muted);
+}
+
+.bh-navlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-hairline);
+}
+
+.bh-navitem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+  padding: var(--bh-gap-snug) var(--bh-gap-snug);
+  border: 0;
+  border-radius: var(--bh-radius-control);
+  background: transparent;
+  color: var(--bh-text-primary);
+  font: inherit;
+  font-size: var(--bh-text-size-body);
+  text-align: left;
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.bh-navitem:hover {
+  background: var(--bh-action-secondary-bg-hover);
+}
+
+/* Active is a tinted fill plus a border, so it survives greyscale and a
+   forced-colours mode that discards the background. */
+.bh-navitem--active {
+  background: var(--bh-status-info-bg);
+  box-shadow: inset 0 0 0 1px var(--bh-status-info-border);
+  font-weight: var(--bh-text-weight-heading);
+}
+
+.bh-navitem__icon {
+  flex: none;
+  display: inline-flex;
+  color: var(--bh-text-muted);
+  font-size: var(--bh-text-size-caption);
+}
+
+.bh-navitem__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bh-navitem__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bh-navitem__subline {
+  font-size: var(--bh-text-size-dense);
+  font-weight: var(--bh-text-weight-body);
+  color: var(--bh-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bh-navitem__meta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+}

@@ -1,7 +1,5 @@
 import { useRef, type ReactNode } from 'react';
 
-import './Toolbar.css';
-
 /**
  * A row of controls that act on the thing below it — the function bar above a
  * table, an editor's formatting strip.

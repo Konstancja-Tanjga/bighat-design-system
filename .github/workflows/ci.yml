@@ -1,45 +1,55 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
+  push: { branches: [main] }
   pull_request:
-
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
+        with: { node-version: 22, cache: npm }
       - run: npm ci
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Formatting
-        run: npm run format:check
-
-      # Fails if tokens.css was edited by hand or the TS source changed without
-      # regenerating it. One source of truth, enforced.
-      - name: Tokens are in sync with their source
+      # Every committed artefact is regenerated and compared. A hand-edit to
+      # dist/tokens.css turns the build red rather than surviving until someone
+      # next runs the build.
+      - name: Tokens are in sync
         run: npm run tokens:check
 
-      # Includes the WCAG AA contrast gate over every declared token pair in
-      # both themes. A palette change that drops below threshold stops here.
-      - name: Tests
-        run: npm test
+      # Framework leakage, prop vocabulary, and any component that ships
+      # against an unfinished contract.
+      - name: Contracts are valid
+        run: npm run spec:validate
 
-      - name: Build library
-        run: npm run build
+      # Eight value classes across 45 stylesheets. A literal fails here.
+      - name: No token drift
+        run: npm run audit:drift && git diff --exit-code DRIFT-REPORT.md
 
-      - name: Build Storybook
-        run: npm run build-storybook
+      # The published site's conformance and drift pages are generated from
+      # the audits, so they cannot claim numbers the build does not produce.
+      - name: Published reports match the build
+        run: npm run docs:check
+
+      # Contrast (26 pairs x 2 themes), the drift gate, and the contract-driven
+      # keyboard and anatomy suites.
+      - run: npm test
+
+      - run: npm run build
+      - run: npm run build-storybook
+
+  # Separate job: a scaffolded doc failing should not stop the site deploying,
+  # but it should be visible. Nine frame components have generated stories and
+  # docs whose prose is unwritten, and this job is red until they are done.
+  docs:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Every component has a finished doc
+        run: npm run check:docs

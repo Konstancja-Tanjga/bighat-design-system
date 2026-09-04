@@ -1,8 +1,5 @@
 import { forwardRef, useId, type ReactNode, type SelectHTMLAttributes } from 'react';
 
-import '../Input/Input.css';
-import './Select.css';
-
 /**
  * A native `<select>` in a system that otherwise builds its own controls.
  *

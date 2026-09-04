@@ -1,6 +1,6 @@
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import type { Size, Variant } from '../../tokens/vocabulary';
 
-import './Button.css';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 /**
  * `variant` answers "how much visual weight", `tone` answers "how dangerous".
@@ -9,9 +9,9 @@ import './Button.css';
  * for the whole of the 2.x line, and was removed in 3.0 — so it is now a type
  * error rather than a silent fallback. See MIGRATION.md.
  */
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+export type ButtonVariant = Variant;
 export type ButtonTone = 'default' | 'critical';
-export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonSize = Size;
 
 export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & {
   variant?: ButtonVariant;

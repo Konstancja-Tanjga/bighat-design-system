@@ -1,0 +1,55 @@
+.bh-divider {
+  border: 0;
+  background: var(--bh-border-subtle);
+  flex: none;
+}
+
+.bh-divider--horizontal {
+  width: 100%;
+  height: 1px;
+}
+
+.bh-divider--vertical {
+  width: 1px;
+  align-self: stretch;
+  min-height: 16px;
+}
+
+.bh-divider--horizontal.bh-divider--snug {
+  margin: var(--bh-gap-normal) 0;
+}
+.bh-divider--horizontal.bh-divider--loose {
+  margin: var(--bh-padding-section) 0;
+}
+.bh-divider--vertical.bh-divider--snug {
+  margin: 0 var(--bh-gap-normal);
+}
+.bh-divider--vertical.bh-divider--loose {
+  margin: 0 var(--bh-padding-section);
+}
+
+/* Labelled: the rule is drawn by the pseudo-elements either side of the text. */
+.bh-divider--labelled {
+  display: flex;
+  align-items: center;
+  gap: var(--bh-gap-normal);
+  height: auto;
+  background: transparent;
+  font-family: var(--bh-font-family);
+}
+
+.bh-divider--labelled::before,
+.bh-divider--labelled::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--bh-border-subtle);
+}
+
+.bh-divider__label {
+  color: var(--bh-text-muted);
+  font-size: var(--bh-text-size-body);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}

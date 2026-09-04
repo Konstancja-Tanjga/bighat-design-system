@@ -36,8 +36,6 @@ import {
   IconStar,
   IconTrend,
 } from './icons';
-import './AiChat.css';
-
 /**
  * Template — conversational analysis workspace.
  *

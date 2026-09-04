@@ -1,0 +1,127 @@
+.bh-board {
+  font-family: var(--bh-font-family);
+  min-height: 0;
+}
+
+/* The board scrolls horizontally inside itself. A page that scrolls sideways
+   as a whole loses the header the user needs to orient by. */
+.bh-board__columns {
+  display: flex;
+  gap: var(--bh-gap-normal);
+  align-items: flex-start;
+  overflow-x: auto;
+  padding-bottom: var(--bh-gap-snug);
+}
+
+.bh-board__column {
+  flex: 0 0 288px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+  padding: var(--bh-gap-snug);
+  background: var(--bh-surface-sunken);
+  border: 1px solid var(--bh-border-subtle);
+  border-radius: var(--bh-radius-surface);
+  box-sizing: border-box;
+}
+
+.bh-board__column--over {
+  border-color: var(--bh-status-warning-fg);
+}
+
+.bh-board__column-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bh-gap-snug);
+  padding: var(--bh-gap-tight) var(--bh-gap-snug);
+}
+
+.bh-board__column-title {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+  font-size: var(--bh-text-size-body);
+  font-weight: var(--bh-text-weight-heading);
+  color: var(--bh-text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.bh-board__count {
+  display: inline-flex;
+  align-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 var(--bh-gap-snug);
+  border-radius: var(--bh-radius-pill);
+  background: var(--bh-surface-base);
+  border: 1px solid var(--bh-border-subtle);
+  font-size: var(--bh-text-size-dense);
+  font-weight: var(--bh-text-weight-heading);
+  color: var(--bh-text-muted);
+}
+
+/* The over-limit signal is a sentence, not just an amber border — the border
+   alone would be colour carrying meaning on its own. */
+.bh-board__warning {
+  margin: 0 var(--bh-gap-snug);
+  padding: var(--bh-gap-snug);
+  border-radius: var(--bh-radius-control);
+  background: var(--bh-status-warning-bg);
+  color: var(--bh-status-warning-fg);
+  font-size: var(--bh-text-size-body);
+  line-height: 1.45;
+}
+
+.bh-board__cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+  min-height: 40px;
+}
+
+.bh-board__card-inner {
+  position: relative;
+  background: var(--bh-surface-raised);
+  border: 1px solid var(--bh-border-subtle);
+  border-radius: var(--bh-radius-control);
+}
+
+.bh-board__card-inner:hover {
+  border-color: var(--bh-border-strong);
+}
+
+.bh-board__card-open {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--bh-padding-inline);
+  border: 0;
+  border-radius: var(--bh-radius-control);
+  background: transparent;
+  color: var(--bh-text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bh-board__move {
+  padding: 0 var(--bh-padding-inline) var(--bh-padding-block);
+}
+
+.bh-board__move-select {
+  width: 100%;
+  height: 28px;
+  padding: 0 var(--bh-gap-snug);
+  background: var(--bh-surface-base);
+  color: var(--bh-text-secondary);
+  border: 1px solid var(--bh-border-strong);
+  border-radius: var(--bh-radius-control);
+  font-family: inherit;
+  font-size: var(--bh-text-size-body);
+  cursor: pointer;
+}

@@ -1,4 +1,4 @@
-# @bighatpoland/ui
+# @bighat/ui
 
 ## 3.2.0
 

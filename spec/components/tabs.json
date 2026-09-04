@@ -1,0 +1,105 @@
+{
+  "$schema": "../schema.json",
+  "name": "Tabs",
+  "layer": "frame",
+  "purpose": "A filter over one screen. Roving tabindex, arrows to move, panel is the next tab stop.",
+  "notFor": [
+    "Content with its own URL — those are links",
+    "More tabs than fit without scrolling"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-tabs",
+      "element": "div"
+    },
+    {
+      "part": "bh-tabs__list",
+      "element": "div"
+    },
+    {
+      "part": "bh-tabs__tab",
+      "element": "button[type=button]",
+      "required": false
+    },
+    {
+      "part": "bh-tabs__badge",
+      "element": "span"
+    },
+    {
+      "part": "bh-tabs__panel",
+      "element": "div"
+    }
+  ],
+  "props": {
+    "defaultTab": {
+      "kind": "string",
+      "note": "Defaults to the first tab registered."
+    },
+    "value": {
+      "kind": "string",
+      "note": "Controlled selection."
+    },
+    "onChange": {
+      "kind": "event"
+    },
+    "manual": {
+      "kind": "boolean",
+      "default": false,
+      "note": "Arrows move focus; Enter or Space activates. Use for expensive panels."
+    },
+    "TabList.ariaLabel": {
+      "kind": "string"
+    },
+    "Tab.id": {
+      "kind": "string"
+    },
+    "TabPanel.id": {
+      "kind": "string"
+    }
+  },
+  "states": [
+    "default",
+    "hover",
+    "selected",
+    "disabled"
+  ],
+  "keyboard": {
+    "ArrowRight": "TODO",
+    "ArrowLeft": "TODO",
+    "Home": "TODO",
+    "End": "TODO"
+  },
+  "aria": {
+    "role": "tablist",
+    "attributes": {
+      "aria-label": "ariaLabel",
+      "aria-selected": "selected",
+      "aria-controls": "`${baseId",
+      "aria-labelledby": "`${baseId"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.primary.bg",
+    "border.subtle",
+    "control.lg",
+    "font.family",
+    "gap.tight",
+    "padding.inline",
+    "padding.section",
+    "radius.pill",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.sizeCaption",
+    "text.weightEmphasis"
+  ],
+  "interactive": true
+}

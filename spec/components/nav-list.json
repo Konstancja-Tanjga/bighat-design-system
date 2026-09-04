@@ -1,0 +1,109 @@
+{
+  "$schema": "../schema.json",
+  "name": "NavList",
+  "layer": "frame",
+  "purpose": "Grouped list inside a side panel — saved views, recent items, a shallow tree.",
+  "notFor": [
+    "Tabular data — use Table"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-navgroup",
+      "element": "div"
+    },
+    {
+      "part": "bh-navgroup__label",
+      "element": "p"
+    },
+    {
+      "part": "bh-navlist",
+      "element": "ul"
+    },
+    {
+      "part": "bh-navitem",
+      "element": "button[type=button]",
+      "required": false
+    },
+    {
+      "part": "bh-navitem__icon",
+      "element": "span"
+    },
+    {
+      "part": "bh-navitem__text",
+      "element": "span"
+    },
+    {
+      "part": "bh-navitem__label",
+      "element": "span"
+    },
+    {
+      "part": "bh-navitem__subline",
+      "element": "span"
+    },
+    {
+      "part": "bh-navitem__meta",
+      "element": "span"
+    }
+  ],
+  "props": {
+    "item": {
+      "kind": "data",
+      "note": "On NavItem."
+    },
+    "active": {
+      "kind": "boolean",
+      "default": false
+    },
+    "onSelect": {
+      "kind": "event"
+    },
+    "label": {
+      "kind": "string",
+      "note": "On NavGroup — wired with aria-labelledby."
+    },
+    "ariaLabel": {
+      "kind": "string",
+      "note": "On NavList."
+    }
+  },
+  "states": [
+    "default",
+    "hover"
+  ],
+  "keyboard": {},
+  "aria": {
+    "role": "list (implicit, from <ul>)",
+    "attributes": {
+      "aria-labelledby": "id",
+      "aria-label": "ariaLabel",
+      "aria-current": "active",
+      "aria-hidden": "true"
+    },
+    "labelling": null,
+    "focus": null,
+    "announcements": null
+  },
+  "implementations": {
+    "version": "3.2.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "action.secondary.bgHover",
+    "gap.hairline",
+    "gap.loose",
+    "gap.snug",
+    "gap.tight",
+    "radius.control",
+    "status.info.bg",
+    "status.info.border",
+    "text.muted",
+    "text.primary",
+    "text.sizeBody",
+    "text.sizeCaption",
+    "text.sizeDense",
+    "text.weightBody",
+    "text.weightHeading"
+  ],
+  "interactive": true
+}

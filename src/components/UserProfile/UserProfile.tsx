@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 
-import './UserProfile.css';
 import { Avatar } from '../Avatar/Avatar';
 import { Menu, type MenuItem } from '../Menu/Menu';
 

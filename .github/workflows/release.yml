@@ -27,6 +27,11 @@ jobs:
 
       - run: npm ci
 
+      # `verify` deliberately excludes check:docs. That gate is red on the
+      # scaffolded doc pages by design, and a gate that is meant to be red
+      # cannot also be the thing that decides whether a release may happen —
+      # it would mean no version ever ships. CI runs it in its own job, with
+      # continue-on-error, so it stays visible without blocking.
       - run: npm run verify
 
       # Opens (or updates) a "Version Packages" pull request collecting every

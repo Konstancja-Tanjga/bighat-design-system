@@ -7,9 +7,6 @@ import {
   type ReactNode,
 } from 'react';
 
-import '../Input/Input.css';
-import './Checkbox.css';
-
 /**
  * A native `<input type="checkbox">` with the box visually replaced.
  *
