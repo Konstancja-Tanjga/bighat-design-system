@@ -93,7 +93,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "action.primary.bg",
     "border.focus",
     "border.subtle",
     "font.family",
@@ -101,11 +100,13 @@
     "gap.tight",
     "radius.control",
     "radius.surface",
-    "status.info.bg",
+    "selection.bg",
+    "selection.mark",
     "surface.base",
     "surface.sunken",
     "text.primary",
-    "text.secondary"
+    "text.secondary",
+    "text.sizeHeading"
   ],
   "interactive": true
 }

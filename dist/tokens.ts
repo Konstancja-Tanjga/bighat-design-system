@@ -39,6 +39,9 @@ export type TokenPath =
   | 'status.critical.bg'
   | 'status.critical.fg'
   | 'status.critical.border'
+  | 'selection.bg'
+  | 'selection.fg'
+  | 'selection.mark'
   | 'control.sm'
   | 'control.md'
   | 'control.lg'
@@ -144,6 +147,9 @@ export const tokens = {
   'status.critical.bg': { light: "#fef2f2", dark: "#252b32" },
   'status.critical.fg': { light: "#a31f24", dark: "#fca5a5" },
   'status.critical.border': { light: "#fecaca", dark: "#a31f24" },
+  'selection.bg': { light: "#d1fae5", dark: "#252b32" },
+  'selection.fg': { light: "#14181c", dark: "#f7f8f9" },
+  'selection.mark': { light: "#0a7f55", dark: "#34d399" },
   'control.sm': { light: "28px", dark: "28px" },
   'control.md': { light: "36px", dark: "36px" },
   'control.lg': { light: "44px", dark: "44px" },
@@ -293,6 +299,21 @@ export const contrast = {
       "action.critical.fg",
       "action.critical.bgHover",
       "bodyText"
+    ],
+    [
+      "selection.fg",
+      "selection.bg",
+      "bodyText"
+    ],
+    [
+      "selection.mark",
+      "selection.bg",
+      "nonText"
+    ],
+    [
+      "selection.mark",
+      "surface.base",
+      "nonText"
     ],
     [
       "status.info.fg",

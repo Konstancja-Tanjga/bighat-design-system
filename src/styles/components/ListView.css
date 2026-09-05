@@ -36,8 +36,8 @@
    for anyone who cannot separate the two greys, the bar is the cue that
    survives. */
 .bh-list-view__row[aria-selected='true'] {
-  background: var(--bh-status-info-bg);
-  border-left-color: var(--bh-action-primary-bg);
+  background: var(--bh-selection-bg);
+  border-left-color: var(--bh-selection-mark);
 }
 
 .bh-list-view__row[aria-disabled='true'] {

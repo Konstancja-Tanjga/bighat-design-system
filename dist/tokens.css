@@ -38,6 +38,9 @@
   --bh-status-critical-bg: #fef2f2;
   --bh-status-critical-fg: #a31f24;
   --bh-status-critical-border: #fecaca;
+  --bh-selection-bg: #d1fae5;
+  --bh-selection-fg: #14181c;
+  --bh-selection-mark: #0a7f55;
   --bh-control-sm: 28px;
   --bh-control-md: 36px;
   --bh-control-lg: 44px;
@@ -135,6 +138,9 @@
   --bh-status-critical-bg: #252b32;
   --bh-status-critical-fg: #fca5a5;
   --bh-status-critical-border: #a31f24;
+  --bh-selection-bg: #252b32;
+  --bh-selection-fg: #f7f8f9;
+  --bh-selection-mark: #34d399;
   --bh-control-sm: 28px;
   --bh-control-md: 36px;
   --bh-control-lg: 44px;
@@ -231,6 +237,9 @@
     --bh-status-critical-bg: #252b32;
     --bh-status-critical-fg: #fca5a5;
     --bh-status-critical-border: #a31f24;
+    --bh-selection-bg: #252b32;
+    --bh-selection-fg: #f7f8f9;
+    --bh-selection-mark: #34d399;
     --bh-control-sm: 28px;
     --bh-control-md: 36px;
     --bh-control-lg: 44px;

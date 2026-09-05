@@ -98,8 +98,8 @@
 /* Checked state is a fill *and* a weight change — the radio itself is visually
    hidden, so the label has to carry the whole indication. */
 .bh-composer__mode--active {
-  background: var(--bh-status-info-bg);
-  color: var(--bh-status-info-fg);
+  background: var(--bh-selection-bg);
+  color: var(--bh-selection-fg);
   font-weight: var(--bh-text-weight-heading);
 }
 

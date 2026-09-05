@@ -54,8 +54,8 @@
 }
 
 .bh-icon-picker__input:checked + .bh-icon-picker__tile {
-  background: var(--bh-status-info-bg);
-  border-color: var(--bh-action-primary-bg);
+  background: var(--bh-selection-bg);
+  border-color: var(--bh-selection-mark);
   color: var(--bh-text-primary);
 }
 

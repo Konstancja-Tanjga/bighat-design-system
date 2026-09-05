@@ -52,8 +52,8 @@
 /* Active state carries three cues, not one: fill, colour, and a leading bar.
    Colour alone would fail 1.4.1 for anyone who cannot see the tint. */
 .bh-rail__item--active {
-  background: var(--bh-status-info-bg);
-  color: var(--bh-status-info-fg);
+  background: var(--bh-selection-bg);
+  color: var(--bh-selection-fg);
 }
 
 .bh-rail__item--active::before {
@@ -68,7 +68,10 @@
   /* Rounded on the outer edge only, so the bar reads as emerging from the
      rail rather than floating beside it. */
   border-radius: 0 var(--bh-radius-indicator) var(--bh-radius-indicator) 0;
-  background: currentColor;
+  /* The mark, not currentColor: the text on a selected item is the ordinary
+     foreground, and a bar drawn in it would be the same weight as the label
+     beside it. The mark is the one part held to 3:1 on its own. */
+  background: var(--bh-selection-mark);
 }
 
 .bh-rail__icon {

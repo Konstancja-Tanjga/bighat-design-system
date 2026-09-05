@@ -137,6 +137,18 @@
       }
     }
   },
+  "selection": {
+    "$description": "Current or chosen \u2014 the row the reader picked, the destination they are on, the tile that is checked. Not a status: status.info is a message the system is making, and using it for selection said \"here is some information\" about a row whose only news is that the user clicked it. mark is the leading bar, and it is what survives greyscale and forced colours when the tint does not.",
+    "bg": {
+      "$value": "{color.green.100}"
+    },
+    "fg": {
+      "$value": "{color.neutral.900}"
+    },
+    "mark": {
+      "$value": "{color.green.700}"
+    }
+  },
   "control": {
     "$description": "Minimum height of an interactive control. md is the default; sm is for toolbars, lg for touch.",
     "sm": {
@@ -441,6 +453,21 @@
           "action.critical.fg",
           "action.critical.bgHover",
           "bodyText"
+        ],
+        [
+          "selection.fg",
+          "selection.bg",
+          "bodyText"
+        ],
+        [
+          "selection.mark",
+          "selection.bg",
+          "nonText"
+        ],
+        [
+          "selection.mark",
+          "surface.base",
+          "nonText"
         ],
         [
           "status.info.fg",

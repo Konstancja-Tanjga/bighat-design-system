@@ -84,7 +84,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "action.primary.bg",
     "border.subtle",
     "font.family",
     "gap.normal",
@@ -92,7 +91,8 @@
     "padding.inline",
     "padding.section",
     "radius.surface",
-    "status.info.bg",
+    "selection.bg",
+    "selection.mark",
     "surface.base",
     "surface.sunken",
     "text.muted",

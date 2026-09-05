@@ -86,12 +86,16 @@
     "gap.snug",
     "gap.tight",
     "radius.control",
+    "radius.indicator",
+    "selection.bg",
+    "selection.fg",
+    "selection.mark",
     "status.critical.fg",
-    "status.info.bg",
-    "status.info.fg",
     "surface.base",
     "text.primary",
-    "text.secondary"
+    "text.secondary",
+    "text.sizeHeading",
+    "text.sizeLabel"
   ],
   "interactive": true
 }

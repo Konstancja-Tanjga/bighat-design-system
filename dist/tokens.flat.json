@@ -189,6 +189,21 @@
       "light": "#fecaca",
       "dark": "#a31f24"
     },
+    "selection.bg": {
+      "type": "color",
+      "light": "#d1fae5",
+      "dark": "#252b32"
+    },
+    "selection.fg": {
+      "type": "color",
+      "light": "#14181c",
+      "dark": "#f7f8f9"
+    },
+    "selection.mark": {
+      "type": "color",
+      "light": "#0a7f55",
+      "dark": "#34d399"
+    },
     "control.sm": {
       "type": "dimension",
       "light": "28px",
