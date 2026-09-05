@@ -1,8 +1,17 @@
-# The other requests
+# Requests that are not a handoff
 
-Absorbed from `agent/HANDOFF.md`, which this skill replaced. Not every question
-asked in the same breath as a handoff is a handoff, and answering these three
-badly is how a review turns into a rebuild.
+Not every question asked in the same breath as a handoff is one, and answering
+these three badly is how a review turns into a rebuild. They are Big Hat's
+answers — the scale, the inventory, the named gaps — which is why they live here
+and not in the skill that checks branches.
+
+Read [`SKILL.md`](./SKILL.md) first; everything below assumes its rules. For
+"is this handoff-safe?", use the `handoff-readiness` skill:
+
+```bash
+/plugin marketplace add Konstancja-Tanjga/claude-skills
+/plugin install handoff-readiness@konstancja-skills
+```
 
 ## Contents
 

@@ -37,17 +37,29 @@ different fixes.
 
 ## Routing a request
 
-The `handoff-readiness` skill in `skills/handoff-readiness/` answers "is this
-handoff-safe?" — ten gates over the diff and the running prototype, one verdict
-each with the evidence attached, and the handover note written for the pull
-request. It reports; it does not edit, open the pull request, or declare the
-work done.
+"Is this handoff-safe?" is the `handoff-readiness` skill — ten gates over the
+diff and the running prototype, one verdict each with the evidence attached, and
+the handover note written for the pull request. It reports; it does not edit,
+open the pull request, or declare the work done.
+
+It lives in its own marketplace, because eight of its ten gates have nothing to
+do with any design system:
+
+```bash
+/plugin marketplace add Konstancja-Tanjga/claude-skills
+/plugin install handoff-readiness@konstancja-skills
+```
+
+The gates that do concern this system read their rules from the path a project's
+`.claude/handoff.json` gives as `designSystem.rules` — point it at
+`agent/SKILL.md` inside the installed package. The rules stay here; the skill
+cites them rather than keeping a second copy that drifts.
 
 The questions that are not a handoff ("the spacing looks off", "bighat cannot do
 what I need", "should this become a component?") are routed in
-`skills/handoff-readiness/references/requests.md`.
+`agent/REQUESTS.md`.
 
-This replaced `agent/HANDOFF.md`, which said the same things without being
+Both replaced `agent/HANDOFF.md`, which said these things without being
 runnable.
 
 ## Human steps, on purpose
