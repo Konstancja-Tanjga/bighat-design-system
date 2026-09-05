@@ -1,0 +1,94 @@
+/*
+ * The dark theme, applied to the documentation page itself.
+ *
+ * `withThemeByDataAttribute` puts `data-theme` on the preview's <html>, which
+ * is all a *story* needs: components read the semantic tokens and swap with it.
+ * A docs page is not a story. Its frame — background, prose, tables, code
+ * blocks — is painted by Storybook's own docs theme, which knows nothing about
+ * our attribute, so switching to dark used to leave a white page with dark
+ * components sitting on it.
+ *
+ * These rules hand that frame the same tokens the components use, so the toggle
+ * changes the page rather than a few boxes on it. Every value below is a
+ * semantic token: the file states no colour of its own.
+ *
+ * Not covered, and not coverable from here: the manager UI around the iframe —
+ * sidebar, toolbar, the addon panel. That is a separate app with its own theme,
+ * set once in manager.ts rather than per story.
+ */
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+:root[data-theme='dark'] body,
+:root[data-theme='dark'] .sb-show-main,
+:root[data-theme='dark'] .sbdocs-wrapper,
+:root[data-theme='dark'] .sbdocs-content {
+  background: var(--bh-surface-base);
+}
+
+:root[data-theme='dark'] .sbdocs {
+  color: var(--bh-text-secondary);
+  border-color: var(--bh-border-subtle);
+}
+
+:root[data-theme='dark'] .sbdocs-h1,
+:root[data-theme='dark'] .sbdocs-h2,
+:root[data-theme='dark'] .sbdocs-h3,
+:root[data-theme='dark'] .sbdocs-h4,
+:root[data-theme='dark'] .sbdocs-h5,
+:root[data-theme='dark'] .sbdocs-h6,
+:root[data-theme='dark'] .sbdocs-title,
+:root[data-theme='dark'] .sbdocs-strong,
+:root[data-theme='dark'] .sbdocs-content strong {
+  color: var(--bh-text-primary);
+}
+
+:root[data-theme='dark'] .sbdocs-subtitle,
+:root[data-theme='dark'] .sbdocs-blockquote {
+  color: var(--bh-text-muted);
+}
+
+:root[data-theme='dark'] .sbdocs-a {
+  color: var(--bh-text-link);
+}
+
+/* The story frame on a docs page, and the preview toolbar above it. */
+:root[data-theme='dark'] .sbdocs-preview,
+:root[data-theme='dark'] .docs-story,
+:root[data-theme='dark'] .docblock-emptyblock {
+  background: var(--bh-surface-base);
+  border-color: var(--bh-border-subtle);
+  box-shadow: none;
+}
+
+/* Code: inline, block, and the source viewer under a canvas. */
+:root[data-theme='dark'] .sbdocs-pre,
+:root[data-theme='dark'] .docblock-source,
+:root[data-theme='dark'] .sbdocs-code {
+  background: var(--bh-surface-raised);
+  color: var(--bh-text-primary);
+  border-color: var(--bh-border-subtle);
+}
+
+/* Tables — the props tables and every table written in MDX. */
+:root[data-theme='dark'] .sbdocs-table th,
+:root[data-theme='dark'] .docblock-argstable-head th {
+  background: var(--bh-surface-raised);
+  color: var(--bh-text-primary);
+  border-bottom-color: var(--bh-border-subtle);
+}
+
+:root[data-theme='dark'] .sbdocs-table td,
+:root[data-theme='dark'] .docblock-argstable-body td,
+:root[data-theme='dark'] .docblock-argstable-body th {
+  background: var(--bh-surface-base);
+  color: var(--bh-text-secondary);
+  border-bottom-color: var(--bh-border-subtle);
+}
+
+:root[data-theme='dark'] .sbdocs-hr,
+:root[data-theme='dark'] .sbdocs-divider {
+  border-color: var(--bh-border-subtle);
+}
