@@ -48,23 +48,36 @@ Not the exact words — the shape:
 - Nothing edited. `git status` on the fixture is clean after the run.
 - The note lists `StageChip` and the unmet PNG-export requirement.
 
-## What the first run found
+## What the first run found, and what fixed it
 
-The fixture earned itself immediately: **`clickthrough.mjs` misses defect 4.**
+The fixture earned itself on its first run: **`clickthrough.mjs` missed defect
+4.**
 
-`/board` renders nothing, and the script reported `ok`. `inkFraction()` samples
-the whole PNG and compares against a 0.005 threshold, but the masthead and
-footer render on every route — they clear the threshold by themselves, so an
-empty content area never trips it. The screenshot shows the blank page plainly;
-the script does not.
+`/board` rendered nothing and the script reported `ok`. `inkFraction()` sampled
+the whole PNG against a 0.005 threshold, but the masthead and footer render on
+every route and clear that by themselves, so an empty content area never tripped
+it. The screenshot showed the blank page plainly; the script did not.
 
-This is the failure `success-criteria.md` names as the most dangerous: not a
-missed defect but a **pass with no evidence**, reading as coverage. Until it is
-fixed, gate 4 depends entirely on someone opening the images — which the skill
-already instructs, and which is now the reason rather than a nicety.
+That is the failure `success-criteria.md` names as the most dangerous — not a
+missed defect but a **pass with no evidence**, reading as coverage.
 
-The fix is to measure ink between the persistent chrome rather than across the
-whole page, or to compare each route against a known-empty baseline.
+**Fixed.** The script now measures the route's own content: it takes `<main>`
+where one exists, and otherwise strips `<header>`, `<footer>` and `<nav>` before
+counting the text that remains. Below `minContentChars` — 80 by default, and
+settable per project — the route is reported empty. Re-run against the fixture:
+
+```
+Board preview (fixture): renders 0 characters of its own content
+  — the route is empty inside the page chrome (/board)
+```
+
+Gate 4 catches it now. The screenshots still have to be read, because a page can
+be wrong in ways no character count reaches — but "blank" is no longer one of
+them.
+
+**The lesson outlives the bug.** A gate can be green because it holds, or green
+because it cannot see. Nothing in the run distinguishes those two, which is why
+the fixture exists and why a `pass` is only worth the evidence beside it.
 
 ## The two failures worth watching for
 
