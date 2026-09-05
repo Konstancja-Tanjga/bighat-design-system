@@ -26,8 +26,10 @@ wrapper components where a directive belonged, `ControlValueAccessor` where the
 library had moved on, and `[ngClass]` where the class list is owned by the
 library. Splitting the file is the fix for a failure that actually happened.
 
-Reviewing or handing over a prototype rather than building one? Read
-[`HANDOFF.md`](./HANDOFF.md) — it routes the request and defines the verdicts.
+Reviewing or handing over a prototype rather than building one? That is the
+`handoff-readiness` skill in [`skills/handoff-readiness/`](../skills/handoff-readiness/).
+It runs the rules below as ten gates, returns one verdict each with the evidence
+attached, and writes the handover note. The rules stay here; it checks them.
 
 ## 1. Never use a primitive token
 
