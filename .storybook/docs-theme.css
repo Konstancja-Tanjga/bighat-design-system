@@ -1,20 +1,21 @@
 /*
  * The dark theme, applied to the documentation page itself.
  *
- * `withThemeByDataAttribute` puts `data-theme` on the preview's <html>, which
- * is all a *story* needs: components read the semantic tokens and swap with it.
  * A docs page is not a story. Its frame — background, prose, tables, code
  * blocks — is painted by Storybook's own docs theme, which knows nothing about
- * our attribute, so switching to dark used to leave a white page with dark
+ * `data-theme`, so switching to dark used to leave a white page with dark
  * components sitting on it.
  *
- * These rules hand that frame the same tokens the components use, so the toggle
- * changes the page rather than a few boxes on it. Every value below is a
- * semantic token: the file states no colour of its own.
+ * Storybook paints that frame with emotion, one generated class per element.
+ * Those classes are hashed and change between releases, so the rules below
+ * hook onto the two stable containers — `#storybook-docs` and `.sbdocs-content`
+ * — and reach the elements by tag. A descendant element selector also outranks
+ * a single generated class, which is what makes these apply without !important.
  *
- * Not covered, and not coverable from here: the manager UI around the iframe —
- * sidebar, toolbar, the addon panel. That is a separate app with its own theme,
- * set once in manager.ts rather than per story.
+ * Every value is a semantic token: this file states no colour of its own.
+ *
+ * Not covered from here: the manager UI around the iframe. That is a separate
+ * document with its own theme, set in manager.ts.
  */
 
 :root[data-theme='dark'] {
@@ -23,38 +24,76 @@
 
 :root[data-theme='dark'] body,
 :root[data-theme='dark'] .sb-show-main,
+:root[data-theme='dark'] #storybook-docs,
 :root[data-theme='dark'] .sbdocs-wrapper,
 :root[data-theme='dark'] .sbdocs-content {
   background: var(--bh-surface-base);
 }
 
-:root[data-theme='dark'] .sbdocs {
+/* Prose. */
+:root[data-theme='dark'] .sbdocs-content,
+:root[data-theme='dark'] .sbdocs-content p,
+:root[data-theme='dark'] .sbdocs-content li,
+:root[data-theme='dark'] .sbdocs-content dd,
+:root[data-theme='dark'] .sbdocs-content dt,
+:root[data-theme='dark'] .sbdocs-content blockquote {
+  color: var(--bh-text-secondary);
+}
+
+:root[data-theme='dark'] .sbdocs-content h1,
+:root[data-theme='dark'] .sbdocs-content h2,
+:root[data-theme='dark'] .sbdocs-content h3,
+:root[data-theme='dark'] .sbdocs-content h4,
+:root[data-theme='dark'] .sbdocs-content h5,
+:root[data-theme='dark'] .sbdocs-content h6,
+:root[data-theme='dark'] .sbdocs-content strong,
+:root[data-theme='dark'] .sbdocs-content b {
+  color: var(--bh-text-primary);
+  border-bottom-color: var(--bh-border-subtle);
+}
+
+:root[data-theme='dark'] .sbdocs-content a {
+  color: var(--bh-text-link);
+}
+
+:root[data-theme='dark'] .sbdocs-content hr {
+  border-color: var(--bh-border-subtle);
+}
+
+/* Tables: the props tables and every table written in MDX. Storybook stripes
+   rows with a nth-of-type rule, which is why the row itself is named here. */
+:root[data-theme='dark'] .sbdocs-content table,
+:root[data-theme='dark'] .sbdocs-content tr,
+:root[data-theme='dark'] .sbdocs-content thead,
+:root[data-theme='dark'] .sbdocs-content tbody {
+  background: transparent;
+  border-color: var(--bh-border-subtle);
+  box-shadow: none;
+}
+
+:root[data-theme='dark'] .sbdocs-content th {
+  background: var(--bh-surface-raised);
+  color: var(--bh-text-primary);
+  border-color: var(--bh-border-subtle);
+}
+
+:root[data-theme='dark'] .sbdocs-content td {
+  background: transparent;
   color: var(--bh-text-secondary);
   border-color: var(--bh-border-subtle);
 }
 
-:root[data-theme='dark'] .sbdocs-h1,
-:root[data-theme='dark'] .sbdocs-h2,
-:root[data-theme='dark'] .sbdocs-h3,
-:root[data-theme='dark'] .sbdocs-h4,
-:root[data-theme='dark'] .sbdocs-h5,
-:root[data-theme='dark'] .sbdocs-h6,
-:root[data-theme='dark'] .sbdocs-title,
-:root[data-theme='dark'] .sbdocs-strong,
-:root[data-theme='dark'] .sbdocs-content strong {
+/* Code: inline, block, and the source viewer under a canvas. */
+:root[data-theme='dark'] .sbdocs-content code,
+:root[data-theme='dark'] .sbdocs-content pre,
+:root[data-theme='dark'] .docblock-source,
+:root[data-theme='dark'] .docblock-source pre {
+  background: var(--bh-surface-raised);
   color: var(--bh-text-primary);
+  border-color: var(--bh-border-subtle);
 }
 
-:root[data-theme='dark'] .sbdocs-subtitle,
-:root[data-theme='dark'] .sbdocs-blockquote {
-  color: var(--bh-text-muted);
-}
-
-:root[data-theme='dark'] .sbdocs-a {
-  color: var(--bh-text-link);
-}
-
-/* The story frame on a docs page, and the preview toolbar above it. */
+/* The story frame on a docs page. */
 :root[data-theme='dark'] .sbdocs-preview,
 :root[data-theme='dark'] .docs-story,
 :root[data-theme='dark'] .docblock-emptyblock {
@@ -63,32 +102,13 @@
   box-shadow: none;
 }
 
-/* Code: inline, block, and the source viewer under a canvas. */
-:root[data-theme='dark'] .sbdocs-pre,
-:root[data-theme='dark'] .docblock-source,
-:root[data-theme='dark'] .sbdocs-code {
-  background: var(--bh-surface-raised);
+/* The table of contents rail. */
+:root[data-theme='dark'] .sbdocs-toc--custom,
+:root[data-theme='dark'] .sbdocs-toc--custom a {
+  background: transparent;
+  color: var(--bh-text-muted);
+}
+
+:root[data-theme='dark'] .sbdocs-toc--custom a:hover {
   color: var(--bh-text-primary);
-  border-color: var(--bh-border-subtle);
-}
-
-/* Tables — the props tables and every table written in MDX. */
-:root[data-theme='dark'] .sbdocs-table th,
-:root[data-theme='dark'] .docblock-argstable-head th {
-  background: var(--bh-surface-raised);
-  color: var(--bh-text-primary);
-  border-bottom-color: var(--bh-border-subtle);
-}
-
-:root[data-theme='dark'] .sbdocs-table td,
-:root[data-theme='dark'] .docblock-argstable-body td,
-:root[data-theme='dark'] .docblock-argstable-body th {
-  background: var(--bh-surface-base);
-  color: var(--bh-text-secondary);
-  border-bottom-color: var(--bh-border-subtle);
-}
-
-:root[data-theme='dark'] .sbdocs-hr,
-:root[data-theme='dark'] .sbdocs-divider {
-  border-color: var(--bh-border-subtle);
 }
