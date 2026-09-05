@@ -7,41 +7,92 @@ import * as NavRailStories from './NavRail.stories';
 
 # NavRail
 
-Narrow icon navigation rail.
+The narrow icon rail down the edge of an application — four to eight
+destinations, always visible, never scrolled away.
 
 <Canvas of={NavRailStories.Default} />
 
 ## When to use it
 
-| Use `NavRail` for | Use something else for |
-| --- | --- |
-| TODO | Destinations whose meaning needs more than two words |
+| Use `NavRail` for                                           | Use something else for                                                              |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Top-level destinations whose names fit in one or two words  | Anything needing a longer name, a description or a count — use `NavList` in a panel |
+| Navigation that must stay visible while the content scrolls | A list of records or conversations — use `NavList` or `ListView`                    |
 
+The boundary is the length of the name, and it is not a layout preference. An
+icon-only rail is a memory test: the user has to have learned what each glyph
+means before the rail is worth anything. That trade is only fair when the label
+is short enough to become a caption the day it turns out the glyph was not
+obvious. "Invoices" survives that; "Regulatory reporting archive" does not, and
+an icon standing in for it is a puzzle with a tooltip as the answer key.
 
-TODO: one paragraph on why the boundary sits where it does. The `notFor`
-entries above came from the contract; the reason they are the boundary did not.
+## The label is required, and it is not a caption
 
-## Anatomy
+`label` is a required field on every item, and it does three jobs: it is the
+accessible name, it is the `title` tooltip, and it is the visible caption when
+`showLabels` is on. There is no way to build an item without one.
 
-| part | element | rendered | note |
-| --- | --- | --- | --- |
-| `bh-rail__item` | `<button[type=button]>` | conditional |  |
-| `bh-rail__icon` | `<span>` | always |  |
-| `bh-rail__dot` | `<span>` | always |  |
-| `bh-rail__label` | `<span>` | always |  |
-| `bh-rail` | `<nav>` | conditional |  |
-| `bh-rail__list` | `<ul>` | always |  |
+<Guidance>
+  <Do reason="One required string doing all three jobs. Turning captions on is a prop, not a content migration, because the words were already there.">
+    <p style={{ margin: 0, fontSize: 13 }}>label: "Invoices" → name · tooltip · caption</p>
+  </Do>
+  <Dont reason="An optional label beside a required icon. Every item ships without one, the rail passes review because it looks clean, and the accessible name of the whole navigation becomes “button, button, button”.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      icon: ✓ &nbsp;·&nbsp; label: undefined
+    </p>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  An icon-only rail asks the user to recall; a caption lets them recognise. `showLabels` is the
+  cheapest way to move from one to the other, which is why it is a boolean and not a redesign.
+</Heuristic>
+
+<Canvas of={NavRailStories.WithLabels} />
+
+Turn captions on past about five destinations. Below that a person can hold the
+mapping; above it they are counting positions, and the vertical space a caption
+costs is cheaper than the click that goes to the wrong place.
+
+## Active is an attribute, not a highlight
+
+The current item carries `aria-current="page"` alongside its tint. The
+attribute is what a screen reader announces and what survives high-contrast
+mode, a monochrome display, and anyone who cannot separate two close greys.
+
+Where the icon set supports it, spend the `FILL` axis on this too: a filled
+glyph for the current destination and an outlined one for the rest says "you
+are here" a second way, without adding colour. Foundations → Iconography has
+the axes.
+
+## The badge is a dot, on purpose
+
+`badge` renders a dot, not a number. A rail is 56px wide and a number in it is
+either unreadable or the widest thing on the screen — and "17" tells the user
+nothing they can act on from here anyway. The dot says _something changed_; the
+count belongs where the user can do something about it, in the panel or the
+list the rail leads to.
+
+## Two rails need two names
+
+<Canvas of={NavRailStories.TwoRails} />
+
+Each rail is a `<nav>` landmark, and `ariaLabel` names it. A screen reader
+lists landmarks by name, so two rails both called "Primary" — or both unnamed —
+give the user two identical entries and no way to choose. The default is
+`"Primary"` because most applications have exactly one; the second one is the
+consumer's to name.
 
 ## Props
 
-| prop | values | default | meaning |
-| --- | --- | --- | --- |
-| `items` | data | — | TODO |
-| `activeId` | string | — | TODO |
-| `onSelect` | event | — | TODO |
-| `footerItems` | data | — | Pinned to the bottom. |
-| `showLabels` | boolean | `false` | Prefer it past about five destinations. |
-| `ariaLabel` | string | — | Names the landmark. |
+| prop          | values  | default     | meaning                                                                 |
+| ------------- | ------- | ----------- | ----------------------------------------------------------------------- |
+| `items`       | data    | —           | `id`, required `label`, `icon`, optional `badge`.                       |
+| `activeId`    | string  | —           | The current destination. Draws the tint and sets `aria-current="page"`. |
+| `onSelect`    | event   | —           | Called with the item's `id`.                                            |
+| `footerItems` | data    | —           | Pinned to the bottom — settings, account, help.                         |
+| `showLabels`  | boolean | `false`     | Captions under each icon. Prefer it past about five destinations.       |
+| `ariaLabel`   | string  | `'Primary'` | Names the landmark, so two rails can be told apart.                     |
 
 <Controls />
 
@@ -49,21 +100,31 @@ entries above came from the contract; the reason they are the boundary did not.
 
 `default` · `hover`
 
+## Anatomy
+
+| part             | element                 | rendered    | note                                |
+| ---------------- | ----------------------- | ----------- | ----------------------------------- |
+| `bh-rail`        | `<nav>`                 | conditional | The landmark. Named by `ariaLabel`. |
+| `bh-rail__list`  | `<ul>`                  | always      | One per group — main, then footer.  |
+| `bh-rail__item`  | `<button[type=button]>` | conditional | One per item.                       |
+| `bh-rail__icon`  | `<span>`                | always      | `aria-hidden` — decorative.         |
+| `bh-rail__dot`   | `<span>`                | always      | Only when `badge` is set.           |
+| `bh-rail__label` | `<span>`                | always      | Only when `showLabels` is on.       |
 
 ## Accessibility
 
-- **Role** — button (implicit, from `<button[type=button]>`)
-- **Labelling** — TODO: is a label required, or merely supported?
-- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
-- **Announcements** — TODO: the live-region policy, not the role it produced.
-
-
-## Do and don't
-
-<Guidance>
-  <Do reason="TODO">TODO</Do>
-  <Dont reason="TODO">TODO</Dont>
-</Guidance>
+- **Role** — `navigation` landmark containing a list of buttons
+  (implicit, from `<button[type=button]>`).
+- **Labelling** — required. The landmark takes `ariaLabel`; each item takes its
+  name from `label`, through `aria-label` when the caption is hidden and from
+  the visible caption when it is not — never both, which would announce the
+  name twice.
+- **Focus** — one tab stop per item, in document order, footer items last.
+  A rail holds a handful of destinations, so the arrow-key pattern would cost
+  more in discoverability than it saves in keystrokes.
+- **Announcements** — none. The destination announces itself when it loads;
+  a live region here would say the same thing a moment earlier and a moment
+  louder.
 
 ## Tokens consumed
 

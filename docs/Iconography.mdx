@@ -4,59 +4,113 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Iconography
 
-The system does not ship icons, and that is the decision worth documenting.
+The system does not draw icons. It names the set it expects:
+**Material Symbols**, from Google Fonts.
 
-## Why there is no icon set
+## Why a named set rather than our own
 
-An icon set is the single largest thing a design system can carry and the
-easiest to get wrong for a consumer: an ERP product has domain glyphs a generic
-set will never have, and a generic set has three hundred a product will never
-use. Shipping one means either bundling all of it or building a tree-shaking
-story that fights every bundler.
+Drawing an icon set is the largest thing a design system can take on and the
+easiest to under-finish. Three hundred glyphs is a year of somebody's attention,
+and an ERP estate needs the four hundredth one — a customs declaration, a meter
+reading, a settlement run — the week after the set ships. Material Symbols is
+already drawn, already consistent at four optical sizes, and already maintained
+by people whose full-time job it is.
 
-So icons are a slot. Components accept them; they do not own them.
+Naming a set is not the same as bundling one. The system carries no glyph data:
+every icon slot stays a slot, components accept icons and never own them, and
+the font arrives from Google's CDN in the consumer's own document.
 
-## Icons in components are decorative
+## Loading it
 
-Every icon slot in the system is `aria-hidden`. `Button`'s `iconStart` and
-`iconEnd`, `StateBlock`'s `icon`, `Badge`'s dot — all hidden from assistive
-technology, all accompanied by a required text label.
+One stylesheet, one variable font file. The four axes come down together, so a
+filled icon and an outlined one at two weights cost one request between them.
 
-This is not caution, it is the API. There is no icon-only `Button` variant,
-because an icon-only button with no accessible name is the most common
-accessibility defect in an ERP toolbar, and a prop that permits it is a prop
-that guarantees it. If a control genuinely must be icon-only, the consumer
-writes `aria-label` on their own element — which in Angular they already have,
-since `bhButton` is a directive on their button.
+```html
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+/>
+```
 
-An icon that carries meaning the label does not is a design bug. Either the
+`display=block` rather than `swap`, and this one is not a preference. A
+ligature font that has not arrived renders its ligature as text: the toolbar
+reads `settings delete print` in words until the font loads. A blank space for
+a moment is the better failure.
+
+Every page of this Storybook loads exactly the snippet above — the icons on
+these pages are the ones a product would render, not screenshots of them.
+
+## Writing one
+
+The glyph is a ligature: the element's text content is the icon's name.
+
+```jsx
+<Button iconStart={<span className="material-symbols-outlined">download</span>}>
+  Export invoices
+</Button>
+```
+
+That the name is the content is the useful accident of this set. `IconPicker`
+needs a name for every icon anyway — it is the search term and the accessible
+label — and here the name and the glyph cannot drift apart, because they are
+the same string.
+
+## What stays true from before
+
+**Icons in components are decorative.** Every icon slot in the system is
+`aria-hidden`. `Button`'s `iconStart` and `iconEnd`, `StateBlock`'s `icon`,
+`Badge`'s dot — hidden from assistive technology, each beside a required text
+label.
+
+This is the API, not caution. There is no icon-only `Button` variant, because an
+icon-only button with no accessible name is the most common accessibility defect
+in an ERP toolbar, and a prop that permits it is a prop that guarantees it. A
+control that genuinely must be icon-only gets an `aria-label` from the consumer,
+on their own element.
+
+An icon that carries meaning its label does not is a design bug. Either the
 label is missing information, or the icon is decoration pretending otherwise.
 
-## Sizing
-
-Icons inherit `currentColor` and are sized in `em`, so an icon inside a
-`size="sm"` button scales with its label without a second scale to maintain.
+**Sizing is inherited, not tokenised.** The font renders at the element's
+`font-size` and takes `currentColor`, so an icon inside a `size="sm"` button
+scales with its label and follows the theme without a second scale to maintain.
 There are deliberately no icon-size tokens.
 
 ```css
-.bh-button__icon > svg {
-  inline-size: 1em;
-  block-size: 1em;
+.bh-button__icon > .material-symbols-outlined {
+  font-size: 1em;
+  line-height: 1;
 }
 ```
 
-## What the consumer provides
+Set `opsz` to the pixel size the glyph actually renders at. Material Symbols
+redraws its stroke weight per optical size, and a 20px glyph shown at `opsz 48`
+is the one that looks slightly wrong without anyone being able to say why.
 
-An inline `<svg>`, a sprite reference, or a component from whatever set they
-already use. Requirements, all of them enforceable in review rather than in
-code:
+## The axes, and which ones to spend
 
-- `fill="currentColor"` or `stroke="currentColor"` — never a hardcoded hex,
-  which will miss the dark theme
+| axis   | range   | use it for                                                                                           |
+| ------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| `FILL` | 0–1     | The selected state of a navigation item. Filled reads as "you are here" without relying on colour.   |
+| `wght` | 100–700 | Matching the icon's weight to the type beside it. 400 next to body text, 500 next to a medium label. |
+| `GRAD` | −50–200 | Correcting apparent weight on a dark surface, where light glyphs bloom. Small values.                |
+| `opsz` | 20–48   | The size it renders at. Not a style choice.                                                          |
+
+`FILL` is the one worth building an interaction on; the other three are
+calibration.
+
+## An SVG is still allowed
+
+A domain glyph no icon set will ever carry — a specific machine, a specific
+document type — goes in as an inline `<svg>` in the same slot. The rules for one:
+
+- `fill="currentColor"` or `stroke="currentColor"`, never a hardcoded hex, which
+  will miss the dark theme
 - no `width`/`height` attributes — the `em` sizing above handles it
-- `focusable="false"` for IE-era tooling still in enterprise estates
+- `focusable="false"` for IE-era tooling still alive in enterprise estates
 - no `<title>` — the wrapper is `aria-hidden`, so a title inside it is
-  unreachable and its presence suggests otherwise
+  unreachable, and its presence suggests otherwise
 
 `IconPicker` is the one component that treats icons as data rather than
 decoration, and it is documented on its own page.

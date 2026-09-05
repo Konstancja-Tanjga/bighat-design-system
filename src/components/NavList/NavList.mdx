@@ -7,43 +7,88 @@ import * as NavListStories from './NavList.stories';
 
 # NavList
 
-Grouped list inside a side panel — saved views, recent items, a shallow tree.
+The grouped list inside a side panel — pinned and recent conversations, saved
+views, a folder tree one level deep.
 
 <Canvas of={NavListStories.Default} />
 
 ## When to use it
 
-| Use `NavList` for | Use something else for |
-| --- | --- |
-| TODO | Tabular data — use Table |
+| Use `NavList` for                                             | Use something else for                                      |
+| ------------------------------------------------------------- | ----------------------------------------------------------- |
+| Navigating to a place: a conversation, a saved view, a folder | Choosing a record that fills a detail pane — use `ListView` |
+| A short, named group of destinations in a panel               | Rows with columns, sorting or a caption — use `Table`       |
 
+The boundary is what the click _means_. A `NavList` item takes you somewhere;
+a `ListView` row answers a question the pane beside it is asking. That is why
+`ListView` is a listbox with one tab stop and arrow keys, and this is a plain
+list of buttons: navigation is not a selection, and pretending otherwise gives
+the user a control that announces "selected" for something they have left.
 
-TODO: one paragraph on why the boundary sits where it does. The `notFor`
-entries above came from the contract; the reason they are the boundary did not.
+Nesting is one level, and the level is a `NavGroup`. A tree that needs two
+levels needs expand and collapse, roving focus and `aria-expanded` — that is a
+different component, and building it out of nested `NavGroup`s produces
+something that looks like a tree and answers to none of its keyboard contract.
 
-## Anatomy
+## The group label is wired, not just placed
 
-| part | element | rendered | note |
-| --- | --- | --- | --- |
-| `bh-navgroup` | `<div>` | always |  |
-| `bh-navgroup__label` | `<p>` | always |  |
-| `bh-navlist` | `<ul>` | always |  |
-| `bh-navitem` | `<button[type=button]>` | conditional |  |
-| `bh-navitem__icon` | `<span>` | always |  |
-| `bh-navitem__text` | `<span>` | always |  |
-| `bh-navitem__label` | `<span>` | always |  |
-| `bh-navitem__subline` | `<span>` | always |  |
-| `bh-navitem__meta` | `<span>` | always |  |
+<Guidance>
+  <Do reason="NavGroup gives the label an id and the list an aria-labelledby pointing at it. A screen reader announces “Pinned, list, 2 items” — the name, the role and the size, before the user commits to reading it.">
+    <p style={{ margin: 0, fontSize: 13 }}>PINNED → list, 2 items</p>
+  </Do>
+  <Dont reason="A styled paragraph above a list. Sighted users read the two as one thing because they are close together; a screen reader reads a stray word, then an unnamed list of unknown length.">
+    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      PINNED &nbsp;·&nbsp; list, 2 items
+    </p>
+  </Dont>
+</Guidance>
+
+<Canvas of={NavListStories.Grouped} />
+
+<Heuristic name="Visibility of system status">
+  The count is status. "Recent, list, 5 items" tells someone whether to read on or move past, and it
+  costs nothing to produce — it comes from using a real list rather than drawing one.
+</Heuristic>
+
+## Every item is a button
+
+An item is a `<button type="button">`, not a `<div>` with a click handler and
+not an `<a>` unless the consumer wraps one. It is in the tab order, it takes
+Enter and Space for free, and it announces as an activatable thing.
+
+The active item carries `aria-current="true"` as well as its highlight. On a
+monochrome display, or for anyone who cannot separate two close greys, the
+attribute is the cue that survives — and it is the same rule the rest of the
+system follows: state is never colour alone.
+
+## The trailing slot is not part of the name
+
+<Canvas of={NavListStories.WithMeta} />
+
+`meta` takes a `Badge` or a count and is kept out of the accessible name on
+purpose. "Overdue, 3" would read as though the destination were called that;
+the destination is called "Overdue", and the 3 is a fact about it that changes
+every hour. Anything the user must hear to understand the item belongs in
+`label` or `subline`.
+
+## Long content wraps, it does not disappear
+
+<Canvas of={NavListStories.LongContent} />
+
+A panel is narrow and the names in it come from real customers, so the label
+wraps to as many lines as it needs and the subline truncates to one. Truncating
+the label would hide the only thing distinguishing two items that share a
+prefix — and in an ERP estate, a great many of them do.
 
 ## Props
 
-| prop | values | default | meaning |
-| --- | --- | --- | --- |
-| `item` | data | — | On NavItem. |
-| `active` | boolean | `false` | TODO |
-| `onSelect` | event | — | TODO |
-| `label` | string | — | On NavGroup — wired with aria-labelledby. |
-| `ariaLabel` | string | — | On NavList. |
+| prop        | values  | default | meaning                                                           |
+| ----------- | ------- | ------- | ----------------------------------------------------------------- |
+| `item`      | data    | —       | On `NavItem` — `id`, `label`, optional `subline`, `icon`, `meta`. |
+| `active`    | boolean | `false` | On `NavItem`. Draws the highlight and sets `aria-current`.        |
+| `onSelect`  | event   | —       | On `NavItem`. Called with the item's `id`.                        |
+| `label`     | string  | —       | On `NavGroup` — wired to the list with `aria-labelledby`.         |
+| `ariaLabel` | string  | —       | On `NavList`. Names an ungrouped list.                            |
 
 <Controls />
 
@@ -51,21 +96,33 @@ entries above came from the contract; the reason they are the boundary did not.
 
 `default` · `hover`
 
+## Anatomy
+
+| part                  | element                 | rendered    | note                               |
+| --------------------- | ----------------------- | ----------- | ---------------------------------- |
+| `bh-navgroup`         | `<div>`                 | always      | Only when `NavGroup` is used.      |
+| `bh-navgroup__label`  | `<p>`                   | always      | Carries the id the list points at. |
+| `bh-navlist`          | `<ul>`                  | always      | The list itself.                   |
+| `bh-navitem`          | `<button[type=button]>` | conditional | One per item.                      |
+| `bh-navitem__icon`    | `<span>`                | always      | `aria-hidden` — decorative.        |
+| `bh-navitem__text`    | `<span>`                | always      | Label and subline stack.           |
+| `bh-navitem__label`   | `<span>`                | always      | The accessible name.               |
+| `bh-navitem__subline` | `<span>`                | always      | Second line, truncated.            |
+| `bh-navitem__meta`    | `<span>`                | always      | Trailing slot, outside the name.   |
 
 ## Accessibility
 
-- **Role** — list (implicit, from `<ul>`)
-- **Labelling** — TODO: is a label required, or merely supported?
-- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
-- **Announcements** — TODO: the live-region policy, not the role it produced.
-
-
-## Do and don't
-
-<Guidance>
-  <Do reason="TODO">TODO</Do>
-  <Dont reason="TODO">TODO</Dont>
-</Guidance>
+- **Role** — list (implicit, from `<ul>`), with `<li>` children and a button
+  inside each one.
+- **Labelling** — required in practice, not in types. `NavGroup` labels itself
+  from its visible heading; a bare `NavList` takes `ariaLabel`. An unnamed list
+  in a panel of three lists is three unnamed lists.
+- **Focus** — one tab stop per item, in document order. Deliberate: a panel
+  holds a handful of destinations, and the roving-tabindex pattern that saves
+  keystrokes in a forty-row list costs discoverability here. If a list is long
+  enough for that to hurt, it is a `ListView`.
+- **Announcements** — none. Navigation is announced by what the page does next,
+  and a live region that says "moved to Pinned" is a second, redundant voice.
 
 ## Tokens consumed
 

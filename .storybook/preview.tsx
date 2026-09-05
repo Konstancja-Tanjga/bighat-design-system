@@ -18,9 +18,27 @@ const preview: Preview = {
 
     options: {
       storySort: {
+        /**
+         * Foundations first, and Introduction first inside it: the first thing
+         * in the sidebar should be the argument the system is making, not an
+         * alphabetical list of controls. The nested array orders that group's
+         * own children — everything unnamed keeps its file order behind them.
+         */
         order: [
-          'About this system',
           'Foundations',
+          [
+            'Introduction',
+            'Tokens',
+            'Colour & tone',
+            'Typography',
+            'Iconography',
+            'Layout & container queries',
+            'Layering',
+            'Motion',
+            'Content & UX copy',
+            'Accessibility',
+          ],
+          'About this system',
           'Accessibility',
           'Patterns',
           'Components',
