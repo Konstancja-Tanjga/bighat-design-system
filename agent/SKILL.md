@@ -27,9 +27,13 @@ library had moved on, and `[ngClass]` where the class list is owned by the
 library. Splitting the file is the fix for a failure that actually happened.
 
 Reviewing or handing over a prototype rather than building one? That is the
-`handoff-readiness` skill in [`skills/handoff-readiness/`](../skills/handoff-readiness/).
+[`handoff-readiness`](https://github.com/Konstancja-Tanjga/claude-skills) skill.
 It runs the rules below as ten gates, returns one verdict each with the evidence
-attached, and writes the handover note. The rules stay here; it checks them.
+attached, and writes the handover note. The rules stay here; it checks them, and
+finds them through `designSystem.rules` in the project's `.claude/handoff.json`.
+
+For the questions that are not a handoff — spacing, "bighat cannot do this",
+"should this become a component?" — see [`REQUESTS.md`](./REQUESTS.md).
 
 ## 1. Never use a primitive token
 
