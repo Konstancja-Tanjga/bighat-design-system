@@ -45,19 +45,19 @@
       "$value": "{color.neutral.500}"
     },
     "focus": {
-      "$value": "{color.blue.400}"
+      "$value": "{color.green.400}"
     }
   },
   "action": {
     "primary": {
       "bg": {
-        "$value": "{color.blue.400}"
+        "$value": "{color.green.400}"
       },
       "bgHover": {
-        "$value": "{color.blue.300}"
+        "$value": "{color.green.300}"
       },
       "bgActive": {
-        "$value": "{color.blue.200}"
+        "$value": "{color.green.200}"
       },
       "fg": {
         "$value": "{color.neutral.900}"
