@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="About this system" />
+<Meta title="Introduction" />
 
 # Big Hat — React
 
@@ -24,8 +24,8 @@ purpose, and the last section of this page is about why and what it cost.
 
 ### 1. Two token layers, and only one is an API
 
-Primitives (`color.blue.500`, `space.4`) say what a value *is*. Semantics
-(`action.primary.hover`, `text.muted`, `border.focus`) say what it *means*.
+Primitives (`color.blue.500`, `space.4`) say what a value _is_. Semantics
+(`action.primary.hover`, `text.muted`, `border.focus`) say what it _means_.
 Product code may reference semantics only — 91 of them.
 
 The source is [DTCG 2025.10](https://www.designtokens.org/), the format that
@@ -53,12 +53,12 @@ the pairs list. That list is not documentation.
 
 Not just spacing. Font size, font weight, spacing, duration, easing, z-index,
 border-radius and the inset properties all resolve to tokens, and a literal
-anywhere in the library's 45 stylesheets fails the build.
+anywhere in the library's 46 stylesheets fails the build.
 
 The last two were added late, and the reason is the most useful thing on this
 page: **a 4px corner radius and an 18px box width survived the first six
 rules.** Those six covered the properties where drift is obvious. They missed
-the ones where a literal encodes a *relationship* — a corner radius, a
+the ones where a literal encodes a _relationship_ — a corner radius, a
 control's own size, an inset that centres something — and those are worse,
 because `left: 3px` centring a bar in an 18px box is correct exactly once and
 nothing tells you when the box moved.
@@ -91,7 +91,7 @@ is enforced by import, not by whether anyone read this page.
 ### 6. The rules are machine-readable
 
 `spec/components/*.json` — one contract per component, with its purpose, what
-it is *not* for, its DOM anatomy, states, keyboard map, ARIA contract and the
+it is _not_ for, its DOM anatomy, states, keyboard map, ARIA contract and the
 tokens it consumes. `agent/SKILL.md` turns those into rules a coding agent can
 follow.
 
@@ -107,7 +107,7 @@ only reason two implementations of the same system agree about anything.
 anatomy, states, roles, attributes, tokens consumed — were extracted from the
 source, because they were already recorded there and retyping them would have
 introduced errors the code does not have. What is missing is the part no script
-can produce: whether a label is *required* or merely supported, where focus goes
+can produce: whether a label is _required_ or merely supported, where focus goes
 on close and why the obvious answer is wrong, and what the live-region policy
 is rather than which role it produced.
 
@@ -120,6 +120,27 @@ claim you cannot.
 **No screen reader has been run against it.** The announcement policies in the
 contracts are testable claims, and nobody has tested them. Static analysis
 finds what was never built; it does not find what sounds wrong in NVDA.
+
+---
+
+## Where to start
+
+Six decisions is more than anyone reads standing up. If you have ten minutes,
+these four are the argument:
+
+- **Foundations → Tokens** — the two layers, and why product code may only
+  touch one of them.
+- **Foundations → Accessibility** — the contrast gate, and why it distinguishes
+  text from non-text.
+- **Components → StateBlock** — empty, loading and error as one component, with
+  three different announcement strategies.
+- **Components → Button** — the one breaking change this system has shipped,
+  and the deprecation still in flight.
+
+Every component page carries a **"do not use it for"** line. That is not
+padding. The failure mode of a design system is not people ignoring it — it is
+people stretching one component over a problem it was never shaped for, and the
+line is where that gets settled before it happens.
 
 ---
 

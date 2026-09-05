@@ -19,15 +19,17 @@ const preview: Preview = {
     options: {
       storySort: {
         /**
-         * Foundations first, and Introduction first inside it: the first thing
-         * in the sidebar should be the argument the system is making, not an
-         * alphabetical list of controls. The nested array orders that group's
-         * own children — everything unnamed keeps its file order behind them.
+         * Introduction, then Foundations: the first thing in the sidebar should
+         * be the argument the system is making, not an alphabetical list of
+         * controls. Storybook pins root-level pages above groups, which is why
+         * the front door is a root page rather than a Foundations child. The
+         * nested array orders that group's own children — everything unnamed
+         * keeps its file order behind them.
          */
         order: [
+          'Introduction',
           'Foundations',
           [
-            'Introduction',
             'Tokens',
             'Colour & tone',
             'Typography',
@@ -38,7 +40,6 @@ const preview: Preview = {
             'Content & UX copy',
             'Accessibility',
           ],
-          'About this system',
           'Accessibility',
           'Patterns',
           'Components',

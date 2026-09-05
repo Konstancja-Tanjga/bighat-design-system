@@ -9,7 +9,7 @@
  *
  * So the fields go, and `implementations` collapses to this library's version.
  * What is lost with them is the cross-repo parity check, and that loss is real
- * rather than tidied away — it is written up in docs/00-About.mdx under what
+ * rather than tidied away — it is written up in docs/00-Introduction.mdx under what
  * the split cost.
  *
  *   node scripts/strip-framework.mjs react
@@ -38,7 +38,11 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.json'))) {
   const other = spec.implementations?.[drop];
   spec.implementations = {
     version,
-    status: version ? (spec.implementations.status === 'spec-only' ? 'implemented' : spec.implementations.status) : 'spec-only',
+    status: version
+      ? spec.implementations.status === 'spec-only'
+        ? 'implemented'
+        : spec.implementations.status
+      : 'spec-only',
     ...(spec.implementations?.unimplemented?.[keep]?.length
       ? { unimplemented: spec.implementations.unimplemented[keep] }
       : {}),
@@ -69,5 +73,5 @@ console.log(
   `\nGone with the fields: the cross-repo parity check. This repo can no longer\n` +
     `assert anything about the ${drop} library, and nothing will fail when the two\n` +
     `disagree. That is the cost of the split, and it is written up in\n` +
-    `docs/00-About.mdx rather than left to be discovered.`,
+    `docs/00-Introduction.mdx rather than left to be discovered.`,
 );

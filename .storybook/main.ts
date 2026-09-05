@@ -4,8 +4,8 @@ import type { StorybookConfig } from '@storybook/react-vite';
  * The deployed Storybook is this system's primary artefact, which changes two
  * things about this config.
  *
- * `docs/` is globbed before `src/`, so About and the Foundations pages come
- * first in the sidebar rather than after 41 components — a reviewer's first
+ * `docs/` is globbed before `src/`, so Introduction and the Foundations pages
+ * come first in the sidebar rather than after 41 components — a reviewer's first
  * screen should be the argument, not an alphabetical list of controls.
  *
  * `docs/generated/` holds the ARIA conformance and token drift pages, written
@@ -17,7 +17,7 @@ const config: StorybookConfig = {
   framework: { name: '@storybook/react-vite', options: {} },
 
   stories: [
-    '../docs/00-About.mdx',
+    '../docs/00-Introduction.mdx',
     '../docs/*.mdx',
     '../docs/generated/*.mdx',
     '../src/**/*.mdx',
