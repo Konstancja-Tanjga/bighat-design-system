@@ -38,11 +38,11 @@ entries above came from the contract; the reason they are the boundary did not.
 
 | prop | values | default | meaning |
 | --- | --- | --- | --- |
-| `header` | slot | — | Rendered as <header>. |
+| `header` | slot | — | Rendered as `<header>`. |
 | `rail` | slot | — | Narrow icon rail on the leading edge. |
 | `sidebar` | slot | — | Leading panel — navigation, a tree. |
 | `aside` | slot | — | Trailing panel — inspector, context. |
-| `children` | slot | — | Becomes the only <main>. |
+| `children` | slot | — | Becomes the only `<main>`. |
 | `height` | `fill` · `flow` | `fill` | fill pins to the viewport and scrolls each region independently |
 | `navOpen` | boolean | `false` | Below breakpoint.md the rail and sidebar leave the grid; with onNavToggle they return as an overlay instead of simply vanishing. |
 | `onNavToggle` | event | — | Omit and the panels stay hidden below the breakpoint — honest, but the reader has no route back to them. |
@@ -63,7 +63,7 @@ entries above came from the contract; the reason they are the boundary did not.
 
 ## Accessibility
 
-- **Role** — banner (in a landmark context) (implicit, from <header>)
+- **Role** — banner (in a landmark context) (implicit, from `<header>`)
 - **Labelling** — TODO: is a label required, or merely supported?
 - **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
 - **Announcements** — TODO: the live-region policy, not the role it produced.

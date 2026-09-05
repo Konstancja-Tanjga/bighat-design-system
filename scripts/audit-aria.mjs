@@ -89,7 +89,7 @@ const PATTERNS = {
     attributes: ['aria-modal'],
     name: 'required',
     wcag: ['2.1.2', '2.4.3', '4.1.2'],
-    notes: 'aria-modal is implicit on a native <dialog> opened with showModal(). Focus must return to the opener.',
+    notes: 'aria-modal is implicit on a native `<dialog>` opened with showModal(). Focus must return to the opener.',
   },
   combobox: {
     keys: ['ArrowDown', 'ArrowUp', 'Enter', 'Escape'],
@@ -224,7 +224,7 @@ const NATIVE_OVERRIDES = {
     name: 'required',
     wcag: ['1.3.1', '3.3.2', '4.1.2'],
     notes:
-      'Native <select>. Keyboard interaction, the popup and expanded state are the platform’s; the component is responsible for the accessible name and the error association only.',
+      'Native `<select>`. Keyboard interaction, the popup and expanded state are the platform’s; the component is responsible for the accessible name and the error association only.',
   },
 };
 

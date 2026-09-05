@@ -73,6 +73,7 @@
     "@changesets/cli": "^3.0.0",
     "@storybook/addon-a11y": "^10.5.8",
     "@storybook/addon-docs": "^10.5.8",
+    "@storybook/addon-themes": "^10.6.0",
     "@storybook/react-vite": "^10.5.8",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",

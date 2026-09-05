@@ -45,15 +45,15 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 
 ### Pattern notes
 
-- **Board** (`select (native)`) — Native <select>. Keyboard interaction, the popup and expanded state are the platform’s; the component is responsible for the accessible name and the error association only.
+- **Board** (`select (native)`) — Native `<select>`. Keyboard interaction, the popup and expanded state are the platform’s; the component is responsible for the accessible name and the error association only.
 - **Checkbox** (`checkbox`) — A tri-state checkbox sets aria-checked="mixed" — and indeterminate is a DOM property, not an attribute.
 - **Composer** (`textbox`) — A placeholder is not a name (WCAG 2.5.3 needs the visible label to match).
-- **Dialog** (`dialog`) — aria-modal is implicit on a native <dialog> opened with showModal(). Focus must return to the opener.
+- **Dialog** (`dialog`) — aria-modal is implicit on a native `<dialog>` opened with showModal(). Focus must return to the opener.
 - **Input** (`textbox`) — A placeholder is not a name (WCAG 2.5.3 needs the visible label to match).
 - **Progress** (`progressbar`) — Indeterminate omits aria-valuenow entirely rather than setting it to 0.
 - **RadioGroup** (`radio`) — One tab stop for the whole group: roving tabindex or a native radio group.
 - **SegmentedControl** (`radio`) — One tab stop for the whole group: roving tabindex or a native radio group.
-- **Select** (`select (native)`) — Native <select>. Keyboard interaction, the popup and expanded state are the platform’s; the component is responsible for the accessible name and the error association only.
+- **Select** (`select (native)`) — Native `<select>`. Keyboard interaction, the popup and expanded state are the platform’s; the component is responsible for the accessible name and the error association only.
 - **Table** (`table`) — A table with interactive cells is a grid, and a grid has arrow-key navigation.
 - **Tabs** (`tablist`) — Each tab needs aria-selected and aria-controls; each panel needs aria-labelledby.
 - **Toolbar** (`toolbar`) — One tab stop for the whole toolbar.

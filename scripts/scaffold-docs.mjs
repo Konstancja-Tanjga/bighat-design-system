@@ -32,6 +32,15 @@ const specs = readdirSync(SPECS)
   .filter((f) => f.endsWith('.json'))
   .map((f) => JSON.parse(readFileSync(resolve(SPECS, f), 'utf8')));
 
+/**
+ * Wraps a bare element name in backticks. MDX 3 parses `<main>` in prose as
+ * JSX and then fails the whole index looking for a closing tag, so a contract
+ * that names the element it renders would otherwise take Storybook down with
+ * it. Already-quoted names are left alone.
+ */
+const elements = (text) =>
+  String(text).replace(/(?<!`)(<[a-z][a-z0-9]*(?:\[[^\]]*\])?>)(?!`)/g, '`$1`');
+
 const variantProp = (spec) =>
   Object.entries(spec.props ?? {}).find(
     ([, prop]) => ['variant', 'enum', 'tone', 'size'].includes(prop.kind) && prop.values?.length,
@@ -97,7 +106,7 @@ function mdx(spec) {
   const props = table(
     Object.entries(spec.props ?? {}).map(
       ([name, prop]) =>
-        `| \`${name}\` | ${prop.values ? prop.values.map((v) => `\`${v}\``).join(' · ') : prop.kind} | ${prop.default !== undefined ? `\`${prop.default}\`` : '—'} | ${prop.meaning ?? prop.note ?? 'TODO'} |`,
+        `| \`${name}\` | ${prop.values ? prop.values.map((v) => `\`${v}\``).join(' · ') : prop.kind} | ${prop.default !== undefined ? `\`${prop.default}\`` : '—'} | ${elements(prop.meaning ?? prop.note ?? 'TODO')} |`,
     ),
   );
 
@@ -149,7 +158,7 @@ ${(spec.states ?? []).map((s) => `\`${s}\``).join(' · ')}
 ${keyboard ? `## Keyboard\n\n| key | action |\n| --- | --- |\n${keyboard}\n` : ''}
 ## Accessibility
 
-- **Role** — ${spec.aria?.role ?? 'TODO'}
+- **Role** — ${elements(spec.aria?.role ?? 'TODO')}
 - **Labelling** — ${spec.aria?.labelling ?? 'TODO: is a label required, or merely supported?'}
 - **Focus** — ${spec.aria?.focus ?? 'TODO: where does focus go, and what is wrong with the obvious answer?'}
 - **Announcements** — ${spec.aria?.announcements ?? 'TODO: the live-region policy, not the role it produced.'}
