@@ -37,6 +37,7 @@ import { Button, StateBlock, ToastProvider } from '@bighat/ui';
 | `src/styles/` | 45 stylesheets. `bh-*` classes, container queries, tokens only |
 | `spec/components/` | one machine-readable contract per component |
 | `agent/` | rules a coding agent can follow instead of inventing its own |
+| `skills/` | the `handoff-readiness` skill: it checks those rules on a branch and writes the handover note |
 | `docs/` | the Storybook's own pages |
 | `scripts/` | the gates, the audits, and every codemod that produced this version |
 

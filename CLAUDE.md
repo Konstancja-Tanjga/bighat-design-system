@@ -37,10 +37,18 @@ different fixes.
 
 ## Routing a request
 
-`agent/HANDOFF.md` maps the questions people actually ask ("is this
-handoff-safe?", "the spacing looks off", "bighat cannot do what I need") to what
-each one runs and what it returns. Read it when a request is about reviewing or
-handing over a prototype rather than building one.
+The `handoff-readiness` skill in `skills/handoff-readiness/` answers "is this
+handoff-safe?" — ten gates over the diff and the running prototype, one verdict
+each with the evidence attached, and the handover note written for the pull
+request. It reports; it does not edit, open the pull request, or declare the
+work done.
+
+The questions that are not a handoff ("the spacing looks off", "bighat cannot do
+what I need", "should this become a component?") are routed in
+`skills/handoff-readiness/references/requests.md`.
+
+This replaced `agent/HANDOFF.md`, which said the same things without being
+runnable.
 
 ## Human steps, on purpose
 
