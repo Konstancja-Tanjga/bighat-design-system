@@ -68,6 +68,19 @@ const dark: ThemeVars = create({
   inputTextColor: '#f7f8f9',
 });
 
+/**
+ * A shared link carries the theme in the URL — `?globals=theme:dark` — and the
+ * manager renders before the preview has said anything on the channel. Reading
+ * it here is what makes such a link arrive in the right theme rather than
+ * flashing the reader's default and correcting itself.
+ */
+const themeFromUrl = (): 'light' | 'dark' | undefined => {
+  if (typeof window === 'undefined') return undefined;
+  const globals = new URLSearchParams(window.location.search).get('globals') ?? '';
+  const match = /(?:^|;)theme:(light|dark)(?:;|$)/.exec(globals);
+  return match?.[1] as 'light' | 'dark' | undefined;
+};
+
 const systemPrefersDark =
   typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 
@@ -80,9 +93,10 @@ const apply = (theme: unknown) => {
   addons.setConfig({ theme: next === 'dark' ? dark : light });
 };
 
-// Until the preview reports its globals, follow the reader's own setting.
-current = systemPrefersDark ? 'dark' : 'light';
-addons.setConfig({ theme: systemPrefersDark ? dark : light });
+// The URL wins; failing that, the reader's own setting, until the preview
+// reports its globals on the channel.
+current = themeFromUrl() ?? (systemPrefersDark ? 'dark' : 'light');
+addons.setConfig({ theme: current === 'dark' ? dark : light });
 
 const channel = addons.getChannel();
 // Event names rather than the internal constants module: these two are part of
