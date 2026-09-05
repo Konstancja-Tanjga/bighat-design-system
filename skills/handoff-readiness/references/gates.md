@@ -68,6 +68,14 @@ checks, `file:line`.
   a licence to reach into the primitives. Report it as a proposal to draft,
   which is a human step.
 
+**Where this gate stops.** It asks whether a local component is *declared*,
+never whether it is well designed. Whether the thing is any good — its
+typography, its restraint, whether it reads as a templated default — is the
+`frontend-design` skill's question, and it is asked while the thing is being
+built, not while it is being handed over. If a local component turns out to need
+design work, say so and name that skill; do not review it here with half its
+vocabulary.
+
 **Evidence:** the import list from the diff, and `file:line` for each literal
 or local component.
 
@@ -214,11 +222,18 @@ and a control that leaves the viewport.
 
 **Asks:** do the words work?
 
-- Labels name what the user recognises, not how the system is built.
-- A control says what happens, and the message afterwards says it happened.
-- An error says what went wrong **and** what to do about it. No apology, no
-  "something went wrong".
-- Sentence case, no exclamation marks, no cleverness in a control.
+The rules for product copy are `Foundations → Content & UX copy` in this system,
+and the `frontend-design` skill applies them while the screen is being written.
+Read them there rather than here: a rule restated in a checking file is a second
+copy to drift from the first, and the handoff is not where a voice gets decided.
+
+Two checks are this gate's own, because they are about the handover rather than
+about the writing:
+
+- **An error says what went wrong and what to do about it.** "Something went
+  wrong" hands the reader nothing, and hands the reviewer nothing either.
+- **A control's label and its result agree.** "Publish" followed by "Saved" is
+  two names for one action, and the second is the one support gets asked about.
 
 **Evidence:** the string and its location.
 

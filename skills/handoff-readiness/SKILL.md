@@ -237,6 +237,13 @@ it was opening the screenshot, not running the script again.
 **Name files and lines, not areas.** "Accessibility issues in the form" sends
 the reader looking; `Input.tsx:42 — placeholder used as the label` does not.
 
+**This skill checks; `frontend-design` designs.** They meet at two edges: gate
+2 asks whether a local component is declared while `frontend-design` asks
+whether it is any good, and gate 9 hands it the copy rules outright. When a gate
+turns up something that needs designing rather than declaring, name that skill
+and stop — a checker holding half a design vocabulary gives worse advice than
+none.
+
 **Check the system before believing it cannot do something.** Most "the design
 system can't do this" is "I looked for the wrong component". Look for the
 higher-level component first, then the inventory's "not for" column.
