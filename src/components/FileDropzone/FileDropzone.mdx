@@ -1,0 +1,132 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { FileDropzone } from './FileDropzone';
+import * as FileDropzoneStories from './FileDropzone.stories';
+
+<Meta of={FileDropzoneStories} />
+
+# FileDropzone
+
+Choosing files to upload — by dropping them, or by using the platform's file
+picker, which is the same control either way.
+
+<Canvas of={FileDropzoneStories.WithConstraints} />
+
+## When to use it
+
+| Use `FileDropzone` for                          | Use something else for                                       |
+| ----------------------------------------------- | ------------------------------------------------------------ |
+| Picking one or many files to upload             | Showing what was picked — that belongs to the form around it |
+| Anywhere a drop gesture is a plausible shortcut | Reordering or moving things by drag — that is `Board`        |
+| Attachments in a form or a dialog               | Progress of an upload in flight — that is `Progress`         |
+
+## What it is, underneath
+
+A real `<input type="file">`, stretched across the surface at zero opacity —
+the same technique `SegmentedControl` uses to lay native radios over their
+labels. Three things follow from that, and together they are the entire argument
+for the component:
+
+- **One tab stop, and it is a control.** The browser announces "file upload
+  button" and opens the picker on Enter or Space. No `tabIndex`, no
+  `role="button"`, no synthetic `.click()`.
+- **Drop is native.** A file input accepts dropped files by itself. The only
+  thing this component's JavaScript does is highlight the surface while a file
+  is over it — delete every drag handler and it still works.
+- **The name is a `<label>`.** Visible, required, and a voice-control target.
+
+## Do and don't
+
+### The drop target is the enhancement, not the control
+
+<Guidance>
+  <Do reason="The control is a file input, so it is in the tab order, it has a role, it has a name, and the platform picker opens from the keyboard. Dropping is a shortcut laid on top for whoever has a pointer and a file already in hand.">
+    <FileDropzone label="Attachments" multiple onFiles={() => {}} />
+  </Do>
+  <Dont reason="The usual dropzone is a <div onDrop> with a click handler. It is not focusable, has no role, has no accessible name, and cannot be operated without a pointer — and a pointer user who does not already know the region is clickable gets nothing either. It is the most reliably inaccessible pattern in common use.">
+    <div
+      style={{
+        padding: 24,
+        border: '1px dashed var(--bh-border-strong)',
+        borderRadius: 10,
+        textAlign: 'center',
+        color: 'var(--bh-text-muted)',
+        width: '100%',
+      }}
+    >
+      Drop files here
+    </div>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Accessibility: dragging movements">
+  WCAG 2.5.7 requires a single-pointer alternative to any drag gesture. This component's alternative
+  is the control itself, which is why removing the drag support costs nothing — the test the
+  hand-rolled version cannot pass.
+</Heuristic>
+
+### Put the limits where they are read before the mistake
+
+<Guidance>
+  <Do reason="Accepted types and the size cap are visible before the reader opens the picker, and still visible after. `accept` filters the picker on top of that, so the common path never reaches a rejection at all.">
+    <FileDropzone
+      label="Attachments"
+      description="PDF, PNG or JPG. Up to 10 MB each."
+      accept=".pdf,.png,.jpg"
+      multiple
+      onFiles={() => {}}
+    />
+  </Do>
+  <Dont reason="The rule arrives only after the reader has chosen a file that breaks it. They now have to guess what the limit is from a message about the one file they got wrong — and `accept` was right there.">
+    <FileDropzone label="Attachments" error="That file type is not allowed." onFiles={() => {}} />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Error prevention">
+  Better than a good error message is a design where the error cannot happen. `accept` plus a
+  visible limit removes most of this component's error cases before they occur.
+</Heuristic>
+
+### `accept` is a hint, never a guarantee
+
+It filters the platform picker. It does not stop a drop, it does not stop a
+determined reader switching the filter to "all files", and it says nothing about
+the contents of what arrives. Validate on the way in regardless — and on the
+server, which is the only place validation counts.
+
+## Where the file list goes
+
+Not in here. The list of what was chosen — with sizes, with errors, with a way
+to remove one — belongs to the form around the component, because only the form
+knows what "too large" means in this context or whether a duplicate name is a
+problem.
+
+Two things that composition should get right, shown in the
+[**With the files it chose**](?path=/story/components-filedropzone--with-the-files-it-chose)
+story:
+
+- **Make a wrong pick recoverable.** A `RemovableChip` per file costs almost
+  nothing and saves starting the upload again.
+- **An oversized file is a `StateBlock`, not a `Toast`.** The reader has to take
+  the file back out, so the message belongs where the files are. A toast
+  announces the problem and then removes the place to fix it.
+
+## Accessibility
+
+- The input is the only focusable element and the only drop target. It is
+  labelled by a visible `<label>`, never `aria-label`.
+- The prompt on the surface is `aria-hidden`: the label is the accessible name,
+  and the browser already announces the control's own affordance.
+- `error` sets `aria-invalid` and comes **first** in `aria-describedby`, ahead
+  of `description` — the order a screen reader reads them.
+- The focus ring is drawn on the surface, because the input holding focus is
+  invisible. It adds a ring; it does not replace one.
+- The drag highlight uses the `selection` role — a file held over the surface is
+  a destination. It carries no information a keyboard reader is missing.
+- The required marker is `aria-hidden`; the `required` attribute is what
+  announces.
+
+## Props
+
+<Controls of={FileDropzoneStories.Default} />

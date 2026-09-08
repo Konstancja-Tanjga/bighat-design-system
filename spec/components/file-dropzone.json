@@ -1,0 +1,131 @@
+{
+  "$schema": "../schema.json",
+  "name": "FileDropzone",
+  "aliases": ["File input", "Upload area", "Attachment picker", "Drop target"],
+  "layer": "control",
+  "purpose": "Choosing files to upload, by the platform picker or by dropping them onto the same control.",
+  "notFor": [
+    "Showing what was chosen. The list of files, their sizes and their errors belong to the form around it, which is the only thing that knows what 'too large' means here.",
+    "Progress of an upload in flight. That is Progress.",
+    "Reordering or moving things by drag. That is Board, which has a keyboard equivalent for it.",
+    "Validation. accept filters the platform picker and nothing else — a drop can still hand you anything, and only the server's check counts."
+  ],
+  "composition": "composite",
+  "anatomy": [
+    { "part": "bh-field", "element": "div" },
+    { "part": "bh-field__label", "element": "label" },
+    {
+      "part": "bh-field__required",
+      "element": "span",
+      "required": false,
+      "note": "aria-hidden; the required attribute is what announces."
+    },
+    { "part": "bh-field__description", "element": "p", "required": false },
+    {
+      "part": "bh-dropzone",
+      "element": "div",
+      "note": "The visible surface. Carries the drag highlight and draws the focus ring, because the input holding focus is invisible."
+    },
+    {
+      "part": "bh-dropzone__input",
+      "element": "input",
+      "note": "type=\"file\", stretched across the surface at zero opacity — the same technique SegmentedControl uses for its radios. This is the whole component: one tab stop, a real role, a real name, the platform picker on Enter or Space, and native acceptance of dropped files."
+    },
+    {
+      "part": "bh-dropzone__prompt",
+      "element": "span",
+      "note": "aria-hidden and pointer-events: none. The sighted-pointer half of a message the browser already announces to everyone else."
+    },
+    { "part": "bh-field__error", "element": "p", "required": false }
+  ],
+  "props": {
+    "label": {
+      "kind": "string",
+      "required": true,
+      "meaning": "Names the field. Visible, and the input's accessible name.",
+      "note": "A <label>, never aria-label — so it is on screen and is a voice-control target."
+    },
+    "description": {
+      "kind": "string",
+      "meaning": "Persistent helper text. The place for accepted types and size limits.",
+      "note": "Read before the reader opens the picker, which is the only moment a limit can prevent rather than explain an error."
+    },
+    "error": {
+      "kind": "string",
+      "meaning": "The validation message.",
+      "note": "Its presence is what sets aria-invalid."
+    },
+    "prompt": {
+      "kind": "string",
+      "default": "Drop files here, or choose from your device",
+      "meaning": "The text on the surface.",
+      "note": "Decorative — aria-hidden, because label is the accessible name."
+    },
+    "accept": {
+      "kind": "string",
+      "meaning": "Mirrors the native attribute. A hint to the platform picker, never a guarantee."
+    },
+    "multiple": { "kind": "boolean", "default": false },
+    "disabled": { "kind": "boolean", "default": false },
+    "required": { "kind": "boolean", "default": false },
+    "name": { "kind": "string", "meaning": "Native form field name." },
+    "onFiles": {
+      "kind": "event",
+      "required": true,
+      "meaning": "Fired with the chosen files, whether picked or dropped.",
+      "note": "The input's value is cleared afterwards. Without that, choosing the same file twice fires no change event and the control looks broken.",
+      "angular": "an output()"
+    }
+  },
+  "states": ["default", "hover", "focus-visible", "active", "disabled", "invalid"],
+  "keyboard": {
+    "Tab": "Moves focus to the file input — the only focusable element in the component.",
+    "Enter": "Opens the platform file picker. Native to <input type=\"file\">.",
+    "Space": "Opens the platform file picker. Native to <input type=\"file\">."
+  },
+  "aria": {
+    "role": "button (implicit, from <input type=\"file\">)",
+    "labelling": "From the associated <label>, required and visible.",
+    "focus": "One tab stop, on the input. The ring is drawn on bh-dropzone because the input is at zero opacity — it adds a ring, it does not replace one.",
+    "announcements": "None of its own. The browser announces the control; the surface prompt is aria-hidden so it is not read twice. What arrives after a drop or a pick is the consuming form's to announce.",
+    "wcag": ["1.3.1", "1.4.1", "2.1.1", "2.4.7", "2.5.3", "2.5.7", "3.3.1", "3.3.2", "4.1.2"],
+    "attributes": {
+      "aria-invalid": "true when error is present",
+      "aria-describedby": "error id then description id, in that order",
+      "aria-hidden": "on the surface prompt and on the required marker"
+    }
+  },
+  "content": {
+    "label": "What is being attached, not the act: \"Attachments\", not \"Upload files\".",
+    "description": "The accepted types and the size cap, in that order. Both before the picker opens.",
+    "prompt": "Name the drop gesture and the alternative in one line. Never only 'Drop files here' — that is the half of the control most readers cannot use."
+  },
+  "tokensUsed": [
+    "border.focus",
+    "border.strong",
+    "control.lg",
+    "duration.fast",
+    "easing.standard",
+    "fontFamily.sans",
+    "gap.hairline",
+    "gap.tight",
+    "padding.section",
+    "radius.surface",
+    "selection.bg",
+    "selection.fg",
+    "selection.mark",
+    "status.critical.fg",
+    "surface.sunken",
+    "textLeading.normal",
+    "text.primary",
+    "text.secondary",
+    "textSize.body",
+    "textSize.caption",
+    "textWeight.emphasis"
+  ],
+  "interactive": true,
+  "implementations": {
+    "version": "4.2.0",
+    "status": "react-only"
+  }
+}

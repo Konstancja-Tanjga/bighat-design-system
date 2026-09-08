@@ -1,0 +1,106 @@
+{
+  "$schema": "../schema.json",
+  "name": "Textarea",
+  "aliases": ["Multiline", "Multi-line input", "Comment box", "Note field"],
+  "layer": "control",
+  "purpose": "Multi-line free text with label, description and error wired to ARIA.",
+  "notFor": [
+    "Single-line values — names, references, search terms. That is Input.",
+    "A message sent by pressing Enter. That is Composer, which owns the Enter key.",
+    "One of a known set of answers. That is Select, RadioGroup or Combobox."
+  ],
+  "composition": "leaf",
+  "anatomy": [
+    { "part": "bh-field", "element": "div" },
+    { "part": "bh-field__label", "element": "label" },
+    {
+      "part": "bh-field__required",
+      "element": "span",
+      "required": false,
+      "note": "Rendered only when required. aria-hidden: the required attribute is what announces."
+    },
+    { "part": "bh-field__description", "element": "p", "required": false },
+    { "part": "bh-textarea", "element": "textarea" },
+    { "part": "bh-field__error", "element": "p", "required": false }
+  ],
+  "props": {
+    "label": {
+      "kind": "string",
+      "required": true,
+      "meaning": "Names the field. Always rendered visibly.",
+      "note": "There is deliberately no hideLabel here, though Input has one. Input's exists for a search field whose purpose is obvious from what surrounds it; a four-line box has no such context, and every hidden-label multi-line field found in the wild was a comment box labelled by a placeholder. A placeholder disappears at the first keystroke and is not a voice-control target (WCAG 2.5.3)."
+    },
+    "description": {
+      "kind": "string",
+      "meaning": "Persistent helper text. Shown above the error, never replaced by it.",
+      "note": "A string, not a slot: it is referenced by aria-describedby, which needs a stable id on a single element. Input, Select and Checkbox agree."
+    },
+    "error": {
+      "kind": "string",
+      "meaning": "The validation message.",
+      "note": "Its presence is what sets aria-invalid."
+    },
+    "rows": {
+      "kind": "number",
+      "default": 4,
+      "meaning": "Visible lines before it scrolls.",
+      "note": "This is the height API, and it is a promise about the size of the answer being asked for. Guessing low is the expensive direction: the reader writes less than they meant to."
+    },
+    "resize": {
+      "kind": "enum",
+      "values": ["vertical", "none"],
+      "default": "vertical",
+      "meaning": "Which way the reader may resize the field.",
+      "note": "Component-local, not a system axis. `none` only where the surrounding layout genuinely cannot take the growth — it takes back an affordance the platform gives for free, and the reader with a long answer then proof-reads it through a window too small for it."
+    },
+    "required": {
+      "kind": "boolean",
+      "default": false,
+      "meaning": "Marks the field required, natively and visibly."
+    },
+    "disabled": { "kind": "boolean", "default": false }
+  },
+  "states": ["default", "focus-visible", "disabled", "readonly", "invalid"],
+  "keyboard": {
+    "Tab": "Moves focus to the field, and out of it. Native.",
+    "Enter": "Inserts a line break. Native, and the reason this is not Composer — a field that submits on Enter cannot hold a paragraph."
+  },
+  "aria": {
+    "role": "textbox (implicit, from <textarea>; multiline)",
+    "labelling": "From the associated <label>, required and always visible. No escape hatch.",
+    "focus": "Ring on the field itself, from bh-focusable. Never removed on :focus-visible.",
+    "announcements": "None. The error is in aria-describedby and read on focus. Announcing a validation error as it appears interrupts typing, which is when it usually appears.",
+    "wcag": ["1.3.1", "1.4.1", "2.4.7", "2.5.3", "3.3.1", "3.3.2", "4.1.2"],
+    "attributes": {
+      "aria-invalid": "true when error is present",
+      "aria-describedby": "error id then description id, in that order"
+    }
+  },
+  "content": {
+    "label": "Sentence case, no trailing colon. Name the answer, not the field: \"Reason for rejection\", not \"Comments\".",
+    "error": "Say what has to change, in plain language. \"This field is required\" describes the system's rule rather than the reader's problem."
+  },
+  "tokensUsed": [
+    "border.strong",
+    "fontFamily.sans",
+    "gap.hairline",
+    "gap.tight",
+    "padding.block",
+    "padding.inline",
+    "radius.control",
+    "status.critical.fg",
+    "surface.base",
+    "surface.sunken",
+    "textLeading.normal",
+    "text.muted",
+    "text.primary",
+    "textSize.body",
+    "textSize.caption",
+    "textWeight.emphasis"
+  ],
+  "interactive": true,
+  "implementations": {
+    "version": "4.2.0",
+    "status": "react-only"
+  }
+}

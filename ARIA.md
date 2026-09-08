@@ -2,7 +2,7 @@
 
 `@bighat/ui`, audited against the WAI-ARIA Authoring Practices.
 
-**41 implemented components.** 8 conform, 10 partial, 14 fail. 0 source-level errors, 3 warnings.
+**45 implemented components.** 10 conform, 12 partial, 14 fail. 0 source-level errors, 3 warnings.
 
 This is not an axe run. axe checks a rendered tree and finds what is wrong in it; this checks the contract against the pattern it claims, and finds what was never built — a required keyboard interaction that nobody implemented leaves no rendered evidence for axe to catch.
 
@@ -19,6 +19,8 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 | Composer | `textbox` | **fail** | labelling not specified · WCAG: 1.3.1, 3.3.2, 4.1.2 |
 | Dialog | `dialog` | pass | — |
 | Divider | `separator` | partial | WCAG: 1.3.1 |
+| FileDropzone | `button` | pass | — |
+| FilterChip | `button` | partial | WCAG: 2.1.1 |
 | IconPicker | `status` | partial | WCAG: 4.1.3 |
 | Input | `textbox` | pass | — |
 | List | `list` | partial | WCAG: 1.3.1 |
@@ -29,6 +31,7 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 | Pagination | `navigation` | partial | WCAG: 1.3.1, 2.4.1 |
 | Progress | `progressbar` | **fail** | labelling not specified · WCAG: 1.3.1, 4.1.2 |
 | RadioGroup | `radio` | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2 |
+| RemovableChip | `button` | partial | WCAG: 2.1.1 |
 | ScrollArea | `group` | partial | WCAG: 1.3.1 |
 | SegmentedControl | `radio` | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2 |
 | Select | `select (native)` | pass | — |
@@ -39,6 +42,7 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 | Switch | `switch` | **fail** | keys: Space · labelling not specified · WCAG: 1.3.1, 2.1.1, 4.1.2 · optional keys: Enter |
 | Table | `table` | pass | — |
 | Tabs | `tablist` | **fail** | keys: Arrow keys · labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2 |
+| Textarea | `textbox` | pass | — |
 | Toast | `alert` | pass | — |
 | Toolbar | `toolbar` | **fail** | labelling not specified · WCAG: 2.1.1, 2.4.3 |
 | Tooltip | `tooltip` | partial | WCAG: 2.1.1 |
@@ -56,6 +60,7 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 - **Select** (`select (native)`) — Native `<select>`. Keyboard interaction, the popup and expanded state are the platform’s; the component is responsible for the accessible name and the error association only.
 - **Table** (`table`) — A table with interactive cells is a grid, and a grid has arrow-key navigation.
 - **Tabs** (`tablist`) — Each tab needs aria-selected and aria-controls; each panel needs aria-labelledby.
+- **Textarea** (`textbox`) — A placeholder is not a name (WCAG 2.5.3 needs the visible label to match).
 - **Toolbar** (`toolbar`) — One tab stop for the whole toolbar.
 - **Tooltip** (`tooltip`) — WCAG 1.4.13: dismissable, hoverable, persistent. A tooltip that vanishes on pointer-out fails it.
 

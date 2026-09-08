@@ -5,7 +5,7 @@ import type { StorybookConfig } from '@storybook/react-vite';
  * things about this config.
  *
  * `docs/` is globbed before `src/`, so Introduction and the Foundations pages
- * come first in the sidebar rather than after 41 components — a reviewer's first
+ * come first in the sidebar rather than after 45 components — a reviewer's first
  * screen should be the argument, not an alphabetical list of controls.
  *
  * `docs/generated/` holds the ARIA conformance and token drift pages, written
