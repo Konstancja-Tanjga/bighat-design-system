@@ -1,0 +1,109 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { Textarea } from './Textarea';
+import * as TextareaStories from './Textarea.stories';
+
+<Meta of={TextareaStories} />
+
+# Textarea
+
+Multi-line free text — a note, a description, a reason for rejecting something —
+with the label, description and error wired to ARIA from the same props that
+render the visible text.
+
+<Canvas of={TextareaStories.WithDescription} />
+
+## When to use it
+
+| Use `Textarea` for                          | Use something else for                                                       |
+| ------------------------------------------- | ---------------------------------------------------------------------------- |
+| A note, a reason, a description, an address | A name, a reference, a search term — that is `Input`                         |
+| Any answer that might run to a paragraph    | A message sent by pressing Enter — that is `Composer`                        |
+| Text the reader composes in their own words | One of a known set of answers — that is `Select`, `RadioGroup` or `Combobox` |
+
+### Why it is not `Composer`
+
+`Composer` owns the Enter key: pressing it submits. That is correct for a
+prompt and wrong for a paragraph, where Enter is how you start the next one. A
+field that sends your half-written note when you reach for a line break is not
+a smaller version of this component — it is a different one, and its
+`notFor` list says so.
+
+## Do and don't
+
+### Size the box to the answer you are asking for
+
+<Guidance>
+  <Do reason="Three lines says 'a sentence or two'. Eight says 'explain yourself'. The reader takes the hint before they start typing, which is the only moment the hint is useful.">
+    <Textarea label="Reason for rejection" rows={3} placeholder="What has to change?" />
+  </Do>
+  <Dont reason="A one-line box that happens to scroll asks for a sentence and then accepts an essay through a window too small to proof-read it in. Guessing low is the expensive direction: the reader writes less than they meant to.">
+    <Textarea label="Reason for rejection" rows={1} resize="none" />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Match between system and the real world">
+  The size of the box is a promise about the size of the answer. Make it one you mean.
+</Heuristic>
+
+### Leave the resize handle alone
+
+<Guidance>
+  <Do reason="The platform gives the reader a way to make room for a long answer, for free, and it costs the layout nothing to allow it downwards. Someone writing more than you expected is not an error state.">
+    <Textarea label="Handover note" rows={3} />
+  </Do>
+  <Dont reason="`resize: none` takes away an affordance the browser provides, and the reader with a long answer now proof-reads it three lines at a time. Only correct where the surrounding layout genuinely cannot take the growth — which is rarer than it is claimed to be.">
+    <Textarea label="Handover note" rows={3} resize="none" />
+  </Dont>
+</Guidance>
+
+### Say what is wrong and how to fix it
+
+<Guidance>
+  <Do reason="Names the problem and implies the correction. The description survives alongside the error, so the rule the reader was meant to follow is still on screen at the moment they broke it.">
+    <Textarea
+      label="Reason for rejection"
+      description="The uploader sees this, so write it to them rather than about them."
+      error="Say what has to change — a rejection with no reason cannot be acted on."
+    />
+  </Do>
+  <Dont reason='"This field is required" is the system describing its own rule. It does not say what the field is for, and it appears in the one place where saying so would have prevented the error.'>
+    <Textarea label="Reason for rejection" error="This field is required" />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Help users recognize, diagnose, and recover from errors">
+  Express the problem in plain language, indicate it precisely, and suggest a solution. Three
+  requirements — "This field is required" satisfies one.
+</Heuristic>
+
+## There is no `hideLabel`
+
+`Input` has one, for the single case it was built for: a search field under a
+magnifier, whose purpose is obvious from what surrounds it. A four-line box has
+no such context. Nothing about its shape says what belongs in it, and every
+hidden-label multi-line field found in the wild turned out to be a comment box
+labelled by a placeholder — which disappears at the first keystroke, is not a
+voice-control target, and is the first casualty of autofill.
+
+The asymmetry is deliberate. If you need the label out of the layout, the layout
+is the thing to change.
+
+## Accessibility
+
+- `label` is required and always visible.
+- `error` sets `aria-invalid` and is placed **first** in `aria-describedby`,
+  because that is the order a screen reader reads and the error is the more
+  urgent of the two.
+- The error is deliberately **not** a live region. The field points at it, so it
+  is reachable through the control; a live region here speaks on every keystroke
+  of client-side validation.
+- The required marker is `aria-hidden`. The `required` attribute is what
+  announces, so a screen reader says "required" rather than "star".
+- Ids come from `useId`, so two fields with the same label on one page cannot
+  collide.
+
+## Props
+
+<Controls of={TextareaStories.Default} />

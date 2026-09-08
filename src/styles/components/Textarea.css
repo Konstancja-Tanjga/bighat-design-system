@@ -1,0 +1,45 @@
+/*
+ * Shares `.bh-field` with Input, Select and Checkbox — the label, description
+ * and error furniture is one set of rules, so a field cannot look like a field
+ * in one component and not in another.
+ */
+.bh-textarea {
+  padding: var(--bh-padding-block) var(--bh-padding-inline);
+  background: var(--bh-surface-base);
+  color: var(--bh-text-primary);
+  border: 1px solid var(--bh-border-strong);
+  border-radius: var(--bh-radius-control);
+  font-family: var(--bh-font-family-sans);
+  font-size: var(--bh-text-size-caption);
+  line-height: var(--bh-text-leading-normal);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bh-textarea::placeholder {
+  color: var(--bh-text-muted);
+}
+
+.bh-textarea--resize-vertical {
+  resize: vertical;
+}
+
+.bh-textarea--resize-none {
+  resize: none;
+}
+
+.bh-textarea:disabled {
+  background: var(--bh-surface-sunken);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Border weight carries the invalid state alongside the message below it. The
+   colour is the redundant cue, not the only one. */
+.bh-textarea--invalid {
+  border-color: var(--bh-status-critical-fg);
+  border-width: 2px;
+  /* 1px optical correction against the 1px the border just gained, so the text
+     does not shift when the field becomes invalid. */
+  padding: calc(var(--bh-padding-block) - 1px) calc(var(--bh-padding-inline) - 1px);
+}

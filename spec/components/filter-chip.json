@@ -1,0 +1,89 @@
+{
+  "$schema": "../schema.json",
+  "name": "FilterChip",
+  "aliases": ["Filter pill", "Toggle chip", "Facet", "Tag filter"],
+  "layer": "control",
+  "purpose": "One filter, on or off, shown next to the results it narrows.",
+  "notFor": [
+    "Exactly one of a set. That is SegmentedControl — a row of independent toggles cannot express 'exactly one', and 'none selected' is legal here and illegal there.",
+    "A fact about the row rather than something the reader asked for. That is Badge, which refuses to be clickable for this reason.",
+    "More than a handful of values. That is Select.",
+    "A chosen value with a way to take it back. That is RemovableChip."
+  ],
+  "composition": "leaf",
+  "anatomy": [
+    {
+      "part": "bh-chip",
+      "element": "button",
+      "note": "Also carries bh-chip--filter. The base bh-chip rules are shared with RemovableChip so the two cannot render differently."
+    },
+    {
+      "part": "bh-chip__mark",
+      "element": "span",
+      "note": "The non-colour cue for the pressed state. aria-hidden, and it holds its box when off so pressing a chip does not reflow the row beside it."
+    }
+  ],
+  "props": {
+    "label": {
+      "kind": "string",
+      "required": true,
+      "meaning": "The visible text, and the accessible name.",
+      "note": "One string for both, so they cannot differ. A chip whose name is not what it says on it is not a voice-control target (WCAG 2.5.3)."
+    },
+    "pressed": {
+      "kind": "boolean",
+      "required": true,
+      "meaning": "Whether this filter is applied.",
+      "note": "Rendered three ways: aria-pressed, the check mark, and the selection tint. The tint alone would fail WCAG 1.4.1."
+    },
+    "disabled": { "kind": "boolean", "default": false }
+  },
+  "states": ["default", "hover", "focus-visible", "selected", "disabled"],
+  "keyboard": {
+    "Tab": "Moves focus to the chip. Each chip is its own tab stop — they are independent toggles, not a roving-tabindex group.",
+    "Enter": "Toggles the filter. Native to <button>.",
+    "Space": "Toggles the filter. Native to <button>."
+  },
+  "aria": {
+    "role": "button",
+    "labelling": "From label, rendered as the button's text content. Required.",
+    "focus": "Ring from bh-focusable, never removed. A set of chips should sit in a named group (role=\"group\" with aria-label) or they are unrelated buttons with nothing saying what they filter.",
+    "announcements": "None of its own. aria-pressed carries the state and is announced on focus; the check mark is aria-hidden so it is not announced twice.",
+    "wcag": ["1.4.1", "2.4.7", "2.5.3", "2.5.8", "4.1.2"],
+    "attributes": {
+      "aria-pressed": "true when the filter is applied, false when it is not — never absent, because absence means 'not a toggle'",
+      "type": "button, fixed rather than defaulted: a filter beside a form must not submit it"
+    }
+  },
+  "content": {
+    "label": "The value being filtered on, as the reader would say it. Not \"Filter: Finance\" — the group's name says it is a filter."
+  },
+  "tokensUsed": [
+    "border.focus",
+    "border.strong",
+    "control.indicator",
+    "control.sm",
+    "duration.fast",
+    "easing.standard",
+    "fontFamily.sans",
+    "gap.hairline",
+    "gap.tight",
+    "padding.block",
+    "radius.pill",
+    "selection.bg",
+    "selection.fg",
+    "selection.mark",
+    "surface.base",
+    "surface.sunken",
+    "textLeading.tight",
+    "text.primary",
+    "text.secondary",
+    "textSize.body",
+    "textWeight.emphasis"
+  ],
+  "interactive": true,
+  "implementations": {
+    "version": "4.2.0",
+    "status": "react-only"
+  }
+}

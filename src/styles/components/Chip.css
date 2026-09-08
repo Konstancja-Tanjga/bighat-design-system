@@ -1,0 +1,111 @@
+/*
+ * One base for two components. `FilterChip` and `RemovableChip` are separate in
+ * the API because their ARIA is separate — a toggle is not a label with a
+ * button beside it — but they are the same object on the page, and a reader who
+ * saw them render differently would be right to ask which one lied.
+ */
+.bh-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-tight);
+  min-height: var(--bh-control-sm);
+  padding: var(--bh-gap-hairline) var(--bh-padding-block);
+  box-sizing: border-box;
+  background: var(--bh-surface-base);
+  color: var(--bh-text-secondary);
+  border: 1px solid var(--bh-border-strong);
+  border-radius: var(--bh-radius-pill);
+  font-family: var(--bh-font-family-sans);
+  font-size: var(--bh-text-size-body);
+  line-height: var(--bh-text-leading-tight);
+  white-space: nowrap;
+}
+
+/* ---- FilterChip ---- */
+
+.bh-chip--filter {
+  cursor: pointer;
+  transition:
+    background var(--bh-duration-fast) var(--bh-easing-standard),
+    color var(--bh-duration-fast) var(--bh-easing-standard);
+}
+
+.bh-chip--filter:hover {
+  background: var(--bh-surface-sunken);
+  color: var(--bh-text-primary);
+}
+
+/*
+ * The `selection` role, not `status.info`: a filter that is on is the answer to
+ * a question the reader just asked, which is what selection names. An
+ * information banner is something the system is saying, and 4.1.0 split the two
+ * precisely so a selected row and a notice stopped coming out the same colour.
+ */
+.bh-chip--filter[aria-pressed='true'] {
+  background: var(--bh-selection-bg);
+  color: var(--bh-selection-fg);
+  border-color: var(--bh-selection-mark);
+  font-weight: var(--bh-text-weight-emphasis);
+}
+
+/*
+ * The mark holds its width whether or not it is showing, so pressing a chip
+ * does not reflow the row of chips beside it. `--bh-control-indicator` is the
+ * same box every other checked-state mark in the system reserves.
+ */
+.bh-chip__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--bh-control-indicator);
+  color: var(--bh-selection-mark);
+}
+
+.bh-chip--filter:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- RemovableChip ---- */
+
+.bh-chip--removable {
+  /* The remove button brings its own inline padding, so the chip does not need
+     any on that edge. */
+  padding-right: var(--bh-gap-hairline);
+}
+
+.bh-chip__label {
+  color: var(--bh-text-primary);
+}
+
+/*
+ * 24px square, the WCAG 2.5.8 minimum target. A remove affordance sized to the
+ * glyph is the one every product gets wrong, and it is worst on the device
+ * where the chip is most likely to be tapped by mistake.
+ */
+.bh-chip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--bh-control-indicator) + var(--bh-gap-snug));
+  height: calc(var(--bh-control-indicator) + var(--bh-gap-snug));
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--bh-radius-pill);
+  color: var(--bh-text-secondary);
+  font-family: inherit;
+  font-size: var(--bh-text-size-caption);
+  line-height: var(--bh-text-leading-tight);
+  cursor: pointer;
+}
+
+.bh-chip__remove:hover {
+  background: var(--bh-surface-sunken);
+  color: var(--bh-text-primary);
+}
+
+.bh-chip__remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

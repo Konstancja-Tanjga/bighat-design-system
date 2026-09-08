@@ -1,0 +1,111 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { Badge } from '../Badge/Badge';
+import { FilterChip } from './FilterChip';
+import * as FilterChipStories from './FilterChip.stories';
+
+<Meta of={FilterChipStories} />
+
+# FilterChip
+
+One filter, on or off, sitting next to the results it narrows.
+
+<Canvas of={FilterChipStories.ASetOfFilters} />
+
+## When to use it
+
+| Use `FilterChip` for                                | Use something else for                                         |
+| --------------------------------------------------- | -------------------------------------------------------------- |
+| Several filters, any number of them on at once      | Exactly one of a set — that is `SegmentedControl`              |
+| A filter the reader can see and switch in one click | A filter with more than a handful of values — that is `Select` |
+| A value the reader chose                            | A fact about the row — that is `Badge`                         |
+
+### Why it is not a `Badge` with an `onClick`
+
+`Badge` refuses to be clickable, and its `notFor` list says so in as many
+words. It is the right refusal. A badge states what something **is**; a chip
+states what the reader **asked for**. Making the badge pressable means making a
+fact pressable, and the reader cannot tell which of the two coloured pills on
+the screen will do something when pressed.
+
+<Guidance>
+  <Do reason="Two components, two jobs. The chip is a toggle and reports aria-pressed; the badge is a status and reports nothing, because there is nothing to report. A reader can tell them apart before clicking.">
+    <FilterChip label="Approved" pressed />
+    <Badge tone="success">Approved</Badge>
+  </Do>
+  <Dont reason="A row where some pills act and some do not, with nothing to distinguish them. Pressing a status is meaningless, and a screen reader announces every one of them as a button.">
+    <Badge tone="success">Approved</Badge>
+    <Badge tone="neutral">Finance</Badge>
+  </Dont>
+</Guidance>
+
+### Why it is not a `SegmentedControl`
+
+A row of chips is a row of independent toggles: three can be on, or none. A
+segmented control is one choice with one current value, built as a radio group
+so that the value is what announces. Neither can express the other's state —
+"none selected" is a legal chip row and an illegal segmented control, and
+"exactly one" is the reverse.
+
+## Do and don't
+
+### Name the group
+
+<Guidance>
+  <Do reason="A group with a name says what the chips filter. Without it they are four unrelated buttons, and a reader arriving by keyboard has no idea what pressing one will narrow.">
+    <div role="group" aria-label="Filter by tag" style={{ display: 'flex', gap: 8 }}>
+      <FilterChip label="Finance" pressed />
+      <FilterChip label="Legal" pressed={false} />
+    </div>
+  </Do>
+  <Dont reason="Two buttons in a div. The relationship between them, and between them and the list below, exists only for someone who can see the layout.">
+    <div style={{ display: 'flex', gap: 8 }}>
+      <FilterChip label="Finance" pressed />
+      <FilterChip label="Legal" pressed={false} />
+    </div>
+  </Dont>
+</Guidance>
+
+### The tint is never the only cue
+
+<Guidance>
+  <Do reason="Check mark, aria-pressed, and the tint. The mark survives greyscale, forced colours, and a reader who cannot distinguish the tint from the unpressed background — and it holds its width when off, so pressing a chip does not reflow the row.">
+    <FilterChip label="Finance" pressed />
+    <FilterChip label="Legal" pressed={false} />
+  </Do>
+  <Dont reason="Colour as the sole carrier of state fails WCAG 1.4.1. Roughly one in twelve men has some form of colour vision deficiency, and a filtered list looks identical to an unfiltered one to all of them.">
+    <Badge tone="success">Finance</Badge>
+    <Badge tone="neutral">Legal</Badge>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Visibility of system status">
+  A filter that is on and does not look on produces the worst bug report in this category: "the
+  search is broken", filed against a list that is filtering correctly.
+</Heuristic>
+
+### Show what a filter would leave
+
+A chip that filters to nothing is a dead end the reader walks into. Where the
+counts are cheap to compute, put them in the label; where they are not, make
+sure the empty result offers a way back out of the filter — `StateBlock` with a
+"clear filters" action, and **not** the same empty state a first-time reader
+sees. Those are two different screens and conflating them is the mistake this
+system calls out by name.
+
+## Accessibility
+
+- It is a `<button type="button">` with `aria-pressed`. Not a checkbox: a
+  checkbox belongs to a form and is submitted, and a filter is neither.
+- `label` is both the visible text and the accessible name — one string, so
+  they cannot differ, and the chip stays a voice-control target (WCAG 2.5.3).
+- The check mark is `aria-hidden`. `aria-pressed` already carries the state, and
+  announcing "tick Finance, pressed" says it twice.
+- `type="button"` is fixed, not defaulted. A filter next to a form must not
+  submit it.
+- The focus ring comes from `bh-focusable` and is never removed.
+
+## Props
+
+<Controls of={FilterChipStories.Default} />

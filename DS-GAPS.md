@@ -126,6 +126,91 @@ there is no known background to test against.
 
 ---
 
+## Found while building DocuManager
+
+Source: `Konstancja-Tanjga/Docu-Manager` — a document management prototype
+(dashboard, library, upload, versioning, audit trail) built against 2.0.0 with
+the rule that every control comes from the system. Six things had to be
+hand-rolled. Three of them were `Tabs`, `SegmentedControl` and `Avatar`, which
+3.2.0 and 4.0 have since added. The other three are below, and all three are
+now in the library — the entries are kept because the argument is the useful
+part, not the outcome.
+
+### 6. No multi-line text field — `Textarea`
+
+**Reached for:** `Input`, then `Composer`. Both refuse, and both are right to.
+`Input` is single-line by contract. `Composer` owns the Enter key — it submits —
+and its `notFor` list already said "ordinary multi-line form fields".
+
+**What got hand-rolled:** a `<textarea>` with a copy of `Input`'s label,
+description and error markup, and a copy of its `aria-describedby` wiring.
+
+**What it does worse:** nothing, on the day it was written. That is the point.
+It was a _correct_ 60-line copy of a field wrapper that already existed, which
+means the next product writes a fourth one and gets the describedby order
+wrong — error before description is not obvious, and nothing fails when it is
+backwards. The most ordinary control in any form had nowhere to go.
+
+**Closed by** `Textarea` in 4.2.0, sharing `.bh-field` with `Input`, `Select`
+and `Checkbox`. It deliberately has no `hideLabel`: a single-line field can
+borrow its name from context, a four-line box cannot.
+
+### 7. No chip — `FilterChip` and `RemovableChip`
+
+**Reached for:** `Badge`. It refuses — `notFor` says "anything clickable" — and
+that refusal is correct: a badge states what something _is_, and pressing a fact
+is meaningless.
+
+**What got hand-rolled:** two components, because one could not do it. A filter
+chip is a toggle reporting `aria-pressed`; a tag chip is a label with a remove
+button beside it whose name is not the chip's text.
+
+**What it does worse:**
+
+|                    | The system had | The hand-rolled version                                   |
+| ------------------ | -------------- | --------------------------------------------------------- |
+| Pressed state      | —              | tint only — a WCAG 1.4.1 failure until the mark was added |
+| Remove button name | —              | got this right; every other product surveyed ships `×`    |
+| Target size        | —              | glyph-sized, under the WCAG 2.5.8 minimum of 24px         |
+
+The remove-button name is the interesting one. The hand-rolled version was
+careful and got it right, so nothing was broken — but "careful" is not a
+guarantee, and a row of eight chips announced as eight identical "Remove"
+buttons is the default outcome of building this yourself.
+
+**Closed by** `FilterChip` and `RemovableChip` in 4.2.0, kept as two components
+rather than one with a `removable` prop. The difference between them is where
+the accessible name comes from, and a prop hiding that difference hides it in
+the accessibility tree.
+
+### 8. No file input of any kind — `FileDropzone`
+
+**Reached for:** nothing. There was no file control in the system at all.
+
+**What got hand-rolled:** a real `<input type="file">` with a `Button` calling
+`input.click()`, plus drag handlers on the wrapper — the careful version of a
+pattern that is usually a `<div onDrop>`.
+
+**What it does worse:**
+
+|                     | `<input type="file">` alone | The usual `<div onDrop>` | The hand-rolled version               |
+| ------------------- | --------------------------- | ------------------------ | ------------------------------------- |
+| In the tab order    | yes                         | **no**                   | yes                                   |
+| Has a role and name | yes                         | **no**                   | yes                                   |
+| Keyboard-operable   | yes                         | **no**                   | yes                                   |
+| Tab stops           | one                         | zero                     | **two** — a hidden input and a button |
+| Drop handling       | native                      | hand-written             | hand-written                          |
+
+This is the gap with the most rope in it, and the hand-rolled version avoided
+almost all of it. What it could not avoid was the shape: a visually hidden input
+_plus_ a trigger button is two tab stops for one control, one of them invisible.
+
+**Closed by** `FileDropzone` in 4.2.0, which stretches the real input across the
+surface at zero opacity — the technique `SegmentedControl` already used for its
+radios. One tab stop, native picker on Enter, and dropped files handled by the
+input itself: every drag handler can be deleted and the component still works,
+which is the test rule 9 asks for.
+
 ## Standing gaps, not yet argued for
 
 Named so an agent stops looking rather than quietly widening something adjacent.
@@ -147,6 +232,9 @@ None of these has been reached for in a real build yet, so none has an argument:
 | No responsive table               | `Table` `responsive` — 3.2.0                                                 |
 | No term/value list                | `DescriptionList` — 3.2.0                                                    |
 | No paging control                 | `Pagination` — 3.2.0                                                         |
+| No multi-line text field          | `Textarea` — 4.2.0                                                           |
+| No chip, filter or removable      | `FilterChip` + `RemovableChip` — 4.2.0                                       |
+| No file input of any kind         | `FileDropzone` — 4.2.0                                                       |
 | Shell panels vanished below 900px | `AppShell` `onNavToggle` — 3.2.0                                             |
 | No breakpoint tokens              | `breakpoint` + `breakpoints.test.ts` — 3.2.0                                 |
 | Type sizes not tokenised          | `--bh-text-size-*` — 3.2.0, partially: 35 stylesheets still hard-code theirs |

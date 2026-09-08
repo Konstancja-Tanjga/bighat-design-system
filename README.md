@@ -5,7 +5,7 @@
 A design system built to answer the question interviews actually ask: not
 "can you make a button", but *what did you decide, and what did it cost*.
 
-Forty-one components. Two token layers, one of which is an API. Eight classes
+Forty-five components. Two token layers, one of which is an API. Eight classes
 of value that cannot be written as a literal anywhere in the library. WCAG AA
 enforced by a failing build rather than a review comment.
 
@@ -33,8 +33,8 @@ import { Button, StateBlock, ToastProvider } from '@bighat/ui';
 | path | what |
 | --- | --- |
 | `tokens/*.tokens.json` | the DTCG 2025.10 source. Everything else is generated from it |
-| `src/components/` | 41 components, one directory each |
-| `src/styles/` | 45 stylesheets. `bh-*` classes, container queries, tokens only |
+| `src/components/` | 45 components, one directory each |
+| `src/styles/` | 49 stylesheets. `bh-*` classes, container queries, tokens only |
 | `spec/components/` | one machine-readable contract per component |
 | `agent/` | rules a coding agent can follow instead of inventing its own |
 | `agent/REQUESTS.md` | the questions that are not a handoff: spacing, "the system cannot do this", whether something should become a component |

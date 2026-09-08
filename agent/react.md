@@ -79,7 +79,7 @@ component. For anything else, see rule 1.
 import type { ButtonVariant, Tone } from '@bighat/ui';
 ```
 
-All 41 components export theirs. A local copy of a union is a copy that will be
+All 45 components export theirs. A local copy of a union is a copy that will be
 right until the system adds a value.
 
 ## Forms

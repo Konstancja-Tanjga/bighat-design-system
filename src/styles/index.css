@@ -17,12 +17,14 @@
 @import './components/Button.css';
 @import './components/Card.css';
 @import './components/Checkbox.css';
+@import './components/Chip.css';
 @import './components/Combobox.css';
 @import './components/Composer.css';
 @import './components/DatePicker.css';
 @import './components/DescriptionList.css';
 @import './components/Dialog.css';
 @import './components/Divider.css';
+@import './components/FileDropzone.css';
 @import './components/IconPicker.css';
 @import './components/Input.css';
 @import './components/List.css';
@@ -44,6 +46,7 @@
 @import './components/Switch.css';
 @import './components/Table.css';
 @import './components/Tabs.css';
+@import './components/Textarea.css';
 @import './components/Toast.css';
 @import './components/Toolbar.css';
 @import './components/Tooltip.css';

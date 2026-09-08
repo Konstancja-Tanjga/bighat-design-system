@@ -84,6 +84,9 @@ export type { CheckboxProps } from './components/Checkbox/Checkbox';
 export { Combobox } from './components/Combobox/Combobox';
 export type { ComboboxOption, ComboboxProps } from './components/Combobox/Combobox';
 
+export { FilterChip } from './components/FilterChip/FilterChip';
+export type { FilterChipProps } from './components/FilterChip/FilterChip';
+
 export { DatePicker, DateRangePicker } from './components/DatePicker/DatePicker';
 export type { DatePickerProps, DateRangePickerProps } from './components/DatePicker/DatePicker';
 
@@ -95,6 +98,9 @@ export type {
 
 export { Divider } from './components/Divider/Divider';
 export type { DividerProps } from './components/Divider/Divider';
+
+export { FileDropzone } from './components/FileDropzone/FileDropzone';
+export type { FileDropzoneProps } from './components/FileDropzone/FileDropzone';
 
 export { IconPicker } from './components/IconPicker/IconPicker';
 export type { IconOption, IconPickerProps } from './components/IconPicker/IconPicker';
@@ -120,6 +126,9 @@ export type { RadioGroupProps, RadioOption } from './components/RadioGroup/Radio
 export { ScrollArea } from './components/ScrollArea/ScrollArea';
 export type { ScrollAreaProps } from './components/ScrollArea/ScrollArea';
 
+export { RemovableChip } from './components/RemovableChip/RemovableChip';
+export type { RemovableChipProps } from './components/RemovableChip/RemovableChip';
+
 export { SegmentedControl } from './components/SegmentedControl/SegmentedControl';
 export type {
   SegmentedControlProps,
@@ -138,6 +147,9 @@ export type { SwitchProps } from './components/Switch/Switch';
 export { Tab, TabList, TabPanel, Tabs } from './components/Tabs/Tabs';
 export type { TabListProps, TabPanelProps, TabProps, TabsProps } from './components/Tabs/Tabs';
 
+export { Textarea } from './components/Textarea/Textarea';
+export type { TextareaProps } from './components/Textarea/Textarea';
+
 export { Toolbar } from './components/Toolbar/Toolbar';
 export type { ToolbarProps } from './components/Toolbar/Toolbar';
 
@@ -146,4 +158,3 @@ export type { TooltipProps } from './components/Tooltip/Tooltip';
 
 export { UserProfile } from './components/UserProfile/UserProfile';
 export type { UserProfileProps } from './components/UserProfile/UserProfile';
-

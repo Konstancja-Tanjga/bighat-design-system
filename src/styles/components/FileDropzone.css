@@ -1,0 +1,83 @@
+/*
+ * The input is the surface. It sits at zero opacity across the whole zone, so
+ * a click anywhere opens the platform picker and a drop anywhere lands on a
+ * real file input — no synthetic click, no `role="button"`, and the drop
+ * behaviour survives with every JavaScript handler removed.
+ */
+.bh-dropzone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--bh-control-lg) * 2);
+  padding: var(--bh-padding-section);
+  box-sizing: border-box;
+  background: var(--bh-surface-sunken);
+  /* Dashed, because a solid rectangle reads as a filled field rather than a
+     place to put something. */
+  border: 1px dashed var(--bh-border-strong);
+  border-radius: var(--bh-radius-surface);
+  text-align: center;
+  transition:
+    background var(--bh-duration-fast) var(--bh-easing-standard),
+    border-color var(--bh-duration-fast) var(--bh-easing-standard);
+}
+
+.bh-dropzone__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.bh-dropzone__prompt {
+  color: var(--bh-text-secondary);
+  font-family: var(--bh-font-family-sans);
+  font-size: var(--bh-text-size-caption);
+  line-height: var(--bh-text-leading-normal);
+  /* The input is on top and owns the pointer; the prompt must not intercept it. */
+  pointer-events: none;
+}
+
+/*
+ * Focus is drawn on the surface because the input that has it is invisible.
+ * This adds a ring, it does not replace one — the input's own outline is
+ * unstyled and simply has nothing to draw on at zero opacity.
+ */
+.bh-dropzone:has(.bh-dropzone__input:focus-visible) {
+  outline: 2px solid var(--bh-border-focus);
+  outline-offset: 2px;
+}
+
+/*
+ * A file held over the surface is a destination, which is what `selection`
+ * names. It is feedback for a pointer gesture only, so it carries no
+ * information a keyboard user is missing.
+ */
+.bh-dropzone--over {
+  background: var(--bh-selection-bg);
+  border-color: var(--bh-selection-mark);
+  border-style: solid;
+}
+
+.bh-dropzone--over .bh-dropzone__prompt {
+  color: var(--bh-selection-fg);
+}
+
+/* Border weight and the message below carry the invalid state together. */
+.bh-dropzone--invalid {
+  border-color: var(--bh-status-critical-fg);
+  border-width: 2px;
+  padding: calc(var(--bh-padding-section) - 1px);
+}
+
+.bh-dropzone--disabled {
+  opacity: 0.6;
+}
+
+.bh-dropzone--disabled .bh-dropzone__input {
+  cursor: not-allowed;
+}

@@ -1,0 +1,96 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { FilterChip } from '../FilterChip/FilterChip';
+import { RemovableChip } from './RemovableChip';
+import * as RemovableChipStories from './RemovableChip.stories';
+
+<Meta of={RemovableChipStories} />
+
+# RemovableChip
+
+A value the reader has already chosen, with a way to take it back: a tag on a
+document, a recipient on a message, one term in an applied search.
+
+<Canvas of={RemovableChipStories.ASetOfTags} />
+
+## When to use it
+
+| Use `RemovableChip` for                         | Use something else for                                        |
+| ----------------------------------------------- | ------------------------------------------------------------- |
+| A chosen value the reader can take back         | A filter that toggles on and off — that is `FilterChip`       |
+| Tags, recipients, applied search terms          | A fact about the row — that is `Badge`                        |
+| Anything where removal is one click, not a form | A list needing reorder or bulk selection — that is `ListView` |
+
+### Why it is a separate component from `FilterChip`
+
+Because a `removable` prop on one component would have to lie about one of
+them. A filter chip is a single control that is on or off. This is a label with
+a button beside it, and the button's accessible name is not the chip's text —
+it is "Remove tag Finance", which is a different string with a different job.
+
+One component covering both would put that difference somewhere, and the only
+place left is the accessibility tree, where nobody looks. Two components is the
+system's rule 7 applied honestly: prefer a new component over a new prop when
+the prop would change what the thing _is_.
+
+## Do and don't
+
+### Name the button after what it removes
+
+<Guidance>
+  <Do reason='"Remove tag Finance" is a complete instruction on its own. A reader navigating by buttons hears the name and knows which chip it belongs to, without moving back into the chip to find out.'>
+    <RemovableChip label="Finance" removeLabel="Remove tag Finance" onRemove={() => {}} />
+    <RemovableChip label="Legal" removeLabel="Remove tag Legal" onRemove={() => {}} />
+  </Do>
+  <Dont reason="A glyph is not a name. Eight chips become eight buttons announced identically, and the reader has to leave each one to work out what it does. This is the single most common failure in this component across every product that builds it.">
+    <RemovableChip label="Finance" removeLabel="×" onRemove={() => {}} />
+    <RemovableChip label="Legal" removeLabel="×" onRemove={() => {}} />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  The name has to carry the context. Making the reader remember which chip they were on, while
+  navigating a list of identical buttons, is the recall this heuristic exists to prevent.
+</Heuristic>
+
+The default is `Remove {label}`, which is right when the label names itself. It
+is wrong when the label is a bare noun: "Remove Finance" reads like removing the
+department. Pass `removeLabel` and say what kind of thing it is.
+
+### Do not make the chip itself pressable
+
+<Guidance>
+  <Do reason="One control per chip. The label is text, the button removes. A reader tabs once per chip and reaches the only thing that acts.">
+    <RemovableChip label="Finance" removeLabel="Remove tag Finance" onRemove={() => {}} />
+  </Do>
+  <Dont reason="A pressable chip containing a pressable button has no keyboard story anyone can follow: two tab stops that look like one control, and a click near the edge that does something different from a click in the middle. If pressing the chip is meant to filter, that is FilterChip and it does not carry a remove button.">
+    <FilterChip label="Finance" pressed={false} />
+  </Dont>
+</Guidance>
+
+### Say something when the last one goes
+
+Removing the final chip leaves an empty row. Put something in it — a
+`StateBlock`, or a line of text. An empty container is indistinguishable from a
+broken one, and the reader who just removed a chip is the reader most likely to
+think they broke it.
+
+## Accessibility
+
+- The chip is a `<span>`; only the remove button is interactive. One tab stop
+  per chip.
+- The remove button's name comes from `removeLabel`, defaulting to
+  `Remove {label}`. The `×` glyph inside it is `aria-hidden`, so the name is
+  never "times" or "multiplication sign".
+- The button is 24 × 24 CSS pixels, the WCAG 2.5.8 minimum target. Sizing it to
+  the glyph is the mistake, and it is worst on the device where the chip is most
+  likely to be tapped by accident.
+- Removal is immediate and not confirmed. That is deliberate for a tag, where
+  re-adding is cheap — if it is not cheap in your product, confirm it in the
+  form around the chip rather than inside it.
+- The focus ring comes from `bh-focusable` and is never removed.
+
+## Props
+
+<Controls of={RemovableChipStories.Default} />
