@@ -23,7 +23,14 @@
 
 /* ---- FilterChip ---- */
 
+/*
+ * The trailing padding matches the leading mark lane, so the label sits
+ * optically centred whether or not the mark is showing. Without it an unpressed
+ * chip reads as badly left-padded — the reserved lane looked like a mistake
+ * rather than the reason a row of chips does not reflow when one is pressed.
+ */
 .bh-chip--filter {
+  padding-right: calc(var(--bh-padding-block) + var(--bh-control-indicator) + var(--bh-gap-tight));
   cursor: pointer;
   transition:
     background var(--bh-duration-fast) var(--bh-easing-standard),
