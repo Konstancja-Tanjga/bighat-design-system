@@ -30,6 +30,21 @@
 .bh-checkbox__box {
   flex: none;
   /*
+   * Decorative, and it must not take the click.
+   *
+   * The input above is positioned over this box precisely so the platform's
+   * control receives the pointer — but `__box` comes later in the DOM and is
+   * itself positioned, so it painted on top and swallowed every click. The
+   * comment on `__input` claimed the opposite of what the stack actually did.
+   *
+   * It went unnoticed because a checkbox with a *visible* label is still
+   * clickable by its label. Where the label is visually hidden — the selection
+   * column of `Table` — there was no hit area at all, and the checkbox could
+   * only be operated by keyboard. `aria-hidden` decoration has no business
+   * receiving pointer events either way.
+   */
+  pointer-events: none;
+  /*
    * 16px including the border, not 18px plus it.
    *
    * There is no global box-sizing reset, so `width: 18px` plus a 1px border on
