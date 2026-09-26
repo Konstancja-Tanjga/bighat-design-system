@@ -24,7 +24,9 @@
 }
 
 .bh-menu__trigger:hover {
-  background: var(--bh-material-thick-bg);
+  background:
+    linear-gradient(var(--bh-fill-hover), var(--bh-fill-hover)), var(--bh-material-regular-bg);
+  box-shadow: var(--bh-material-rim), var(--bh-elevation-floating);
 }
 
 .bh-menu__caret {
