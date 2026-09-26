@@ -10,9 +10,13 @@
   gap: var(--bh-gap-snug);
   height: var(--bh-control-md);
   padding: 0 var(--bh-padding-inline);
-  border: 1px solid var(--bh-action-secondary-border);
-  border-radius: var(--bh-radius-control);
-  background: var(--bh-action-secondary-bg);
+  /* Styled as a secondary Button - a glass capsule - so a menu trigger beside
+     a button does not look like it came from another system. */
+  border: 1px solid transparent;
+  border-radius: var(--bh-radius-pill);
+  background: var(--bh-material-regular-bg);
+  backdrop-filter: blur(var(--bh-material-regular-blur)) saturate(var(--bh-material-saturation));
+  box-shadow: var(--bh-material-rim), var(--bh-elevation-control);
   color: var(--bh-action-secondary-fg);
   font: inherit;
   font-size: var(--bh-text-size-caption);
@@ -20,7 +24,7 @@
 }
 
 .bh-menu__trigger:hover {
-  background: var(--bh-action-secondary-bg-hover);
+  background: var(--bh-material-thick-bg);
 }
 
 .bh-menu__caret {
