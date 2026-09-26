@@ -95,7 +95,9 @@
     "text.primary",
     "text.secondary",
     "text.sizeHeading",
-    "text.sizeLabel"
+    "text.sizeLabel",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

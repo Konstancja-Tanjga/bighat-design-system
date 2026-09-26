@@ -107,7 +107,9 @@
     "fill.hover",
     "elevation.floating",
     "radius.pill",
-    "elevation.control"
+    "elevation.control",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

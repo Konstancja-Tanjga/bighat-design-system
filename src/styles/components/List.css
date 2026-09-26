@@ -35,6 +35,7 @@
 .bh-list__row--interactive {
   cursor: pointer;
   border-radius: var(--bh-radius-control);
+  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-list__row--interactive:hover {

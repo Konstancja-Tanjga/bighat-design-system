@@ -100,7 +100,8 @@
     "text.secondary",
     "text.sizeBody",
     "text.weightBody",
-    "text.weightEmphasis"
+    "text.weightEmphasis",
+    "easing.standard"
   ],
   "interactive": true
 }

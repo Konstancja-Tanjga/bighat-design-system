@@ -113,7 +113,9 @@
     "text.primary",
     "text.secondary",
     "text.sizeBody",
-    "text.weightHeading"
+    "text.weightHeading",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

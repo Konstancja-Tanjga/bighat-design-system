@@ -99,7 +99,9 @@
     "text.primary",
     "text.secondary",
     "text.sizeCaption",
-    "text.weightEmphasis"
+    "text.weightEmphasis",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

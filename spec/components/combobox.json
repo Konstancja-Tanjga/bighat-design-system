@@ -131,7 +131,9 @@
     "material.regular.blur",
     "material.saturation",
     "material.rim",
-    "fill.hover"
+    "fill.hover",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

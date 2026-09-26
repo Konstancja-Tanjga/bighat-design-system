@@ -77,7 +77,9 @@
     "text.muted",
     "text.primary",
     "text.sizeCaption",
-    "text.weightEmphasis"
+    "text.weightEmphasis",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": false
 }

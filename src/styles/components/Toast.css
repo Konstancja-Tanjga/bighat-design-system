@@ -81,6 +81,7 @@
   font-size: var(--bh-text-size-heading);
   line-height: 1;
   cursor: pointer;
+  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-toast__close:hover {

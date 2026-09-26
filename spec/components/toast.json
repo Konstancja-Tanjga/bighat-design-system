@@ -114,7 +114,9 @@
     "material.regular.blur",
     "material.saturation",
     "material.rim",
-    "elevation.floating"
+    "elevation.floating",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

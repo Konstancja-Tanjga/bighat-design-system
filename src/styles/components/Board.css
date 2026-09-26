@@ -89,6 +89,7 @@
   background: var(--bh-surface-raised);
   border: 1px solid var(--bh-border-subtle);
   border-radius: var(--bh-radius-control);
+  transition: border-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-board__card-inner:hover {

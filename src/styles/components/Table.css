@@ -46,6 +46,7 @@
   border-bottom: 1px solid var(--bh-border-subtle);
   text-align: left;
   vertical-align: middle;
+  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-table--compact {
@@ -120,6 +121,7 @@
   text-transform: inherit;
   letter-spacing: inherit;
   cursor: pointer;
+  transition: color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-table__sort:hover {

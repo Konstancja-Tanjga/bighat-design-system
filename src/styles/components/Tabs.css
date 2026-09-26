@@ -28,6 +28,9 @@
   font-size: var(--bh-text-size-caption);
   cursor: pointer;
   white-space: nowrap;
+  transition:
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-tabs__tab:hover:not(:disabled) {

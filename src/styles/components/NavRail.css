@@ -42,6 +42,9 @@
   color: var(--bh-text-secondary);
   font: inherit;
   cursor: pointer;
+  transition:
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-rail__item:hover {
