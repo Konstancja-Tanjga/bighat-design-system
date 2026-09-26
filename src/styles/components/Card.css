@@ -5,7 +5,11 @@
   position: relative;
   background: var(--bh-surface-raised);
   color: var(--bh-text-primary);
-  border: 1px solid var(--bh-border-subtle);
+  /* No visible border since 4.2: elevation draws the edge (a faint ring in
+     light, a top highlight in dark) and a flat card gets a hairline ring. The
+     border stays, transparent, because forced-colours mode drops box-shadow
+     and paints it - and it keeps the 4.1 box size. */
+  border: 1px solid transparent;
   border-radius: var(--bh-radius-surface);
   font-family: var(--bh-font-family);
   text-align: left;
@@ -18,6 +22,10 @@
   padding: var(--bh-padding-section);
 }
 
+.bh-card--flat {
+  box-shadow: 0 0 0 1px var(--bh-border-hairline);
+}
+
 .bh-card--raised {
   box-shadow: var(--bh-elevation-raised);
 }
@@ -25,38 +33,42 @@
 .bh-card--interactive {
   cursor: pointer;
   font: inherit;
-  transition: border-color var(--bh-duration-fast) var(--bh-easing-standard);
+  transition: box-shadow var(--bh-duration-normal) var(--bh-easing-standard);
 }
 
+/* Hover lifts rather than outlines: the card rises one step, which says
+   "this moves when you press it" without a colour the reader has to decode. */
 .bh-card--interactive:hover {
-  border-color: var(--bh-border-strong);
-  box-shadow: var(--bh-elevation-raised);
+  box-shadow: var(--bh-elevation-floating);
 }
 
 .bh-card--dragging {
-  opacity: 0.6;
+  opacity: 0.85;
   box-shadow: var(--bh-elevation-overlay);
 }
 
 /* Accent is a stripe rather than a whole-card tint: a tinted surface changes
-   the background every piece of text inside it was contrast-tested against. */
+   the background every piece of text inside it was contrast-tested against.
+   It is an inset shadow on a full-size layer so it follows the 20px corner; a
+   3px-wide box cannot, and stuck out past the curve. */
 .bh-card[class*='bh-card--accent-']::before {
   content: '';
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 3px;
-  border-radius: var(--bh-radius-surface) 0 0 var(--bh-radius-surface);
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: inset 3px 0 0 var(--bh-card-accent);
+  pointer-events: none;
 }
 
-.bh-card--accent-info::before {
-  background: var(--bh-status-info-fg);
+.bh-card--accent-info {
+  --bh-card-accent: var(--bh-status-info-fg);
 }
-.bh-card--accent-success::before {
-  background: var(--bh-status-success-fg);
+.bh-card--accent-success {
+  --bh-card-accent: var(--bh-status-success-fg);
 }
-.bh-card--accent-warning::before {
-  background: var(--bh-status-warning-fg);
+.bh-card--accent-warning {
+  --bh-card-accent: var(--bh-status-warning-fg);
 }
-.bh-card--accent-critical::before {
-  background: var(--bh-status-critical-fg);
+.bh-card--accent-critical {
+  --bh-card-accent: var(--bh-status-critical-fg);
 }

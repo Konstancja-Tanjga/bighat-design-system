@@ -1,0 +1,93 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { TokenTable } from '../src/docs/TokenTable';
+import { ElevationScale, MaterialScale } from '../src/docs/ElevationDemo';
+
+<Meta title="Foundations/Elevation & materials" />
+
+# Elevation & materials
+
+New in 4.2. Until 4.1 almost every surface was drawn by a 1px border, and
+elevation was three single-layer shadows (8, 12 and 18% opacity) that read as a
+smudge next to the border. The result read as flat: a card, a menu and a dialog
+were the same white rectangle with the same grey line around it, and the only
+thing telling them apart was where they sat.
+
+4.2 draws surfaces with **height** instead of lines.
+
+## The scale
+
+Five steps. Every step above `flat` is three layered shadows - an edge, a tight
+contact shadow and a wide ambient one - because a single layer reads either as a
+smudge or as a border, never as height.
+
+<ElevationScale />
+
+`elevation.raised` is the default for any surface. In the light theme its first
+layer is a 1px ring at 3.5% opacity: that ring is what replaced the border. It is there so a white
+card on a white page still has an edge, and faint enough that it reads as the
+card's shape rather than as a line.
+
+In the dark theme a shadow on a near-black page is invisible, so height is
+carried by light: `raised` and `floating` add a 1px highlight along the top
+edge. Switch the theme in the toolbar to see it.
+
+<TokenTable group="elevation" />
+
+## Materials
+
+Anything that floats **over** content is glass: a translucent fill, a backdrop
+blur, and a saturation boost that keeps the colour behind it from going grey.
+
+<MaterialScale />
+
+A material is three declarations and a shadow:
+
+```css
+.my-popover {
+  background: var(--bh-material-regular-bg);
+  backdrop-filter: blur(var(--bh-material-regular-blur)) saturate(var(--bh-material-saturation));
+  box-shadow: var(--bh-material-rim), var(--bh-elevation-overlay);
+  border: 0;
+}
+```
+
+`material.rim` is the lit inner edge of the glass and goes before the elevation
+in the shadow list. It replaces the border on every glass surface.
+
+- `thin` - a control laid over an image (Tooltip is still opaque in 4.2)
+- `regular` - Menu, Combobox listbox, Toast
+- `thick` - Dialog - the most text, so the most opaque (SidePanel next)
+- `chrome` - AppBar and sticky headers; it shows through only where content scrolls beneath
+
+**Only over content.** On an empty page glass has nothing to blur, and a
+translucent white over white is just a slightly grey rectangle. Cards in a grid
+stay solid `surface.raised` with `elevation.raised`.
+
+<TokenTable group="material" />
+
+## Supporting roles
+
+- `border.hairline` - the edge of something with no border: a row divider inside
+  a card, the line under the app bar. Fainter than `border.subtle`, and like it,
+  decorative only.
+- `fill.hover` - a hovered row on glass. `surface.sunken` is opaque and punches a
+  solid hole in the material.
+- `scrim.*` - behind a Dialog. 18% (32% in dark) instead of the old 55%, because the blur now
+  does the separating and the page underneath can stay recognisable.
+
+<TokenTable group="border" />
+<TokenTable group="fill" />
+<TokenTable group="scrim" />
+
+## What changed in the components
+
+- **Card** - border, flat by default → no border, `raised` by default, hover lifts to `floating`
+- **Dialog** - border, 55% scrim → `material.thick`, `radius.modal`, blurred 18% scrim (32% in dark)
+- **Menu, Combobox** - border, opaque → `material.regular`, `radius.overlay`
+- **Toast** - 6px corners, border, square tone stripe → `material.regular`, 20px corners, `floating`, tone stripe follows the corner
+- **AppBar** - `surface.base`, no border → `material.chrome` with a hairline
+
+`radius.surface` also grew from 10px to 20px: with no border to draw it, the
+corner is what gives a surface its shape. Every component on `radius.surface`
+picks this up.

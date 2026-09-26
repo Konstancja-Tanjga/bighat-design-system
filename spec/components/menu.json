@@ -4,8 +4,8 @@
   "layer": "control",
   "purpose": "A list of actions behind a trigger. Focus moves in on open and back on close.",
   "notFor": [
-    "Navigation — those are links",
-    "Choosing a value — that is Select"
+    "Navigation \u2014 those are links",
+    "Choosing a value \u2014 that is Select"
   ],
   "composition": "composite",
   "anatomy": [
@@ -89,7 +89,6 @@
     "action.secondary.border",
     "action.secondary.fg",
     "border.focus",
-    "border.subtle",
     "control.md",
     "elevation.overlay",
     "font.family",
@@ -99,13 +98,16 @@
     "layer.sticky",
     "padding.inline",
     "radius.control",
-    "radius.surface",
     "status.critical.fg",
-    "surface.overlay",
-    "surface.sunken",
     "text.muted",
     "text.primary",
-    "text.sizeCaption"
+    "text.sizeCaption",
+    "radius.overlay",
+    "material.regular.bg",
+    "material.regular.blur",
+    "material.saturation",
+    "material.rim",
+    "fill.hover"
   ],
   "interactive": true
 }
