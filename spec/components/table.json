@@ -176,7 +176,9 @@
     "text.sizeCaption",
     "text.sizeDense",
     "text.sizeLabel",
-    "text.weightHeading"
+    "text.weightHeading",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true,
   "$columnProps": {

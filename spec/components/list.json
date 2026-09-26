@@ -103,7 +103,9 @@
     "text.primary",
     "text.secondary",
     "text.sizeBody",
-    "text.sizeCaption"
+    "text.sizeCaption",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

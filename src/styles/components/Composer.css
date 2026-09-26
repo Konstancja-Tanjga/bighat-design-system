@@ -59,6 +59,7 @@
   font-size: var(--bh-text-size-caption);
   font-weight: var(--bh-text-weight-emphasis);
   cursor: pointer;
+  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-composer__submit:hover:not(:disabled) {
@@ -89,6 +90,7 @@
   color: var(--bh-text-secondary);
   font-size: var(--bh-text-size-body);
   cursor: pointer;
+  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-composer__mode:hover {

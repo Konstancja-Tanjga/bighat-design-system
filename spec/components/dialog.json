@@ -127,7 +127,9 @@
     "material.saturation",
     "material.rim",
     "scrim.bg",
-    "scrim.blur"
+    "scrim.blur",
+    "duration.fast",
+    "easing.standard"
   ],
   "content": {
     "title": "A question or a noun phrase, sentence case, no trailing period. 'Delete this workspace?'",

@@ -148,7 +148,9 @@
     "text.sizeBody",
     "text.sizeCaption",
     "text.weightEmphasis",
-    "text.weightHeading"
+    "text.weightHeading",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

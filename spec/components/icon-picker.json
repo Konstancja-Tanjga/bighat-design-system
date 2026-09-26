@@ -106,7 +106,9 @@
     "surface.sunken",
     "text.primary",
     "text.secondary",
-    "text.sizeHeading"
+    "text.sizeHeading",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

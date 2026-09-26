@@ -68,6 +68,7 @@
   font-size: var(--bh-text-size-display);
   line-height: 1;
   cursor: pointer;
+  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-dialog__close:hover {

@@ -36,6 +36,7 @@
   text-align: left;
   cursor: pointer;
   min-height: 36px;
+  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-navitem:hover {
