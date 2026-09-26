@@ -4,7 +4,11 @@
   gap: var(--bh-gap-normal);
   height: 56px;
   padding: 0 var(--bh-padding-inline);
-  background: var(--bh-surface-base);
+  /* Chrome material: content that scrolls beneath shows through, blurred. The
+     hairline is a shadow so it adds no height to the bar. */
+  background: var(--bh-material-chrome-bg);
+  backdrop-filter: blur(var(--bh-material-chrome-blur)) saturate(var(--bh-material-saturation));
+  box-shadow: 0 1px 0 var(--bh-border-hairline);
   font-family: var(--bh-font-family);
 }
 

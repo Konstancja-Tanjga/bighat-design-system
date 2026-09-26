@@ -68,6 +68,7 @@ const preview: Preview = {
             'Iconography',
             'Layout & container queries',
             'Layering',
+            'Elevation & materials',
             'Motion',
             'Content & UX copy',
             'Accessibility',

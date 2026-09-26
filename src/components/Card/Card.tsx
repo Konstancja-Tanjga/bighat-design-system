@@ -17,6 +17,10 @@ export type CardProps = {
   /** Turns the card into a single button. `ariaLabel` becomes its name. */
   onClick?: () => void;
   ariaLabel?: string;
+  /**
+   * `raised` is the default since 4.2 - a card sits one step off the page and
+   * its shadow, not a border, draws its edge. `flat` keeps only a hairline.
+   */
   elevation?: 'flat' | 'raised';
   /** Left accent stripe. Decorative — never the only carrier of a status. */
   accent?: 'none' | 'info' | 'success' | 'warning' | 'critical';
@@ -29,7 +33,7 @@ export function Card({
   children,
   onClick,
   ariaLabel,
-  elevation = 'flat',
+  elevation = 'raised',
   accent = 'none',
   padding = 'normal',
   dragging = false,

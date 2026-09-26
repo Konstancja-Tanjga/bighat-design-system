@@ -37,10 +37,11 @@
   z-index: var(--bh-layer-sticky);
   min-width: 200px;
   padding: var(--bh-gap-tight);
-  border: 1px solid var(--bh-border-subtle);
-  border-radius: var(--bh-radius-surface);
-  background: var(--bh-surface-overlay);
-  box-shadow: var(--bh-elevation-overlay);
+  border-radius: var(--bh-radius-overlay);
+  border: 0;
+  background: var(--bh-material-regular-bg);
+  backdrop-filter: blur(var(--bh-material-regular-blur)) saturate(var(--bh-material-saturation));
+  box-shadow: var(--bh-material-rim), var(--bh-elevation-overlay);
   display: flex;
   flex-direction: column;
 }
@@ -78,7 +79,7 @@
    separate hover highlight would put two "current" items on screen. */
 .bh-menu__item:hover:not(:disabled),
 .bh-menu__item:focus {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
   outline: none;
 }
 

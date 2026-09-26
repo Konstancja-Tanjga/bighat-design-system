@@ -5,7 +5,9 @@
   position: relative;
   background: var(--bh-surface-raised);
   color: var(--bh-text-primary);
-  border: 1px solid var(--bh-border-subtle);
+  /* No border since 4.2: the ring inside elevation.raised draws the edge, and a
+     flat card gets the same ring on its own, so the two sit on the same grid. */
+  border: 0;
   border-radius: var(--bh-radius-surface);
   font-family: var(--bh-font-family);
   text-align: left;
@@ -18,6 +20,10 @@
   padding: var(--bh-padding-section);
 }
 
+.bh-card--flat {
+  box-shadow: 0 0 0 1px var(--bh-border-hairline);
+}
+
 .bh-card--raised {
   box-shadow: var(--bh-elevation-raised);
 }
@@ -25,16 +31,17 @@
 .bh-card--interactive {
   cursor: pointer;
   font: inherit;
-  transition: border-color var(--bh-duration-fast) var(--bh-easing-standard);
+  transition: box-shadow var(--bh-duration-normal) var(--bh-easing-standard);
 }
 
+/* Hover lifts rather than outlines: the card rises one step, which says
+   "this moves when you press it" without a colour the reader has to decode. */
 .bh-card--interactive:hover {
-  border-color: var(--bh-border-strong);
-  box-shadow: var(--bh-elevation-raised);
+  box-shadow: var(--bh-elevation-floating);
 }
 
 .bh-card--dragging {
-  opacity: 0.6;
+  opacity: 0.85;
   box-shadow: var(--bh-elevation-overlay);
 }
 

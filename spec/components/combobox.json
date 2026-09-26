@@ -4,8 +4,8 @@
   "layer": "control",
   "purpose": "A text field that filters a list. The one custom listbox in the system.",
   "notFor": [
-    "A short, fixed set — use Select",
-    "Free text — the value must come from the list"
+    "A short, fixed set \u2014 use Select",
+    "Free text \u2014 the value must come from the list"
   ],
   "composition": "composite",
   "anatomy": [
@@ -114,7 +114,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "elevation.overlay",
     "gap.hairline",
     "gap.snug",
@@ -122,14 +121,17 @@
     "layer.sticky",
     "padding.inline",
     "radius.control",
-    "radius.surface",
-    "surface.overlay",
-    "surface.sunken",
     "text.link",
     "text.muted",
     "text.primary",
     "text.sizeBody",
-    "text.sizeCaption"
+    "text.sizeCaption",
+    "radius.overlay",
+    "material.regular.bg",
+    "material.regular.blur",
+    "material.saturation",
+    "material.rim",
+    "fill.hover"
   ],
   "interactive": true
 }

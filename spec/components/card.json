@@ -4,7 +4,7 @@
   "layer": "frame",
   "purpose": "A bounded surface around content the user might act on as a unit.",
   "notFor": [
-    "A paragraph — that is a border with extra steps",
+    "A paragraph \u2014 that is a border with extra steps",
     "Cards with two actions inside"
   ],
   "composition": "composite",
@@ -34,7 +34,7 @@
         "flat",
         "raised"
       ],
-      "default": "flat"
+      "default": "raised"
     },
     "accent": {
       "kind": "enum",
@@ -46,7 +46,7 @@
         "critical"
       ],
       "default": "none",
-      "note": "Decorative — never the only carrier of a status."
+      "note": "Decorative \u2014 never the only carrier of a status."
     },
     "padding": {
       "kind": "enum",
@@ -74,9 +74,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.strong",
-    "border.subtle",
-    "duration.fast",
     "elevation.overlay",
     "elevation.raised",
     "font.family",
@@ -88,7 +85,11 @@
     "status.success.fg",
     "status.warning.fg",
     "surface.raised",
-    "text.primary"
+    "text.primary",
+    "border.hairline",
+    "duration.normal",
+    "easing.standard",
+    "elevation.floating"
   ],
   "interactive": true
 }
