@@ -1,5 +1,13 @@
 # @bighat/ui
 
+## 4.3.2
+
+### Patch Changes
+
+- 5e778ac: The hover on a secondary `Button` fades in instead of jumping. The tint is an
+  overlay whose opacity transitions, and the lifted shadow keeps the resting
+  layers so the browser can interpolate between the two.
+
 ## 4.3.1
 
 ### Patch Changes
