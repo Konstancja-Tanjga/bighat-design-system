@@ -84,9 +84,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "action.secondary.bg",
-    "action.secondary.bgHover",
-    "action.secondary.border",
     "action.secondary.fg",
     "border.focus",
     "control.md",
@@ -107,7 +104,10 @@
     "material.regular.blur",
     "material.saturation",
     "material.rim",
-    "fill.hover"
+    "fill.hover",
+    "radius.pill",
+    "material.thick.bg",
+    "elevation.control"
   ],
   "interactive": true
 }

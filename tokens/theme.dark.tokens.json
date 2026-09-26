@@ -166,6 +166,9 @@
     },
     "modal": {
       "$value": "{shadow.dark.modal}"
+    },
+    "control": {
+      "$value": "{shadow.dark.control}"
     }
   },
   "material": {
