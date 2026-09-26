@@ -13,41 +13,50 @@ The frame every application screen sits in. Owns the landmark structure — head
 
 ## When to use it
 
-| Use `AppShell` for | Use something else for |
-| --- | --- |
-| TODO | Documentation and marketing pages — use height="flow" or no shell at all |
+| Use `AppShell` for                                                                               | Use something else for                                                   |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| Every application screen — a list, a record, an editor — including one with no rail and no panel | Documentation and marketing pages — use height="flow" or no shell at all |
 
-
-TODO: one paragraph on why the boundary sits where it does. The `notFor`
-entries above came from the contract; the reason they are the boundary did not.
+The default, `fill`, fixes the shell to the viewport and makes `main` its own
+scroll container, so the header takes a strip of every screen and the window
+itself never scrolls. That is right where the reader works in one place and
+the navigation has to stay in reach while a long list moves. A document is read
+from top to bottom, and there the fixed strip is space lost from every
+screenful; `flow` hands scrolling back to the window. A page with no areas to
+move between may need no shell at all — but then its `<header>` and single
+`<main>` are yours to write, and so is the skip link's target.
 
 ## Anatomy
 
-| part | element | rendered | note |
-| --- | --- | --- | --- |
-| `bh-shell` | `<div>` | conditional |  |
-| `bh-shell__header` | `<header>` | always |  |
-| `bh-shell__rail` | `<div>` | always |  |
-| `bh-shell__sidebar` | `<div>` | always |  |
-| `bh-shell__main` | `<main>` | always |  |
-| `bh-shell__aside` | `<div>` | always |  |
-| `bh-shell__scrim` | `<button[type=button]>` | always |  |
-| `bh-skip-link` | `<a>` | always |  |
+| part                | element                  | rendered                           | note                                                                                                                                                     |
+| ------------------- | ------------------------ | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-shell`          | `<div>`                  | always                             | The grid. Carries `bh-shell--fill` or `bh-shell--flow`, and the `data-*` attributes the narrow-width styles read.                                        |
+| `bh-shell__header`  | `<header>`               | when `header` is passed            | The banner landmark. Put `SkipLink` first inside it.                                                                                                     |
+| `bh-shell__rail`    | `<div>`                  | when `rail` is passed              | A plain wrapper. The `nav` landmark comes from the `NavRail` inside it.                                                                                  |
+| `bh-shell__sidebar` | `<div>`                  | when `sidebar` is passed           | A plain wrapper. The landmark and its name come from the `SidePanel` inside it.                                                                          |
+| `bh-shell__main`    | `<main>`                 | always                             | `id="main-content"` and `tabIndex={-1}`, so the skip link has a target that can take focus.                                                              |
+| `bh-shell__aside`   | `<div>`                  | when `aside` is passed             | A plain wrapper, not an `<aside>` — pass a `SidePanel` with `side="end"` for the landmark.                                                               |
+| `bh-shell__scrim`   | `<button type="button">` | while a collapsible region is open | One per open region, labelled "Close navigation" or "Close panel". Pressing it calls `onNavToggle` or `onAsideToggle`. Shown only below `breakpoint.md`. |
+| `bh-skip-link`      | `<a>`                    | not by `AppShell`                  | Exported separately as `SkipLink`; links to `#main-content`. You place it.                                                                               |
 
 ## Props
 
-| prop | values | default | meaning |
-| --- | --- | --- | --- |
-| `header` | slot | — | Rendered as `<header>`. |
-| `rail` | slot | — | Narrow icon rail on the leading edge. |
-| `sidebar` | slot | — | Leading panel — navigation, a tree. |
-| `aside` | slot | — | Trailing panel — inspector, context. |
-| `children` | slot | — | Becomes the only `<main>`. |
-| `height` | `fill` · `flow` | `fill` | fill pins to the viewport and scrolls each region independently |
-| `navOpen` | boolean | `false` | Below breakpoint.md the rail and sidebar leave the grid; with onNavToggle they return as an overlay instead of simply vanishing. |
-| `onNavToggle` | event | — | Omit and the panels stay hidden below the breakpoint — honest, but the reader has no route back to them. |
-| `asideOpen` | boolean | `false` | TODO |
-| `onAsideToggle` | event | — | TODO |
+| prop            | values          | default | meaning                                                                                                                                      |
+| --------------- | --------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `header`        | slot            | —       | Rendered as `<header>`.                                                                                                                      |
+| `rail`          | slot            | —       | Narrow icon rail on the leading edge.                                                                                                        |
+| `sidebar`       | slot            | —       | Leading panel — navigation, a tree.                                                                                                          |
+| `aside`         | slot            | —       | Trailing panel — inspector, context.                                                                                                         |
+| `children`      | slot            | —       | Becomes the only `<main>`.                                                                                                                   |
+| `height`        | `fill` · `flow` | `fill`  | fill pins to the viewport and scrolls each region independently                                                                              |
+| `navOpen`       | boolean         | `false` | Below breakpoint.md the rail and sidebar leave the grid; with onNavToggle they return as an overlay instead of simply vanishing.             |
+| `onNavToggle`   | event           | —       | Omit and the panels stay hidden below the breakpoint — honest, but the reader has no route back to them.                                     |
+| `asideOpen`     | boolean         | `false` | Whether the trailing panel is showing as an overlay below `breakpoint.md`. Has no effect unless `aside` and `onAsideToggle` are both passed. |
+| `onAsideToggle` | event           | —       | Called when the scrim behind the open trailing panel is pressed. Omit and the panel stays hidden below the breakpoint.                       |
+
+The shell renders no control that opens a panel — only the scrim that closes
+one. The button that sets `navOpen` or `asideOpen` to `true` is yours, and the
+header is the usual place for it.
 
 <Controls />
 
@@ -55,26 +64,81 @@ entries above came from the contract; the reason they are the boundary did not.
 
 `default` · `focus-visible`
 
+`focus-visible` belongs to `SkipLink`: it sits above the top edge of the page
+until it receives keyboard focus, then moves into view.
+
 ## Keyboard
 
-| key | action |
-| --- | --- |
-| <kbd>Enter</kbd> | Follows the link. Native. |
+| key                                 | action                                                                                              |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------- |
+| <kbd>Enter</kbd>                    | On `SkipLink`: follows the link to `#main-content`. Native.                                         |
+| <kbd>Enter</kbd> / <kbd>Space</kbd> | On the scrim: closes the overlaid panel by calling `onNavToggle` or `onAsideToggle`. Native button. |
+
+There is no <kbd>Escape</kbd> handling in the shell. If a product wants
+
+<kbd>Escape</kbd> to close an overlaid panel, it listens for it and calls the same toggle.
 
 ## Accessibility
 
 - **Role** — banner (in a landmark context) (implicit, from `<header>`)
-- **Labelling** — TODO: is a label required, or merely supported?
-- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
-- **Announcements** — TODO: the live-region policy, not the role it produced.
-
+- **Labelling** — `AppShell` takes no label of its own. The header and `main`
+  need none, because there is only one of each. The rail and panel wrappers
+  are plain `<div>`s, so their landmarks and names come from what you pass in:
+  `NavRail` names its `nav` through `ariaLabel` (default "Primary"), and
+  `SidePanel` requires `ariaLabel`. The scrim labels are fixed text and
+  cannot be changed through props.
+- **Focus** — the shell manages no focus itself. `main` has `tabIndex={-1}`
+  so that it can receive focus from the skip link, and draws no ring when it
+  does, because it is not a control. Opening an
+  overlay does not send focus into the panel, closing it with the scrim does
+  not return focus to the control that opened it, and the content behind an
+  open overlay stays in the tab order. The scrim comes after the panels in the
+  source, so a keyboard reader reaches it after tabbing through the overlaid
+  panel. Anything more is done in the toggle handler.
+- **Announcements** — none. The shell has no live region, and opening or
+  closing a panel is not announced by the shell. If the control that opens a
+  panel should report its state, that is set on the control.
 
 ## Do and don't
 
+### Put the skip link first
+
 <Guidance>
-  <Do reason="TODO">TODO</Do>
-  <Dont reason="TODO">TODO</Dont>
+  <Do reason="As the first element in the header it is the first tab stop on the page, so a keyboard reader passes the brand, the header actions, the rail and the panel in one keypress.">
+    <code>{'header={<><SkipLink /><AppBar title="Invoices" /></>}'}</code>
+  </Do>
+  <Dont reason="Placed inside the content, it comes after every control in the header, rail and panel. By the time a keyboard reader reaches it there is nothing left to skip.">
+    <code>{'<AppShell header={…} rail={…}><SkipLink />…</AppShell>'}</code>
+  </Dont>
 </Guidance>
+
+### Give the navigation a way back on a narrow screen
+
+<Guidance>
+  <Do reason="Below the breakpoint the rail and panel return as an overlay when asked, and the scrim closes them again. A reader on a phone can reach every area the product has.">
+    <code>{'<AppShell rail={…} sidebar={…} navOpen={navOpen} onNavToggle={toggleNav}>'}</code>
+  </Do>
+  <Dont reason="With no toggle, the rail and panel are hidden below the breakpoint and nothing brings them back. The reader is left on whichever screen they landed on.">
+    <code>{'<AppShell rail={…} sidebar={…}>'}</code>
+  </Dont>
+</Guidance>
+
+### Name every panel
+
+<Guidance>
+  <Do reason="The slot wrappers are plain <div>s. A SidePanel inside supplies the complementary landmark and its name, so a screen-reader user hears two regions called 'Saved views' and 'Invoice INV-2291' and can jump to either.">
+    <code>{'sidebar={<SidePanel ariaLabel="Saved views">…</SidePanel>}'}</code>
+  </Do>
+  <Dont reason="A bare <div> in the slot is no landmark at all. The panel is on screen but missing from landmark navigation, and the reader has to tab through it to find out what is in it.">
+    <code>{'sidebar={<div className="saved-views">…</div>}'}</code>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Consistency and standards">
+  Screen-reader users move around a page by its landmarks, the same way on every site. A shell that
+  names its regions works with that habit; one built from unnamed boxes asks them to learn a new
+  page each time.
+</Heuristic>
 
 ## Tokens consumed
 

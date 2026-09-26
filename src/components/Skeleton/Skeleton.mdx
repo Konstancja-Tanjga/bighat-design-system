@@ -1,6 +1,8 @@
 import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { StateBlock } from '../StateBlock/StateBlock';
+import { Skeleton, SkeletonGroup } from './Skeleton';
 import * as SkeletonStories from './Skeleton.stories';
 
 <Meta of={SkeletonStories} />
@@ -13,29 +15,37 @@ A placeholder for content whose shape is already known.
 
 ## When to use it
 
-| Use `Skeleton` for | Use something else for |
-| --- | --- |
-| TODO | Waits with no known shape — use StateBlock state="loading" |
+| Use `Skeleton` for                                                                        | Use something else for                                           |
+| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| A list, table or grid whose layout you already know: ten table rows, six suggestion cards | Waits with no known shape — use StateBlock state="loading"       |
+| A page loading its own content, where the wait is short enough not to need a number       | A task with a measurable end, such as an upload — use `Progress` |
 
-
-TODO: one paragraph on why the boundary sits where it does. The `notFor`
-entries above came from the contract; the reason they are the boundary did not.
+A skeleton is a promise about layout. The reader's eye settles on the rows and
+cards it draws, and the wait feels shorter because nothing moves when the data
+arrives. That only holds when you know the shape in advance. If you draw eight
+rows and the search returns two, the page jumps when the result lands and the
+reader has to find their place again. If it returns none, the skeleton has shown
+a layout that was never going to appear. `StateBlock state="loading"` makes no
+promise about shape, so it cannot be wrong about one. That is why the boundary
+is whether you know the shape, not how long the wait is.
 
 ## Anatomy
 
-| part | element | rendered | note |
-| --- | --- | --- | --- |
-| `bh-skeleton` | `<span>` | conditional |  |
+| part                  | element                             | rendered | note                                                                                                                                                                                           |
+| --------------------- | ----------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-skeleton`         | `<span>`                            | always   | One per placeholder. Always `aria-hidden="true"`. Takes `bh-skeleton--{radius}`, and `bh-skeleton--animated` when `animated` is true. Displayed as a block, so it fills the width it is given. |
+| `SkeletonGroup`       | `<div>`                             | always   | `role="status"` and `aria-busy="true"`. Wraps a set of skeletons. Accepts a `className` for layout. Adds no styles of its own.                                                                 |
+| `SkeletonGroup` label | `<span class="bh-visually-hidden">` | always   | The `label` text. Hidden from view but not from screen readers, so it is the only part assistive technology reads.                                                                             |
 
 ## Props
 
-| prop | values | default | meaning |
-| --- | --- | --- | --- |
-| `width` | data | `100%` | TODO |
-| `height` | data | `16` | TODO |
-| `radius` | `control` · `surface` · `pill` | `control` | TODO |
-| `animated` | boolean | `true` | Shimmer is off under prefers-reduced-motion regardless. |
-| `label` | string | — | On SkeletonGroup. |
+| prop       | values                         | default   | meaning                                                                                                                                                                                                                      |
+| ---------- | ------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `width`    | data                           | `100%`    | Width of the placeholder, set as an inline style. A number is pixels; a string is any CSS length, such as `'60%'`. Match the content it stands in for.                                                                       |
+| `height`   | data                           | `16`      | Height of the placeholder, set the same way as `width`. The default of 16px is one line of text. Match the line height or box height of what will replace it.                                                                |
+| `radius`   | `control` · `surface` · `pill` | `control` | Which corner radius token to use. `control` for text and fields, `surface` for cards and panels, `pill` for badges, avatars and buttons. Choose the one the real content uses, so the corners do not change when it arrives. |
+| `animated` | boolean                        | `true`    | Shimmer is off under prefers-reduced-motion regardless. When on, a highlight sweeps across the placeholder every `duration.sweep` and repeats until the skeleton is removed.                                                 |
+| `label`    | string                         | —         | On SkeletonGroup. Required. What a screen reader user hears for the whole group, such as "Loading invoices". Name the content, not just the fact of loading.                                                                 |
 
 <Controls />
 
@@ -43,21 +53,64 @@ entries above came from the contract; the reason they are the boundary did not.
 
 `default`
 
+A skeleton has one state. It is not interactive, and it does not know when
+loading ends: you remove it and render the content in its place. The shimmer is
+not a state. It is controlled by `animated` and switched off entirely under
+`prefers-reduced-motion: reduce`, which leaves a flat placeholder with a subtle
+border.
 
 ## Accessibility
 
 - **Role** — status
-- **Labelling** — TODO: is a label required, or merely supported?
-- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
-- **Announcements** — TODO: the live-region policy, not the role it produced.
-
+- **Labelling** — `label` is required on `SkeletonGroup`, and the type will not compile without it. It is rendered as visually hidden text inside the group. Each `Skeleton` is `aria-hidden="true"` and has nothing to label, so a skeleton outside a group is silent to a screen reader.
+- **Focus** — Nothing here takes focus: no skeleton and no group is focusable. Do not add a `tabindex` to move focus to the group while it loads. The label reaches screen reader users through the status role, and moving focus to a placeholder takes them away from where they were only to land on something that will soon be removed. The component does not move focus when the content arrives either; that is up to the screen.
+- **Announcements** — Polite, and once per group rather than once per skeleton. `role="status"` is a polite live region, so it does not interrupt what the user is reading, and `aria-busy="true"` marks the region as still loading. Because every skeleton is hidden, a screen reader reads the group's label and not forty blank placeholders. Nothing is announced when loading finishes: the group is removed, and the content that replaces it is responsible for any announcement.
 
 ## Do and don't
 
+### Only when the shape is known
+
 <Guidance>
-  <Do reason="TODO">TODO</Do>
-  <Dont reason="TODO">TODO</Dont>
+  <Do reason="A search can return no results, two or two hundred, so the screen says it is searching and makes no claim about the layout. Nothing on the page jumps when the results arrive, because nothing was drawn for them in advance.">
+    <StateBlock scope="inline" state="loading" title="Searching invoices" />
+  </Do>
+  <Dont reason="Four rows promise four results. When the search returns one, the page jumps upwards as the result lands, and the reader has to find their place again in a layout they had already read.">
+    <SkeletonGroup label="Searching invoices">
+      <div style={{ display: 'grid', gap: 12, width: 280 }}>
+        <Skeleton height={16} />
+        <Skeleton height={16} />
+        <Skeleton height={16} />
+        <Skeleton height={16} />
+      </div>
+    </SkeletonGroup>
+  </Dont>
 </Guidance>
+
+### Announce the group, not the placeholder
+
+<Guidance>
+  <Do reason='The group gives the whole set one label. A screen reader user hears "Loading invoice summary" once, politely, and knows what is coming.'>
+    <SkeletonGroup label="Loading invoice summary">
+      <div style={{ display: 'grid', gap: 8, width: 280 }}>
+        <Skeleton width="45%" height={14} />
+        <Skeleton width="85%" height={12} />
+        <Skeleton width={72} height={18} radius="pill" />
+      </div>
+    </SkeletonGroup>
+  </Do>
+  <Dont reason="Every skeleton is hidden from assistive technology, so bare skeletons with no group announce nothing. A sighted user sees that something is loading. A screen reader user gets silence and cannot tell a slow page from an empty one.">
+    <div style={{ display: 'grid', gap: 8, width: 280 }}>
+      <Skeleton width="45%" height={14} />
+      <Skeleton width="85%" height={12} />
+      <Skeleton width={72} height={18} radius="pill" />
+    </div>
+  </Dont>
+</Guidance>
+
+<Heuristic name="Visibility of system status">
+  Every user should be told that the system is working, in the way they can perceive it. A skeleton
+  shows it to the eye; the group label is how it is told to everyone else.
+</Heuristic>
 
 ## Tokens consumed
 
