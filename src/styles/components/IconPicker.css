@@ -47,7 +47,10 @@
   font-size: var(--bh-text-size-heading);
   line-height: 1;
   cursor: pointer;
-  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
+  transition:
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    border-color var(--bh-duration-fast) var(--bh-easing-standard),
+    color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-icon-picker__tile:hover {

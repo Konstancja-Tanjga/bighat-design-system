@@ -35,7 +35,6 @@
   color: var(--bh-text-primary);
   font-size: var(--bh-text-size-caption);
   cursor: pointer;
-  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 /* Focus never leaves the input, so the active option is drawn here rather
