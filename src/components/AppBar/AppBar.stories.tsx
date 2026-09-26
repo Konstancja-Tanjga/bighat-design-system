@@ -45,6 +45,9 @@ export const WithSearch: Story = {
   args: {
     brand: <strong>Records</strong>,
     title: 'Contracts',
+    // hideLabel is the one case SKILL.md §6 leaves it for: a stacked label does
+    // not fit a 56px bar, and the placeholder repeats the label word for word,
+    // so a voice-control user can still say what they see.
     center: (
       <Input type="search" label="Search contracts" hideLabel placeholder="Search contracts" />
     ),

@@ -67,8 +67,9 @@ form never receives its value. If the text is one field among several, it is a `
 
 `default` · `hover` · `focus-visible` · `disabled`
 
-Hover changes the background of the submit button and of the mode labels. Focus draws one ring around
-the whole field rather than the textarea alone, and a ring around a mode when
+Hover changes the background of the submit button and of the mode labels. Focus draws a ring around
+the whole field, and the textarea and submit button also draw their own
+`bh-focusable` ring inside it, and a ring around a mode when
 its radio has keyboard focus. Disabled dims the submit button; it is also the
 state the button is in whenever the draft is empty.
 
@@ -97,8 +98,8 @@ arrow keys move the selection within it.
   mount nor returns it after sending. Enter keeps focus in the field, which is
   what a reader asking a follow-up needs. Sending with the submit button does
   not bring focus back to the field, and in an uncontrolled Composer the cleared
-  draft then disables the button that was just used, so a keyboard user is left
-  on a disabled control. Return focus to the field in `onSubmit` if the next
+  draft then disables the button that was just used, so focus is lost to the
+  page. Return focus to the field in `onSubmit` if the next
   step is another question.
 - **Announcements** — None. The Composer has no live region, and `busy` does
   not announce that a response is on its way. The reply belongs to the

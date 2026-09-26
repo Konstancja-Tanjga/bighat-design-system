@@ -85,10 +85,10 @@ the controls placed in its slots, and each of those carries its own.
 
 <Guidance>
   <Do reason="The heading says where the reader is. After a redirect, a glance at the bar answers 'which screen did that link open?', and a screen-reader user who jumps to the first heading hears the same answer.">
-    <AppBar brand={<strong>Billing</strong>} title="Overdue invoices" />
+    <AppBar brand={<strong>Billing</strong>} title="Overdue invoices" titleAsHeading={false} />
   </Do>
   <Dont reason="The product name twice spends the one strip the reader checks for their location on something they already know. Every screen's `<h1>` now reads the same, so heading navigation cannot tell them apart.">
-    <AppBar brand={<strong>Billing</strong>} title="Billing" />
+    <AppBar brand={<strong>Billing</strong>} title="Billing" titleAsHeading={false} />
   </Dont>
 </Guidance>
 
@@ -101,6 +101,7 @@ the controls placed in its slots, and each of those carries its own.
 <Guidance>
   <Do reason="The row reads from the leading edge and ends at the filled button, so the reader has seen the alternatives before reaching the action the screen is for. Keyboard order matches, because the slots render in source order.">
     <AppBar
+      titleAsHeading={false}
       title="Invoices"
       actions={
         <>
@@ -112,6 +113,7 @@ the controls placed in its slots, and each of those carries its own.
   </Do>
   <Dont reason="With the primary action first, the loudest control interrupts the row before the reader knows what else is on offer, and every other screen that follows the rule now puts it in a different place.">
     <AppBar
+      titleAsHeading={false}
       title="Invoices"
       actions={
         <>

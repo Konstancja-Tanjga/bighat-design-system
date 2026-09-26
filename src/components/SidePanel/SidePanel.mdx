@@ -120,7 +120,7 @@ no interactive states.
 <Guidance>
   <Do reason="`header` does not scroll. The 'New folder' button is in the same place with four folders or four hundred.">
     <SidePanel
-      ariaLabel="Folders"
+      ariaLabel="Shared folders"
       header={
         <Button size="sm" fullWidth>
           New folder
@@ -134,7 +134,7 @@ no interactive states.
     </SidePanel>
   </Do>
   <Dont reason="In `children` the button scrolls with the list. Once there are more folders than fit, the reader has to scroll to the bottom every time they want to add one, and a keyboard user tabs past every folder to reach it.">
-    <SidePanel ariaLabel="Folders">
+    <SidePanel ariaLabel="Archived folders">
       <NavGroup label="Shared with me">
         <NavItem item={{ id: 'contracts', label: 'Contracts' }} />
         <NavItem item={{ id: 'invoices', label: 'Invoices 2026' }} />

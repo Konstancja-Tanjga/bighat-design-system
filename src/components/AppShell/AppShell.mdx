@@ -18,8 +18,9 @@ The frame every application screen sits in. Owns the landmark structure — head
 | Every application screen — a list, a record, an editor — including one with no rail and no panel | Documentation and marketing pages — use height="flow" or no shell at all |
 
 The default, `fill`, fixes the shell to the viewport and makes `main` its own
-scroll container, so the header takes a strip of every screen and the window
-itself never scrolls. That is right where the reader works in one place and
+scroll container, so the header takes a strip of every screen and, above
+`breakpoint.md`, the window itself never scrolls. Below it the page scrolls as
+a whole. That is right where the reader works in one place and
 the navigation has to stay in reach while a long list moves. A document is read
 from top to bottom, and there the fixed strip is space lost from every
 screenful; `flow` hands scrolling back to the window. A page with no areas to
@@ -92,9 +93,9 @@ There is no <kbd>Escape</kbd> handling in the shell. If a product wants
   does, because it is not a control. Opening an
   overlay does not send focus into the panel, closing it with the scrim does
   not return focus to the control that opened it, and the content behind an
-  open overlay stays in the tab order. The scrim comes after the panels in the
-  source, so a keyboard reader reaches it after tabbing through the overlaid
-  panel. Anything more is done in the toggle handler.
+  open overlay stays in the tab order. The scrim comes last in the source, so a
+  keyboard reader reaches it only after the panel, the whole of `main` and any
+  trailing panel. Anything more is done in the toggle handler.
 - **Announcements** — none. The shell has no live region, and opening or
   closing a panel is not announced by the shell. If the control that opens a
   panel should report its state, that is set on the control.
@@ -126,7 +127,7 @@ There is no <kbd>Escape</kbd> handling in the shell. If a product wants
 ### Name every panel
 
 <Guidance>
-  <Do reason="The slot wrappers are plain <div>s. A SidePanel inside supplies the complementary landmark and its name, so a screen-reader user hears two regions called 'Saved views' and 'Invoice INV-2291' and can jump to either.">
+  <Do reason="The slot wrappers are plain <div>s. A SidePanel inside supplies the complementary landmark and its name, so a screen-reader user hears a region called 'Saved views' and can jump straight to it.">
     <code>{'sidebar={<SidePanel ariaLabel="Saved views">…</SidePanel>}'}</code>
   </Do>
   <Dont reason="A bare <div> in the slot is no landmark at all. The panel is on screen but missing from landmark navigation, and the reader has to tab through it to find out what is in it.">

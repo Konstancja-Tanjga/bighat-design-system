@@ -37,7 +37,7 @@ of the board is always off screen.
 | ------------------------ | ----------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | `bh-board`               | `<section>`             | always      | Named by `ariaLabel`, which makes it a region landmark. Also holds the visually hidden `role="status"` live region, after the columns. |
 | `bh-board__columns`      | `<div>`                 | always      | Flex row. Scrolls horizontally inside itself rather than making the page scroll sideways.                                              |
-| `bh-board__column`       | `<div>`                 | conditional | One per `BoardColumn`. Gains `bh-board__column--over` when `count` exceeds `limit`.                                                    |
+| `bh-board__column`       | `<div>`                 | always      | One per `BoardColumn`. Gains `bh-board__column--over` when `count` exceeds `limit`.                                                    |
 | `bh-board__column-head`  | `<div>`                 | always      | Holds the heading and the `action` slot.                                                                                               |
 | `bh-board__column-title` | `<h3>`                  | always      | The heading level is fixed at 3. When over the limit it also contains a visually hidden "over the limit of N".                         |
 | `bh-board__count`        | `<span>`                | always      | Shows `count`. The " / limit" suffix is `aria-hidden`.                                                                                 |
@@ -60,7 +60,7 @@ of the board is always off screen.
 | `BoardColumn.limit`     | number | —       | WIP limit — surfaced, never enforced.                                                                                                          |
 | `BoardColumn.empty`     | slot   | —       | Use a StateBlock with copy specific to the column.                                                                                             |
 | `BoardCard.moveTargets` | data   | —       | The columns this card can move to, as `{ id, label }`. Each becomes an option in the card's "Move to…" select; `id` is what `onMove` receives. |
-| `BoardCard.onMove`      | event  | —       | Required for a pointer-free move — WCAG 2.5.1.                                                                                                 |
+| `BoardCard.onMove`      | event  | —       | Required for a pointer-free move — WCAG 2.5.7.                                                                                                 |
 
 `BoardColumn` also takes `action` (a column-level control beside the heading)
 and `children`; `BoardCard` takes `title` (required), `onOpen` and `children`.
@@ -77,10 +77,10 @@ and `limit` on every render.
 
 ## Keyboard
 
-| key                   | action                         |
-| --------------------- | ------------------------------ |
-| <kbd>Arrow keys</kbd> | Moves between options. Native. |
-| <kbd>Enter</kbd>      | Commits. Native.               |
+| key                   | action                                                                                                    |
+| --------------------- | --------------------------------------------------------------------------------------------------------- |
+| <kbd>Arrow keys</kbd> | Moves between options. On Windows, on a closed select, this also commits: the first press moves the card. |
+| <kbd>Enter</kbd>      | Commits. Native.                                                                                          |
 
 Both rows describe the card's move `<select>`, which is a native control, so
 exactly how it opens and commits follows the browser and platform. Board adds
@@ -96,7 +96,7 @@ drag and drop in the component.
   region landmark; each column is an `<h3>` followed by a `<ul>`.
 - **Labelling** — required, not merely supported. `Board.ariaLabel` and
   `BoardCard.title` are both required props. `title` is used for the move
-  select's label, "Move “Invoice INV-2041” to", which is what a voice-control
+  select's label, "Move “Invoice INV-2047” to", which is what a voice-control
   user says and what a screen reader reads out of context. It does not name the
   card's open button; that button is named by its children.
 - **Focus** — Board does not manage focus. The move select is the focus target
@@ -106,7 +106,7 @@ drag and drop in the component.
   announcement is what tells the user where the card went.
 - **Announcements** — the board owns the region, the product writes the
   sentence. Board reads out whatever string is in `announcement` and generates
-  nothing itself. Name the card and its destination ("Invoice INV-2041 moved to
+  nothing itself. Name the card and its destination ("Invoice INV-2047 moved to
   In review."), because the card has already left the place the user was
   looking. The over-limit condition is not announced; it is stated in the
   column heading and in the warning paragraph, where a reader moving through
@@ -119,14 +119,14 @@ drag and drop in the component.
     <Board ariaLabel="Invoices by stage">
       <BoardColumn title="Awaiting approval" count={1}>
         <BoardCard
-          title="Invoice INV-2041"
+          title="Invoice INV-2047"
           moveTargets={[
             { id: 'approved', label: 'Approved' },
             { id: 'rejected', label: 'Rejected' },
           ]}
           onMove={() => {}}
         >
-          Invoice INV-2041 — €4,180.00
+          Invoice INV-2047 — €4,180.00
         </BoardCard>
       </BoardColumn>
     </Board>
@@ -134,7 +134,7 @@ drag and drop in the component.
   <Dont reason="Without `moveTargets` and `onMove` the card has no move control at all. If the product then adds its own drag handling, moving a card becomes a pointer-only gesture, and anyone on a keyboard cannot change a stage — a failure no automated check reports.">
     <Board ariaLabel="Invoices by stage">
       <BoardColumn title="Awaiting approval" count={1}>
-        <BoardCard title="Invoice INV-2041">Invoice INV-2041 — €4,180.00</BoardCard>
+        <BoardCard title="Invoice INV-2047">Invoice INV-2047 — €4,180.00</BoardCard>
       </BoardColumn>
     </Board>
   </Dont>
