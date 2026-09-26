@@ -1,5 +1,14 @@
 # @bighat/ui
 
+## 4.3.1
+
+### Patch Changes
+
+- c2c1281: A hovered secondary `Button` and `Menu` trigger now tint the glass with
+  `fill.hover` and lift to `elevation.floating`. The thicker material used before
+  was invisible on a white page, so hover showed no change at all. A pressed
+  critical primary button stays red instead of turning green.
+
 ## 4.3.0
 
 ### Minor Changes
