@@ -30,7 +30,8 @@
   white-space: nowrap;
   transition:
     background-color var(--bh-duration-fast) var(--bh-easing-standard),
-    color var(--bh-duration-fast) var(--bh-easing-standard);
+    color var(--bh-duration-fast) var(--bh-easing-standard),
+    border-bottom-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-tabs__tab:hover:not(:disabled) {

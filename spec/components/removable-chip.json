@@ -80,7 +80,9 @@
     "text.primary",
     "text.secondary",
     "textSize.body",
-    "textSize.caption"
+    "textSize.caption",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true,
   "implementations": {

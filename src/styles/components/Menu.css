@@ -26,8 +26,9 @@
   transition: box-shadow var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
-/* The same hover as a secondary Button: an overlay tint that fades, and a
-   lift that keeps the resting shadow layers so the list interpolates. */
+/* The same hover as a secondary Button: an overlay tint whose opacity fades
+   (a background-image cannot), and a lift that appends elevation-floating
+   after the resting shadow layers so box-shadow interpolates. */
 .bh-menu__trigger::before {
   content: '';
   position: absolute;
@@ -100,11 +101,12 @@
   font-size: var(--bh-text-size-caption);
   text-align: left;
   cursor: pointer;
-  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 /* Focus is the hover state here: the menu moves focus item to item, so a
-   separate hover highlight would put two "current" items on screen. */
+   separate hover highlight would put two "current" items on screen. No
+   transition for the same reason: arrowing would fade one item out while the
+   next fades in. */
 .bh-menu__item:hover:not(:disabled),
 .bh-menu__item:focus {
   background: var(--bh-fill-hover);

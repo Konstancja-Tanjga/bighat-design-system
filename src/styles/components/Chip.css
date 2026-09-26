@@ -105,6 +105,9 @@
   font-size: var(--bh-text-size-caption);
   line-height: var(--bh-text-leading-tight);
   cursor: pointer;
+  transition:
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-chip__remove:hover {
