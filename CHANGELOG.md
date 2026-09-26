@@ -1,5 +1,25 @@
 # @bighat/ui
 
+## 4.3.3
+
+### Patch Changes
+
+- 856717e: Hover fades in across the library instead of jumping. `Menu`'s trigger gets
+  the same hover as a secondary `Button`: an overlay tint whose opacity fades and
+  a lift that keeps the resting shadow layers. Every other hover and highlight
+  that changed colour instantly now transitions over `duration.fast` —
+  `Accordion`, `Board`, `Combobox`, `Composer`, `Dialog`, `IconPicker`, `List`,
+  `ListView`, `Menu` items, `NavList`, `NavRail`, `SidePanel`, `Table`, `Tabs`,
+  `Toast` and `UserProfile`. Reduced motion still turns all of it off.
+
+## 4.3.2
+
+### Patch Changes
+
+- 5e778ac: The hover on a secondary `Button` fades in instead of jumping. The tint is an
+  overlay whose opacity transitions, and the lifted shadow keeps the resting
+  layers so the browser can interpolate between the two.
+
 ## 4.3.1
 
 ### Patch Changes
