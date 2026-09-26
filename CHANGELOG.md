@@ -1,5 +1,115 @@
 # @bighat/ui
 
+## 4.2.0
+
+### Minor Changes
+
+- 293a340: **Elevation and glass: surfaces are drawn with height, not lines.**
+
+  Until 4.1 almost every surface was a white rectangle with a 1px grey border,
+  and elevation was three single-layer shadows that read as a smudge beside it. 4.2 replaces
+  the border with a real elevation scale and adds translucent materials for
+  anything that floats over content. See _Foundations / Elevation & materials_.
+
+  **New tokens**
+
+  - `elevation.flat` and `elevation.floating`, joining a rewritten `raised`,
+    `overlay` and `modal`. Every step above `flat` is three layered shadows; in the dark
+    theme `raised` and `floating` add a top-edge highlight, because a shadow on a
+    near-black page is invisible.
+  - `material.{thin,regular,thick,chrome}.{bg,blur}`, `material.saturation` and
+    `material.rim` - a translucent fill, a backdrop blur, and the lit inner edge
+    that replaces a border on glass.
+  - `border.hairline`, `fill.hover`, `scrim.bg`, `scrim.blur`,
+    `radius.overlay` (16px) and `radius.modal` (26px).
+
+  **Changed values - visible without a code change**
+
+  - `radius.surface` is 20px, up from 10px. With no border to draw it, the corner
+    is what gives a surface its shape; every component on this role picks it up.
+  - `elevation.raised`, `elevation.overlay` and `elevation.modal` are layered and
+    wider. Every component on them picks this up, including Tooltip,
+    SegmentedControl, Slider and the AppShell overlay panel.
+
+  **Components**
+
+  - `Card` defaults to `elevation="raised"` (was `flat`) and has no border. A
+    flat card keeps a hairline. Hover lifts an interactive card to `floating`
+    instead of darkening its border. Pass `elevation="flat"` to get closer to the
+    4.1 look.
+  - `Dialog` is `material.thick` on a blurred 18% scrim, 32% in dark (was an opaque
+    surface on a 55% scrim), with `radius.modal`.
+  - `Menu` and `Combobox` listboxes are `material.regular` with `radius.overlay`;
+    a hovered or active item uses `fill.hover`.
+  - `Toast` is `material.regular` at `elevation.floating` (was `overlay`), with
+    `radius.surface` - 20px, up from the 6px of `radius.control`. Its tone stripe
+    is now an inset shadow that follows the rounded corner.
+  - `AppBar` is `material.chrome` with a hairline beneath it. The glass shows
+    only where content scrolls under the bar; inside `AppShell` the header has its
+    own row, so there it reads as a light tint.
+  - A dragged `Card` is less transparent (0.85, was 0.6), because the overlay
+    shadow now carries the "lifted" signal the fade used to.
+  - Glass surfaces keep a transparent 1px border, so in forced-colours mode -
+    which drops shadows - they still have an edge.
+
+  No prop was removed or renamed.
+
+  **Browser floor:** the Dialog scrim reads custom properties inside `::backdrop`,
+  which needs Chrome 122, Firefox 120 or Safari 17.4. Older engines show no scrim.
+
+- 38d05d8: **Four new components, all of them gaps found by building something real:**
+  `Textarea`, `FilterChip`, `RemovableChip` and `FileDropzone`.
+
+  All four came out of the DocuManager prototype, which was built against 2.0.0
+  under the rule that every control comes from the system. Six controls had to be
+  hand-rolled there; three of those are now covered by `Tabs`,
+  `SegmentedControl` and `Avatar`, and these are the remaining three. The
+  evidence for each — what was reached for, what got hand-rolled, and what the
+  hand-rolled version does worse — is in `DS-GAPS.md`.
+
+  **`Textarea`** — `Input` is single-line by contract and `Composer` owns the
+  Enter key, so the most ordinary control in any form had nowhere to go. It
+  shares `.bh-field` with `Input`, `Select` and `Checkbox`, so a field cannot
+  look like a field in one component and not another, and it wires
+  `aria-describedby` in the same order — error first.
+
+  It deliberately has **no `hideLabel`**, though `Input` has one. `Input`'s
+  exists for a search field whose purpose is obvious from what surrounds it; a
+  four-line box has no such context, and every hidden-label multi-line field
+  found in the wild turned out to be a comment box labelled by a placeholder.
+
+  **`FilterChip` and `RemovableChip`** — two components, not one with a
+  `removable` prop. `Badge` was the thing people reached for and it refuses to be
+  clickable, correctly: a badge states what something _is_, and a chip states
+  what the reader _asked for_. The two chips stay separate because the
+  difference between them is where the accessible name comes from — a filter chip
+  is one control reporting `aria-pressed`, and a removable chip is a label with a
+  button beside it whose name is "Remove tag Finance", not "Finance". A prop
+  hiding that difference hides it in the accessibility tree.
+
+  `FilterChip`'s pressed state is carried three ways — `aria-pressed`, a check
+  mark that holds its box when off, and the `selection` tint. The tint alone
+  would fail WCAG 1.4.1. `RemovableChip`'s remove button is 24 × 24 CSS pixels,
+  the WCAG 2.5.8 minimum.
+
+  **`FileDropzone`** — the system had no file control at all, and this is the gap
+  with the most rope in it: the usual dropzone is a `<div onDrop>` that is not
+  focusable, has no role, has no name, and cannot be operated without a pointer.
+
+  This is a real `<input type="file">` stretched across the surface at zero
+  opacity, the technique `SegmentedControl` already used for its radios. One tab
+  stop that is a genuine control, the platform picker on Enter, and dropped files
+  handled by the input itself — every drag handler in the component can be
+  deleted and it still works, which is the test rule 9 asks for. The drag
+  highlight uses the `selection` role added in 4.1.0: a file held over the
+  surface is a destination.
+
+  It does not render the files it chose. That belongs to the form around it,
+  which is the only thing that knows what "too large" means in context.
+
+  **Also:** the `selection` role added in 4.1.0 now has two more consumers, and
+  four more contracts are complete — 10 of 45, up from 6 of 41.
+
 ## 4.1.0
 
 ### Minor Changes
