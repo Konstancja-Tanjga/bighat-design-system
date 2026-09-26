@@ -38,7 +38,9 @@
   min-width: 200px;
   padding: var(--bh-gap-tight);
   border-radius: var(--bh-radius-overlay);
-  border: 0;
+  /* Transparent, not none: forced-colours mode drops box-shadow and paints
+     this border, so the surface keeps an edge there. */
+  border: 1px solid transparent;
   background: var(--bh-material-regular-bg);
   backdrop-filter: blur(var(--bh-material-regular-blur)) saturate(var(--bh-material-saturation));
   box-shadow: var(--bh-material-rim), var(--bh-elevation-overlay);

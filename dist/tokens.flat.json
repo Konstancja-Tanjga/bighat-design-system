@@ -425,7 +425,7 @@
       "type": "shadow",
       "light": "0 0 0 1px rgba(20, 24, 28, 0.03), 0 2px 6px rgba(20, 24, 28, 0.06), 0 12px 32px rgba(20, 24, 28, 0.1)",
       "dark": "inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 6px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.45)",
-      "description": "Added in 4.2. A hovered or dragged card, a toast."
+      "description": "Added in 4.2. A hovered card, a toast."
     },
     "elevation.overlay": {
       "type": "shadow",
@@ -537,7 +537,7 @@
       "type": "dimension",
       "light": "16px",
       "dark": "16px",
-      "description": "Tooltip, a control over an image."
+      "description": "A control laid over an image."
     },
     "material.regular.bg": {
       "type": "color",
@@ -559,7 +559,7 @@
       "type": "dimension",
       "light": "40px",
       "dark": "40px",
-      "description": "Dialog, side panel - the most text, so the most opaque."
+      "description": "Dialog - the most text, so the most opaque."
     },
     "material.chrome.bg": {
       "type": "color",
@@ -570,7 +570,7 @@
       "type": "dimension",
       "light": "28px",
       "dark": "28px",
-      "description": "App bar and sticky headers, with content scrolling beneath."
+      "description": "App bar and sticky headers. Shows through only where content scrolls beneath."
     },
     "material.saturation": {
       "type": "number",

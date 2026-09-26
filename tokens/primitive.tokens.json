@@ -1195,7 +1195,7 @@
       },
       "floating": {
         "$type": "shadow",
-        "$description": "A lifted surface - hover, drag handle, toast.",
+        "$description": "A lifted surface - a hovered card, a toast.",
         "$value": [
           {
             "color": {

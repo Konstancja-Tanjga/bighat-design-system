@@ -4,12 +4,25 @@
   gap: var(--bh-gap-normal);
   height: 56px;
   padding: 0 var(--bh-padding-inline);
-  /* Chrome material: content that scrolls beneath shows through, blurred. The
-     hairline is a shadow so it adds no height to the bar. */
+  position: relative;
+  isolation: isolate;
+  font-family: var(--bh-font-family);
+}
+
+/* Chrome material. It shows through only where a consumer makes the bar sticky
+   over scrolling content - inside AppShell the header has its own row.
+   The blur sits on a layer behind the bar, not on the bar: a backdrop-filter
+   on the bar would make it the backdrop root for the user menu that hangs
+   below it, and that menu's own glass would have nothing to blur. The hairline
+   is a shadow so it adds no height. */
+.bh-appbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: var(--bh-material-chrome-bg);
   backdrop-filter: blur(var(--bh-material-chrome-blur)) saturate(var(--bh-material-saturation));
   box-shadow: 0 1px 0 var(--bh-border-hairline);
-  font-family: var(--bh-font-family);
 }
 
 .bh-appbar__brand {

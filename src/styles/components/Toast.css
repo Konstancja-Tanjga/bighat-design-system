@@ -28,7 +28,7 @@
   /* The tone stripe is an inset shadow rather than a border-left since 4.2, so
      it follows the rounded corner instead of squaring it off. */
   --bh-toast-tone: var(--bh-border-strong);
-  border: 0;
+  border: 1px solid transparent;
   border-radius: var(--bh-radius-surface);
   background: var(--bh-material-regular-bg);
   backdrop-filter: blur(var(--bh-material-regular-blur)) saturate(var(--bh-material-saturation));

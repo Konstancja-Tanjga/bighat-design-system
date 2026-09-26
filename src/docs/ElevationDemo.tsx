@@ -3,8 +3,8 @@ import type { CSSProperties } from 'react';
 import { cssVar, type TokenPath } from '../../dist/tokens';
 
 /**
- * Live specimens for the Elevation & materials page. Every value is a custom
- * property, so the tiles follow the theme toolbar - a screenshot of the scale
+ * Live specimens for the Elevation & materials page. Every surface is drawn
+ * from custom properties, so the tiles follow the theme toolbar - a screenshot of the scale
  * would show one theme and go stale the first time a shadow is tuned.
  */
 
@@ -68,9 +68,9 @@ export function ElevationScale() {
 }
 
 const materials = [
-  { name: 'thin', use: 'Tooltip, a control over an image' },
+  { name: 'thin', use: 'A control over an image' },
   { name: 'regular', use: 'Menu, popover, toast' },
-  { name: 'thick', use: 'Dialog, side panel' },
+  { name: 'thick', use: 'Dialog' },
   { name: 'chrome', use: 'App bar, sticky header' },
 ] as const;
 
@@ -119,8 +119,8 @@ export function MaterialScale() {
               flexDirection: 'column',
               justifyContent: 'space-between',
               borderRadius: cssVar('radius.surface'),
-              background: cssVar(`material.${name}.bg` as TokenPath),
-              backdropFilter: `blur(${cssVar(`material.${name}.blur` as TokenPath)}) saturate(${cssVar('material.saturation')})`,
+              background: cssVar(`material.${name}.bg`),
+              backdropFilter: `blur(${cssVar(`material.${name}.blur`)}) saturate(${cssVar('material.saturation')})`,
               boxShadow: `${cssVar('material.rim')}, ${cssVar('elevation.overlay')}`,
             }}
           >

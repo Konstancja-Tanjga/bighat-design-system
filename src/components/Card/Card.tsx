@@ -19,7 +19,8 @@ export type CardProps = {
   ariaLabel?: string;
   /**
    * `raised` is the default since 4.2 - a card sits one step off the page and
-   * its shadow, not a border, draws its edge. `flat` keeps only a hairline.
+   * elevation, not a border, draws its edge. `flat` has no shadow, only a
+   * hairline ring (in 4.1 it had a `border.subtle` border).
    */
   elevation?: 'flat' | 'raised';
   /** Left accent stripe. Decorative — never the only carrier of a status. */

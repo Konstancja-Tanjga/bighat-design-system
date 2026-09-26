@@ -305,7 +305,7 @@
     }
   },
   "elevation": {
-    "$description": "Rewritten in 4.2. Five steps, each a layered shadow; in the dark theme height is carried by a top-edge highlight as well as by shadow. Pair a glass surface with material.rim: `box-shadow: var(--bh-material-rim), var(--bh-elevation-overlay)`.",
+    "$description": "Rewritten in 4.2. Five steps; every step above flat is three layered shadows; in the dark theme raised and floating add a top-edge highlight, and overlay and modal rely on material.rim for theirs. Pair a glass surface with material.rim: `box-shadow: var(--bh-material-rim), var(--bh-elevation-overlay)`.",
     "flat": {
       "$value": "{shadow.none}",
       "$description": "Added in 4.2. On the page."
@@ -316,7 +316,7 @@
     },
     "floating": {
       "$value": "{shadow.light.floating}",
-      "$description": "Added in 4.2. A hovered or dragged card, a toast."
+      "$description": "Added in 4.2. A hovered card, a toast."
     },
     "overlay": {
       "$value": "{shadow.light.overlay}",
@@ -399,7 +399,7 @@
       },
       "blur": {
         "$value": "{blur.md}",
-        "$description": "Tooltip, a control over an image."
+        "$description": "A control laid over an image."
       }
     },
     "regular": {
@@ -417,7 +417,7 @@
       },
       "blur": {
         "$value": "{blur.xl}",
-        "$description": "Dialog, side panel - the most text, so the most opaque."
+        "$description": "Dialog - the most text, so the most opaque."
       }
     },
     "chrome": {
@@ -426,7 +426,7 @@
       },
       "blur": {
         "$value": "{blur.lg}",
-        "$description": "App bar and sticky headers, with content scrolling beneath."
+        "$description": "App bar and sticky headers. Shows through only where content scrolls beneath."
       }
     },
     "saturation": {
