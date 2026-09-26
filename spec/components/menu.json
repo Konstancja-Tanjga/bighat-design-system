@@ -105,8 +105,8 @@
     "material.saturation",
     "material.rim",
     "fill.hover",
+    "elevation.floating",
     "radius.pill",
-    "material.thick.bg",
     "elevation.control"
   ],
   "interactive": true
