@@ -1,51 +1,67 @@
 import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { Button } from '../Button/Button';
+import { NavGroup, NavItem } from '../NavList/NavList';
+import { SidePanel } from './SidePanel';
 import * as SidePanelStories from './SidePanel.stories';
 
 <Meta of={SidePanelStories} />
 
 # SidePanel
 
-A persistent panel beside the main content.
+A persistent panel beside the main content — a folder tree on the leading edge,
+an inspector on the trailing one. The reader works in the main area and reads
+the panel at the same time.
 
 <Canvas of={SidePanelStories.Default} />
 
 ## When to use it
 
-| Use `SidePanel` for | Use something else for |
-| --- | --- |
-| TODO | Anything blocking — use Dialog |
-| TODO | Transient drawers |
+| Use `SidePanel` for                                                                                  | Use something else for                                                                                                                           |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Something the reader keeps open while working in the main area — folders, conversations, saved views | Anything blocking — use Dialog                                                                                                                   |
+| Detail about what is selected in the main area — an invoice, a document's metadata                   | Transient drawers — there is no drawer component; below 900px, `AppShell`'s `onNavToggle` and `onAsideToggle` overlay the panel you already have |
 
-TODO: one paragraph on why the boundary sits where it does. The `notFor`
-entries above came from the contract; the reason they are the boundary did not.
+The boundary is focus. A `Dialog` traps focus, makes the page inert and waits
+for an answer; `SidePanel` does none of the three, because the reader is meant
+to move between it and the main area freely. A drawer sits in between — it is
+summoned, used and dismissed, and while it is open it covers the content. Built
+from this component, it would cover the page without keeping focus inside it,
+so a keyboard user tabs out of the drawer into content they cannot see. And
+collapsing a `SidePanel` unmounts what is in it, so a drawer built this way
+also loses whatever the reader had typed every time it closes.
+
+<Heuristic name="Recognition rather than recall">
+  A panel that stays open keeps the context on screen. The reader checks the invoice number against
+  the inspector instead of remembering it from a view they have just closed.
+</Heuristic>
 
 ## Anatomy
 
-| part | element | rendered | note |
-| --- | --- | --- | --- |
-| `bh-panel` | `<div>` | always |  |
-| `bh-panel__toggle` | `<button[type=button]>` | always |  |
-| `bh-panel__titlebar` | `<div>` | always |  |
-| `bh-panel__title` | `<h2>` | always |  |
-| `bh-panel__header` | `<div>` | always |  |
-| `bh-panel__body` | `<div>` | always |  |
-| `bh-panel__footer` | `<div>` | always |  |
+| part                 | element                            | rendered                                             | note                                                                                                                                |
+| -------------------- | ---------------------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-panel`           | `<aside>` · `<div>` when collapsed | always                                               | Expanded, it is a complementary landmark named by `ariaLabel`. Collapsed, it is a bare `<div>` 36px wide, and the landmark is gone. |
+| `bh-panel__toggle`   | `<button[type=button]>`            | when `onToggle` is set, and always when `collapsed`  | Labelled "Collapse {ariaLabel}" or "Expand {ariaLabel}", with `aria-expanded`. The arrow glyph is `aria-hidden`.                    |
+| `bh-panel__titlebar` | `<div>`                            | when `title` or `onToggle` is set, and not collapsed | Holds the title and the toggle on one line.                                                                                         |
+| `bh-panel__title`    | `<h2>`                             | when `title` is set, and not collapsed               | Always level 2.                                                                                                                     |
+| `bh-panel__header`   | `<div>`                            | when `header` is set, and not collapsed              | Does not scroll.                                                                                                                    |
+| `bh-panel__body`     | `<div>`                            | when not collapsed                                   | The only scrolling region, so the header and footer stay reachable however long the list gets.                                      |
+| `bh-panel__footer`   | `<div>`                            | when `footer` is set, and not collapsed              | Does not scroll. Separated from the body by a `border.subtle` rule.                                                                 |
 
 ## Props
 
-| prop | values | default | meaning |
-| --- | --- | --- | --- |
-| `ariaLabel` | string | — | Names the landmark. |
-| `side` | `start` · `end` | `start` | TODO |
-| `title` | slot | — | TODO |
-| `header` | slot | — | Pinned above the scroll area. |
-| `footer` | slot | — | Pinned below it. |
-| `children` | slot | — | TODO |
-| `width` | number | `260` | TODO |
-| `collapsed` | boolean | `false` | TODO |
-| `onToggle` | event | — | TODO |
+| prop        | values          | default | meaning                                                                                                                                                                                                          |
+| ----------- | --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ariaLabel` | string          | —       | Names the landmark. Required. Also forms the toggle's label: "Collapse Folders", "Expand Folders".                                                                                                               |
+| `side`      | `start` · `end` | `start` | Which edge the panel sits against. Sets the direction of the toggle's arrow. It does not position the panel — the `AppShell` slot you put it in (`sidebar` or `aside`) does that, and draws the dividing border. |
+| `title`     | slot            | —       | Visible heading, rendered as an `<h2>`. Omit it when the content is self-evident. It does not name the landmark; `ariaLabel` does.                                                                               |
+| `header`    | slot            | —       | Pinned above the scroll area.                                                                                                                                                                                    |
+| `footer`    | slot            | —       | Pinned below it.                                                                                                                                                                                                 |
+| `children`  | slot            | —       | The panel's content, in the scrolling body. Not rendered while collapsed.                                                                                                                                        |
+| `width`     | number          | `260`   | Width in pixels while expanded, set as both `width` and `min-width` so the grid around it cannot squeeze it. Ignored while collapsed, when the panel is 36px.                                                    |
+| `collapsed` | boolean         | `false` | Controlled. `true` renders only the strip with the expand button; the title, header, body and footer are unmounted.                                                                                              |
+| `onToggle`  | event           | —       | Called when either toggle button is pressed. The panel does not change `collapsed` itself. Without it, an expanded panel has no collapse button.                                                                 |
 
 <Controls />
 
@@ -53,21 +69,89 @@ entries above came from the contract; the reason they are the boundary did not.
 
 `default` · `hover`
 
+Both belong to the toggle button. On hover its background changes to
+`action.secondary.bgHover` and its arrow to `text.primary`. The panel itself has
+no interactive states.
 
 ## Accessibility
 
-- **Role** — button (implicit, from `<button[type=button]>`)
-- **Labelling** — TODO: is a label required, or merely supported?
-- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
-- **Announcements** — TODO: the live-region policy, not the role it produced.
-
+- **Role** — button (implicit, from `<button[type=button]>`) for the toggle. The
+  panel is an `<aside>` while expanded, which is a complementary landmark.
+- **Labelling** — `ariaLabel` is required by the type. It names the landmark,
+  and the toggle's label is built from it. `title` is not wired to the
+  landmark, so when you pass both, use the same words — otherwise the reader
+  hears one name in the landmark list and sees another on screen.
+- **Focus** — the panel never traps focus and never makes the page inert. A
+  focus trap is the obvious answer for anything at the edge of the screen, and
+  here it is wrong: the reader is working in the main area and the panel at the
+  same time, and a trap would shut them out of one. The toggle is a native
+  button with `bh-focusable`, so Enter and Space work and the focus ring shows;
+  the panel adds no keys of its own. Collapsing and expanding replace the whole
+  panel, including the button that was pressed, and the component does not move
+  focus to the new toggle.
+- **Announcements** — none. The panel has no live region, and collapsing or
+  expanding it is not announced beyond the toggle's `aria-expanded`. Content
+  that changes inside it has to bring its own announcement — loading, empty and
+  error go through `StateBlock`.
 
 ## Do and don't
 
+### Name the panel for what it holds
+
 <Guidance>
-  <Do reason="TODO">TODO</Do>
-  <Dont reason="TODO">TODO</Dont>
+  <Do reason="The landmark list reads 'Folders, complementary' and the toggle reads 'Collapse Folders'. A screen reader user jumping between regions knows which one they have landed in.">
+    <SidePanel ariaLabel="Folders" title="Folders" onToggle={() => {}}>
+      <NavGroup label="Shared with me">
+        <NavItem item={{ id: 'contracts', label: 'Contracts' }} />
+      </NavGroup>
+    </SidePanel>
+  </Do>
+  <Dont reason="Two panels labelled 'Sidebar' are two identical entries in the landmark list, and the toggle becomes 'Collapse Sidebar'. The reader has to enter each one to find out which is which.">
+    <SidePanel ariaLabel="Sidebar" title="Folders" onToggle={() => {}}>
+      <NavGroup label="Shared with me">
+        <NavItem item={{ id: 'contracts', label: 'Contracts' }} />
+      </NavGroup>
+    </SidePanel>
+  </Dont>
 </Guidance>
+
+### Put the controls in `header`, not at the end of the list
+
+<Guidance>
+  <Do reason="`header` does not scroll. The 'New folder' button is in the same place with four folders or four hundred.">
+    <SidePanel
+      ariaLabel="Shared folders"
+      header={
+        <Button size="sm" fullWidth>
+          New folder
+        </Button>
+      }
+    >
+      <NavGroup label="Shared with me">
+        <NavItem item={{ id: 'contracts', label: 'Contracts' }} />
+        <NavItem item={{ id: 'invoices', label: 'Invoices 2026' }} />
+      </NavGroup>
+    </SidePanel>
+  </Do>
+  <Dont reason="In `children` the button scrolls with the list. Once there are more folders than fit, the reader has to scroll to the bottom every time they want to add one, and a keyboard user tabs past every folder to reach it.">
+    <SidePanel ariaLabel="Archived folders">
+      <NavGroup label="Shared with me">
+        <NavItem item={{ id: 'contracts', label: 'Contracts' }} />
+        <NavItem item={{ id: 'invoices', label: 'Invoices 2026' }} />
+      </NavGroup>
+      <Button size="sm" fullWidth>
+        New folder
+      </Button>
+    </SidePanel>
+  </Dont>
+</Guidance>
+
+### Do not keep unsaved input in a panel the reader can collapse
+
+Collapsing unmounts the title, header, body and footer. A half-written note in
+a collapsible inspector is lost the moment the reader collapses it to get some
+width back, with no warning. Save as the reader types, or keep the draft in
+state above the panel so it survives the unmount.
 
 ## Tokens consumed
 

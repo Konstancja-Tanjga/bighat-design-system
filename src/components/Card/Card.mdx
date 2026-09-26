@@ -1,6 +1,8 @@
 import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { Badge } from '../Badge/Badge';
+import { Card } from './Card';
 import * as CardStories from './Card.stories';
 
 <Meta of={CardStories} />
@@ -13,31 +15,39 @@ A bounded surface around content the user might act on as a unit.
 
 ## When to use it
 
-| Use `Card` for | Use something else for |
-| --- | --- |
-| TODO | A paragraph — that is a border with extra steps |
-| TODO | Cards with two actions inside |
+| Use `Card` for                                                       | Use something else for                                                                     |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| A record the user acts on as a whole: an invoice, a document, a task | A paragraph — that is a border with extra steps                                            |
+| A tile whose only action is opening it — set `onClick`               | Cards with two actions inside — keep `onClick` off and give each action its own `Button`   |
+| A grid or list of records of the same kind                           | Cards the user reorders between columns — that is `Board`, which carries the keyboard move |
 
-TODO: one paragraph on why the boundary sits where it does. The `notFor`
-entries above came from the contract; the reason they are the boundary did not.
+The boundary sits at "one thing". A card's edge tells the reader that
+everything inside it belongs to one record and will be opened, moved or
+deleted together. Put a card around a paragraph and that promise is false: the
+reader looks for the action the edge implies and finds none, and the next card
+on the page, which really is a record, has lost the signal that set it apart.
+Two actions is the same limit seen from the other side. With `onClick` the
+whole surface is a single `<button>`, so a second control inside it is a button
+inside a button, and nobody — pointer, keyboard or screen reader — can predict
+which one a click will reach.
 
 ## Anatomy
 
-| part | element | rendered | note |
-| --- | --- | --- | --- |
-| `bh-card` | `<TODO>` | always | TODO: read it off the React render |
+| part      | element                           | rendered | note                                                                                                                                        |
+| --------- | --------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-card` | `<div>` · `<button[type=button]>` | always   | A `<div>` by default; a `<button>` when `onClick` is set. The accent stripe is a `::before` layer on the same element, not a separate node. |
 
 ## Props
 
-| prop | values | default | meaning |
-| --- | --- | --- | --- |
-| `children` | slot | — | TODO |
-| `onClick` | event | — | Makes the whole surface one button. |
-| `ariaLabel` | string | — | Its accessible name when onClick is set. |
-| `elevation` | `flat` · `raised` | `raised` | TODO |
-| `accent` | `none` · `info` · `success` · `warning` · `critical` | `none` | Decorative — never the only carrier of a status. |
-| `padding` | `snug` · `normal` | `normal` | TODO |
-| `dragging` | boolean | `false` | TODO |
+| prop        | values                                               | default  | meaning                                                                                                                                 |
+| ----------- | ---------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`  | slot                                                 | —        | The record's content. Phrasing content only (text, `<span>`, `Badge`) when `onClick` is set, because it ends up inside a `<button>`.    |
+| `onClick`   | event                                                | —        | Makes the whole surface one button.                                                                                                     |
+| `ariaLabel` | string                                               | —        | Its accessible name when onClick is set.                                                                                                |
+| `elevation` | `flat` · `raised`                                    | `raised` | `raised` lifts the card one step off the page with a shadow. `flat` has no shadow, only a hairline ring.                                |
+| `accent`    | `none` · `info` · `success` · `warning` · `critical` | `none`   | Decorative — never the only carrier of a status.                                                                                        |
+| `padding`   | `snug` · `normal`                                    | `normal` | `normal` uses `padding.section`; `snug` uses `padding.inline`, for dense grids and narrow panels.                                       |
+| `dragging`  | boolean                                              | `false`  | Marks the card being dragged: slightly transparent, lifted to `elevation.overlay`. Visual only — it adds no drag behaviour and no ARIA. |
 
 <Controls />
 
@@ -45,20 +55,85 @@ entries above came from the contract; the reason they are the boundary did not.
 
 `default` · `hover`
 
+Hover applies only to an interactive card: it rises from `raised` to
+`floating` rather than changing colour. A card without `onClick` has no hover
+state, because nothing happens when you press it. An interactive card also shows
+the system focus ring when reached by keyboard.
 
 ## Accessibility
 
-- **Role** — TODO
-- **Labelling** — TODO: is a label required, or merely supported?
-- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
-- **Announcements** — TODO: the live-region policy, not the role it produced.
-
+- **Role** — none by default: a `<div>`, which a screen reader does not
+  announce. With `onClick`, a native `<button type="button">`.
+- **Labelling** — supported, not required. Without `ariaLabel` the button is
+  named by its whole text content, read in one run. With it, `ariaLabel`
+  replaces that content as the name, so it must contain the visible title — a
+  voice-control user says what they can see (WCAG 2.5.3). On a card without
+  `onClick`, `ariaLabel` is not rendered.
+- **Focus** — an interactive card is one tab stop in document order, and Enter
+  and Space activate it, because it is a real button. The obvious alternative,
+  a `<div>` with a click handler, gets none of that. A plain card takes no
+  focus; focus goes to the controls inside it.
+- **Announcements** — none. The card has no live region, and `dragging` changes
+  how it looks, not what is announced. Whatever implements the drag owns the
+  announcement and the pointer-free way to make the same move.
 
 ## Do and don't
 
+### One action makes the whole card a button
+
 <Guidance>
-  <Do reason="TODO">TODO</Do>
-  <Dont reason="TODO">TODO</Dont>
+  <Do reason="The card has one thing to do, so the whole surface does it. The target is as large as the record, and a screen reader hears one button named after the invoice.">
+    <Card onClick={() => {}} ariaLabel="Open INV-2043 · Nordwind sp. z o.o." padding="snug">
+      <span style={{ display: 'block' }}>INV-2043 · Nordwind sp. z o.o.</span>
+      <span style={{ display: 'block' }}>€4,280.00 · due 14 October</span>
+    </Card>
+  </Do>
+  <Dont reason="A clickable card with a Download button inside is a button inside a button. The reader cannot tell whether pressing the corner downloads the PDF or opens the invoice, and nesting interactive elements is invalid HTML — the browser gives no promise about which of the two receives the press.">
+    <p style={{ margin: 0 }}>Card onClick → contains Button “Download PDF”</p>
+  </Dont>
+</Guidance>
+
+When a card needs two actions, leave `onClick` off and give each action its own
+`Button`:
+
+<Canvas of={CardStories.WithActions} />
+
+<Heuristic name="Consistency and standards">
+  A surface that responds to a click everywhere except one corner, where it does something else,
+  breaks the one rule a card sets up: the whole thing is one thing.
+</Heuristic>
+
+### Write the status; the stripe only groups
+
+<Guidance>
+  <Do reason="The status is a word the reader can see and a screen reader can speak. The stripe helps the eye pick out the overdue cards in a long list, and nobody loses anything if they cannot see it.">
+    <Card accent="warning" padding="snug">
+      <span style={{ display: 'block' }}>INV-2043 · Nordwind sp. z o.o.</span>
+      <Badge tone="warning">Overdue by 12 days</Badge>
+    </Card>
+  </Do>
+  <Dont reason="The only sign this invoice is overdue is a 3px coloured edge. Someone who cannot separate that hue from the others, or who uses a screen reader, is told nothing, and chases the wrong invoices (WCAG 1.4.1).">
+    <Card accent="warning" padding="snug">
+      <span style={{ display: 'block' }}>INV-2043 · Nordwind sp. z o.o.</span>
+    </Card>
+  </Dont>
+</Guidance>
+
+### A card is for a record, not for a paragraph
+
+<Guidance>
+  <Do reason="Each card is something the reader can open. The edge tells them where one invoice ends and the next begins.">
+    <Card padding="snug">
+      <span style={{ display: 'block' }}>INV-2044 · Studio Kropka</span>
+      <span style={{ display: 'block' }}>€960.00 · paid 2 October</span>
+    </Card>
+  </Do>
+  <Dont reason="A help paragraph in a card borrows the edge that means 'record'. The reader looks for an action that is not there, and the real records on the page no longer stand out from the prose around them.">
+    <Card padding="snug">
+      Invoices are sent from the address on your company profile. Change it in Settings before
+      sending your first reminder.
+    </Card>
+  </Dont>
 </Guidance>
 
 ## Tokens consumed

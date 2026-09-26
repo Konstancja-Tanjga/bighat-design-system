@@ -1,6 +1,8 @@
 import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { Button } from '../Button/Button';
+import { AppBar } from './AppBar';
 import * as AppBarStories from './AppBar.stories';
 
 <Meta of={AppBarStories} />
@@ -13,33 +15,40 @@ The top bar. Three slots in reading order: brand, title, actions.
 
 ## When to use it
 
-| Use `AppBar` for | Use something else for |
-| --- | --- |
-| TODO | Repeating the product name in title — brand already carries it |
+| Use `AppBar` for                                                                       | Use something else for                                                    |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| The strip across the top of an application screen, placed in `AppShell`'s `header`     | Repeating the product name in `title` — `brand` already carries it        |
+| Naming the screen the reader is on, and the search and actions that apply to all of it | Controls acting on the table, board or document below — that is `Toolbar` |
 
-
-TODO: one paragraph on why the boundary sits where it does. The `notFor`
-entries above came from the contract; the reason they are the boundary did not.
+The title is the page's `<h1>` unless you turn that off, so what goes in it is
+what a screen-reader user hears when they jump to the first heading, and what a
+sighted user reads when they glance up to check where a link has taken them.
+The product name answers neither question: it is the same on every screen, and
+it is already in `brand`. The `Toolbar` boundary is about keyboard cost. A
+toolbar is one tab stop with arrow keys between its controls; the bar has no
+keyboard handling of its own, so every control in `actions` is a separate tab
+stop. A formatting strip moved into the bar costs a keyboard user one Tab per
+button on the way to the content.
 
 ## Anatomy
 
-| part | element | rendered | note |
-| --- | --- | --- | --- |
-| `bh-appbar` | `<div>` | always |  |
-| `bh-appbar__brand` | `<div>` | always |  |
-| `bh-appbar__title` | `<h1>` | always |  |
-| `bh-appbar__center` | `<div>` | always |  |
-| `bh-appbar__actions` | `<div>` | always |  |
+| part                 | element                                           | rendered              | note                                                                                                                                            |
+| -------------------- | ------------------------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-appbar`          | `<div>`                                           | always                | 56px high, flex row. The chrome material sits on a `::before` layer behind it, so the bar is not the backdrop root for a menu hanging below it. |
+| `bh-appbar__brand`   | `<div>`                                           | when `brand` is set   | Does not shrink.                                                                                                                                |
+| `bh-appbar__title`   | `<h1>`, or `<p>` when `titleAsHeading` is `false` | when `title` is set   | One line; a title too long for the space is cut with an ellipsis.                                                                               |
+| `bh-appbar__center`  | `<div>`                                           | when `center` is set  | Takes the remaining width and centres its content.                                                                                              |
+| `bh-appbar__actions` | `<div>`                                           | when `actions` is set | Pushed to the trailing edge; does not shrink.                                                                                                   |
 
 ## Props
 
-| prop | values | default | meaning |
-| --- | --- | --- | --- |
-| `brand` | slot | — | Logo or wordmark. |
-| `title` | slot | — | Names the current screen, not the product. |
-| `titleAsHeading` | boolean | `true` | false when the screen has its own visible `<h1>`. |
-| `center` | slot | — | Search or filters acting on this screen. |
-| `actions` | slot | — | Primary action last. |
+| prop             | values  | default | meaning                                           |
+| ---------------- | ------- | ------- | ------------------------------------------------- |
+| `brand`          | slot    | —       | Logo or wordmark.                                 |
+| `title`          | slot    | —       | Names the current screen, not the product.        |
+| `titleAsHeading` | boolean | `true`  | false when the screen has its own visible `<h1>`. |
+| `center`         | slot    | —       | Search or filters acting on this screen.          |
+| `actions`        | slot    | —       | Primary action last.                              |
 
 <Controls />
 
@@ -47,20 +56,84 @@ entries above came from the contract; the reason they are the boundary did not.
 
 `default`
 
+The bar has no states of its own. Hover, focus, loading and disabled belong to
+the controls placed in its slots, and each of those carries its own.
 
 ## Accessibility
 
-- **Role** — TODO
-- **Labelling** — TODO: is a label required, or merely supported?
-- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
-- **Announcements** — TODO: the live-region policy, not the role it produced.
-
+- **Role** — none. The bar is a `<div>`; the banner landmark comes from the
+  `<header>` that `AppShell` renders around its `header` slot. Used outside
+  `AppShell`, the bar is not a landmark unless you wrap it in one.
+- **Labelling** — no label is required or accepted. The title is the page's
+  `<h1>` by default, which is what names the screen in heading navigation. A
+  logo in `brand` that is an image or marked `aria-hidden` needs text beside it
+  — alt text or visually hidden text — or the product has no name for a
+  screen-reader user.
+- **Focus** — the bar manages no focus and is not a tab stop. Focus moves
+  through the controls in its slots in source order: brand, centre, then
+  actions, with the primary action reached last. The obvious fix for a long bar,
+  a `tabIndex` on the bar itself, would add a stop that does nothing; put
+  `SkipLink` before the bar instead, so a keyboard user can jump straight to
+  `<main>`.
+- **Announcements** — none. The bar has no live region, and a change of `title`
+  is not announced. That is correct for a heading: it is read when the reader
+  reaches it, not pushed at them.
 
 ## Do and don't
 
+### Name the screen, not the product
+
 <Guidance>
-  <Do reason="TODO">TODO</Do>
-  <Dont reason="TODO">TODO</Dont>
+  <Do reason="The heading says where the reader is. After a redirect, a glance at the bar answers 'which screen did that link open?', and a screen-reader user who jumps to the first heading hears the same answer.">
+    <AppBar brand={<strong>Billing</strong>} title="Overdue invoices" titleAsHeading={false} />
+  </Do>
+  <Dont reason="The product name twice spends the one strip the reader checks for their location on something they already know. Every screen's `<h1>` now reads the same, so heading navigation cannot tell them apart.">
+    <AppBar brand={<strong>Billing</strong>} title="Billing" titleAsHeading={false} />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Visibility of system status">
+  Where am I is the first status a user needs. The title is the place the system answers it.
+</Heuristic>
+
+### Primary action last
+
+<Guidance>
+  <Do reason="The row reads from the leading edge and ends at the filled button, so the reader has seen the alternatives before reaching the action the screen is for. Keyboard order matches, because the slots render in source order.">
+    <AppBar
+      titleAsHeading={false}
+      title="Invoices"
+      actions={
+        <>
+          <Button variant="secondary">Export</Button>
+          <Button>Create invoice</Button>
+        </>
+      }
+    />
+  </Do>
+  <Dont reason="With the primary action first, the loudest control interrupts the row before the reader knows what else is on offer, and every other screen that follows the rule now puts it in a different place.">
+    <AppBar
+      titleAsHeading={false}
+      title="Invoices"
+      actions={
+        <>
+          <Button>Create invoice</Button>
+          <Button variant="secondary">Export</Button>
+        </>
+      }
+    />
+  </Dont>
+</Guidance>
+
+### One `<h1>` per screen
+
+<Guidance>
+  <Do reason="When the screen already shows its own heading — a document's name above its contents — the bar's title steps down to a paragraph. It looks identical, and heading navigation has one `<h1>` to land on.">
+    <AppBar brand={<strong>Records</strong>} title="Supplier agreements" titleAsHeading={false} />
+  </Do>
+  <Dont reason="Leaving the default on a screen with its own visible `<h1>` gives it two. A screen-reader user listing headings gets two top-level answers to 'what is this page', and has to work out which one is true.">
+    <AppBar brand={<strong>Records</strong>} title="Supplier agreements" />
+  </Dont>
 </Guidance>
 
 ## Tokens consumed

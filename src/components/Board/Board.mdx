@@ -1,6 +1,8 @@
 import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { StateBlock } from '../StateBlock/StateBlock';
+import { Board, BoardCard, BoardColumn } from './Board';
 import * as BoardStories from './Board.stories';
 
 <Meta of={BoardStories} />
@@ -13,44 +15,55 @@ Columns of cards — kanban, pipeline, review queue.
 
 ## When to use it
 
-| Use `Board` for | Use something else for |
-| --- | --- |
-| TODO | Ordered data the user compares — that is Table |
+| Use `Board` for                                                                        | Use something else for                                                     |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Work that moves through stages — documents through classification, review and approval | Ordered data the user compares — that is Table                             |
+| A queue where the question is "what is stuck, and where?"                              | Records with no stage to move between — that is `List`                     |
+| A stage with a work-in-progress limit the team needs to see broken                     | Picking one record to open its detail beside the list — that is `ListView` |
 
-
-TODO: one paragraph on why the boundary sits where it does. The `notFor`
-entries above came from the contract; the reason they are the boundary did not.
+A board sorts by one thing: stage. Inside a column the cards sit in the order
+the product renders them, and the component knows nothing about that order —
+there is no sorting and no reordering within a column. The moment the reader
+needs to compare two records by amount, date or owner, the board works against
+them: the two invoices sit in different columns at different heights, and
+comparing them means reading each card in turn. `Table` lines the same values
+up in one column and lets the reader sort by it. Columns are also a fixed 288px
+and the board scrolls sideways inside itself, so past four or five stages some
+of the board is always off screen.
 
 ## Anatomy
 
-| part | element | rendered | note |
-| --- | --- | --- | --- |
-| `bh-board` | `<section>` | always |  |
-| `bh-board__columns` | `<div>` | always |  |
-| `bh-board__column` | `<div>` | conditional |  |
-| `bh-board__column-head` | `<div>` | always |  |
-| `bh-board__column-title` | `<h3>` | always |  |
-| `bh-board__count` | `<span>` | always |  |
-| `bh-board__warning` | `<p>` | always |  |
-| `bh-board__cards` | `<ul>` | always |  |
-| `bh-board__card` | `<li>` | always |  |
-| `bh-board__card-inner` | `<div>` | always |  |
-| `bh-board__card-open` | `<button[type=button]>` | always |  |
-| `bh-board__move` | `<div>` | always |  |
-| `bh-board__move-select` | `<select>` | always |  |
+| part                     | element                 | rendered    | note                                                                                                                                   |
+| ------------------------ | ----------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-board`               | `<section>`             | always      | Named by `ariaLabel`, which makes it a region landmark. Also holds the visually hidden `role="status"` live region, after the columns. |
+| `bh-board__columns`      | `<div>`                 | always      | Flex row. Scrolls horizontally inside itself rather than making the page scroll sideways.                                              |
+| `bh-board__column`       | `<div>`                 | always      | One per `BoardColumn`. Gains `bh-board__column--over` when `count` exceeds `limit`.                                                    |
+| `bh-board__column-head`  | `<div>`                 | always      | Holds the heading and the `action` slot.                                                                                               |
+| `bh-board__column-title` | `<h3>`                  | always      | The heading level is fixed at 3. When over the limit it also contains a visually hidden "over the limit of N".                         |
+| `bh-board__count`        | `<span>`                | always      | Shows `count`. The " / limit" suffix is `aria-hidden`.                                                                                 |
+| `bh-board__warning`      | `<p>`                   | conditional | Only when `count` exceeds `limit`: "Over the N-card limit. Finish something before starting more."                                     |
+| `bh-board__cards`        | `<ul>`                  | conditional | Named "`title`, `count` items". Replaced by `empty` when `count` is 0 and `empty` is set.                                              |
+| `bh-board__card`         | `<li>`                  | always      | One per `BoardCard`.                                                                                                                   |
+| `bh-board__card-inner`   | `<div>`                 | always      | The card surface. Its border darkens on hover.                                                                                         |
+| `bh-board__card-open`    | `<button[type=button]>` | always      | A `<button>` only when `onOpen` is set; otherwise a `<div>` with the same class. Its accessible name is its children.                  |
+| `bh-board__move`         | `<div>`                 | conditional | Only when `moveTargets` is non-empty **and** `onMove` is set.                                                                          |
+| `bh-board__move-select`  | `<select>`              | conditional | Same condition. Labelled by a visually hidden "Move “`title`” to". The first option, "Move to…", is disabled.                          |
 
 ## Props
 
-| prop | values | default | meaning |
-| --- | --- | --- | --- |
-| `Board.ariaLabel` | string | — | TODO |
-| `Board.announcement` | string | — | Spoken by the board's live region after a move. |
-| `BoardColumn.title` | string | — | TODO |
-| `BoardColumn.count` | number | — | TODO |
-| `BoardColumn.limit` | number | — | WIP limit — surfaced, never enforced. |
-| `BoardColumn.empty` | slot | — | Use a StateBlock with copy specific to the column. |
-| `BoardCard.moveTargets` | data | — | TODO |
-| `BoardCard.onMove` | event | — | Required for a pointer-free move — WCAG 2.5.1. |
+| prop                    | values | default | meaning                                                                                                                                        |
+| ----------------------- | ------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Board.ariaLabel`       | string | —       | Required. Names the region, so a screen reader user can find the board in the landmark list.                                                   |
+| `Board.announcement`    | string | —       | Spoken by the board's live region after a move.                                                                                                |
+| `BoardColumn.title`     | string | —       | The column heading, and the first half of the card list's accessible name.                                                                     |
+| `BoardColumn.count`     | number | —       | Shown beside the title and folded into the list's accessible name. Taken as given — not counted from the children.                             |
+| `BoardColumn.limit`     | number | —       | WIP limit — surfaced, never enforced.                                                                                                          |
+| `BoardColumn.empty`     | slot   | —       | Use a StateBlock with copy specific to the column.                                                                                             |
+| `BoardCard.moveTargets` | data   | —       | The columns this card can move to, as `{ id, label }`. Each becomes an option in the card's "Move to…" select; `id` is what `onMove` receives. |
+| `BoardCard.onMove`      | event  | —       | Required for a pointer-free move — WCAG 2.5.7.                                                                                                 |
+
+`BoardColumn` also takes `action` (a column-level control beside the heading)
+and `children`; `BoardCard` takes `title` (required), `onOpen` and `children`.
 
 <Controls />
 
@@ -58,26 +71,97 @@ entries above came from the contract; the reason they are the boundary did not.
 
 `default` · `hover`
 
+Hover darkens the card's border from `border.subtle` to `border.strong`. The
+over-limit column is not a state of the component; it is derived from `count`
+and `limit` on every render.
+
 ## Keyboard
 
-| key | action |
-| --- | --- |
-| <kbd>Arrow keys</kbd> | Moves between options. Native. |
-| <kbd>Enter</kbd> | Commits. Native. |
+| key                   | action                                                                                                    |
+| --------------------- | --------------------------------------------------------------------------------------------------------- |
+| <kbd>Arrow keys</kbd> | Moves between options. On Windows, on a closed select, this also commits: the first press moves the card. |
+| <kbd>Enter</kbd>      | Commits. Native.                                                                                          |
+
+Both rows describe the card's move `<select>`, which is a native control, so
+exactly how it opens and commits follows the browser and platform. Board adds
+no key handling of its own: <kbd>Tab</kbd> reaches each card's open button
+(when `onOpen` is set) and then its move select, in document order. There is no
+drag and drop in the component.
 
 ## Accessibility
 
-- **Role** — status
-- **Labelling** — TODO: is a label required, or merely supported?
-- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
-- **Announcements** — TODO: the live-region policy, not the role it produced.
-
+- **Role** — status. The board renders one visually hidden `role="status"`
+  region, which is polite: it waits for the screen reader to finish what it is
+  saying. The board itself is a `<section>` named by `ariaLabel`, so it is a
+  region landmark; each column is an `<h3>` followed by a `<ul>`.
+- **Labelling** — required, not merely supported. `Board.ariaLabel` and
+  `BoardCard.title` are both required props. `title` is used for the move
+  select's label, "Move “Invoice INV-2047” to", which is what a voice-control
+  user says and what a screen reader reads out of context. It does not name the
+  card's open button; that button is named by its children.
+- **Focus** — Board does not manage focus. The move select is the focus target
+  for moving, and when the product re-renders the card in its new column the
+  select the user was on is removed with it, so the browser drops focus. The
+  obvious fix — follow the card — is not something the component does; the
+  announcement is what tells the user where the card went.
+- **Announcements** — the board owns the region, the product writes the
+  sentence. Board reads out whatever string is in `announcement` and generates
+  nothing itself. Name the card and its destination ("Invoice INV-2047 moved to
+  In review."), because the card has already left the place the user was
+  looking. The over-limit condition is not announced; it is stated in the
+  column heading and in the warning paragraph, where a reader moving through
+  the board meets it.
 
 ## Do and don't
 
 <Guidance>
-  <Do reason="TODO">TODO</Do>
-  <Dont reason="TODO">TODO</Dont>
+  <Do reason="The select names every destination, so a keyboard, switch or voice-control user can move the card in one step, and a pointer user does not have to discover the columns by dragging. This is the WCAG 2.5.7 alternative, and it only appears when both props are set.">
+    <Board ariaLabel="Invoices by stage">
+      <BoardColumn title="Awaiting approval" count={1}>
+        <BoardCard
+          title="Invoice INV-2047"
+          moveTargets={[
+            { id: 'approved', label: 'Approved' },
+            { id: 'rejected', label: 'Rejected' },
+          ]}
+          onMove={() => {}}
+        >
+          Invoice INV-2047 — €4,180.00
+        </BoardCard>
+      </BoardColumn>
+    </Board>
+  </Do>
+  <Dont reason="Without `moveTargets` and `onMove` the card has no move control at all. If the product then adds its own drag handling, moving a card becomes a pointer-only gesture, and anyone on a keyboard cannot change a stage — a failure no automated check reports.">
+    <Board ariaLabel="Invoices by stage">
+      <BoardColumn title="Awaiting approval" count={1}>
+        <BoardCard title="Invoice INV-2047">Invoice INV-2047 — €4,180.00</BoardCard>
+      </BoardColumn>
+    </Board>
+  </Dont>
+</Guidance>
+
+<Guidance>
+  <Do reason="A column with nothing in it is a normal result, not an error. A StateBlock with copy for that stage tells the reader what arrives there and how, so an empty column reads as 'nothing yet' rather than 'something failed to load'.">
+    <Board ariaLabel="Documents by stage">
+      <BoardColumn
+        title="Approved"
+        count={0}
+        empty={
+          <StateBlock
+            scope="inline"
+            state="empty"
+            title="Nothing approved yet"
+            description="Documents appear here once a reviewer signs them off."
+          />
+        }
+      />
+    </Board>
+  </Do>
+  <Dont reason="Without `empty` the column renders an empty list: a blank box a sighted reader cannot tell apart from a board still loading, and nothing tells any reader what belongs there or how it gets there.">
+    <Board ariaLabel="Documents by stage">
+      <BoardColumn title="Approved" count={0} />
+    </Board>
+  </Dont>
 </Guidance>
 
 ## Tokens consumed

@@ -1,6 +1,7 @@
 import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
+import { Composer } from './Composer';
 import * as ComposerStories from './Composer.stories';
 
 <Meta of={ComposerStories} />
@@ -13,46 +14,52 @@ The prompt input — a textarea in a form, with optional single-choice modes.
 
 ## When to use it
 
-| Use `Composer` for | Use something else for |
-| --- | --- |
-| TODO | Ordinary multi-line form fields |
+| Use `Composer` for                                | Use something else for                                                       |
+| ------------------------------------------------- | ---------------------------------------------------------------------------- |
+| A prompt to an assistant, sent by pressing Enter  | Ordinary multi-line form fields — that is `Textarea`                         |
+| A message that is the only thing the form submits | A field inside a larger form with its own submit button — that is `Textarea` |
 
+### Why it is not `Textarea`
 
-TODO: one paragraph on why the boundary sits where it does. The `notFor`
-entries above came from the contract; the reason they are the boundary did not.
+`Composer` owns the Enter key: pressing it sends the draft. That is correct for a prompt, where a message is short and the next one
+follows, and wrong for a note, where Enter is how you start the next paragraph —
+a reader who reaches for a line break sends half a note instead. `Composer` is
+also a `<form>` of its own, so it cannot sit inside another form: HTML does not
+allow one form inside another, and the textarea has no `name`, so a surrounding
+form never receives its value. If the text is one field among several, it is a `Textarea`.
 
 ## Anatomy
 
-| part | element | rendered | note |
-| --- | --- | --- | --- |
-| `bh-composer` | `<form>` | always |  |
-| `bh-composer__field` | `<div>` | always |  |
-| `bh-composer__input` | `<textarea>` | conditional |  |
-| `bh-composer__tools` | `<div>` | always |  |
-| `bh-composer__submit` | `<button[type=submit]>` | always |  |
-| `bh-composer__modes` | `<fieldset>` | always |  |
-| `bh-composer__mode` | `<label>` | conditional |  |
-| `bh-composer__mode-icon` | `<span>` | always |  |
-| `bh-composer__hint` | `<p>` | always |  |
+| part                     | element                 | rendered                            | note                                                                                                  |
+| ------------------------ | ----------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `bh-composer`            | `<form>`                | always                              | Submitting it, by Enter or by the button, calls `onSubmit`. Also holds the visually hidden `<label>`. |
+| `bh-composer__field`     | `<div>`                 | always                              | Carries the border and the focus ring, drawn with `:focus-within`.                                    |
+| `bh-composer__input`     | `<textarea>`            | always                              | Starts at one row and grows with its content up to `maxRows`, then scrolls.                           |
+| `bh-composer__tools`     | `<div>`                 | always                              | Holds `tools`, then the submit button.                                                                |
+| `bh-composer__submit`    | `<button[type=submit]>` | always                              | Disabled while the draft is empty or whitespace.                                                      |
+| `bh-composer__modes`     | `<fieldset>`            | when `modes` has at least one entry | Its `<legend>` is visually hidden and always reads "Response mode".                                   |
+| `bh-composer__mode`      | `<label>`               | one per mode                        | Wraps a visually hidden radio; the label carries the checked styling.                                 |
+| `bh-composer__mode-icon` | `<span>`                | when the mode has an `icon`         | `aria-hidden`, so the mode's name comes from its text alone.                                          |
+| `bh-composer__hint`      | `<p>`                   | when `hint` is set                  | Referenced by the textarea's `aria-describedby`.                                                      |
 
 ## Props
 
-| prop | values | default | meaning |
-| --- | --- | --- | --- |
-| `label` | string | — | TODO |
-| `placeholder` | string | `Ask anything` | TODO |
-| `value` | string | — | TODO |
-| `onValueChange` | event | — | TODO |
-| `onSubmit` | event | — | TODO |
-| `modes` | data | — | Rendered as a radio group, not buttons. |
-| `activeMode` | string | — | TODO |
-| `onModeChange` | event | — | TODO |
-| `tools` | slot | — | Icon buttons still need labels. |
-| `submitLabel` | string | `Ask` | TODO |
-| `busy` | boolean | `false` | TODO |
-| `disabled` | boolean | `false` | TODO |
-| `hint` | slot | — | The place for an accuracy notice. |
-| `maxRows` | number | `8` | TODO |
+| prop            | values  | default        | meaning                                                                                                                                       |
+| --------------- | ------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `label`         | string  | —              | Required. The field's accessible name, rendered in a visually hidden `<label>`.                                                               |
+| `placeholder`   | string  | `Ask anything` | The only text a sighted reader sees in the empty field. Keep it consistent with `label`.                                                      |
+| `value`         | string  | —              | Makes the draft controlled. When set, the Composer does not clear itself after submit.                                                        |
+| `onValueChange` | event   | —              | Called with the new draft on every change, controlled or not.                                                                                 |
+| `onSubmit`      | event   | —              | Called with the trimmed draft on Enter or the submit button. Not called for an empty or whitespace-only draft, or while `busy` or `disabled`. |
+| `modes`         | data    | —              | Rendered as a radio group, not buttons.                                                                                                       |
+| `activeMode`    | string  | —              | The `id` of the selected mode. Controlled only: nothing changes unless `onModeChange` updates it.                                             |
+| `onModeChange`  | event   | —              | Called with the `id` of the mode the reader picks.                                                                                            |
+| `tools`         | slot    | —              | Icon buttons still need labels.                                                                                                               |
+| `submitLabel`   | string  | `Ask`          | The submit button's text and accessible name. Name the action, not "Submit".                                                                  |
+| `busy`          | boolean | `false`        | Blocks submission and sets `aria-disabled` on the submit button. The field stays editable. Announces nothing on its own.                      |
+| `disabled`      | boolean | `false`        | Disables the textarea and the submit button. Modes and `tools` are not disabled.                                                              |
+| `hint`          | slot    | —              | The place for an accuracy notice.                                                                                                             |
+| `maxRows`       | number  | `8`            | Caps the field's height at `maxRows` × 22px, the line height; past that it scrolls.                                                           |
 
 <Controls />
 
@@ -60,26 +67,88 @@ entries above came from the contract; the reason they are the boundary did not.
 
 `default` · `hover` · `focus-visible` · `disabled`
 
+Hover changes the background of the submit button and of the mode labels. Focus draws a ring around
+the whole field, and the textarea and submit button also draw their own
+`bh-focusable` ring inside it, and a ring around a mode when
+its radio has keyboard focus. Disabled dims the submit button; it is also the
+state the button is in whenever the draft is empty.
+
 ## Keyboard
 
-| key | action |
-| --- | --- |
-| <kbd>Enter</kbd> | TODO |
+| key                               | action                                                                                                                                                                     |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Enter</kbd>                  | Sends the trimmed draft and, when uncontrolled, clears the field. Does nothing for an empty draft, while `busy` or `disabled`, or while an input method is composing text. |
+| <kbd>Shift</kbd>+<kbd>Enter</kbd> | Inserts a new line.                                                                                                                                                        |
+
+The modes are native radios, so <kbd>Tab</kbd> enters the group once and the
+arrow keys move the selection within it.
 
 ## Accessibility
 
 - **Role** — textbox (implicit, from `<textarea>`)
-- **Labelling** — TODO: is a label required, or merely supported?
-- **Focus** — TODO: where does focus go, and what is wrong with the obvious answer?
-- **Announcements** — TODO: the live-region policy, not the role it produced.
-
+- **Labelling** — `label` is required, but it is always visually hidden: the
+  only visible text in an empty field is the placeholder, and it goes at the
+  first keystroke. Voice-control users say what they see, so make the
+  placeholder match the label — the default `Ask anything` matches no label
+  unless you choose it. This departs from the system's rule that labels are
+  visible, and it is why the conformance audit marks Composer as failing; the
+  gap is open, not settled. The mode group is named by a hidden legend fixed to
+  "Response mode", and `hint` is added to the field's description.
+- **Focus** — The Composer does not move focus: it neither takes focus on
+  mount nor returns it after sending. Enter keeps focus in the field, which is
+  what a reader asking a follow-up needs. Sending with the submit button does
+  not bring focus back to the field, and in an uncontrolled Composer the cleared
+  draft then disables the button that was just used, so focus is lost to the
+  page. Return focus to the field in `onSubmit` if the next
+  step is another question.
+- **Announcements** — None. The Composer has no live region, and `busy` does
+  not announce that a response is on its way. The reply belongs to the
+  conversation around the Composer, which should announce it; a live region
+  here would repeat the reader's own message back to them.
 
 ## Do and don't
 
+### Make the placeholder say what the label says
+
 <Guidance>
-  <Do reason="TODO">TODO</Do>
-  <Dont reason="TODO">TODO</Dont>
+  <Do reason="The label is hidden, so the placeholder is the only name a sighted reader sees. When the two match, a voice-control user can say what is on screen and reach the field, and a screen reader user hears the same question everyone else reads.">
+    <Composer
+      label="Ask anything about the business"
+      placeholder="Ask anything about the business"
+    />
+  </Do>
+  <Dont reason='A voice-control user says "click Type your message" and nothing happens, because the field is named "Chat input". A screen reader user hears "Chat input", which describes the widget and not the question it takes.'>
+    <Composer label="Chat input" placeholder="Type your message…" />
+  </Dont>
 </Guidance>
+
+<Heuristic name="Consistency and standards">
+  The name a control is called by should be the name it is shown with. A hidden label that disagrees
+  with the visible text gives two groups of readers two different controls.
+</Heuristic>
+
+### Put the notice in the hint, not the placeholder
+
+<Guidance>
+  <Do reason="The hint stays on screen while the reader types and is part of the field's description, so a screen reader hears it on focus. The limit is still visible at the moment the reader decides whether to trust the answer.">
+    <Composer
+      label="Ask anything about the business"
+      placeholder="Ask anything about the business"
+      hint="Read-only — AI Chat cannot change your data."
+    />
+  </Do>
+  <Dont reason="The placeholder disappears at the first keystroke, so the notice is gone before the question is finished, and it is not the field's description. A reader who asks the assistant to update a record finds out it cannot only after it has failed to.">
+    <Composer
+      label="Ask anything about the business"
+      placeholder="Ask anything — read-only, AI Chat cannot change your data"
+    />
+  </Dont>
+</Guidance>
+
+<Heuristic name="Recognition rather than recall">
+  A condition the reader has to remember after it vanishes is a condition they will forget. Keep it
+  where they can see it.
+</Heuristic>
 
 ## Tokens consumed
 
