@@ -26,7 +26,7 @@
 .bh-menu__trigger:hover {
   background:
     linear-gradient(var(--bh-fill-hover), var(--bh-fill-hover)), var(--bh-material-regular-bg);
-  box-shadow: var(--bh-material-rim), var(--bh-elevation-floating);
+  box-shadow: var(--bh-material-rim), var(--bh-elevation-control), var(--bh-elevation-floating);
 }
 
 .bh-menu__caret {
