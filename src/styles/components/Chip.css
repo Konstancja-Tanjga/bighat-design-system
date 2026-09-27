@@ -11,9 +11,14 @@
   min-height: var(--bh-control-sm);
   padding: var(--bh-gap-hairline) var(--bh-padding-block);
   box-sizing: border-box;
-  background: var(--bh-surface-base);
+  /* Glass since 4.4, the same capsule as a secondary Button: the rim and the
+     control shadow draw the edge the 1px grey border used to. The border stays
+     transparent for forced-colours mode, which drops shadows and paints it. */
+  background: var(--bh-material-regular-bg);
+  backdrop-filter: blur(var(--bh-material-regular-blur)) saturate(var(--bh-material-saturation));
+  box-shadow: var(--bh-material-rim), var(--bh-elevation-control);
   color: var(--bh-text-secondary);
-  border: 1px solid var(--bh-border-strong);
+  border: 1px solid transparent;
   border-radius: var(--bh-radius-pill);
   font-family: var(--bh-font-family-sans);
   font-size: var(--bh-text-size-body);
@@ -32,14 +37,36 @@
 .bh-chip--filter {
   padding-right: calc(var(--bh-padding-block) + var(--bh-control-indicator) + var(--bh-gap-tight));
   cursor: pointer;
+  position: relative;
+  isolation: isolate;
   transition:
-    background var(--bh-duration-fast) var(--bh-easing-standard),
-    color var(--bh-duration-fast) var(--bh-easing-standard);
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    color var(--bh-duration-fast) var(--bh-easing-standard),
+    border-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
-.bh-chip--filter:hover {
-  background: var(--bh-surface-sunken);
+/* Hover tints the glass through an overlay whose opacity fades, as on a
+   secondary Button - but without the Button's lift. Chips come in rows, and a
+   row where every chip rises under the pointer is motion for its own sake: the
+   lift is the Button's, the thing that commits something. */
+.bh-chip--filter::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--bh-fill-hover);
+  opacity: 0;
+  transition: opacity var(--bh-duration-fast) var(--bh-easing-standard);
+  pointer-events: none;
+}
+
+.bh-chip--filter:hover:not(:disabled) {
   color: var(--bh-text-primary);
+}
+
+.bh-chip--filter:hover:not(:disabled)::before {
+  opacity: 1;
 }
 
 /*
@@ -111,7 +138,7 @@
 }
 
 .bh-chip__remove:hover {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
   color: var(--bh-text-primary);
 }
 
