@@ -2,7 +2,7 @@
  * The 4.1 list was a white box with full-width grey rules, which on a sunken
  * page read as an unstyled table. It now takes the surface it sits on, rules
  * are hairlines inset to the text, and a row that responds to the pointer does
- * so with an inset fill.hover capsule - the same hover every other quiet control
+ * so with a fill.hover capsule - the same hover every other quiet control
  * uses - rather than an opaque band.
  */
 .bh-list {
@@ -26,7 +26,6 @@
   display: flex;
   align-items: center;
   gap: var(--bh-gap-normal);
-  padding-right: var(--bh-padding-inline);
 }
 
 /* Inset to the text on both sides, so the rule separates rows of content
@@ -39,6 +38,12 @@
   right: var(--bh-padding-inline);
   height: 1px;
   background: var(--bh-border-hairline);
+}
+
+/* A rule would cut across the hovered row's capsule. */
+.bh-list__item:has(.bh-list__row--interactive:hover)::before,
+.bh-list__item:has(.bh-list__row--interactive:hover) + .bh-list__item::before {
+  opacity: 0;
 }
 
 .bh-list__row {
@@ -68,6 +73,12 @@
 
 .bh-list__row--interactive:hover {
   background: var(--bh-fill-hover);
+}
+
+/* Concentric with the raised surface's corner, so a hovered first or last row
+   follows the curve instead of cutting a smaller one inside it. */
+.bh-list--inset .bh-list__row--interactive {
+  border-radius: calc(var(--bh-radius-surface) - var(--bh-gap-tight));
 }
 
 .bh-list__leading {
@@ -126,7 +137,11 @@
   }
 }
 
+/* The trailing slot carries the row's end padding, so the text and the rule
+   both sit padding.inline in from each edge - the rule is inset to the text on
+   both sides, not only the leading one. */
 .bh-list__trailing {
+  padding-right: var(--bh-padding-inline);
   display: inline-flex;
   align-items: center;
   gap: var(--bh-gap-snug);
