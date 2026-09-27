@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { contrastRatio } from './contrast';
+import { compositeOver, contrastRatio } from './contrast';
 
 /**
  * The contrast gate. Every pair declared in the semantic token file's
@@ -20,7 +20,8 @@ const ROOT = resolve(import.meta.dirname, '../..');
 
 type Contrast = {
   thresholds: Record<string, number>;
-  pairs: Array<[foreground: string, background: string, requirement: string]>;
+  /** An optional fourth entry is the opaque surface a translucent background sits on. */
+  pairs: Array<[foreground: string, background: string, requirement: string, over?: string]>;
 };
 
 const semantic = JSON.parse(readFileSync(resolve(ROOT, 'tokens/semantic.tokens.json'), 'utf8'));
@@ -31,16 +32,20 @@ const tokens = JSON.parse(readFileSync(resolve(ROOT, 'dist/tokens.flat.json'), '
 describe('contrast pairs', () => {
   for (const theme of ['light', 'dark'] as const) {
     describe(theme, () => {
-      it.each(contrast.pairs)('%s on %s meets %s', (fg, bg, requirement) => {
+      it.each(contrast.pairs)('%s on %s meets %s (over %s)', (fg, bg, requirement, over) => {
         const min = contrast.thresholds[requirement];
         expect(tokens[fg], `${fg} is not a built token`).toBeDefined();
         expect(tokens[bg], `${bg} is not a built token`).toBeDefined();
         expect(min, `unknown requirement ${requirement}`).toBeDefined();
+        if (over) expect(tokens[over], `${over} is not a built token`).toBeDefined();
 
-        const measured = contrastRatio(tokens[fg][theme], tokens[bg][theme]);
+        const background = over
+          ? compositeOver(tokens[bg][theme], tokens[over][theme])
+          : tokens[bg][theme];
+        const measured = contrastRatio(tokens[fg][theme], background);
         expect(
           measured,
-          `${fg} on ${bg} (${theme}) is ${measured.toFixed(2)}:1, needs ${min}:1`,
+          `${fg} on ${bg}${over ? ` over ${over}` : ''} (${theme}) is ${measured.toFixed(2)}:1, needs ${min}:1`,
         ).toBeGreaterThanOrEqual(min);
       });
     });

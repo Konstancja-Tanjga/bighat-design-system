@@ -108,7 +108,7 @@
 .bh-table tfoot td {
   border-top: 1px solid var(--bh-border-strong);
   border-bottom: 0;
-  background: var(--bh-surface-base);
+  background: var(--bh-surface-raised);
   font-weight: var(--bh-text-weight-heading);
 }
 

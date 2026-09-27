@@ -82,9 +82,9 @@
     "text.sizeBody",
     "text.sizeDense",
     "text.weightBody",
-    "text.weightHeading",
     "border.hairline",
-    "text.secondary"
+    "text.secondary",
+    "text.weightEmphasis"
   ],
   "interactive": false
 }

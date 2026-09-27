@@ -66,8 +66,10 @@
   white-space: nowrap;
 }
 
+/* text.secondary, not muted: on a hovered row - fill.hover over the raised
+   surface - muted drops to 4.4:1 in dark. The gate declares the pair. */
 .bh-list-view__description {
-  color: var(--bh-text-muted);
+  color: var(--bh-text-secondary);
   font-size: var(--bh-text-size-body);
   overflow: hidden;
   text-overflow: ellipsis;

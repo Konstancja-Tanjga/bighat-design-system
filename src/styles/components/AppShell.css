@@ -16,7 +16,8 @@
 }
 
 /* No rule of its own: AppBar draws the hairline beneath itself, and a second
-   line here stacked a 2px rule under every screen. */
+   line here stacked a 2px rule under every screen. That hairline is a shadow,
+   which forced colours drop, so there the header draws the line itself. */
 .bh-shell__header {
   grid-area: header;
   background: var(--bh-surface-base);
@@ -152,4 +153,10 @@
 
 .bh-skip-link:focus-visible {
   transform: translateY(0);
+}
+
+@media (forced-colors: active) {
+  .bh-shell__header {
+    border-bottom: 1px solid CanvasText;
+  }
 }

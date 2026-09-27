@@ -180,7 +180,9 @@
     "border.hairline",
     "elevation.raised",
     "fill.hover",
-    "surface.raised"
+    "surface.raised",
+    "text.sizeLabel",
+    "text.weightEmphasis"
   ],
   "interactive": true,
   "$columnProps": {

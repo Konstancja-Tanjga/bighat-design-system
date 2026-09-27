@@ -42,8 +42,10 @@
   flex: 1;
 }
 
+/* text.secondary, not muted: an accordion takes the surface it sits on, and
+   muted on a hovered trigger over a raised surface drops to 4.4:1 in dark. */
 .bh-accordion__meta {
-  color: var(--bh-text-muted);
+  color: var(--bh-text-secondary);
   font-size: var(--bh-text-size-body);
   font-weight: var(--bh-text-weight-body);
 }
