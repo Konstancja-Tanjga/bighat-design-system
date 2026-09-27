@@ -2,6 +2,7 @@ import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 import { Do, Dont, Guidance, Heuristic } from '../../docs/Guidance';
 import { Badge } from '../Badge/Badge';
+import { Button } from '../Button/Button';
 import { Card } from './Card';
 import * as CardStories from './Card.stories';
 
@@ -33,21 +34,24 @@ which one a click will reach.
 
 ## Anatomy
 
-| part      | element                           | rendered | note                                                                                                                                     |
-| --------- | --------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `bh-card` | `<div>` · `<button[type=button]>` | always   | A `<div>` by default; a `<button>` when `onClick` is set. The accent bar is a `::before` layer on the same element, not a separate node. |
+| part               | element                           | rendered              | note                                                                                                                                     |
+| ------------------ | --------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-card`          | `<div>` · `<button[type=button]>` | always                | A `<div>` by default; a `<button>` when `onClick` is set. The accent bar is a `::before` layer on the same element, not a separate node. |
+| `bh-card__body`    | `<div>`                           | when `actions` is set | Takes the free height, so the actions row sits at the foot of the card.                                                                  |
+| `bh-card__actions` | `<div>`                           | when `actions` is set | The actions row: trailing edge, wraps on a narrow card.                                                                                  |
 
 ## Props
 
-| prop        | values                                               | default  | meaning                                                                                                                                                                      |
-| ----------- | ---------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `children`  | slot                                                 | —        | The record's content. Phrasing content only (text, `<span>`, `Badge`) when `onClick` is set, because it ends up inside a `<button>`.                                         |
-| `onClick`   | event                                                | —        | Makes the whole surface one button.                                                                                                                                          |
-| `ariaLabel` | string                                               | —        | Its accessible name when onClick is set.                                                                                                                                     |
-| `elevation` | `flat` · `raised`                                    | `raised` | `raised` lifts the card one step off the page with a shadow. `flat` has no shadow, only a hairline ring.                                                                     |
-| `accent`    | `none` · `info` · `success` · `warning` · `critical` | `none`   | Decorative — never the only carrier of a status. Draws a capsule bar beside the content, and an accented card takes section padding on its leading side to make room for it. |
-| `padding`   | `snug` · `normal`                                    | `normal` | `normal` uses `padding.section`; `snug` uses `padding.inline`, for dense grids and narrow panels.                                                                            |
-| `dragging`  | boolean                                              | `false`  | Marks the card being dragged: slightly transparent, lifted to `elevation.overlay`. Visual only — it adds no drag behaviour and no ARIA.                                      |
+| prop        | values                                               | default  | meaning                                                                                                                                                                                   |
+| ----------- | ---------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`  | slot                                                 | —        | The record's content. Phrasing content only (text, `<span>`, `Badge`) when `onClick` is set, because it ends up inside a `<button>`.                                                      |
+| `onClick`   | event                                                | —        | Makes the whole surface one button.                                                                                                                                                       |
+| `ariaLabel` | string                                               | —        | Its accessible name when onClick is set.                                                                                                                                                  |
+| `elevation` | `flat` · `raised`                                    | `raised` | `raised` lifts the card one step off the page with a shadow. `flat` has no shadow, only a hairline ring.                                                                                  |
+| `accent`    | `none` · `info` · `success` · `warning` · `critical` | `none`   | Decorative — never the only carrier of a status. Draws a capsule bar beside the content, and an accented card takes section padding on its leading side to make room for it.              |
+| `padding`   | `snug` · `normal`                                    | `normal` | `normal` uses `padding.section`; `snug` uses `padding.inline`, for dense grids and narrow panels.                                                                                         |
+| `dragging`  | boolean                                              | `false`  | Marks the card being dragged: slightly transparent, lifted to `elevation.overlay`. Visual only — it adds no drag behaviour and no ARIA.                                                   |
+| `actions`   | slot                                                 | —        | The card's own actions, as a row at the foot, aligned to the trailing edge; put the primary last. Not with `onClick` — a type error, because a card that is a button cannot hold buttons. |
 
 <Controls />
 
@@ -77,6 +81,70 @@ the system focus ring when reached by keyboard.
   how it looks, not what is announced. Whatever implements the drag owns the
   announcement and the pointer-free way to make the same move.
 
+## Anatomy and order
+
+A card is read top to bottom, and the order is the same on every card, so a
+reader who has used one knows where to look on the next:
+
+1. **Accent** (optional) - the bar in the leading padding. Decorative.
+2. **Title** - the record's name, in `text.primary`. Not coloured: tone is the
+   accent's and the badge's job, and a blue title reads as a link.
+3. **Status or meta** (optional) - a `Badge`, or a line in `text.secondary`.
+4. **Content** - a link that goes deeper ("Read more") ends the content, where
+   the reading it continues ends. It is not an action and does not join the
+   actions row.
+5. **Actions** - the `actions` row: at the foot, at the trailing edge, the
+   primary last, where reading ends. The same order as AppBar's actions.
+
+### Keep the actions inside the card
+
+<Guidance>
+  <Do reason="The edge promises that everything about this record is inside it. The action sits within that edge, at the foot and the trailing side, where the reader finishes the card.">
+    <Card
+      padding="snug"
+      actions={
+        <Button size="sm" variant="secondary">
+          Show another fact
+        </Button>
+      }
+    >
+      <span style={{ display: 'block', fontWeight: 600 }}>Fact</span>
+      <span style={{ display: 'block' }}>A peregrine stoops at over 300 km/h.</span>
+    </Card>
+  </Do>
+  <Dont reason="Below the card, the button belongs to nothing in particular. It reads as the page's action, or as the start of whatever comes next, and the card above it looks finished without it.">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
+      <Card padding="snug">
+        <span style={{ display: 'block', fontWeight: 600 }}>Fact</span>
+        <span style={{ display: 'block' }}>A peregrine stoops at over 300 km/h.</span>
+      </Card>
+      <Button size="sm" variant="secondary">
+        Show another fact
+      </Button>
+    </div>
+  </Dont>
+</Guidance>
+
+### Line the actions up across a row
+
+<Guidance>
+  <Do reason="Cards in a row are compared side by side. With actions at the foot of every card, the eye finds them in one line, and a longer card does not push its button somewhere else.">
+    <Canvas of={CardStories.ActionsInAGrid} />
+  </Do>
+  <Dont reason="An action halfway down one card and at the bottom of the next reads as an accident, and a button taller than the text beside it outweighs the record it belongs to. Use `sm` in a snug card.">
+    <p style={{ margin: 0 }}>
+      One card's button mid-content, the next card's at its foot; an `md` button in a snug card.
+    </p>
+  </Dont>
+</Guidance>
+
+### One primary, and it goes last
+
+A card has at most one primary action, at the end of the row. Two primaries
+leave the reader to decide which one the card is for; a primary first puts the
+thing they came to do at the start of the line, before they have read what it
+does it to.
+
 ## Do and don't
 
 ### One action makes the whole card a button
@@ -93,8 +161,8 @@ the system focus ring when reached by keyboard.
   </Dont>
 </Guidance>
 
-When a card needs two actions, leave `onClick` off and give each action its own
-`Button`:
+When a card needs its own actions, leave `onClick` off and pass them as
+`actions`:
 
 <Canvas of={CardStories.WithActions} />
 

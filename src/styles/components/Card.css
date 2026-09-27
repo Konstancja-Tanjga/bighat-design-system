@@ -99,3 +99,30 @@
 .bh-card--accent-critical {
   --bh-card-accent: var(--bh-status-critical-fg);
 }
+
+/*
+ * The actions row. Inside the card, because the edge promises that everything
+ * about this record is within it - a button below the card reads as the page's
+ * action, or the next card's. At the foot, because the card is a column and
+ * the body takes the free height, so cards in a grid row line their actions up
+ * however long their content runs. At the trailing edge with the primary last,
+ * where reading ends, as in AppBar.
+ */
+.bh-card--with-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-normal);
+}
+
+.bh-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.bh-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+}
