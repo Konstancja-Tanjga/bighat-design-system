@@ -23,7 +23,14 @@ export type BreadcrumbsProps = {
 };
 
 export function Breadcrumbs({ items, ariaLabel = 'Breadcrumb', maxItems = 5 }: BreadcrumbsProps) {
-  const [expanded, setExpanded] = useState(false);
+  // Expansion belongs to one trail. A shell that keeps Breadcrumbs mounted
+  // across routes would otherwise carry "expanded" to the next deep page and
+  // maxItems would stop working for the rest of the session. The trail is
+  // compared by its hrefs, not by array identity, because callers pass a new
+  // array literal on every render.
+  const trail = `${items.length}|${items.map((item) => item.href ?? '').join('\u0000')}`;
+  const [expandedFor, setExpandedFor] = useState<string | null>(null);
+  const expanded = expandedFor === trail;
   // The ellipsis button is removed when it is pressed, so focus is moved on to
   // the first level it revealed rather than falling to the page.
   const firstRevealed = useRef<HTMLAnchorElement>(null);
@@ -59,7 +66,7 @@ export function Breadcrumbs({ items, ariaLabel = 'Breadcrumb', maxItems = 5 }: B
                   className="bh-breadcrumbs__link bh-breadcrumbs__ellipsis bh-focusable"
                   aria-label={`Show ${item.ellipsis} more ${item.ellipsis === 1 ? 'level' : 'levels'}`}
                   onClick={() => {
-                    setExpanded(true);
+                    setExpandedFor(trail);
                     setMoveFocus(true);
                   }}
                 >

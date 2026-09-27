@@ -41,4 +41,21 @@ describe('Breadcrumbs', () => {
     expect(document.activeElement).toBe(billing);
     expect(screen.getAllByRole('link')).toHaveLength(5);
   });
+
+  it('names a single hidden level in the singular', () => {
+    render(<Breadcrumbs items={deep.slice(0, 3).concat({ label: 'INV-2043' })} maxItems={3} />);
+    expect(screen.getByRole('button', { name: 'Show 1 more level' })).toBeInTheDocument();
+  });
+
+  it('collapses again when the trail changes under a mounted component', async () => {
+    const { rerender } = render(<Breadcrumbs items={deep} maxItems={4} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Show 3 more levels' }));
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+
+    const other = deep.map((item) =>
+      item.href ? { ...item, href: `/archive${item.href}` } : { label: 'INV-1990' },
+    );
+    rerender(<Breadcrumbs items={other} maxItems={4} />);
+    expect(screen.getByRole('button', { name: 'Show 3 more levels' })).toBeInTheDocument();
+  });
 });
