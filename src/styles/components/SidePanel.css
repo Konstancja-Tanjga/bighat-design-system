@@ -56,7 +56,7 @@
 }
 
 .bh-panel__toggle:hover {
-  background: var(--bh-action-secondary-bg-hover);
+  background: var(--bh-fill-hover);
   color: var(--bh-text-primary);
 }
 
@@ -80,5 +80,5 @@
 .bh-panel__footer {
   flex: none;
   padding: var(--bh-padding-block) var(--bh-padding-inline);
-  border-top: 1px solid var(--bh-border-subtle);
+  border-top: 1px solid var(--bh-border-hairline);
 }

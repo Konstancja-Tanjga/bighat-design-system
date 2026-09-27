@@ -102,8 +102,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "action.secondary.bgHover",
-    "border.subtle",
     "font.family",
     "gap.snug",
     "padding.block",
@@ -115,7 +113,9 @@
     "text.sizeBody",
     "text.weightHeading",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "fill.hover",
+    "border.hairline"
   ],
   "interactive": true
 }

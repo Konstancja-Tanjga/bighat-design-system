@@ -80,7 +80,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "action.secondary.bgHover",
     "font.family",
     "gap.hairline",
     "gap.snug",
@@ -97,7 +96,8 @@
     "text.sizeHeading",
     "text.sizeLabel",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "fill.hover"
   ],
   "interactive": true
 }

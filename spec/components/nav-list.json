@@ -89,7 +89,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "action.secondary.bgHover",
     "gap.hairline",
     "gap.loose",
     "gap.snug",
@@ -105,7 +104,10 @@
     "text.weightBody",
     "text.weightHeading",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "fill.hover",
+    "text.secondary",
+    "text.weightEmphasis"
   ],
   "interactive": true
 }

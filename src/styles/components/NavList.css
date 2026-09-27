@@ -2,14 +2,15 @@
   margin-top: var(--bh-gap-loose);
 }
 
+/* Sentence case, not tracked capitals: a label is read as a word, and a row
+   of spaced capitals above every group is decoration that slows the reading
+   down. Weight and colour set it apart from the items. */
 .bh-navgroup__label {
   margin: 0 0 var(--bh-gap-tight);
   padding: 0 var(--bh-gap-snug);
-  font-size: var(--bh-text-size-dense);
-  font-weight: var(--bh-text-weight-heading);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--bh-text-muted);
+  font-size: var(--bh-text-size-body);
+  font-weight: var(--bh-text-weight-emphasis);
+  color: var(--bh-text-secondary);
 }
 
 .bh-navlist {
@@ -42,15 +43,29 @@
 }
 
 .bh-navitem:hover {
-  background: var(--bh-action-secondary-bg-hover);
+  background: var(--bh-fill-hover);
 }
 
-/* Active is a tinted fill plus a border, so it survives greyscale and a
-   forced-colours mode that discards the background. */
+/* Active is a tinted fill and a heavier weight: the weight survives
+   greyscale, and aria-current carries it to assistive tech. The 1px ring it
+   had until 4.9 competed with the primary action on the same screen - two
+   green shapes where there should be one. */
 .bh-navitem--active {
   background: var(--bh-selection-bg);
-  box-shadow: inset 0 0 0 1px var(--bh-selection-mark);
   font-weight: var(--bh-text-weight-heading);
+}
+
+.bh-navitem--active:hover {
+  background: var(--bh-selection-bg);
+}
+
+/* Forced colours drop the fill, which the ring used to survive; an outline
+   in the system highlight colour replaces it there only. */
+@media (forced-colors: active) {
+  .bh-navitem--active {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
 }
 
 .bh-navitem__icon {
