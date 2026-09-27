@@ -44,11 +44,15 @@ export function SidePanel({
   // The title slot stays in place when collapsed so the toggle keeps its
   // position in the tree, and with it its DOM node.
   const pointsRight = side === 'start' ? collapsed : !collapsed;
+  // Collapsed with no toggle, the strip holds nothing, and a named landmark
+  // with nothing in it is a dead stop for anyone navigating by region. There
+  // is no button to keep focus on in that case, so the element can change.
+  const Root = collapsed && !onToggle ? 'div' : 'aside';
 
   return (
-    <aside
+    <Root
       className={`bh-panel bh-panel--${side}${collapsed ? ' bh-panel--collapsed' : ''}`}
-      aria-label={ariaLabel}
+      aria-label={Root === 'aside' ? ariaLabel : undefined}
       style={collapsed ? undefined : { width, minWidth: width }}
     >
       {(onToggle || (title && !collapsed)) && (
@@ -77,6 +81,6 @@ export function SidePanel({
           {footer && <div className="bh-panel__footer">{footer}</div>}
         </>
       )}
-    </aside>
+    </Root>
   );
 }

@@ -52,5 +52,6 @@ describe('SidePanel', () => {
       </SidePanel>,
     );
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.queryByRole('complementary')).not.toBeInTheDocument();
   });
 });

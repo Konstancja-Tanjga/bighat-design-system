@@ -39,15 +39,15 @@ also loses whatever the reader had typed every time it closes.
 
 ## Anatomy
 
-| part                 | element                 | rendered                                          | note                                                                                                                 |
-| -------------------- | ----------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `bh-panel`           | `<aside>`               | always                                            | A complementary landmark named by `ariaLabel`, in both states. Collapsed, it is 36px wide and holds only the toggle. |
-| `bh-panel__toggle`   | `<button[type=button]>` | when `onToggle` is set                            | Labelled "Collapse {ariaLabel}" or "Expand {ariaLabel}", with `aria-expanded`. The arrow glyph is `aria-hidden`.     |
-| `bh-panel__titlebar` | `<div>`                 | when `onToggle` is set, or `title` while expanded | Holds the title and the toggle on one line. Collapsed, it holds the toggle alone.                                    |
-| `bh-panel__title`    | `<h2>`                  | when `title` is set, and not collapsed            | Always level 2.                                                                                                      |
-| `bh-panel__header`   | `<div>`                 | when `header` is set, and not collapsed           | Does not scroll.                                                                                                     |
-| `bh-panel__body`     | `<div>`                 | when not collapsed                                | The only scrolling region, so the header and footer stay reachable however long the list gets.                       |
-| `bh-panel__footer`   | `<div>`                 | when `footer` is set, and not collapsed           | Does not scroll. Separated from the body by a `border.subtle` rule.                                                  |
+| part                 | element                 | rendered                                          | note                                                                                                                                                                                                                |
+| -------------------- | ----------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-panel`           | `<aside>`               | always                                            | A complementary landmark named by `ariaLabel`, in both states. Collapsed, it is 36px wide and holds only the toggle; collapsed with no `onToggle`, it is a plain `<div>`, because an empty landmark is a dead stop. |
+| `bh-panel__toggle`   | `<button[type=button]>` | when `onToggle` is set                            | Labelled "Collapse {ariaLabel}" or "Expand {ariaLabel}", with `aria-expanded`. The arrow glyph is `aria-hidden`.                                                                                                    |
+| `bh-panel__titlebar` | `<div>`                 | when `onToggle` is set, or `title` while expanded | Holds the title and the toggle on one line. Collapsed, it holds the toggle alone.                                                                                                                                   |
+| `bh-panel__title`    | `<h2>`                  | when `title` is set, and not collapsed            | Always level 2.                                                                                                                                                                                                     |
+| `bh-panel__header`   | `<div>`                 | when `header` is set, and not collapsed           | Does not scroll.                                                                                                                                                                                                    |
+| `bh-panel__body`     | `<div>`                 | when not collapsed                                | The only scrolling region, so the header and footer stay reachable however long the list gets.                                                                                                                      |
+| `bh-panel__footer`   | `<div>`                 | when `footer` is set, and not collapsed           | Does not scroll. Separated from the body by a `border.subtle` rule.                                                                                                                                                 |
 
 ## Props
 
