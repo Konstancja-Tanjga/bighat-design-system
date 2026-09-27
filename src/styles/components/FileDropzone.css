@@ -12,7 +12,7 @@
   min-height: calc(var(--bh-control-lg) * 2);
   padding: var(--bh-padding-section);
   box-sizing: border-box;
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
   /* Dashed, because a solid rectangle reads as a filled field rather than a
      place to put something. */
   border: 1px dashed var(--bh-border-strong);
@@ -67,11 +67,12 @@
   color: var(--bh-selection-fg);
 }
 
-/* Border weight and the message below carry the invalid state together. */
+/* Invalid as a field is invalid: the critical edge and the critical
+   background, with the message below. The 2px border it replaces changed the
+   box and needed a padding correction. */
 .bh-dropzone--invalid {
   border-color: var(--bh-status-critical-fg);
-  border-width: 2px;
-  padding: calc(var(--bh-padding-section) - 1px);
+  background: var(--bh-status-critical-bg);
 }
 
 .bh-dropzone--disabled {

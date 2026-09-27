@@ -506,6 +506,17 @@ export const contrast = {
       "surface.base",
       "selection.mark",
       "nonText"
+    ],
+    [
+      "status.critical.fg",
+      "status.critical.bg",
+      "nonText"
+    ],
+    [
+      "text.primary",
+      "fill.hover",
+      "bodyText",
+      "surface.sunken"
     ]
   ]
 } as const;

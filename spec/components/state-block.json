@@ -148,7 +148,9 @@
     "textSize.heading",
     "textSize.body",
     "duration.sweep",
-    "easing.loop"
+    "easing.loop",
+    "fill.hover",
+    "selection.mark"
   ],
   "content": {
     "title": "Sentence case, no trailing period. 'No invoices yet', not 'No Invoices Found.'",

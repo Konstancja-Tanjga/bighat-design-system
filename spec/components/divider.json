@@ -56,11 +56,11 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "font.family",
     "gap.normal",
     "padding.section",
-    "text.muted"
+    "border.hairline",
+    "text.secondary"
   ],
   "interactive": false
 }

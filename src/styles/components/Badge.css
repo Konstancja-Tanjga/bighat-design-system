@@ -19,28 +19,31 @@
   background: currentColor;
 }
 
+/* No coloured border: beside borderless glass chips a bordered pill read as a
+   disabled chip, and each status pair is contrast-tested on its own fill. A
+   hairline keeps the shape where the fill matches the surface - the status
+   fills are a raised neutral in dark. */
+.bh-badge {
+  border-color: var(--bh-border-hairline);
+}
+
 .bh-badge--neutral {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
   color: var(--bh-text-secondary);
-  border-color: var(--bh-border-subtle);
 }
 .bh-badge--info {
   background: var(--bh-status-info-bg);
   color: var(--bh-status-info-fg);
-  border-color: var(--bh-status-info-border);
 }
 .bh-badge--success {
   background: var(--bh-status-success-bg);
   color: var(--bh-status-success-fg);
-  border-color: var(--bh-status-success-border);
 }
 .bh-badge--warning {
   background: var(--bh-status-warning-bg);
   color: var(--bh-status-warning-fg);
-  border-color: var(--bh-status-warning-border);
 }
 .bh-badge--critical {
   background: var(--bh-status-critical-bg);
   color: var(--bh-status-critical-fg);
-  border-color: var(--bh-status-critical-border);
 }
