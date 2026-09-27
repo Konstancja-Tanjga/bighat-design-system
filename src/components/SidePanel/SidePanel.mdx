@@ -47,7 +47,7 @@ also loses whatever the reader had typed every time it closes.
 | `bh-panel__title`    | `<h2>`                  | when `title` is set, and not collapsed            | Always level 2.                                                                                                                                                                                                     |
 | `bh-panel__header`   | `<div>`                 | when `header` is set, and not collapsed           | Does not scroll.                                                                                                                                                                                                    |
 | `bh-panel__body`     | `<div>`                 | when not collapsed                                | The only scrolling region, so the header and footer stay reachable however long the list gets.                                                                                                                      |
-| `bh-panel__footer`   | `<div>`                 | when `footer` is set, and not collapsed           | Does not scroll. Separated from the body by a `border.subtle` rule.                                                                                                                                                 |
+| `bh-panel__footer`   | `<div>`                 | when `footer` is set, and not collapsed           | Does not scroll. Separated from the body by a `border.hairline` rule.                                                                                                                                               |
 
 ## Props
 
@@ -70,7 +70,7 @@ also loses whatever the reader had typed every time it closes.
 `default` · `hover`
 
 Both belong to the toggle button. On hover its background changes to
-`action.secondary.bgHover` and its arrow to `text.primary`. The panel itself has
+`fill.hover` and its arrow to `text.primary`. The panel itself has
 no interactive states.
 
 ## Accessibility
@@ -154,4 +154,4 @@ state above the panel so it survives the unmount.
 
 ## Tokens consumed
 
-`action.secondary.bgHover` · `border.subtle` · `font.family` · `gap.snug` · `padding.block` · `padding.inline` · `radius.control` · `surface.base` · `text.primary` · `text.secondary` · `text.sizeBody` · `text.weightHeading`
+`font.family` · `gap.snug` · `padding.block` · `padding.inline` · `radius.control` · `surface.base` · `text.primary` · `text.secondary` · `text.sizeBody` · `text.weightHeading` · `duration.fast` · `easing.standard` · `fill.hover` · `border.hairline`
