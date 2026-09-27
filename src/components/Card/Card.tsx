@@ -28,6 +28,11 @@ type CardBase = {
   dragging?: boolean;
 };
 
+/**
+ * A union, because `actions` and `onClick` exclude each other. `Omit` on a
+ * union flattens it; to drop a key when wrapping Card, use
+ * `DistributiveOmit<CardProps, 'children'>`.
+ */
 export type CardProps = CardBase &
   (
     | {
@@ -58,6 +63,8 @@ export function Card({
   dragging = false,
   actions,
 }: CardProps) {
+  // Not `actions &&`: a falsy node such as 0 would render as text.
+  const hasActions = actions != null && actions !== false;
   const className = [
     'bh-card',
     `bh-card--${elevation}`,
@@ -65,7 +72,7 @@ export function Card({
     accent !== 'none' && `bh-card--accent-${accent}`,
     dragging && 'bh-card--dragging',
     onClick && 'bh-card--interactive bh-focusable',
-    actions && 'bh-card--with-actions',
+    hasActions && 'bh-card--with-actions',
   ]
     .filter(Boolean)
     .join(' ');
@@ -80,8 +87,11 @@ export function Card({
 
   return (
     <div className={className}>
-      {actions ? <div className="bh-card__body">{children}</div> : children}
-      {actions && <div className="bh-card__actions">{actions}</div>}
+      {hasActions ? <div className="bh-card__body">{children}</div> : children}
+      {hasActions && <div className="bh-card__actions">{actions}</div>}
     </div>
   );
 }
+
+/** `Omit` that keeps a union a union, for wrapping components with exclusive props. */
+export type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;

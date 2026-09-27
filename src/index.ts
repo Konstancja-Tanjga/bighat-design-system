@@ -20,7 +20,7 @@ export { Board, BoardCard, BoardColumn } from './components/Board/Board';
 export type { BoardCardProps, BoardColumnProps, BoardProps } from './components/Board/Board';
 
 export { Card } from './components/Card/Card';
-export type { CardProps } from './components/Card/Card';
+export type { CardProps, DistributiveOmit } from './components/Card/Card';
 
 export { Composer } from './components/Composer/Composer';
 export type { ComposerMode, ComposerProps } from './components/Composer/Composer';

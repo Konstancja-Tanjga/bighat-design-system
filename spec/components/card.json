@@ -72,7 +72,9 @@
     },
     "actions": {
       "kind": "slot",
-      "note": "The card's own actions, as a row at the foot, trailing edge, primary last. Not with onClick: a card that is a button cannot hold buttons."
+      "content": "Buttons; primary last",
+      "note": "A row at the foot, trailing edge. Never together with onClick: a card that is a button cannot hold buttons.",
+      "react": "actions?: ReactNode (never with onClick)"
     }
   },
   "states": [

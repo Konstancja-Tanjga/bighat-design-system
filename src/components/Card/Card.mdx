@@ -128,8 +128,10 @@ reader who has used one knows where to look on the next:
 ### Line the actions up across a row
 
 <Guidance>
-  <Do reason="Cards in a row are compared side by side. With actions at the foot of every card, the eye finds them in one line, and a longer card does not push its button somewhere else.">
-    <Canvas of={CardStories.ActionsInAGrid} />
+  <Do reason="Cards in a row are compared side by side. With actions at the foot of every card, the eye finds them in one line, and a longer card does not push its button somewhere else - see the grid below.">
+    <Card padding="snug" actions={<Button size="sm">Send reminder</Button>}>
+      <span style={{ display: 'block' }}>INV-2043 · Nordwind sp. z o.o.</span>
+    </Card>
   </Do>
   <Dont reason="An action halfway down one card and at the bottom of the next reads as an accident, and a button taller than the text beside it outweighs the record it belongs to. Use `sm` in a snug card.">
     <p style={{ margin: 0 }}>
@@ -137,6 +139,8 @@ reader who has used one knows where to look on the next:
     </p>
   </Dont>
 </Guidance>
+
+<Canvas of={CardStories.ActionsInAGrid} />
 
 ### One primary, and it goes last
 
@@ -206,4 +210,4 @@ When a card needs its own actions, leave `onClick` off and pass them as
 
 ## Tokens consumed
 
-`elevation.overlay` · `elevation.raised` · `font.family` · `padding.inline` · `padding.section` · `radius.surface` · `status.critical.fg` · `status.info.fg` · `status.success.fg` · `status.warning.fg` · `surface.raised` · `text.primary` · `border.hairline` · `duration.normal` · `easing.standard` · `elevation.floating`
+`elevation.overlay` · `elevation.raised` · `font.family` · `padding.inline` · `padding.section` · `radius.surface` · `status.critical.fg` · `status.info.fg` · `status.success.fg` · `status.warning.fg` · `surface.raised` · `text.primary` · `border.hairline` · `duration.normal` · `easing.standard` · `elevation.floating` · `radius.pill` · `gap.normal` · `gap.snug`

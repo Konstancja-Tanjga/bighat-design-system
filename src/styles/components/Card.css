@@ -56,7 +56,8 @@
 
    Since 4.2 the corner is 20px, and an edge stripe has to bend with it - it
    read as a crescent, not a mark. So the bar is its own capsule inside the
-   padding, centred in it and running the height of the content, which is the
+   padding, centred in it and running the height of the card's content - its
+   actions too - which is the
    thing it marks. It keeps its length on a short snug card, where a stripe
    clipped to the straight part of the edge would all but vanish.
 
