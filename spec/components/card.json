@@ -89,7 +89,8 @@
     "border.hairline",
     "duration.normal",
     "easing.standard",
-    "elevation.floating"
+    "elevation.floating",
+    "radius.pill"
   ],
   "interactive": true
 }

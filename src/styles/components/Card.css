@@ -16,10 +16,12 @@
 }
 
 .bh-card--pad-snug {
-  padding: var(--bh-padding-inline);
+  --bh-card-pad: var(--bh-padding-inline);
+  padding: var(--bh-card-pad);
 }
 .bh-card--pad-normal {
-  padding: var(--bh-padding-section);
+  --bh-card-pad: var(--bh-padding-section);
+  padding: var(--bh-card-pad);
 }
 
 .bh-card--flat {
@@ -47,17 +49,40 @@
   box-shadow: var(--bh-elevation-overlay);
 }
 
-/* Accent is a stripe rather than a whole-card tint: a tinted surface changes
-   the background every piece of text inside it was contrast-tested against.
-   It is an inset shadow on a full-size layer so it follows the 20px corner; a
-   3px-wide box cannot, and stuck out past the curve. */
+/* Accent is a bar rather than a whole-card tint: a tinted surface changes the
+   background every piece of text inside it was contrast-tested against.
+
+   Since 4.2 the corner is 20px, and an edge stripe has to bend with it - it
+   read as a crescent, not a mark. So the bar is its own capsule inside the
+   padding, centred in it and running the height of the content, which is the
+   thing it marks. It keeps its length on a short snug card, where a stripe
+   clipped to the straight part of the edge would all but vanish.
+
+   The bar needs a lane: snug padding leaves it crowding the text, so an
+   accented card always takes section padding on its leading side, and the bar
+   sits in the same place whatever the card's padding. */
+.bh-card[class*='bh-card--accent-'] {
+  padding-inline-start: var(--bh-padding-section);
+}
 .bh-card[class*='bh-card--accent-']::before {
   content: '';
   position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  box-shadow: inset 3px 0 0 var(--bh-card-accent);
+  inset-block: var(--bh-card-pad);
+  inset-inline-start: calc(var(--bh-padding-section) / 2 - 1.5px);
+  width: 3px;
+  border-radius: var(--bh-radius-pill);
+  background: var(--bh-card-accent);
   pointer-events: none;
+}
+
+/* Forced colours repaint backgrounds with the system palette, which would
+   erase the bar. It is decorative, so one system colour for every tone is
+   enough: it still marks the card, and the status is in the text anyway. */
+@media (forced-colors: active) {
+  .bh-card[class*='bh-card--accent-']::before {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
 }
 
 .bh-card--accent-info {
