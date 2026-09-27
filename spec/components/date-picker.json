@@ -91,7 +91,14 @@
   "tokensUsed": [
     "font.family",
     "gap.normal",
-    "gap.snug"
+    "gap.snug",
+    "radius.field",
+    "elevation.control",
+    "border.hover",
+    "border.focus",
+    "status.critical.bg",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

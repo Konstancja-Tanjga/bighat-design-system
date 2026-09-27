@@ -3,7 +3,7 @@
 ---
 
 **Fields get a modern outline.** `Input`, `Select`, `Textarea`, `Combobox` and
-`DatePicker` share one set of edge and state rules:
+`DatePicker`, and the search in `IconPicker`, share one set of edge and state rules:
 
 - a 12px corner on the new `radius.field`, one step rounder than
   `radius.control`, so a field sits with the pill buttons beside it;
@@ -11,12 +11,15 @@
 - hover darkens the edge to the new `border.hover` instead of changing the
   fill;
 - on focus the edge joins the `bh-focusable` ring in `border.focus`;
-- invalid is a 1px `status.critical.fg` edge with a `status.critical.bg` tint,
-  and the error line gains an icon. The 2px border it replaces changed the box
-  size and needed a padding correction.
+- invalid is a 1px `status.critical.fg` edge on `status.critical.bg` (a red
+  tint in light, a raised neutral in dark), kept through hover and focus, and
+  the error line gains an icon. In forced colours the invalid edge is dashed.
+  The 2px border it replaces changed the box size and needed a padding
+  correction.
 
 The edge stays a 1px `border.strong` line held to 3:1, because a field has no
-text of its own to identify it. **New tokens:** `radius.field`, `border.hover`.
+text of its own to identify it. `Skeleton` gains `radius="field"` to match.
+**New tokens:** `radius.field`, `border.hover`.
 
 **The contrast gate is back.** 4.0 deleted `contrast.test.ts` and nothing
 replaced it, so the declared pairs were documented as a build gate and checked

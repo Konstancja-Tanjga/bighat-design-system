@@ -131,7 +131,14 @@
     "material.regular.blur",
     "material.saturation",
     "material.rim",
-    "fill.hover"
+    "fill.hover",
+    "radius.field",
+    "elevation.control",
+    "border.hover",
+    "border.focus",
+    "status.critical.bg",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

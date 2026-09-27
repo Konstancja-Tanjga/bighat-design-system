@@ -40,6 +40,7 @@
   /* One line tall, so the glyph centres on the first line of the message
      however long the message runs. */
   width: 1em;
+  height: 1.5em;
   height: 1lh;
   background: currentColor;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1Zm-.75 3.5h1.5v5h-1.5v-5Zm0 6h1.5V12h-1.5v-1.5Z'/%3E%3C/svg%3E")
@@ -82,7 +83,8 @@
 
 /* Hover is a change of edge, not of fill: the field darkens its outline a
    step, and its surface - the thing the reader types on - stays put. An
-   invalid field keeps its critical edge under the pointer. */
+   invalid field keeps its critical edge under the pointer and under focus:
+   the moment the reader tabs in to fix it is the moment it must stay red. */
 .bh-input:hover:not(:disabled):not(:focus):not(.bh-input--invalid),
 .bh-select:hover:not(:disabled):not(:focus):not(.bh-select--invalid),
 .bh-textarea:hover:not(:disabled):not(:focus):not(.bh-textarea--invalid) {
@@ -92,9 +94,9 @@
 /* The bh-focusable ring stays (SKILL.md rule 5). The edge joins it in the
    focus colour, so the field and its ring read as one focused object rather
    than a grey box inside a green one. */
-.bh-input:focus,
-.bh-select:focus,
-.bh-textarea:focus {
+.bh-input:focus:not(.bh-input--invalid),
+.bh-select:focus:not(.bh-select--invalid),
+.bh-textarea:focus:not(.bh-textarea--invalid) {
   border-color: var(--bh-border-focus);
 }
 
@@ -110,14 +112,27 @@
   cursor: not-allowed;
 }
 
-/* Invalid is three cues, never colour alone: the edge and a tint of the
-   critical role on the field, and the error line below with its icon and its
-   words. The tint replaced 4.4's 2px border, which changed the box size and
-   needed a padding correction to keep the text still. text.primary and
-   text.muted on status.critical.bg are declared contrast pairs. */
+/* Invalid is never colour alone: the edge and the critical background on the
+   field, and the error line below with its icon and its words. In light the
+   background is a red tint; in dark status.critical.bg is a raised neutral, so
+   there the edge, icon and words carry it. This replaced 4.4's 2px border,
+   which changed the box size and needed a padding correction to keep the text
+   still. text.primary and text.muted on status.critical.bg are declared
+   contrast pairs. */
 .bh-input--invalid,
 .bh-select--invalid,
 .bh-textarea--invalid {
   border-color: var(--bh-status-critical-fg);
   background: var(--bh-status-critical-bg);
+}
+
+/* Forced colours repaint every edge alike and drop the background, which
+   would leave an invalid field looking valid. A dashed edge is a cue of shape,
+   not colour, and does not change the box size. */
+@media (forced-colors: active) {
+  .bh-input--invalid,
+  .bh-select--invalid,
+  .bh-textarea--invalid {
+    border-style: dashed;
+  }
 }

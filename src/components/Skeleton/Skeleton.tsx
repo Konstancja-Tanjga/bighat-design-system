@@ -12,7 +12,7 @@
 export type SkeletonProps = {
   width?: number | string;
   height?: number | string;
-  radius?: 'control' | 'surface' | 'pill';
+  radius?: 'control' | 'field' | 'surface' | 'pill';
   /** Adds the shimmer. Off under `prefers-reduced-motion`, always. */
   animated?: boolean;
 };

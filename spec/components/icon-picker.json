@@ -108,7 +108,11 @@
     "text.secondary",
     "text.sizeHeading",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "radius.field",
+    "elevation.control",
+    "border.hover",
+    "status.critical.bg"
   ],
   "interactive": true
 }
