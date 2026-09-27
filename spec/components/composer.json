@@ -129,14 +129,12 @@
     "action.primary.bg",
     "action.primary.bgHover",
     "action.primary.fg",
-    "action.secondary.bgHover",
     "border.focus",
     "border.strong",
     "font.family",
     "gap.snug",
     "gap.tight",
     "padding.inline",
-    "radius.control",
     "radius.pill",
     "radius.surface",
     "selection.bg",
@@ -150,7 +148,14 @@
     "text.weightEmphasis",
     "text.weightHeading",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "material.regular.bg",
+    "material.regular.blur",
+    "material.saturation",
+    "material.rim",
+    "elevation.control",
+    "fill.hover",
+    "selection.mark"
   ],
   "interactive": true
 }
