@@ -41,6 +41,11 @@
     {
       "part": "bh-list__trailing",
       "element": "span"
+    },
+    {
+      "part": "bh-list__chevron",
+      "element": "span",
+      "required": false
     }
   ],
   "props": {
@@ -50,6 +55,15 @@
     "dividers": {
       "kind": "boolean",
       "default": true
+    },
+    "variant": {
+      "kind": "enum",
+      "values": [
+        "plain",
+        "inset"
+      ],
+      "default": "plain",
+      "note": "inset is a grouped list on its own raised surface, like a Card. Not inside a panel or a card."
     },
     "ListItem.title": {
       "kind": "slot",
@@ -91,21 +105,27 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "font.family",
     "gap.normal",
     "gap.snug",
     "padding.inline",
     "radius.control",
-    "surface.base",
-    "surface.sunken",
     "text.muted",
     "text.primary",
     "text.secondary",
     "text.sizeBody",
     "text.sizeCaption",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "border.hairline",
+    "fill.hover",
+    "surface.raised",
+    "radius.surface",
+    "elevation.raised",
+    "control.lg",
+    "gap.tight",
+    "gap.hairline",
+    "text.weightEmphasis"
   ],
   "interactive": true
 }

@@ -17,12 +17,22 @@ export type ListProps = {
   ariaLabel?: string;
   /** Rules between rows. Off for cards or when the rows already have borders. */
   dividers?: boolean;
+  /**
+   * `plain` sits on whatever surface it is in. `inset` is a grouped list on its
+   * own raised surface, like a Card - for a settings page or a list that is
+   * the main content, not for a list inside a panel or a card, which would put
+   * a surface on a surface.
+   */
+  variant?: 'plain' | 'inset';
   children: ReactNode;
 };
 
-export function List({ ariaLabel, dividers = true, children }: ListProps) {
+export function List({ ariaLabel, dividers = true, variant = 'plain', children }: ListProps) {
   return (
-    <ul className={`bh-list${dividers ? ' bh-list--dividers' : ''}`} aria-label={ariaLabel}>
+    <ul
+      className={`bh-list bh-list--${variant}${dividers ? ' bh-list--dividers' : ''}`}
+      aria-label={ariaLabel}
+    >
       {children}
     </ul>
   );
@@ -55,7 +65,14 @@ export function ListItem({ leading, title, description, trailing, href, onSelect
       )}
       <span className="bh-list__body">
         <span className="bh-list__title">{title}</span>
-        {description && <span className="bh-list__description">{description}</span>}
+        {/* The space keeps "Tokens" and "The two layers" two words in the
+            row's accessible name; a flex column does not render it. */}
+        {description && (
+          <>
+            {' '}
+            <span className="bh-list__description">{description}</span>
+          </>
+        )}
       </span>
       {/* Outside the link or button: a control inside a control is not
           reachable, and metadata inside one is read as part of its name. */}
@@ -67,6 +84,9 @@ export function ListItem({ leading, title, description, trailing, href, onSelect
       {href ? (
         <a className="bh-list__row bh-list__row--interactive bh-focusable" href={href}>
           {body}
+          {/* A disclosure chevron: the row leads somewhere. Decorative - the
+              link's role already says so to a screen reader. */}
+          <span className="bh-list__chevron" aria-hidden="true" />
         </a>
       ) : onSelect ? (
         <button

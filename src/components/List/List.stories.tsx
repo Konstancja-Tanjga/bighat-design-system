@@ -72,3 +72,14 @@ export const Links: Story = {
     </List>
   ),
 };
+
+/** A grouped list on its own raised surface, for a page whose content is the list. */
+export const Inset: Story = {
+  render: () => (
+    <List ariaLabel="Notification settings" variant="inset">
+      <ListItem href="#" title="Email" description="Invoices, reminders and receipts" />
+      <ListItem href="#" title="Mobile push" description="Only payments over 10 000 zł" />
+      <ListItem href="#" title="Weekly digest" description="Monday, 08:00" />
+    </List>
+  ),
+};

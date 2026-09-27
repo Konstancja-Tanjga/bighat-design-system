@@ -1,20 +1,44 @@
+/*
+ * The 4.1 list was a white box with full-width grey rules, which on a sunken
+ * page read as an unstyled table. It now takes the surface it sits on, rules
+ * are hairlines inset to the text, and a row that responds to the pointer does
+ * so with an inset fill.hover capsule - the same hover every other quiet control
+ * uses - rather than an opaque band.
+ */
 .bh-list {
   margin: 0;
   padding: 0;
   list-style: none;
   font-family: var(--bh-font-family);
-  background: var(--bh-surface-base);
 }
 
-.bh-list--dividers .bh-list__item + .bh-list__item {
-  border-top: 1px solid var(--bh-border-subtle);
+/* Grouped: its own raised surface, drawn with height like a Card. */
+.bh-list--inset {
+  padding: var(--bh-gap-tight);
+  background: var(--bh-surface-raised);
+  border: 1px solid transparent;
+  border-radius: var(--bh-radius-surface);
+  box-shadow: var(--bh-elevation-raised);
 }
 
 .bh-list__item {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--bh-gap-normal);
   padding-right: var(--bh-padding-inline);
+}
+
+/* Inset to the text on both sides, so the rule separates rows of content
+   rather than cutting the surface in strips. */
+.bh-list--dividers .bh-list__item + .bh-list__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--bh-padding-inline);
+  right: var(--bh-padding-inline);
+  height: 1px;
+  background: var(--bh-border-hairline);
 }
 
 .bh-list__row {
@@ -23,6 +47,7 @@
   gap: var(--bh-gap-normal);
   flex: 1;
   min-width: 0;
+  box-sizing: border-box;
   padding: var(--bh-gap-snug) var(--bh-padding-inline);
   background: transparent;
   border: 0;
@@ -32,14 +57,17 @@
   text-decoration: none;
 }
 
+/* A touch target's height, for rows that are one. A static row keeps its
+   natural height, so a list of one-line facts stays a list, not a menu. */
 .bh-list__row--interactive {
+  min-height: var(--bh-control-lg);
   cursor: pointer;
   border-radius: var(--bh-radius-control);
   transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-list__row--interactive:hover {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
 }
 
 .bh-list__leading {
@@ -51,6 +79,8 @@
 .bh-list__body {
   display: flex;
   flex-direction: column;
+  gap: var(--bh-gap-hairline);
+  flex: 1;
   min-width: 0;
 }
 
@@ -62,12 +92,38 @@
   white-space: nowrap;
 }
 
+/* With a supporting line under it, the title takes the weight that tells the
+   two apart. Alone, it is just the row's text and stays regular. */
+.bh-list__title:has(+ .bh-list__description) {
+  font-weight: var(--bh-text-weight-emphasis);
+}
+
+/* text.secondary rather than muted: the supporting line is read, not skimmed
+   past, and at body size muted was the least comfortable text on the screen. */
 .bh-list__description {
-  color: var(--bh-text-muted);
+  color: var(--bh-text-secondary);
   font-size: var(--bh-text-size-body);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.bh-list__chevron {
+  flex: none;
+  width: 0.75em;
+  height: 0.75em;
+  background: var(--bh-text-muted);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M4.3 2.2 8.1 6l-3.8 3.8-.9-.9L6.3 6 3.4 3.1z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M4.3 2.2 8.1 6l-3.8 3.8-.9-.9L6.3 6 3.4 3.1z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  forced-color-adjust: none;
+}
+
+@media (forced-colors: active) {
+  .bh-list__chevron {
+    background: LinkText;
+  }
 }
 
 .bh-list__trailing {
