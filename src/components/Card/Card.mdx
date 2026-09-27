@@ -33,21 +33,21 @@ which one a click will reach.
 
 ## Anatomy
 
-| part      | element                           | rendered | note                                                                                                                                        |
-| --------- | --------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bh-card` | `<div>` · `<button[type=button]>` | always   | A `<div>` by default; a `<button>` when `onClick` is set. The accent stripe is a `::before` layer on the same element, not a separate node. |
+| part      | element                           | rendered | note                                                                                                                                     |
+| --------- | --------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-card` | `<div>` · `<button[type=button]>` | always   | A `<div>` by default; a `<button>` when `onClick` is set. The accent bar is a `::before` layer on the same element, not a separate node. |
 
 ## Props
 
-| prop        | values                                               | default  | meaning                                                                                                                                 |
-| ----------- | ---------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `children`  | slot                                                 | —        | The record's content. Phrasing content only (text, `<span>`, `Badge`) when `onClick` is set, because it ends up inside a `<button>`.    |
-| `onClick`   | event                                                | —        | Makes the whole surface one button.                                                                                                     |
-| `ariaLabel` | string                                               | —        | Its accessible name when onClick is set.                                                                                                |
-| `elevation` | `flat` · `raised`                                    | `raised` | `raised` lifts the card one step off the page with a shadow. `flat` has no shadow, only a hairline ring.                                |
-| `accent`    | `none` · `info` · `success` · `warning` · `critical` | `none`   | Decorative — never the only carrier of a status.                                                                                        |
-| `padding`   | `snug` · `normal`                                    | `normal` | `normal` uses `padding.section`; `snug` uses `padding.inline`, for dense grids and narrow panels.                                       |
-| `dragging`  | boolean                                              | `false`  | Marks the card being dragged: slightly transparent, lifted to `elevation.overlay`. Visual only — it adds no drag behaviour and no ARIA. |
+| prop        | values                                               | default  | meaning                                                                                                                                                                      |
+| ----------- | ---------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`  | slot                                                 | —        | The record's content. Phrasing content only (text, `<span>`, `Badge`) when `onClick` is set, because it ends up inside a `<button>`.                                         |
+| `onClick`   | event                                                | —        | Makes the whole surface one button.                                                                                                                                          |
+| `ariaLabel` | string                                               | —        | Its accessible name when onClick is set.                                                                                                                                     |
+| `elevation` | `flat` · `raised`                                    | `raised` | `raised` lifts the card one step off the page with a shadow. `flat` has no shadow, only a hairline ring.                                                                     |
+| `accent`    | `none` · `info` · `success` · `warning` · `critical` | `none`   | Decorative — never the only carrier of a status. Draws a capsule bar beside the content, and an accented card takes section padding on its leading side to make room for it. |
+| `padding`   | `snug` · `normal`                                    | `normal` | `normal` uses `padding.section`; `snug` uses `padding.inline`, for dense grids and narrow panels.                                                                            |
+| `dragging`  | boolean                                              | `false`  | Marks the card being dragged: slightly transparent, lifted to `elevation.overlay`. Visual only — it adds no drag behaviour and no ARIA.                                      |
 
 <Controls />
 
@@ -103,10 +103,10 @@ When a card needs two actions, leave `onClick` off and give each action its own
   breaks the one rule a card sets up: the whole thing is one thing.
 </Heuristic>
 
-### Write the status; the stripe only groups
+### Write the status; the bar only groups
 
 <Guidance>
-  <Do reason="The status is a word the reader can see and a screen reader can speak. The stripe helps the eye pick out the overdue cards in a long list, and nobody loses anything if they cannot see it.">
+  <Do reason="The status is a word the reader can see and a screen reader can speak. The bar helps the eye pick out the overdue cards in a long list, and nobody loses anything if they cannot see it.">
     <Card accent="warning" padding="snug">
       <span style={{ display: 'block' }}>INV-2043 · Nordwind sp. z o.o.</span>
       <Badge tone="warning">Overdue by 12 days</Badge>
