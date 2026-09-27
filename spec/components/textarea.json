@@ -87,7 +87,6 @@
     "gap.tight",
     "padding.block",
     "padding.inline",
-    "radius.control",
     "status.critical.fg",
     "surface.base",
     "surface.sunken",
@@ -96,7 +95,14 @@
     "text.primary",
     "textSize.body",
     "textSize.caption",
-    "textWeight.emphasis"
+    "textWeight.emphasis",
+    "radius.field",
+    "elevation.control",
+    "border.hover",
+    "border.focus",
+    "status.critical.bg",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true,
   "implementations": {

@@ -69,6 +69,12 @@
       "dark": "#6b7683",
       "description": "Boundary of an interactive control. Held to 3:1."
     },
+    "border.hover": {
+      "type": "color",
+      "light": "#39414a",
+      "dark": "#9aa4af",
+      "description": "Added in 4.5. A hovered field's edge: border.strong one step darker, so hover is a change of edge rather than of fill. Held to 3:1."
+    },
     "border.focus": {
       "type": "color",
       "light": "#159b6b",
@@ -380,6 +386,12 @@
       "light": "10px",
       "dark": "10px",
       "description": "Rounder in 4.3 (6px → 10px), to sit beside pill buttons and 20px surfaces without looking like a leftover."
+    },
+    "radius.field": {
+      "type": "dimension",
+      "light": "12px",
+      "dark": "12px",
+      "description": "Added in 4.5. Input, Select, Textarea and the other text fields: 12px, one step rounder than radius.control, so a field beside a pill button reads as the same system. Not a pill, because a multi-line field would lose its shape."
     },
     "radius.surface": {
       "type": "dimension",

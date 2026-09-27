@@ -22,24 +22,80 @@
   font-size: var(--bh-text-size-body);
 }
 
+/* The icon is the third cue beside the colour and the words: a reader who
+   cannot tell the red from the grey text still sees that this line is the
+   error. Drawn as a mask so it takes the text colour in both themes. */
 .bh-field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--bh-gap-tight);
   margin: 0;
   color: var(--bh-status-critical-fg);
   font-size: var(--bh-text-size-body);
+}
+
+.bh-field__error::before {
+  content: '';
+  flex: none;
+  /* One line tall, so the glyph centres on the first line of the message
+     however long the message runs. */
+  width: 1em;
+  height: 1lh;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1Zm-.75 3.5h1.5v5h-1.5v-5Zm0 6h1.5V12h-1.5v-1.5Z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  /* Forced colours repaint backgrounds, which would erase the mask's fill. */
+  forced-color-adjust: none;
 }
 
 .bh-input,
 .bh-select {
   height: var(--bh-control-md);
   padding: 0 var(--bh-padding-inline);
-  background: var(--bh-surface-base);
-  color: var(--bh-text-primary);
-  border: 1px solid var(--bh-border-strong);
-  border-radius: var(--bh-radius-control);
   font-family: inherit;
   font-size: var(--bh-text-size-caption);
   width: 100%;
   box-sizing: border-box;
+}
+
+/*
+ * Every text field's edge and states, in one place, so Input, Select,
+ * Textarea, Combobox and DatePicker cannot drift apart.
+ *
+ * The edge stays a 1px border.strong line: a field has no text of its own to
+ * identify it, so its boundary is held to 3:1 (WCAG 1.4.11), which is why it is
+ * not glass like the buttons beside it. What makes it sit with them is the
+ * 12px radius.field corner and the control shadow under it.
+ */
+.bh-input,
+.bh-select,
+.bh-textarea {
+  background: var(--bh-surface-base);
+  color: var(--bh-text-primary);
+  border: 1px solid var(--bh-border-strong);
+  border-radius: var(--bh-radius-field);
+  box-shadow: var(--bh-elevation-control);
+  transition:
+    border-color var(--bh-duration-fast) var(--bh-easing-standard),
+    background-color var(--bh-duration-fast) var(--bh-easing-standard);
+}
+
+/* Hover is a change of edge, not of fill: the field darkens its outline a
+   step, and its surface - the thing the reader types on - stays put. An
+   invalid field keeps its critical edge under the pointer. */
+.bh-input:hover:not(:disabled):not(:focus):not(.bh-input--invalid),
+.bh-select:hover:not(:disabled):not(:focus):not(.bh-select--invalid),
+.bh-textarea:hover:not(:disabled):not(:focus):not(.bh-textarea--invalid) {
+  border-color: var(--bh-border-hover);
+}
+
+/* The bh-focusable ring stays (SKILL.md rule 5). The edge joins it in the
+   focus colour, so the field and its ring read as one focused object rather
+   than a grey box inside a green one. */
+.bh-input:focus,
+.bh-select:focus,
+.bh-textarea:focus {
+  border-color: var(--bh-border-focus);
 }
 
 .bh-input::placeholder {
@@ -47,17 +103,21 @@
 }
 
 .bh-input:disabled,
-.bh-select:disabled {
+.bh-select:disabled,
+.bh-textarea:disabled {
   background: var(--bh-surface-sunken);
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* Invalid state is carried by border weight *and* the error text below, never
-   by colour alone — the border is the redundant cue, not the only one. */
+/* Invalid is three cues, never colour alone: the edge and a tint of the
+   critical role on the field, and the error line below with its icon and its
+   words. The tint replaced 4.4's 2px border, which changed the box size and
+   needed a padding correction to keep the text still. text.primary and
+   text.muted on status.critical.bg are declared contrast pairs. */
 .bh-input--invalid,
-.bh-select--invalid {
+.bh-select--invalid,
+.bh-textarea--invalid {
   border-color: var(--bh-status-critical-fg);
-  border-width: 2px;
-  padding: 0 calc(var(--bh-padding-inline) - 1px);
+  background: var(--bh-status-critical-bg);
 }
