@@ -13,7 +13,7 @@
   line-height: var(--bh-text-leading-normal);
 }
 
-.tpl-article__prose > * + * {
+.tpl-article__prose > * + *:not(.bh-article__margin) {
   margin-top: var(--bh-gap-normal);
 }
 

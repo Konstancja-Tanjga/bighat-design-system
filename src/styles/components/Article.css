@@ -9,7 +9,7 @@
   --bh-article-toc: 11rem;
   --bh-article-gutter: var(--bh-padding-section);
   container-type: inline-size;
-  font-family: var(--bh-font-family);
+  font-family: var(--bh-font-family-sans);
   color: var(--bh-text-primary);
 }
 
@@ -58,7 +58,7 @@
   clear: both;
 }
 
-/* Narrow: every margin note stays in the text, after its paragraph. */
+/* Narrow: every margin note stays in the text, just above its paragraph. */
 .bh-article__margin {
   margin-block: var(--bh-gap-normal);
 }
@@ -200,7 +200,9 @@
   .bh-article__grid--toc .bh-article__toc {
     display: block;
     grid-column: 3;
-    grid-row: 1 / span 3;
+    /* Header and body; the footer too when there is one, so an article
+       without one gets no empty row and no extra gap. */
+    grid-row: 1 / span 2;
     align-self: start;
     position: sticky;
     top: var(--bh-padding-section);
@@ -208,5 +210,11 @@
 
   .bh-article__grid--toc .bh-article__toc-fold {
     display: none;
+  }
+}
+
+@container (min-width: 63rem) {
+  .bh-article__grid--toc.bh-article__grid--footer .bh-article__toc {
+    grid-row: 1 / span 3;
   }
 }

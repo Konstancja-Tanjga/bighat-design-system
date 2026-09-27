@@ -53,7 +53,9 @@ const toc = [
 function Photo({ caption, credit }: { caption: string; credit: string }) {
   return (
     <figure className="tpl-article__figure">
-      <div className="tpl-article__photo" role="img" aria-label={caption} />
+      {/* A placeholder for the product's <img alt>. Hidden here, because the
+          figcaption already names it and a label would say it twice. */}
+      <div className="tpl-article__photo" aria-hidden="true" />
       <figcaption className="tpl-article__caption">
         <span className="tpl-article__caption-title">{caption}</span>
         <span>{credit}</span>
@@ -94,12 +96,12 @@ function LessonBody() {
 
       <h2 id="ostrosc">Ostrość, czyli ile widzi</h2>
       <ArticleMargin>
-        <aside className="tpl-article__fact" aria-label="Ciekawostka">
+        <div className="tpl-article__fact">
           <p className="tpl-article__fact-title">Ciekawostka</p>
           <p>
             Oko orła przedniego jest mniej więcej tak duże jak ludzkie, w głowie o wiele mniejszej.
           </p>
-        </aside>
+        </div>
       </ArticleMargin>
       <p>
         Ostrość wzroku zależy od tego, jak gęsto upakowane są czopki. U orłów i sępów jest ich tak
@@ -146,62 +148,67 @@ export function ArticleTemplate({ state = 'ready' }: ArticleTemplateProps) {
     </SidePanel>
   );
 
+  // lang="pl": the copy is Polish in an English document, and a screen reader
+  // otherwise reads it with an English voice (WCAG 3.1.2). display: contents
+  // keeps the wrapper out of the shell's layout.
   return (
-    <AppShell
-      header={
-        <>
-          <SkipLink />
-          <AppBar
-            brand={<strong>World of Raptors</strong>}
-            title="Anatomia łowcy"
-            titleAsHeading={false}
-          />
-        </>
-      }
-      sidebar={syllabus}
-    >
-      <div className="tpl-article">
-        {state === 'error' ? (
-          <StateBlock
-            state="error"
-            title="Lekcja się nie wczytała"
-            description="Twój postęp w module jest zapisany. Spróbuj jeszcze raz albo wróć do listy lekcji."
-            action={<Button variant="secondary">Spróbuj ponownie</Button>}
-          />
-        ) : (
-          <Article
-            eyebrow={
-              <Breadcrumbs
-                items={[
-                  { label: 'Moduły', href: '#' },
-                  { label: 'A2 Anatomia łowcy', href: '#' },
-                  { label: 'Wzrok' },
-                ]}
-              />
-            }
-            title="Wzrok"
-            meta="Lekcja 1 z 5 · około 12 minut"
-            lead="Jak widzi ptak, który poluje z wysokości: dwa punkty najostrzejszego widzenia, ostrość kilka razy większa niż nasza i barwy, których nie widzimy."
-            toc={state === 'ready' ? toc : undefined}
-            tocLabel="W tej lekcji"
-            footer={state === 'ready' ? <LessonFooter /> : undefined}
-          >
-            {state === 'loading' ? (
-              <SkeletonGroup label="Wczytywanie lekcji">
-                <div className="tpl-article__skeleton">
-                  <Skeleton height={96} radius="surface" />
-                  <Skeleton width="40%" height={20} />
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton width="70%" />
-                </div>
-              </SkeletonGroup>
-            ) : (
-              <LessonBody />
-            )}
-          </Article>
-        )}
-      </div>
-    </AppShell>
+    <div lang="pl" style={{ display: 'contents' }}>
+      <AppShell
+        header={
+          <>
+            <SkipLink />
+            <AppBar
+              brand={<strong>World of Raptors</strong>}
+              title="Anatomia łowcy"
+              titleAsHeading={false}
+            />
+          </>
+        }
+        sidebar={syllabus}
+      >
+        <div className="tpl-article">
+          {state === 'error' ? (
+            <StateBlock
+              state="error"
+              title="Lekcja się nie wczytała"
+              description="Twój postęp w module jest zapisany. Spróbuj jeszcze raz albo wróć do listy lekcji."
+              action={<Button variant="secondary">Spróbuj ponownie</Button>}
+            />
+          ) : (
+            <Article
+              eyebrow={
+                <Breadcrumbs
+                  items={[
+                    { label: 'Moduły', href: '#' },
+                    { label: 'A2 Anatomia łowcy', href: '#' },
+                    { label: 'Wzrok' },
+                  ]}
+                />
+              }
+              title="Wzrok"
+              meta="Lekcja 1 z 5 · około 12 minut"
+              lead="Jak widzi ptak, który poluje z wysokości: dwa punkty najostrzejszego widzenia, ostrość kilka razy większa niż nasza i barwy, których nie widzimy."
+              toc={state === 'ready' ? toc : undefined}
+              tocLabel="W tej lekcji"
+              footer={state === 'ready' ? <LessonFooter /> : undefined}
+            >
+              {state === 'loading' ? (
+                <SkeletonGroup label="Wczytywanie lekcji">
+                  <div className="tpl-article__skeleton">
+                    <Skeleton height={96} radius="surface" />
+                    <Skeleton width="40%" height={20} />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton width="70%" />
+                  </div>
+                </SkeletonGroup>
+              ) : (
+                <LessonBody />
+              )}
+            </Article>
+          )}
+        </div>
+      </AppShell>
+    </div>
   );
 }

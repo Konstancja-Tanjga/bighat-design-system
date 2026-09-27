@@ -97,7 +97,7 @@
     },
     "children": {
       "kind": "slot",
-      "content": "The body, with ArticleMargin placed after the paragraph it belongs to",
+      "content": "The body, with ArticleMargin placed before the paragraph it belongs to",
       "react": "children: ReactNode"
     },
     "footer": {
@@ -123,11 +123,11 @@
     "announcements": null
   },
   "implementations": {
-    "version": "4.8.0",
+    "version": "4.9.0",
     "status": "react-only"
   },
   "tokensUsed": [
-    "font.family",
+    "fontFamily.sans",
     "text.primary",
     "text.secondary",
     "text.sizeBody",

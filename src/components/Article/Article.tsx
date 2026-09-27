@@ -1,4 +1,4 @@
-import { useEffect, useId, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode, type RefObject } from 'react';
 
 /**
  * A long read: one column of text at a reading measure, a margin beside it
@@ -13,8 +13,8 @@ import { useEffect, useId, useState, type ReactNode } from 'react';
  * - medium: text | margin, and the table of contents folds into a disclosure
  *   under the header, because a sticky list would sit on top of the margin
  *   notes that share its column;
- * - narrow: one column, and every margin note returns to the text after the
- *   paragraph it belongs to.
+ * - narrow: one column, and every margin note returns to the text, just
+ *   above the paragraph it belongs to.
  *
  * It lays out; it does not style the text inside it. Headings, lists and
  * tables in the body are the product's, because long-form typography is a
@@ -44,27 +44,47 @@ export type ArticleProps = {
   footer?: ReactNode;
 };
 
-function useActiveHeading(ids: string[]) {
+function useActiveHeading(ids: string[], articleRef: RefObject<HTMLElement | null>) {
   const [active, setActive] = useState<string | undefined>(ids[0]);
   const key = ids.join('|');
   useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined' || ids.length === 0) return;
-    const headings = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-    // The active section is the last heading that has scrolled past the top
-    // third of the viewport, so a short section is not skipped over.
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActive(visible[0].target.id);
-      },
-      { rootMargin: '0px 0px -66% 0px' },
-    );
-    headings.forEach((heading) => observer.observe(heading));
-    return () => observer.disconnect();
+    if (ids.length === 0) {
+      setActive(undefined);
+      return;
+    }
+    // The current section is the last heading at or above a line a third of
+    // the way down the viewport - recomputed from every heading on each
+    // scroll, so scrolling up is tracked as well as down. At the end of the
+    // article the last section wins even if its heading cannot reach the line.
+    const compute = () => {
+      const article = articleRef.current;
+      const box = article?.getBoundingClientRect();
+      // Not laid out (a test environment, a hidden tab): the first section.
+      if (!box || box.height === 0) return ids[0];
+      if (box.bottom <= window.innerHeight + 1) return ids[ids.length - 1];
+      const line = window.innerHeight / 3;
+      let current = ids[0];
+      for (const id of ids) {
+        const heading = document.getElementById(id);
+        if (heading && heading.getBoundingClientRect().top <= line) current = id;
+      }
+      return current;
+    };
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => setActive(compute()));
+    };
+    setActive(compute());
+    // Capture, because the scroll container is whatever the product put the
+    // article in - AppShell's main, or the window.
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      document.removeEventListener('scroll', onScroll, { capture: true });
+      window.removeEventListener('resize', onScroll);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
   return active;
@@ -99,12 +119,15 @@ export function Article({
   footer,
 }: ArticleProps) {
   const titleId = useId();
-  const active = useActiveHeading(toc?.map((item) => item.id) ?? []);
+  const articleRef = useRef<HTMLElement>(null);
+  const active = useActiveHeading(toc?.map((item) => item.id) ?? [], articleRef);
   const hasToc = toc !== undefined && toc.length > 0;
 
   return (
-    <article className="bh-article" aria-labelledby={titleId}>
-      <div className={`bh-article__grid${hasToc ? ' bh-article__grid--toc' : ''}`}>
+    <article className="bh-article" aria-labelledby={titleId} ref={articleRef}>
+      <div
+        className={`bh-article__grid${hasToc ? ' bh-article__grid--toc' : ''}${footer ? ' bh-article__grid--footer' : ''}`}
+      >
         <header className="bh-article__header">
           {eyebrow && <div className="bh-article__eyebrow">{eyebrow}</div>}
           <h1 className="bh-article__title" id={titleId}>
