@@ -73,12 +73,12 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "font.family",
     "gap.snug",
     "padding.inline",
     "radius.surface",
-    "surface.sunken"
+    "fill.hover",
+    "border.hairline"
   ],
   "interactive": true
 }

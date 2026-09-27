@@ -3,16 +3,24 @@
   align-items: center;
   gap: var(--bh-gap-snug);
   padding: var(--bh-gap-snug) var(--bh-padding-inline);
-  background: var(--bh-surface-sunken);
-  border: 1px solid var(--bh-border-subtle);
+  /* A well, like SegmentedControl's track: the controls in it are glass
+     capsules and draw their own edges, so the group needs no border of its
+     own - only enough tint to read as one group. fill.hover is translucent,
+     so on glass it stays a well rather than an opaque grey patch. The border
+     stays, transparent, for forced-colours mode. */
+  background: var(--bh-fill-hover);
+  border: 1px solid transparent;
   border-radius: var(--bh-radius-surface);
   font-family: var(--bh-font-family);
 }
 
+/* At the edge of a region the toolbar is part of it, so it is only a line: the
+   hairline AppBar draws beneath itself, not a divider that competes with the
+   content. */
 .bh-toolbar--flush {
   background: transparent;
   border: 0;
-  border-bottom: 1px solid var(--bh-border-subtle);
+  border-bottom: 1px solid var(--bh-border-hairline);
   border-radius: 0;
 }
 
