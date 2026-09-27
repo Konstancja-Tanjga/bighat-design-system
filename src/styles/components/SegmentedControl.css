@@ -27,6 +27,9 @@
   border: 1px solid transparent;
   border-radius: var(--bh-radius-pill);
   background: var(--bh-fill-hover);
+  /* A hairline gives the well an edge on a white page, where a 6% tint alone
+     all but disappears. */
+  box-shadow: inset 0 0 0 1px var(--bh-border-hairline);
 }
 
 .bh-segmented--full {
