@@ -7,11 +7,13 @@
   border-radius: var(--bh-radius-pill);
   /* A tinted disc instead of a grey one with a ring: the fill.hover tint,
      laid on surface.base so the disc is opaque - avatars in a group overlap,
-     and a translucent disc let the initials beneath show through. The border
-     stays, transparent, for forced colours. A photo covers the disc. */
+     and a translucent disc let the initials beneath show through. A hairline
+     keeps its shape where the disc matches the surface, as it does on a
+     raised surface in dark; being translucent, the line does not reopen the
+     overlap problem. A photo covers the disc. */
   background: linear-gradient(var(--bh-fill-hover), var(--bh-fill-hover)), var(--bh-surface-base);
   color: var(--bh-text-secondary);
-  border: 1px solid transparent;
+  border: 1px solid var(--bh-border-hairline);
   font-family: var(--bh-font-family);
   font-weight: var(--bh-text-weight-heading);
   line-height: 1;

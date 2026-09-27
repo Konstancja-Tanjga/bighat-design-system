@@ -12,9 +12,10 @@
   `border.hairline`, a hovered tab fills with `fill.hover` rounded at the top,
   and the count badge sits on `fill.hover`.
 - `UserProfile` hovers with `fill.hover`.
-- `Avatar` is a disc of the `fill.hover` tint on `surface.base` instead of
-  `surface.sunken` ringed with `border.subtle`; it stays opaque so overlapping
-  avatars in a group hide each other's initials.
+- `Avatar` is a disc of the `fill.hover` tint on `surface.base` with a
+  `border.hairline` edge, instead of `surface.sunken` ringed with
+  `border.subtle`; it stays opaque so overlapping avatars in a group hide each
+  other's initials.
 
 New contrast pairs for text on `fill.hover` over `surface.base`, all passing.
 No prop was removed or renamed.

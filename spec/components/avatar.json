@@ -81,7 +81,8 @@
     "text.secondary",
     "text.sizeHeading",
     "text.weightHeading",
-    "fill.hover"
+    "fill.hover",
+    "border.hairline"
   ],
   "interactive": false
 }
