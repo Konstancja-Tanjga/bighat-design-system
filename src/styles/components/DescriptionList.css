@@ -10,19 +10,19 @@
   display: grid;
   gap: var(--bh-gap-hairline);
   padding: var(--bh-padding-block) 0;
-  border-bottom: 1px solid var(--bh-border-subtle);
+  border-bottom: 1px solid var(--bh-border-hairline);
 }
 
 .bh-dl__pair:last-child {
   border-bottom: 0;
 }
 
+/* Sentence case above its value, set apart by weight and colour; tracked
+   capitals were decoration that slowed the term down. */
 .bh-dl__term {
-  font-size: var(--bh-text-size-label);
-  font-weight: var(--bh-text-weight-heading);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--bh-text-muted);
+  font-size: var(--bh-text-size-body);
+  font-weight: var(--bh-text-weight-emphasis);
+  color: var(--bh-text-secondary);
 }
 
 .bh-dl__value {
@@ -39,11 +39,8 @@
 
 .bh-dl--columns .bh-dl__term {
   /* In a two-column reading the term is a label beside its value, not a
-     heading above it — so it loses the caps treatment and gains weight. */
-  font-size: var(--bh-text-size-body);
+     heading above it, so it drops to regular weight. */
   font-weight: var(--bh-text-weight-body);
-  letter-spacing: normal;
-  text-transform: none;
 }
 
 .bh-dl--columns .bh-dl__pair--wide {

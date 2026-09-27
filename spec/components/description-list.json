@@ -73,19 +73,18 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "font.family",
     "gap.hairline",
     "gap.loose",
     "padding.block",
     "text.leadingNormal",
-    "text.muted",
     "text.primary",
     "text.sizeBody",
     "text.sizeDense",
-    "text.sizeLabel",
     "text.weightBody",
-    "text.weightHeading"
+    "text.weightHeading",
+    "border.hairline",
+    "text.secondary"
   ],
   "interactive": false
 }

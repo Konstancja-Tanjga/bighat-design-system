@@ -116,7 +116,6 @@
   },
   "tokensUsed": [
     "border.strong",
-    "border.subtle",
     "control.lg",
     "elevation.modal",
     "font.family",
@@ -130,7 +129,8 @@
     "text.link",
     "text.primary",
     "text.sizeCaption",
-    "text.weightEmphasis"
+    "text.weightEmphasis",
+    "border.hairline"
   ],
   "interactive": true
 }

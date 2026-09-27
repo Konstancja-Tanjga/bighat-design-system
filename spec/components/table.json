@@ -154,7 +154,6 @@
   },
   "tokensUsed": [
     "border.strong",
-    "border.subtle",
     "control.sm",
     "font.family",
     "gap.hairline",
@@ -175,10 +174,13 @@
     "text.sizeBody",
     "text.sizeCaption",
     "text.sizeDense",
-    "text.sizeLabel",
     "text.weightHeading",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "border.hairline",
+    "elevation.raised",
+    "fill.hover",
+    "surface.raised"
   ],
   "interactive": true,
   "$columnProps": {

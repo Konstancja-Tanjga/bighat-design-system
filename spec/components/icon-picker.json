@@ -94,7 +94,6 @@
   },
   "tokensUsed": [
     "border.focus",
-    "border.subtle",
     "font.family",
     "gap.snug",
     "gap.tight",
@@ -102,8 +101,6 @@
     "radius.surface",
     "selection.bg",
     "selection.mark",
-    "surface.base",
-    "surface.sunken",
     "text.primary",
     "text.secondary",
     "text.sizeHeading",
@@ -112,7 +109,8 @@
     "radius.field",
     "elevation.control",
     "border.hover",
-    "status.critical.bg"
+    "status.critical.bg",
+    "fill.hover"
   ],
   "interactive": true
 }

@@ -84,7 +84,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "font.family",
     "gap.normal",
     "gap.snug",
@@ -93,15 +92,17 @@
     "radius.surface",
     "selection.bg",
     "selection.mark",
-    "surface.base",
-    "surface.sunken",
     "text.muted",
     "text.primary",
     "text.secondary",
     "text.sizeBody",
     "text.sizeCaption",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "border.hairline",
+    "elevation.raised",
+    "fill.hover",
+    "surface.raised"
   ],
   "interactive": true
 }

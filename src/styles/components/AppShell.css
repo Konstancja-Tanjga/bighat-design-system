@@ -15,23 +15,24 @@
   overflow: hidden;
 }
 
+/* No rule of its own: AppBar draws the hairline beneath itself, and a second
+   line here stacked a 2px rule under every screen. */
 .bh-shell__header {
   grid-area: header;
-  border-bottom: 1px solid var(--bh-border-subtle);
   background: var(--bh-surface-base);
   z-index: 2;
 }
 
 .bh-shell__rail {
   grid-area: rail;
-  border-right: 1px solid var(--bh-border-subtle);
+  border-right: 1px solid var(--bh-border-hairline);
   background: var(--bh-surface-base);
   overflow-y: auto;
 }
 
 .bh-shell__sidebar {
   grid-area: sidebar;
-  border-right: 1px solid var(--bh-border-subtle);
+  border-right: 1px solid var(--bh-border-hairline);
   background: var(--bh-surface-base);
   min-height: 0;
   display: flex;
@@ -39,7 +40,7 @@
 
 .bh-shell__aside {
   grid-area: aside;
-  border-left: 1px solid var(--bh-border-subtle);
+  border-left: 1px solid var(--bh-border-hairline);
   background: var(--bh-surface-base);
   min-height: 0;
   display: flex;

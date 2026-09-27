@@ -71,9 +71,8 @@ and `children`; `BoardCard` takes `title` (required), `onOpen` and `children`.
 
 `default` · `hover`
 
-Hover darkens the card's border from `border.subtle` to `border.strong`. The
-over-limit column is not a state of the component; it is derived from `count`
-and `limit` on every render.
+Hover lifts the card from `elevation.raised` to `elevation.floating`, as a clickable `Card` does. The
+over-limit column is not a state of the component; it is derived from `count` and `limit` on every render.
 
 ## Keyboard
 
@@ -166,4 +165,4 @@ drag and drop in the component.
 
 ## Tokens consumed
 
-`border.strong` · `border.subtle` · `font.family` · `gap.normal` · `gap.snug` · `gap.tight` · `padding.block` · `padding.inline` · `radius.control` · `radius.pill` · `radius.surface` · `status.warning.bg` · `status.warning.fg` · `surface.base` · `surface.raised` · `surface.sunken` · `text.muted` · `text.primary` · `text.secondary` · `text.sizeBody` · `text.sizeDense` · `text.weightHeading`
+`border.strong` · `font.family` · `gap.normal` · `gap.snug` · `gap.tight` · `padding.block` · `padding.inline` · `radius.control` · `radius.pill` · `radius.surface` · `status.warning.bg` · `status.warning.fg` · `surface.base` · `surface.raised` · `text.muted` · `text.primary` · `text.secondary` · `text.sizeBody` · `text.sizeDense` · `text.weightHeading` · `duration.fast` · `easing.standard` · `elevation.floating` · `elevation.raised` · `fill.hover` · `radius.field`

@@ -84,7 +84,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "control.lg",
     "duration.fast",
     "font.family",
@@ -93,15 +92,16 @@
     "padding.inline",
     "padding.section",
     "radius.surface",
-    "surface.base",
-    "surface.sunken",
     "text.muted",
     "text.primary",
     "text.secondary",
     "text.sizeBody",
     "text.weightBody",
     "text.weightEmphasis",
-    "easing.standard"
+    "easing.standard",
+    "border.hairline",
+    "fill.hover",
+    "radius.control"
   ],
   "interactive": true
 }

@@ -3,9 +3,13 @@
   flex-direction: column;
   overflow-y: auto;
   max-height: 320px;
-  border: 1px solid var(--bh-border-subtle);
+  /* A scrolling region needs an edge, so it has one - drawn with height, as a
+     Card is, rather than a grey line. The border stays transparent for forced
+     colours, which drop the shadow. */
+  border: 1px solid transparent;
   border-radius: var(--bh-radius-surface);
-  background: var(--bh-surface-base);
+  background: var(--bh-surface-raised);
+  box-shadow: var(--bh-elevation-raised);
   font-family: var(--bh-font-family);
 }
 
@@ -28,11 +32,11 @@
 }
 
 .bh-list-view__row + .bh-list-view__row {
-  border-top: 1px solid var(--bh-border-subtle);
+  border-top: 1px solid var(--bh-border-hairline);
 }
 
 .bh-list-view__row:hover {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
 }
 
 /* Selection is a background *and* a leading bar: on a monochrome display, or

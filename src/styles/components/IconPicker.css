@@ -13,9 +13,11 @@
   display: grid;
   gap: var(--bh-gap-tight);
   padding: var(--bh-gap-tight);
-  border: 1px solid var(--bh-border-subtle);
+  /* A well, as Toolbar and SegmentedControl draw a group of controls. The
+     tiles are the controls and carry their own states. */
+  border: 1px solid transparent;
   border-radius: var(--bh-radius-surface);
-  background: var(--bh-surface-base);
+  background: var(--bh-fill-hover);
   max-height: 220px;
   overflow-y: auto;
   scrollbar-width: thin;
@@ -54,7 +56,7 @@
 }
 
 .bh-icon-picker__tile:hover {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
 }
 
 .bh-icon-picker__input:checked + .bh-icon-picker__tile {
