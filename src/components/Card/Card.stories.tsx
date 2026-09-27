@@ -93,7 +93,7 @@ export const WithActions: Story = {
   },
 };
 
-/** When cards in a list carry a status and the stripe helps the eye group them. The status is still written out. */
+/** When cards in a list carry a status and the bar helps the eye group them. The status is still written out. */
 export const Accent: Story = {
   args: {
     accent: 'warning',

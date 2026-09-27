@@ -46,7 +46,7 @@
         "critical"
       ],
       "default": "none",
-      "note": "Decorative \u2014 never the only carrier of a status."
+      "note": "Decorative \u2014 never the only carrier of a status. An accented card takes section padding on its leading side to make room for the bar."
     },
     "padding": {
       "kind": "enum",
