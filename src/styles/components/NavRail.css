@@ -48,13 +48,14 @@
 }
 
 .bh-rail__item:hover {
-  background: var(--bh-action-secondary-bg-hover);
+  background: var(--bh-fill-hover);
   color: var(--bh-text-primary);
 }
 
 /* Active state carries three cues, not one: fill, colour, and a leading bar.
    Colour alone would fail 1.4.1 for anyone who cannot see the tint. */
-.bh-rail__item--active {
+.bh-rail__item--active,
+.bh-rail__item--active:hover {
   background: var(--bh-selection-bg);
   color: var(--bh-selection-fg);
 }

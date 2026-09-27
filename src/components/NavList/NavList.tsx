@@ -7,7 +7,7 @@ import type { ReactNode } from 'react';
  * Two things it does that a stack of `<div>`s does not: it is a real list, so
  * a screen reader announces "list, 12 items" and the user knows how much is
  * there before committing to reading it; and the group label is wired to the
- * list with `aria-labelledby`, so "PINNED" is heard as the name of the group
+ * list with `aria-labelledby`, so "Pinned" is heard as the name of the group
  * rather than as a stray word above it.
  */
 export type NavListItem = {
