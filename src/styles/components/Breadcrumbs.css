@@ -1,3 +1,10 @@
+/*
+ * The 4.1 trail was blue underlined links split by slashes,
+ * the browser's default look with a system font on it. Breadcrumbs are
+ * wayfinding, not content, so they are quiet: secondary text, a muted chevron,
+ * and the page you are on in the primary colour and a heavier weight - weight
+ * is the cue, so it does not rest on the grey-to-black difference alone.
+ */
 .bh-breadcrumbs {
   font-family: var(--bh-font-family);
   font-size: var(--bh-text-size-body);
@@ -7,7 +14,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--bh-gap-tight);
+  gap: var(--bh-gap-hairline);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -16,23 +23,64 @@
 .bh-breadcrumbs__item {
   display: inline-flex;
   align-items: center;
-  gap: var(--bh-gap-tight);
+  gap: var(--bh-gap-hairline);
   min-width: 0;
 }
 
-.bh-breadcrumbs__separator,
-.bh-breadcrumbs__ellipsis {
-  color: var(--bh-text-muted);
+/* A chevron, drawn as a mask so it takes the muted colour in both themes. */
+.bh-breadcrumbs__separator {
+  flex: none;
+  width: 0.75em;
+  height: 0.75em;
+  background: var(--bh-text-muted);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M4.3 2.2 8.1 6l-3.8 3.8-.9-.9L6.3 6 3.4 3.1z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M4.3 2.2 8.1 6l-3.8 3.8-.9-.9L6.3 6 3.4 3.1z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  forced-color-adjust: none;
+}
+
+@media (forced-colors: active) {
+  .bh-breadcrumbs__separator {
+    background: CanvasText;
+  }
+}
+
+/*
+ * The hover is the ghost Button's: a fill.hover capsule behind the text. The
+ * 24px height is the WCAG 2.5.8 target minimum; a crumb sized to its glyphs is
+ * the smallest control on most screens.
+ */
+.bh-breadcrumbs__link,
+.bh-breadcrumbs__current {
+  display: inline-flex;
+  align-items: center;
+  min-height: calc(var(--bh-control-indicator) + var(--bh-gap-snug));
+  padding: 0 var(--bh-gap-tight);
+  border-radius: var(--bh-radius-pill);
+  box-sizing: border-box;
 }
 
 .bh-breadcrumbs__link {
-  color: var(--bh-text-link);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  border-radius: var(--bh-radius-control);
+  border: 0;
+  background: transparent;
+  color: var(--bh-text-secondary);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    color var(--bh-duration-fast) var(--bh-easing-standard);
+}
+
+.bh-breadcrumbs__link:hover {
+  background: var(--bh-fill-hover);
+  color: var(--bh-text-primary);
 }
 
 .bh-breadcrumbs__current {
+  min-width: 0;
   color: var(--bh-text-primary);
   font-weight: var(--bh-text-weight-emphasis);
   overflow: hidden;

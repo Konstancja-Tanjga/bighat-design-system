@@ -27,7 +27,8 @@
     },
     {
       "part": "bh-breadcrumbs__ellipsis",
-      "element": "span"
+      "element": "button[type=button]",
+      "required": false
     },
     {
       "part": "bh-breadcrumbs__current",
@@ -57,7 +58,7 @@
     "default"
   ],
   "keyboard": {
-    "Enter": "Follows the link. Native."
+    "Enter": "Follows the link, or on the ellipsis button reveals the collapsed levels and moves focus to the first. Native."
   },
   "aria": {
     "role": "navigation (implicit, from <nav>)",
@@ -76,13 +77,19 @@
   },
   "tokensUsed": [
     "font.family",
-    "gap.tight",
-    "radius.control",
-    "text.link",
     "text.muted",
     "text.primary",
     "text.sizeBody",
-    "text.weightEmphasis"
+    "text.weightEmphasis",
+    "gap.hairline",
+    "gap.tight",
+    "text.secondary",
+    "radius.pill",
+    "fill.hover",
+    "control.indicator",
+    "gap.snug",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }
