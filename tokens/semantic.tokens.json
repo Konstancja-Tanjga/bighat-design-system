@@ -46,6 +46,10 @@
       "$value": "{color.neutral.500}",
       "$description": "Boundary of an interactive control. Held to 3:1."
     },
+    "hover": {
+      "$value": "{color.neutral.700}",
+      "$description": "Added in 4.5. A hovered field's edge: border.strong one step darker, so hover is a change of edge rather than of fill. Held to 3:1."
+    },
     "focus": {
       "$value": "{color.green.600}"
     },
@@ -142,7 +146,7 @@
     }
   },
   "selection": {
-    "$description": "Current or chosen \u2014 the row the reader picked, the destination they are on, the tile that is checked. Not a status: status.info is a message the system is making, and using it for selection said \"here is some information\" about a row whose only news is that the user clicked it. mark is the leading bar, and it is what survives greyscale and forced colours when the tint does not.",
+    "$description": "Current or chosen — the row the reader picked, the destination they are on, the tile that is checked. Not a status: status.info is a message the system is making, and using it for selection said \"here is some information\" about a row whose only news is that the user clicked it. mark is the leading bar, and it is what survives greyscale and forced colours when the tint does not.",
     "bg": {
       "$value": "{color.green.100}"
     },
@@ -283,11 +287,15 @@
   "radius": {
     "control": {
       "$value": "{radius.lg}",
-      "$description": "Rounder in 4.3 (6px \u2192 10px), to sit beside pill buttons and 20px surfaces without looking like a leftover."
+      "$description": "Rounder in 4.3 (6px → 10px), to sit beside pill buttons and 20px surfaces without looking like a leftover."
+    },
+    "field": {
+      "$value": "{radius.lgPlus}",
+      "$description": "Added in 4.5. Input, Select, Textarea and the other text fields: 12px, one step rounder than radius.control, so a field beside a pill button reads as the same system. Not a pill, because a multi-line field would lose its shape."
     },
     "surface": {
       "$value": "{radius.2xl}",
-      "$description": "Rounder in 4.2 (10px \u2192 20px): with no border to draw it, the corner is what gives a surface its shape."
+      "$description": "Rounder in 4.2 (10px → 20px): with no border to draw it, the corner is what gives a surface its shape."
     },
     "pill": {
       "$value": "{radius.full}"
@@ -605,6 +613,26 @@
           "action.secondary.border",
           "action.secondary.bg",
           "nonText"
+        ],
+        [
+          "border.hover",
+          "surface.base",
+          "nonText"
+        ],
+        [
+          "text.primary",
+          "status.critical.bg",
+          "bodyText"
+        ],
+        [
+          "text.muted",
+          "status.critical.bg",
+          "bodyText"
+        ],
+        [
+          "status.critical.fg",
+          "surface.base",
+          "bodyText"
         ]
       ]
     }

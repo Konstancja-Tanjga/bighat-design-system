@@ -998,6 +998,14 @@
         "unit": "px"
       }
     },
+    "lgPlus": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Added in 4.5, for fields: a step past radius.lg so a field sits closer to the pill buttons beside it without becoming one."
+    },
     "full": {
       "$type": "dimension",
       "$value": {

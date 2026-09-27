@@ -92,7 +92,6 @@
     "gap.hairline",
     "gap.tight",
     "padding.inline",
-    "radius.control",
     "status.critical.fg",
     "surface.base",
     "surface.sunken",
@@ -100,7 +99,14 @@
     "text.primary",
     "text.sizeBody",
     "text.sizeCaption",
-    "text.weightEmphasis"
+    "text.weightEmphasis",
+    "radius.field",
+    "elevation.control",
+    "border.hover",
+    "border.focus",
+    "status.critical.bg",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }

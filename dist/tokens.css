@@ -14,6 +14,7 @@
   --bh-text-link: #2148c9;
   --bh-border-subtle: #dfe3e7;
   --bh-border-strong: #6b7683;
+  --bh-border-hover: #39414a;
   --bh-border-focus: #159b6b;
   --bh-border-hairline: rgba(20, 24, 28, 0.06);
   --bh-action-primary-bg: #34d399;
@@ -74,6 +75,7 @@
   --bh-padding-gutter: 32px;
   --bh-padding-hero: 48px;
   --bh-radius-control: 10px;
+  --bh-radius-field: 12px;
   --bh-radius-surface: 20px;
   --bh-radius-pill: 9999px;
   --bh-radius-indicator: 3px;
@@ -133,6 +135,7 @@
   --bh-text-link: #8fb0ff;
   --bh-border-subtle: #39414a;
   --bh-border-strong: #6b7683;
+  --bh-border-hover: #9aa4af;
   --bh-border-focus: #34d399;
   --bh-border-hairline: rgba(255, 255, 255, 0.08);
   --bh-action-primary-bg: #34d399;
@@ -193,6 +196,7 @@
   --bh-padding-gutter: 32px;
   --bh-padding-hero: 48px;
   --bh-radius-control: 10px;
+  --bh-radius-field: 12px;
   --bh-radius-surface: 20px;
   --bh-radius-pill: 9999px;
   --bh-radius-indicator: 3px;
@@ -251,6 +255,7 @@
     --bh-text-link: #8fb0ff;
     --bh-border-subtle: #39414a;
     --bh-border-strong: #6b7683;
+    --bh-border-hover: #9aa4af;
     --bh-border-focus: #34d399;
     --bh-border-hairline: rgba(255, 255, 255, 0.08);
     --bh-action-primary-bg: #34d399;
@@ -311,6 +316,7 @@
     --bh-padding-gutter: 32px;
     --bh-padding-hero: 48px;
     --bh-radius-control: 10px;
+    --bh-radius-field: 12px;
     --bh-radius-surface: 20px;
     --bh-radius-pill: 9999px;
     --bh-radius-indicator: 3px;

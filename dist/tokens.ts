@@ -15,6 +15,7 @@ export type TokenPath =
   | 'text.link'
   | 'border.subtle'
   | 'border.strong'
+  | 'border.hover'
   | 'border.focus'
   | 'border.hairline'
   | 'action.primary.bg'
@@ -75,6 +76,7 @@ export type TokenPath =
   | 'padding.gutter'
   | 'padding.hero'
   | 'radius.control'
+  | 'radius.field'
   | 'radius.surface'
   | 'radius.pill'
   | 'radius.indicator'
@@ -142,6 +144,7 @@ export const tokens = {
   'text.link': { light: "#2148c9", dark: "#8fb0ff" },
   'border.subtle': { light: "#dfe3e7", dark: "#39414a" },
   'border.strong': { light: "#6b7683", dark: "#6b7683" },
+  'border.hover': { light: "#39414a", dark: "#9aa4af" },
   'border.focus': { light: "#159b6b", dark: "#34d399" },
   'border.hairline': { light: "rgba(20, 24, 28, 0.06)", dark: "rgba(255, 255, 255, 0.08)" },
   'action.primary.bg': { light: "#34d399", dark: "#34d399" },
@@ -202,6 +205,7 @@ export const tokens = {
   'padding.gutter': { light: "32px", dark: "32px" },
   'padding.hero': { light: "48px", dark: "48px" },
   'radius.control': { light: "10px", dark: "10px" },
+  'radius.field': { light: "12px", dark: "12px" },
   'radius.surface': { light: "20px", dark: "20px" },
   'radius.pill': { light: "9999px", dark: "9999px" },
   'radius.indicator': { light: "3px", dark: "3px" },
@@ -397,6 +401,26 @@ export const contrast = {
       "action.secondary.border",
       "action.secondary.bg",
       "nonText"
+    ],
+    [
+      "border.hover",
+      "surface.base",
+      "nonText"
+    ],
+    [
+      "text.primary",
+      "status.critical.bg",
+      "bodyText"
+    ],
+    [
+      "text.muted",
+      "status.critical.bg",
+      "bodyText"
+    ],
+    [
+      "status.critical.fg",
+      "surface.base",
+      "bodyText"
     ]
   ]
 } as const;

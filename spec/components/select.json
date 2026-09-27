@@ -94,7 +94,14 @@
     "alsoImplementedIn": "angular"
   },
   "tokensUsed": [
-    "text.secondary"
+    "text.secondary",
+    "radius.field",
+    "elevation.control",
+    "border.hover",
+    "border.focus",
+    "status.critical.bg",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }
