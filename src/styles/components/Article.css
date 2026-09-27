@@ -1,0 +1,220 @@
+/*
+ * Three shapes by the article's own width. The column widths are the
+ * article's, set here once: a reading measure of about 65 characters, a
+ * margin wide enough for a photo and its credit, and a table of contents.
+ */
+.bh-article {
+  --bh-article-measure: 36rem;
+  --bh-article-margin: 13rem;
+  --bh-article-toc: 11rem;
+  --bh-article-gutter: var(--bh-padding-section);
+  container-type: inline-size;
+  font-family: var(--bh-font-family-sans);
+  color: var(--bh-text-primary);
+}
+
+.bh-article__grid {
+  display: grid;
+  grid-template-columns: minmax(0, var(--bh-article-measure));
+  row-gap: var(--bh-gap-loose);
+}
+
+.bh-article__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+}
+
+.bh-article__eyebrow,
+.bh-article__meta {
+  margin: 0;
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-body);
+}
+
+.bh-article__title {
+  margin: 0;
+  font-size: var(--bh-text-size-display);
+  font-weight: var(--bh-text-weight-heading);
+  line-height: var(--bh-text-leading-tight);
+  text-wrap: balance;
+}
+
+.bh-article__lead {
+  margin: 0;
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-heading);
+  line-height: var(--bh-text-leading-normal);
+}
+
+.bh-article__body {
+  min-width: 0;
+}
+
+/* Clears the margin notes, so the footer never rides up beside the last one. */
+.bh-article__body::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* Narrow: every margin note stays in the text, just above its paragraph. */
+.bh-article__margin {
+  margin-block: var(--bh-gap-normal);
+}
+
+.bh-article__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-normal);
+  padding-top: var(--bh-gap-loose);
+  border-top: 1px solid var(--bh-border-hairline);
+}
+
+/* ---- Table of contents ---- */
+
+.bh-article__toc {
+  display: none;
+}
+
+.bh-article__toc-title {
+  margin: 0 0 var(--bh-gap-snug);
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-body);
+  font-weight: var(--bh-text-weight-emphasis);
+}
+
+.bh-article__toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-hairline);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A leading line marks where the reader is, as NavList marks the current
+   page: a cue of position and weight, not colour alone. */
+.bh-article__toc-link {
+  display: block;
+  padding: var(--bh-gap-tight) var(--bh-gap-snug);
+  border-radius: var(--bh-radius-control);
+  box-shadow: inset 2px 0 0 var(--bh-border-hairline);
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-body);
+  line-height: var(--bh-text-leading-tight);
+  text-decoration: none;
+  transition:
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    color var(--bh-duration-fast) var(--bh-easing-standard);
+}
+
+.bh-article__toc-link:hover {
+  background: var(--bh-fill-hover);
+  color: var(--bh-text-primary);
+}
+
+.bh-article__toc-link[aria-current='location'] {
+  box-shadow: inset 2px 0 0 var(--bh-selection-mark);
+  color: var(--bh-text-primary);
+  font-weight: var(--bh-text-weight-emphasis);
+}
+
+.bh-article__toc-summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--bh-control-sm);
+  border-radius: var(--bh-radius-control);
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-body);
+  font-weight: var(--bh-text-weight-emphasis);
+  cursor: pointer;
+}
+
+/* The disclosure's own marker is gone with the summary's display, so it is
+   drawn again: a chevron that turns when the list is open. */
+.bh-article__toc-summary {
+  gap: var(--bh-gap-tight);
+  list-style: none;
+}
+
+.bh-article__toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+.bh-article__toc-summary::before {
+  content: '';
+  width: 0.75em;
+  height: 0.75em;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M4.3 2.2 8.1 6l-3.8 3.8-.9-.9L6.3 6 3.4 3.1z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M4.3 2.2 8.1 6l-3.8 3.8-.9-.9L6.3 6 3.4 3.1z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  forced-color-adjust: none;
+  transition: transform var(--bh-duration-fast) var(--bh-easing-standard);
+}
+
+.bh-article__toc-fold details[open] .bh-article__toc-summary::before {
+  transform: rotate(90deg);
+}
+
+.bh-article__toc-fold details[open] .bh-article__toc-list {
+  margin-top: var(--bh-gap-tight);
+}
+
+/* ---- Medium: text | margin ---- */
+
+@container (min-width: 50rem) {
+  .bh-article__grid {
+    grid-template-columns: minmax(0, var(--bh-article-measure)) var(--bh-article-margin);
+    column-gap: var(--bh-article-gutter);
+  }
+
+  .bh-article__header,
+  .bh-article__body,
+  .bh-article__footer {
+    grid-column: 1;
+  }
+
+  /* Floats into the margin level with the top of the paragraph after it, and
+     stacks under the note above rather than beside it. */
+  .bh-article__margin {
+    float: right;
+    clear: right;
+    width: var(--bh-article-margin);
+    margin-block: 0 var(--bh-gap-normal);
+    margin-right: calc(-1 * (var(--bh-article-margin) + var(--bh-article-gutter)));
+  }
+}
+
+/* ---- Wide: text | margin | table of contents ---- */
+
+@container (min-width: 63rem) {
+  .bh-article__grid--toc {
+    grid-template-columns:
+      minmax(0, var(--bh-article-measure)) var(--bh-article-margin)
+      var(--bh-article-toc);
+  }
+
+  .bh-article__grid--toc .bh-article__toc {
+    display: block;
+    grid-column: 3;
+    /* Header and body; the footer too when there is one, so an article
+       without one gets no empty row and no extra gap. */
+    grid-row: 1 / span 2;
+    align-self: start;
+    position: sticky;
+    top: var(--bh-padding-section);
+  }
+
+  .bh-article__grid--toc .bh-article__toc-fold {
+    display: none;
+  }
+}
+
+@container (min-width: 63rem) {
+  .bh-article__grid--toc.bh-article__grid--footer .bh-article__toc {
+    grid-row: 1 / span 3;
+  }
+}

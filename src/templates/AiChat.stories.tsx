@@ -14,8 +14,10 @@ const meta = {
       },
     },
   },
-  // The shell owns the viewport, so the preview decorator's padding has to go.
-  decorators: [(Story) => <div style={{ margin: -24, height: '100dvh' }}>{Story()}</div>],
+  // The shell owns the viewport. layout: 'fullscreen' already removes the
+  // preview padding, so no negative margin: that pushed the shell 24px off
+  // the left edge.
+  decorators: [(Story) => <div style={{ height: '100dvh' }}>{Story()}</div>],
 } satisfies Meta<typeof AiChatTemplate>;
 
 export default meta;

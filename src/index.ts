@@ -16,6 +16,12 @@ export type { AppShellProps } from './components/AppShell/AppShell';
 export { Badge } from './components/Badge/Badge';
 export type { BadgeProps, BadgeTone } from './components/Badge/Badge';
 
+export { Article, ArticleMargin } from './components/Article/Article';
+export type {
+  ArticleMarginProps,
+  ArticleProps,
+  ArticleTocItem,
+} from './components/Article/Article';
 export { Board, BoardCard, BoardColumn } from './components/Board/Board';
 export type { BoardCardProps, BoardColumnProps, BoardProps } from './components/Board/Board';
 

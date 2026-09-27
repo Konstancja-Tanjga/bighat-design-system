@@ -1,0 +1,84 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+import { Do, Dont, Guidance } from '../../docs/Guidance';
+import * as ArticleStories from './Article.stories';
+
+<Meta of={ArticleStories} />
+
+# Article
+
+A long read: text at a reading measure, a margin beside it for figures and
+asides, and a table of contents that stays in view where there is room.
+
+<Canvas of={ArticleStories.Default} />
+
+## When to use it
+
+| Use `Article` for                                   | Use something else for                                              |
+| --------------------------------------------------- | ------------------------------------------------------------------- |
+| A lesson, a guide, a help page - text read in order | An application screen of lists, tables or boards - `AppShell` alone |
+| Many pages that are the same page, such as a course | A paragraph in a card or panel - plain text, or a `Card`            |
+
+`Article` lays out; it does not style the text inside it. Headings, lists,
+tables and quotes in the body are the product's, because long-form typography
+is a product decision, and so are the heading ids the table of contents links
+to. What the system owns is the part that is hard to copy correctly: the
+measure, the margin, and when each of them gives way.
+
+## Three shapes, by its own width
+
+The article measures itself, not the window, because inside `AppShell` a
+sidebar takes part of the screen.
+
+- **Wide** (about 63rem and up): text, margin, and the table of contents,
+  which stays in view while the reader scrolls.
+- **Medium** (about 50rem and up): text and margin. The table of contents folds
+  into a disclosure under the header, because a sticky list in the margin would
+  sit on top of the notes that share that column.
+- **Narrow:** one column. Every margin note returns to the text.
+
+## The margin
+
+<Guidance>
+  <Do reason="A note placed right before its paragraph floats into the margin level with the top of that paragraph, and on a narrow screen sits just above it, the way a figure sits above the text that discusses it.">
+    <p style={{ margin: 0 }}>
+      `&lt;ArticleMargin&gt;photo&lt;/ArticleMargin&gt;` then the paragraph about the photo.
+    </p>
+  </Do>
+  <Dont reason="Placed after its paragraph, the note floats beside the next one, and the photo of a kestrel ends up next to the text about falcons.">
+    <p style={{ margin: 0 }}>The paragraph, then `&lt;ArticleMargin&gt;` for it.</p>
+  </Dont>
+</Guidance>
+
+A margin note is a `div`, not an `aside`: an article with six notes would
+otherwise add six "complementary" regions to a screen reader's list of
+landmarks. Put a heading or an `aria-label` inside the note if it needs a name.
+How a product marks content for the margin - a Markdown convention, a
+component - is the product's decision.
+
+## Props
+
+| prop       | values            | default        | meaning                                                                         |
+| ---------- | ----------------- | -------------- | ------------------------------------------------------------------------------- |
+| `title`    | slot              | -              | The `h1`, and the name of the article landmark.                                 |
+| `eyebrow`  | slot              | -              | Above the title: `Breadcrumbs`, or the place in a sequence.                     |
+| `meta`     | slot              | -              | Under the title: "Lesson 1 of 5 · 12 minutes".                                  |
+| `lead`     | slot              | -              | One or two sentences.                                                           |
+| `toc`      | `{ id, label }[]` | -              | Headings in the body. Omit, or pass none, for an article too short to need one. |
+| `tocLabel` | string            | `On this page` | Names the table of contents navigation.                                         |
+| `footer`   | slot              | -              | After the body: a completion control, the next article.                         |
+
+<Controls />
+
+## Accessibility
+
+- **Role** - `article`, named by the title through `aria-labelledby`.
+- **Table of contents** - a `nav` named by `tocLabel`. The rail and the folded
+  copy are both in the markup; CSS shows one, and `display: none` removes the
+  other from the accessibility tree, so a reader never meets two.
+- **Where the reader is** - the entry for the section in view carries
+  `aria-current="location"`, and is marked by weight and a leading line, not
+  colour alone.
+- **Focus** - links move to their heading through the browser's own fragment
+  navigation; the component moves no focus. Give headings `scroll-margin-top`
+  if a sticky header would cover them.

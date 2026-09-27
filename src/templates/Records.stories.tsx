@@ -14,7 +14,7 @@ const meta = {
       },
     },
   },
-  decorators: [(Story) => <div style={{ margin: -24, height: '100dvh' }}>{Story()}</div>],
+  decorators: [(Story) => <div style={{ height: '100dvh' }}>{Story()}</div>],
 } satisfies Meta<typeof Records>;
 
 export default meta;
