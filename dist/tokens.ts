@@ -496,6 +496,16 @@ export const contrast = {
       "fill.hover",
       "nonText",
       "surface.raised"
+    ],
+    [
+      "text.inverse",
+      "selection.mark",
+      "nonText"
+    ],
+    [
+      "surface.base",
+      "selection.mark",
+      "nonText"
     ]
   ]
 } as const;

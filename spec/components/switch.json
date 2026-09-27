@@ -84,7 +84,6 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "action.primary.bg",
     "border.strong",
     "duration.fast",
     "font.family",
@@ -95,7 +94,11 @@
     "surface.base",
     "surface.sunken",
     "text.primary",
-    "text.sizeCaption"
+    "text.sizeCaption",
+    "selection.mark",
+    "border.hover",
+    "elevation.control",
+    "easing.standard"
   ],
   "interactive": true
 }
