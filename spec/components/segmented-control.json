@@ -103,7 +103,8 @@
     "material.rim",
     "elevation.control",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "border.hairline"
   ],
   "interactive": true
 }

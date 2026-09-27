@@ -94,6 +94,7 @@
   align-items: center;
   gap: var(--bh-gap-tight);
   min-height: 32px;
+  box-sizing: border-box;
   padding: 0 var(--bh-padding-inline);
   /* A mode is a single-choice chip, so it is drawn as one: the FilterChip's
      glass capsule, with the same transparent border for forced colours. */
@@ -140,6 +141,15 @@
   border-color: var(--bh-selection-mark);
   color: var(--bh-selection-fg);
   font-weight: var(--bh-text-weight-heading);
+}
+
+/* Forced colours drop selection.bg and paint every border the same colour, so
+   the active mode would be marked by weight alone. */
+@media (forced-colors: active) {
+  .bh-composer__mode--active {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
 }
 
 .bh-composer__mode:has(input:focus-visible) {
