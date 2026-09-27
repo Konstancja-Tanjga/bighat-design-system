@@ -5,9 +5,13 @@
   flex: none;
   overflow: hidden;
   border-radius: var(--bh-radius-pill);
-  background: var(--bh-surface-sunken);
+  /* A tinted disc instead of a grey one with a ring: the fill.hover tint,
+     laid on surface.base so the disc is opaque - avatars in a group overlap,
+     and a translucent disc let the initials beneath show through. The border
+     stays, transparent, for forced colours. A photo covers the disc. */
+  background: linear-gradient(var(--bh-fill-hover), var(--bh-fill-hover)), var(--bh-surface-base);
   color: var(--bh-text-secondary);
-  border: 1px solid var(--bh-border-subtle);
+  border: 1px solid transparent;
   font-family: var(--bh-font-family);
   font-weight: var(--bh-text-weight-heading);
   line-height: 1;

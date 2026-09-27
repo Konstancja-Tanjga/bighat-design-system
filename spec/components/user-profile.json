@@ -73,13 +73,13 @@
     "gap.snug",
     "gap.tight",
     "radius.pill",
-    "surface.sunken",
     "text.muted",
     "text.primary",
     "text.sizeCaption",
     "text.weightEmphasis",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "fill.hover"
   ],
   "interactive": false
 }

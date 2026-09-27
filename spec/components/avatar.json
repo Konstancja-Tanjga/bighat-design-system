@@ -72,17 +72,16 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "font.family",
     "padding.block",
     "radius.pill",
     "surface.base",
     "surface.inverse",
-    "surface.sunken",
     "text.inverse",
     "text.secondary",
     "text.sizeHeading",
-    "text.weightHeading"
+    "text.weightHeading",
+    "fill.hover"
   ],
   "interactive": false
 }

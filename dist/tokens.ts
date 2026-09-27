@@ -462,6 +462,18 @@ export const contrast = {
       "fill.hover",
       "nonText",
       "surface.sunken"
+    ],
+    [
+      "text.secondary",
+      "fill.hover",
+      "bodyText",
+      "surface.base"
+    ],
+    [
+      "text.muted",
+      "fill.hover",
+      "bodyText",
+      "surface.base"
     ]
   ]
 } as const;

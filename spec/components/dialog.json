@@ -129,7 +129,9 @@
     "scrim.bg",
     "scrim.blur",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "fill.hover",
+    "radius.pill"
   ],
   "content": {
     "title": "A question or a noun phrase, sentence case, no trailing period. 'Delete this workspace?'",

@@ -7,7 +7,7 @@
 .bh-tabs__list {
   display: flex;
   gap: var(--bh-gap-tight);
-  border-bottom: 1px solid var(--bh-border-subtle);
+  border-bottom: 1px solid var(--bh-border-hairline);
   overflow-x: auto;
 }
 
@@ -23,6 +23,9 @@
      tab rather than needing a separately positioned element. */
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
+  /* Rounded at the top only, so the hover fill sits on the line the
+     indicator draws rather than floating above it. */
+  border-radius: var(--bh-radius-control) var(--bh-radius-control) 0 0;
   color: var(--bh-text-secondary);
   font: inherit;
   font-size: var(--bh-text-size-caption);
@@ -36,12 +39,15 @@
 
 .bh-tabs__tab:hover:not(:disabled) {
   color: var(--bh-text-primary);
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
 }
 
+/* The indicator is selection.mark, not action.primary.bg: it is the state
+   cue, so it is held to 3:1, and the light primary green is about 1.9:1 on a
+   white page. */
 .bh-tabs__tab[aria-selected='true'] {
   color: var(--bh-text-primary);
-  border-bottom-color: var(--bh-action-primary-bg);
+  border-bottom-color: var(--bh-selection-mark);
   font-weight: var(--bh-text-weight-emphasis);
 }
 
@@ -53,7 +59,7 @@
 .bh-tabs__badge {
   padding: 0 var(--bh-gap-snug);
   border-radius: var(--bh-radius-pill);
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
   color: var(--bh-text-secondary);
   font-size: var(--bh-text-size-body);
   font-variant-numeric: tabular-nums;

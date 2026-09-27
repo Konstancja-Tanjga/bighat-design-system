@@ -87,21 +87,22 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "action.primary.bg",
-    "border.subtle",
     "control.lg",
     "font.family",
     "gap.tight",
     "padding.inline",
     "padding.section",
     "radius.pill",
-    "surface.sunken",
     "text.primary",
     "text.secondary",
     "text.sizeCaption",
     "text.weightEmphasis",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "fill.hover",
+    "border.hairline",
+    "selection.mark",
+    "radius.control"
   ],
   "interactive": true
 }
