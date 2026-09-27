@@ -4,8 +4,10 @@
   gap: var(--bh-gap-loose);
   min-height: var(--bh-control-sm);
   padding: 0 var(--bh-padding-inline);
-  background: var(--bh-surface-sunken);
-  border-top: 1px solid var(--bh-border-subtle);
+  /* AppBar's counterpart at the foot of the screen, so it is drawn the same
+     way: no band of grey, only the hairline that separates it from content. */
+  background: transparent;
+  border-top: 1px solid var(--bh-border-hairline);
   color: var(--bh-text-secondary);
   font-family: var(--bh-font-family);
   font-size: var(--bh-text-size-body);

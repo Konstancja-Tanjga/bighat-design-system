@@ -19,6 +19,20 @@ A vertical list of records.
 | List view | picks one and studies it in a detail pane   | `ListView` |
 | Table     | compares values across rows, sorts, filters | `Table`    |
 
+## Plain or inset
+
+<Canvas of={ListStories.Inset} />
+
+`plain`, the default, takes the surface it sits on: hairline rules inset to the
+text, and an inset `fill.hover` capsule under a row that responds to the
+pointer. `inset` gives the list its own raised surface, drawn with height like a
+`Card` - for a settings page, or a screen whose content is the list. Do not use
+it inside a panel or a card: that is a surface on a surface, and the page loses
+the one level of depth that told the reader what sits above what.
+
+A row with `href` ends in a chevron, because it leads somewhere. A row with
+`onSelect` does not: it acts in place.
+
 ## Do and don't
 
 ### A real `<ul>`

@@ -1,5 +1,41 @@
 # @bighat/ui
 
+## 4.6.0
+
+### Minor Changes
+
+- 05a30b3: **Fields get a modern outline.** `Input`, `Select`, `Textarea`, `Combobox` and
+  `DatePicker` share one set of edge and state rules:
+
+  - a 12px corner on the new `radius.field`, one step rounder than
+    `radius.control`, so a field sits with the pill buttons beside it;
+  - `elevation.control` under the field, as under a button;
+  - hover darkens the edge to the new `border.hover` instead of changing the
+    fill;
+  - on focus the edge joins the `bh-focusable` ring in `border.focus`;
+  - invalid is a 1px `status.critical.fg` edge with a `status.critical.bg` tint,
+    and the error line gains an icon. The 2px border it replaces changed the box
+    size and needed a padding correction.
+
+  The edge stays a 1px `border.strong` line held to 3:1, because a field has no
+  text of its own to identify it. **New tokens:** `radius.field`, `border.hover`.
+
+  **The contrast gate is back.** 4.0 deleted `contrast.test.ts` and nothing
+  replaced it, so the declared pairs were documented as a build gate and checked
+  by nobody. Every pair now runs in both themes, including new ones for text on
+  `status.critical.bg` and `border.hover`.
+
+## 4.5.0
+
+### Minor Changes
+
+- 203b07d: **Toolbar and StatusBar stop drawing grey boxes.** A `Toolbar` is a well of the
+  translucent `fill.hover`, like `SegmentedControl`'s track, instead of
+  `surface.sunken` edged with `border.subtle`. The glass controls in it draw their
+  own edges, so the group needs only enough tint to read as one. A `flush` toolbar
+  and the `StatusBar` are a `border.hairline` line with no background, the same
+  line `AppBar` draws beneath itself. No prop was removed or renamed.
+
 ## 4.4.0
 
 ### Minor Changes

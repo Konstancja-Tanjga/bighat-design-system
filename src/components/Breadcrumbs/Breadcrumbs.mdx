@@ -59,8 +59,10 @@ them anything about the structure they are in.
 
 <Canvas of={BreadcrumbStories.Collapsed} />
 
-Past `maxItems`, the middle becomes an ellipsis and the root and the last two
-levels stay. Those are the crumbs that carry meaning: where the hierarchy
+Past `maxItems`, the middle becomes an ellipsis button and the root and the
+last two levels stay. The button says how many levels it holds ("Show 3 more
+levels"); pressing it puts them back and moves focus to the first of them, so a
+keyboard user is not left on a control that has just disappeared. Those are the crumbs that carry meaning: where the hierarchy
 starts, and where the user is standing. Truncating from the end removes exactly
 the information the component exists to show.
 
@@ -89,5 +91,11 @@ through the trail, that route disappears at 375px.
   navigation.
 - An ordered list, because the sequence is the meaning.
 - `aria-current="page"` on the last crumb, which is not a link.
-- Separators are `aria-hidden` — a screen reader reading "slash" between every
-  level is noise the list structure already conveys.
+- Separators are `aria-hidden` chevrons — a screen reader reading a separator
+  between every level is noise the list structure already conveys.
+- The collapsed middle is a real button, not a decorative "…". Until the
+  redesign it was `aria-hidden`, which made those levels unreachable by any
+  input method.
+- The current page differs from the links by weight as well as colour, so it
+  does not rest on the difference between two greys.
+- Every crumb is at least 24px tall, the WCAG 2.5.8 target minimum.
