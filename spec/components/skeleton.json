@@ -27,6 +27,7 @@
       "kind": "enum",
       "values": [
         "control",
+        "field",
         "surface",
         "pill"
       ],
@@ -67,7 +68,8 @@
     "radius.pill",
     "radius.surface",
     "surface.base",
-    "surface.sunken"
+    "surface.sunken",
+    "radius.field"
   ],
   "interactive": false
 }

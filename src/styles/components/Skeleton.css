@@ -7,6 +7,9 @@
 .bh-skeleton--control {
   border-radius: var(--bh-radius-control);
 }
+.bh-skeleton--field {
+  border-radius: var(--bh-radius-field);
+}
 .bh-skeleton--surface {
   border-radius: var(--bh-radius-surface);
 }
