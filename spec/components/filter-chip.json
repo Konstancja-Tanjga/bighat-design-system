@@ -60,7 +60,6 @@
   },
   "tokensUsed": [
     "border.focus",
-    "border.strong",
     "control.indicator",
     "control.sm",
     "duration.fast",
@@ -73,13 +72,17 @@
     "selection.bg",
     "selection.fg",
     "selection.mark",
-    "surface.base",
-    "surface.sunken",
     "textLeading.tight",
     "text.primary",
     "text.secondary",
     "textSize.body",
-    "textWeight.emphasis"
+    "textWeight.emphasis",
+    "material.regular.bg",
+    "material.regular.blur",
+    "material.saturation",
+    "material.rim",
+    "elevation.control",
+    "fill.hover"
   ],
   "interactive": true,
   "implementations": {

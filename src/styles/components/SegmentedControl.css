@@ -15,13 +15,18 @@
   font-weight: var(--bh-text-weight-emphasis);
 }
 
+/* A well, and the chosen segment is a glass capsule sitting in it - the same
+   capsule as a secondary Button, so the control reads as the buttons' sibling.
+   The well is the translucent fill.hover rather than surface.sunken, so it
+   still reads as a well when the control sits on glass. The border stays,
+   transparent, for forced-colours mode. */
 .bh-segmented {
   display: inline-flex;
   padding: var(--bh-gap-hairline);
   gap: var(--bh-gap-hairline);
-  border: 1px solid var(--bh-border-strong);
-  border-radius: var(--bh-radius-control);
-  background: var(--bh-surface-sunken);
+  border: 1px solid transparent;
+  border-radius: var(--bh-radius-pill);
+  background: var(--bh-fill-hover);
 }
 
 .bh-segmented--full {
@@ -49,10 +54,18 @@
   align-items: center;
   justify-content: center;
   padding: 0 var(--bh-padding-inline);
-  border-radius: calc(var(--bh-radius-control) - 2px);
+  border-radius: var(--bh-radius-pill);
   color: var(--bh-text-secondary);
   cursor: pointer;
   white-space: nowrap;
+  transition:
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    box-shadow var(--bh-duration-fast) var(--bh-easing-standard),
+    color var(--bh-duration-fast) var(--bh-easing-standard);
+}
+
+.bh-segmented__input:not(:checked):not(:disabled):hover + .bh-segmented__label {
+  color: var(--bh-text-primary);
 }
 
 .bh-segmented--sm .bh-segmented__label {
@@ -65,10 +78,20 @@
 }
 
 .bh-segmented__input:checked + .bh-segmented__label {
-  background: var(--bh-surface-base);
+  background: var(--bh-material-regular-bg);
+  backdrop-filter: blur(var(--bh-material-regular-blur)) saturate(var(--bh-material-saturation));
   color: var(--bh-text-primary);
   font-weight: var(--bh-text-weight-emphasis);
-  box-shadow: var(--bh-elevation-raised);
+  box-shadow: var(--bh-material-rim), var(--bh-elevation-control);
+}
+
+/* Forced colours drop the capsule's fill and shadow, which were the only
+   thing marking the choice besides weight. */
+@media (forced-colors: active) {
+  .bh-segmented__input:checked + .bh-segmented__label {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
 }
 
 .bh-segmented__input:focus-visible + .bh-segmented__label {
