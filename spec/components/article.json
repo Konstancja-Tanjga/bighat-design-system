@@ -1,0 +1,155 @@
+{
+  "$schema": "../schema.json",
+  "name": "Article",
+  "layer": "frame",
+  "purpose": "A long read: text at a reading measure, a margin beside it for figures and asides, and a table of contents that stays in view where there is room.",
+  "notFor": [
+    "Application screens with lists, tables or boards - that is AppShell with the data components",
+    "Short text in a card or panel - a Card, or plain text",
+    "Styling the text itself - headings, lists and tables in the body are the product's"
+  ],
+  "composition": "composite",
+  "anatomy": [
+    {
+      "part": "bh-article",
+      "element": "article"
+    },
+    {
+      "part": "bh-article__header",
+      "element": "header"
+    },
+    {
+      "part": "bh-article__title",
+      "element": "h1"
+    },
+    {
+      "part": "bh-article__eyebrow",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-article__meta",
+      "element": "p",
+      "required": false
+    },
+    {
+      "part": "bh-article__lead",
+      "element": "p",
+      "required": false
+    },
+    {
+      "part": "bh-article__body",
+      "element": "div"
+    },
+    {
+      "part": "bh-article__margin",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-article__toc",
+      "element": "nav",
+      "required": false
+    },
+    {
+      "part": "bh-article__toc-fold",
+      "element": "nav",
+      "required": false
+    },
+    {
+      "part": "bh-article__footer",
+      "element": "footer",
+      "required": false
+    }
+  ],
+  "props": {
+    "title": {
+      "kind": "slot",
+      "content": "text",
+      "note": "The article's h1, and the name of the article landmark.",
+      "react": "title: ReactNode"
+    },
+    "eyebrow": {
+      "kind": "slot",
+      "content": "Breadcrumbs, or the article's place in a sequence",
+      "react": "eyebrow?: ReactNode"
+    },
+    "meta": {
+      "kind": "slot",
+      "content": "text",
+      "note": "Position in a sequence, reading time.",
+      "react": "meta?: ReactNode"
+    },
+    "lead": {
+      "kind": "slot",
+      "content": "text",
+      "react": "lead?: ReactNode"
+    },
+    "toc": {
+      "kind": "data",
+      "note": "Headings in the body as { id, label }. Wide: a sticky list in the third column. Otherwise: a disclosure under the header.",
+      "react": "toc?: ArticleTocItem[]"
+    },
+    "tocLabel": {
+      "kind": "string",
+      "default": "On this page",
+      "note": "Names the table of contents landmark."
+    },
+    "children": {
+      "kind": "slot",
+      "content": "The body, with ArticleMargin placed after the paragraph it belongs to",
+      "react": "children: ReactNode"
+    },
+    "footer": {
+      "kind": "slot",
+      "content": "A completion control, the next article",
+      "react": "footer?: ReactNode"
+    }
+  },
+  "states": [
+    "default"
+  ],
+  "keyboard": {
+    "Enter": "On a table of contents entry, moves to that heading. Native link."
+  },
+  "aria": {
+    "role": "article (implicit, from <article>), named by the title",
+    "attributes": {
+      "aria-labelledby": "title id",
+      "aria-current": "location, on the table of contents entry for the section in view"
+    },
+    "labelling": "The title names the article; tocLabel names the table of contents navigation.",
+    "focus": "Links in the table of contents move focus to the heading through the browser's fragment navigation. The component moves no focus itself.",
+    "announcements": null
+  },
+  "implementations": {
+    "version": "4.8.0",
+    "status": "react-only"
+  },
+  "tokensUsed": [
+    "font.family",
+    "text.primary",
+    "text.secondary",
+    "text.sizeBody",
+    "text.sizeHeading",
+    "text.sizeDisplay",
+    "text.weightHeading",
+    "text.weightEmphasis",
+    "text.leadingTight",
+    "text.leadingNormal",
+    "padding.section",
+    "gap.loose",
+    "gap.normal",
+    "gap.snug",
+    "gap.tight",
+    "gap.hairline",
+    "border.hairline",
+    "selection.mark",
+    "fill.hover",
+    "radius.control",
+    "control.sm",
+    "duration.fast",
+    "easing.standard"
+  ],
+  "interactive": true
+}

@@ -1,0 +1,96 @@
+/*
+ * The lesson template's own styles. The body's typography stands in for the
+ * product's: Article lays out and does not style headings, lists or tables.
+ */
+.tpl-article {
+  padding: var(--bh-padding-section);
+}
+
+/* Block flow, not flex: a margin note is a float, and floats only reach
+   beside the paragraphs around them in ordinary block flow. */
+.tpl-article__prose {
+  font-size: var(--bh-text-size-caption);
+  line-height: var(--bh-text-leading-normal);
+}
+
+.tpl-article__prose > * + * {
+  margin-top: var(--bh-gap-normal);
+}
+
+.tpl-article__prose h2 {
+  margin-top: var(--bh-gap-loose);
+  font-size: var(--bh-text-size-heading);
+  font-weight: var(--bh-text-weight-heading);
+  scroll-margin-top: var(--bh-padding-section);
+}
+
+.tpl-article__prose p {
+  margin-bottom: 0;
+}
+
+.tpl-article__goals-title,
+.tpl-article__fact-title,
+.tpl-article__next-label {
+  margin: 0;
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-body);
+  font-weight: var(--bh-text-weight-emphasis);
+}
+
+.tpl-article__goals {
+  margin: var(--bh-gap-tight) 0 0;
+  padding-left: var(--bh-padding-inline);
+}
+
+.tpl-article__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-tight);
+}
+
+.tpl-article__photo {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--bh-radius-control);
+  background: linear-gradient(160deg, var(--bh-surface-sunken), var(--bh-fill-hover));
+  box-shadow: inset 0 0 0 1px var(--bh-border-hairline);
+}
+
+.tpl-article__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-hairline);
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-body);
+  line-height: var(--bh-text-leading-tight);
+}
+
+.tpl-article__caption-title {
+  color: var(--bh-text-primary);
+  font-weight: var(--bh-text-weight-emphasis);
+}
+
+.tpl-article__fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-tight);
+  padding: var(--bh-padding-inline);
+  border-radius: var(--bh-radius-control);
+  background: var(--bh-fill-hover);
+  font-size: var(--bh-text-size-body);
+}
+
+.tpl-article__fact p {
+  margin: 0;
+}
+
+.tpl-article__next-title {
+  margin: var(--bh-gap-hairline) 0 0;
+  font-weight: var(--bh-text-weight-emphasis);
+}
+
+.tpl-article__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bh-gap-snug);
+}
