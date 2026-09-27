@@ -10,7 +10,7 @@ import type { ReactNode } from 'react';
  * management into it would break exactly the workflow it exists for.
  */
 export type SidePanelProps = {
-  /** Which edge it sits against. Only affects the border and collapse arrow. */
+  /** Which edge it sits against. Sets the collapse arrow; AppShell's slot draws the border. */
   side?: 'start' | 'end';
   /** Names the landmark. Required — a page with three unnamed regions is one
    *  region as far as a screen reader user is concerned. */
@@ -38,50 +38,45 @@ export function SidePanel({
   collapsed = false,
   onToggle,
 }: SidePanelProps) {
-  if (collapsed) {
-    return (
-      <div className={`bh-panel bh-panel--${side} bh-panel--collapsed`}>
-        <button
-          type="button"
-          className="bh-panel__toggle bh-focusable"
-          onClick={onToggle}
-          aria-expanded={false}
-          aria-label={`Expand ${ariaLabel}`}
-        >
-          <span aria-hidden="true">{side === 'start' ? '›' : '‹'}</span>
-        </button>
-      </div>
-    );
-  }
+  // One root and one toggle in both states. Swapping the root element, as
+  // this used to, made React remount the panel on every toggle, so the button
+  // the reader had just pressed was destroyed and focus fell to the page.
+  // The title slot stays in place when collapsed so the toggle keeps its
+  // position in the tree, and with it its DOM node.
+  const pointsRight = side === 'start' ? collapsed : !collapsed;
 
   return (
     <aside
-      className={`bh-panel bh-panel--${side}`}
+      className={`bh-panel bh-panel--${side}${collapsed ? ' bh-panel--collapsed' : ''}`}
       aria-label={ariaLabel}
-      style={{ width, minWidth: width }}
+      style={collapsed ? undefined : { width, minWidth: width }}
     >
-      {(title || onToggle) && (
+      {(onToggle || (title && !collapsed)) && (
         <div className="bh-panel__titlebar">
-          {title && <h2 className="bh-panel__title">{title}</h2>}
+          {title && !collapsed ? <h2 className="bh-panel__title">{title}</h2> : null}
+          {/* Without onToggle there is nothing to wire a button to: a collapsed
+              panel the product controls elsewhere renders no dead toggle. */}
           {onToggle && (
             <button
               type="button"
               className="bh-panel__toggle bh-focusable"
               onClick={onToggle}
-              aria-expanded
-              aria-label={`Collapse ${ariaLabel}`}
+              aria-expanded={!collapsed}
+              aria-label={`${collapsed ? 'Expand' : 'Collapse'} ${ariaLabel}`}
             >
-              <span aria-hidden="true">{side === 'start' ? '‹' : '›'}</span>
+              <span aria-hidden="true">{pointsRight ? '›' : '‹'}</span>
             </button>
           )}
         </div>
       )}
 
-      {header && <div className="bh-panel__header">{header}</div>}
-
-      <div className="bh-panel__body">{children}</div>
-
-      {footer && <div className="bh-panel__footer">{footer}</div>}
+      {!collapsed && (
+        <>
+          {header && <div className="bh-panel__header">{header}</div>}
+          <div className="bh-panel__body">{children}</div>
+          {footer && <div className="bh-panel__footer">{footer}</div>}
+        </>
+      )}
     </aside>
   );
 }

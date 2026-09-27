@@ -11,7 +11,7 @@
   "anatomy": [
     {
       "part": "bh-panel",
-      "element": "div"
+      "element": "aside"
     },
     {
       "part": "bh-panel__toggle",

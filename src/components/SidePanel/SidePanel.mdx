@@ -39,15 +39,15 @@ also loses whatever the reader had typed every time it closes.
 
 ## Anatomy
 
-| part                 | element                            | rendered                                             | note                                                                                                                                |
-| -------------------- | ---------------------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `bh-panel`           | `<aside>` · `<div>` when collapsed | always                                               | Expanded, it is a complementary landmark named by `ariaLabel`. Collapsed, it is a bare `<div>` 36px wide, and the landmark is gone. |
-| `bh-panel__toggle`   | `<button[type=button]>`            | when `onToggle` is set, and always when `collapsed`  | Labelled "Collapse {ariaLabel}" or "Expand {ariaLabel}", with `aria-expanded`. The arrow glyph is `aria-hidden`.                    |
-| `bh-panel__titlebar` | `<div>`                            | when `title` or `onToggle` is set, and not collapsed | Holds the title and the toggle on one line.                                                                                         |
-| `bh-panel__title`    | `<h2>`                             | when `title` is set, and not collapsed               | Always level 2.                                                                                                                     |
-| `bh-panel__header`   | `<div>`                            | when `header` is set, and not collapsed              | Does not scroll.                                                                                                                    |
-| `bh-panel__body`     | `<div>`                            | when not collapsed                                   | The only scrolling region, so the header and footer stay reachable however long the list gets.                                      |
-| `bh-panel__footer`   | `<div>`                            | when `footer` is set, and not collapsed              | Does not scroll. Separated from the body by a `border.subtle` rule.                                                                 |
+| part                 | element                 | rendered                                          | note                                                                                                                 |
+| -------------------- | ----------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `bh-panel`           | `<aside>`               | always                                            | A complementary landmark named by `ariaLabel`, in both states. Collapsed, it is 36px wide and holds only the toggle. |
+| `bh-panel__toggle`   | `<button[type=button]>` | when `onToggle` is set                            | Labelled "Collapse {ariaLabel}" or "Expand {ariaLabel}", with `aria-expanded`. The arrow glyph is `aria-hidden`.     |
+| `bh-panel__titlebar` | `<div>`                 | when `onToggle` is set, or `title` while expanded | Holds the title and the toggle on one line. Collapsed, it holds the toggle alone.                                    |
+| `bh-panel__title`    | `<h2>`                  | when `title` is set, and not collapsed            | Always level 2.                                                                                                      |
+| `bh-panel__header`   | `<div>`                 | when `header` is set, and not collapsed           | Does not scroll.                                                                                                     |
+| `bh-panel__body`     | `<div>`                 | when not collapsed                                | The only scrolling region, so the header and footer stay reachable however long the list gets.                       |
+| `bh-panel__footer`   | `<div>`                 | when `footer` is set, and not collapsed           | Does not scroll. Separated from the body by a `border.subtle` rule.                                                  |
 
 ## Props
 
@@ -60,8 +60,8 @@ also loses whatever the reader had typed every time it closes.
 | `footer`    | slot            | —       | Pinned below it.                                                                                                                                                                                                 |
 | `children`  | slot            | —       | The panel's content, in the scrolling body. Not rendered while collapsed.                                                                                                                                        |
 | `width`     | number          | `260`   | Width in pixels while expanded, set as both `width` and `min-width` so the grid around it cannot squeeze it. Ignored while collapsed, when the panel is 36px.                                                    |
-| `collapsed` | boolean         | `false` | Controlled. `true` renders only the strip with the expand button; the title, header, body and footer are unmounted.                                                                                              |
-| `onToggle`  | event           | —       | Called when either toggle button is pressed. The panel does not change `collapsed` itself. Without it, an expanded panel has no collapse button.                                                                 |
+| `collapsed` | boolean         | `false` | Controlled. `true` renders only the strip with the expand button; the title, header, body and footer are unmounted. The panel and its toggle stay the same elements, so focus stays on the toggle.               |
+| `onToggle`  | event           | —       | Called when either toggle button is pressed. The panel does not change `collapsed` itself. Without it there is no toggle in either state, so a panel collapsed from elsewhere shows no dead button.              |
 
 <Controls />
 
@@ -86,9 +86,8 @@ no interactive states.
   here it is wrong: the reader is working in the main area and the panel at the
   same time, and a trap would shut them out of one. The toggle is a native
   button with `bh-focusable`, so Enter and Space work and the focus ring shows;
-  the panel adds no keys of its own. Collapsing and expanding replace the whole
-  panel, including the button that was pressed, and the component does not move
-  focus to the new toggle.
+  the panel adds no keys of its own. Collapsing and expanding keep the same panel
+  and the same toggle, so focus stays on the button that was pressed.
 - **Announcements** — none. The panel has no live region, and collapsing or
   expanding it is not announced beyond the toggle's `aria-expanded`. Content
   that changes inside it has to bring its own announcement — loading, empty and
