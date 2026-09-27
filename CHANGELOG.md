@@ -1,5 +1,32 @@
 # @bighat/ui
 
+## 4.8.0
+
+### Minor Changes
+
+- a0a1d14: **`Card` gains an `actions` slot.** The card's own actions render as a row at
+  the foot of the card, aligned to the trailing edge, primary last. The card
+  becomes a column so the row sits at the foot, and cards in a grid row line
+  their actions up however long their content runs. Passing `actions` together
+  with `onClick` is a type error: a card that is a button cannot hold buttons.
+
+  `CardProps` is now a union, so plain `Omit<CardProps, …>` flattens it and no
+  longer type-checks when wrapping Card. Use the new exported
+  `DistributiveOmit<CardProps, …>` instead.
+
+  The Card docs gain an **Anatomy and order** section: accent, title, status,
+  content, then actions, with the rules for keeping actions inside the card,
+  aligning them across a row, and one primary that goes last.
+
+### Patch Changes
+
+- Corrects the field states from the modern outline. An invalid field keeps its
+  critical edge under focus, where focus used to turn it green at the moment the
+  reader tabbed in to fix it. In forced colours, which repaint every edge alike
+  and drop the background, an invalid field's edge is dashed. The error icon's
+  height has a fallback for engines without the `lh` unit. `Skeleton` gains
+  `radius="field"` to match the new field corner.
+
 ## 4.7.0
 
 ### Minor Changes
