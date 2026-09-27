@@ -279,6 +279,11 @@ export const contrast = {
       "bodyText"
     ],
     [
+      "text.secondary",
+      "surface.sunken",
+      "bodyText"
+    ],
+    [
       "text.muted",
       "surface.base",
       "bodyText"

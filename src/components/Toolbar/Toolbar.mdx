@@ -79,6 +79,15 @@ label. A bare glyph with neither is a control only its author can operate.
   </Dont>
 </Guidance>
 
+### Where it sits
+
+Put a toolbar on the page or a region background — `surface.base` or
+`surface.sunken`, which is where every template puts one. Its well is the
+translucent `fill.hover`, so the contrast of what is inside it depends on what
+is behind it. On those two backgrounds every text and field-edge pair holds.
+Inside a dark raised `Card` it does not: muted hint text drops to 4.4:1 and a
+field's edge to 2.4:1. Put the toolbar above the card, not in it.
+
 ## Accessibility
 
 - `role="toolbar"` with a required `ariaLabel`, and `aria-orientation` when
