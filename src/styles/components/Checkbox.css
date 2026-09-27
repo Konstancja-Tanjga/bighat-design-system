@@ -55,8 +55,12 @@
     border-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
-/* Hover is a change of edge, as on a field. */
-.bh-checkbox__input:not(:checked):not(:indeterminate):not(:disabled):hover + .bh-checkbox__box {
+/* Hover is a change of edge, as on a field. An invalid box keeps its critical
+   edge under the pointer. */
+.bh-checkbox__input:not(:checked):not(:indeterminate):not(:disabled):not(
+    [aria-invalid='true']
+  ):hover
+  + .bh-checkbox__box {
   border-color: var(--bh-border-hover);
 }
 
