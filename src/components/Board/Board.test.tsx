@@ -42,6 +42,28 @@ describe('Board', () => {
     expect(onMove).toHaveBeenCalledWith('review');
   });
 
+  // The id used to be `move-${title}`: two cards with one title shared it, so
+  // the second label pointed at the first select.
+  it('labels each move select even when two cards share a title', () => {
+    const targets = [{ id: 'review', label: 'In review' }];
+    render(
+      <Board ariaLabel="Board">
+        <BoardColumn title="Inbox" count={2}>
+          <BoardCard title="Scan" moveTargets={targets} onMove={() => {}}>
+            Scan
+          </BoardCard>
+          <BoardCard title="Scan" moveTargets={targets} onMove={() => {}}>
+            Scan
+          </BoardCard>
+        </BoardColumn>
+      </Board>,
+    );
+
+    const selects = screen.getAllByLabelText('Move “Scan” to');
+    expect(selects).toHaveLength(2);
+    expect(selects[0].id).not.toBe(selects[1].id);
+  });
+
   it('announces a move through a live region', () => {
     render(
       <Board ariaLabel="Board" announcement="Invoice INV-2041 moved to In review.">

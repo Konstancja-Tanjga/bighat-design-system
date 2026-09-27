@@ -15,6 +15,10 @@
   padding-top: var(--bh-gap-snug);
 }
 
+.bh-panel--collapsed .bh-panel__titlebar {
+  padding: 0;
+}
+
 .bh-panel__titlebar {
   display: flex;
   align-items: center;

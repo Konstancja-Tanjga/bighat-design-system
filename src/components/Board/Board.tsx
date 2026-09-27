@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useId, type ReactNode } from 'react';
 
 /**
  * Columns of cards — a kanban board, a pipeline, a review queue.
@@ -95,6 +95,10 @@ export type BoardCardProps = {
 };
 
 export function BoardCard({ children, moveTargets, onMove, onOpen, title }: BoardCardProps) {
+  // Not derived from the title: two cards can share one, and a title with
+  // spaces is not a valid id, so either would attach the label to the wrong
+  // select.
+  const moveId = useId();
   return (
     <li className="bh-board__card">
       <div className="bh-board__card-inner">
@@ -111,11 +115,11 @@ export function BoardCard({ children, moveTargets, onMove, onOpen, title }: Boar
             {/* A visible select, not a drag handle. It is operable by pointer,
                 keyboard, voice and switch, and it states the destinations
                 instead of requiring the user to discover them by dragging. */}
-            <label className="bh-visually-hidden" htmlFor={`move-${title}`}>
+            <label className="bh-visually-hidden" htmlFor={moveId}>
               Move “{title}” to
             </label>
             <select
-              id={`move-${title}`}
+              id={moveId}
               className="bh-board__move-select bh-focusable"
               value=""
               onChange={(event) => {
