@@ -23,7 +23,7 @@ export type CardProps = {
    * hairline ring (in 4.1 it had a `border.subtle` border).
    */
   elevation?: 'flat' | 'raised';
-  /** Left accent stripe. Decorative — never the only carrier of a status. */
+  /** Accent bar in the leading padding; an accented card takes section padding on that side. Decorative — never the only carrier of a status. */
   accent?: 'none' | 'info' | 'success' | 'warning' | 'critical';
   padding?: 'snug' | 'normal';
   /** Marks a card that is being dragged, for the board patterns. */
