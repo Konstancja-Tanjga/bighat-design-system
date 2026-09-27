@@ -44,7 +44,9 @@
   box-shadow: var(--bh-elevation-floating);
 }
 
-.bh-card--dragging {
+/* Outranks .bh-card--interactive:hover: a card being dragged is under the
+   pointer, and hover's floating shadow used to win over the overlay one. */
+.bh-card.bh-card--dragging {
   opacity: 0.85;
   box-shadow: var(--bh-elevation-overlay);
 }
