@@ -517,6 +517,11 @@ export const contrast = {
       "fill.hover",
       "bodyText",
       "surface.sunken"
+    ],
+    [
+      "text.secondary",
+      "status.critical.bg",
+      "bodyText"
     ]
   ]
 } as const;

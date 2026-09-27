@@ -75,6 +75,13 @@
   background: var(--bh-status-critical-bg);
 }
 
+/* A file dragged over an invalid zone is the reader fixing the error, so the
+   drop highlight wins over the critical background. */
+.bh-dropzone--over.bh-dropzone--invalid {
+  background: var(--bh-selection-bg);
+  border-color: var(--bh-selection-mark);
+}
+
 .bh-dropzone--disabled {
   opacity: 0.6;
 }
