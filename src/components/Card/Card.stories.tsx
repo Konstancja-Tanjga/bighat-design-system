@@ -18,8 +18,8 @@ const meta: Meta<typeof Card> = {
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
   decorators: [
-    (Story) => (
-      <div style={{ maxWidth: 360 }}>
+    (Story, { parameters }) => (
+      <div style={{ maxWidth: parameters.wide ? 640 : 360 }}>
         <Story />
       </div>
     ),
@@ -76,21 +76,51 @@ export const Interactive: Story = {
   },
 };
 
-/** When a card has more than one action: it stays a plain surface and each action is its own button. */
+/** When a card has more than one action: it stays a plain surface, and the actions sit in its own row at the foot, trailing edge, primary last. */
 export const WithActions: Story = {
   args: {
-    children: (
-      <span style={stack}>
+    children: <InvoiceSummary />,
+    actions: (
+      <>
+        <Button size="sm" variant="secondary">
+          Download PDF
+        </Button>
+        <Button size="sm">Send reminder</Button>
+      </>
+    ),
+  },
+};
+
+/** Cards in a row line their actions up at the foot, however long their content runs. */
+export const ActionsInAGrid: Story = {
+  parameters: { wide: true },
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+        gap: 'var(--bh-gap-normal)',
+      }}
+    >
+      <Card actions={<Button size="sm">Send reminder</Button>}>
         <InvoiceSummary />
-        <span style={{ display: 'flex', gap: 'var(--bh-gap-snug)' }}>
-          <Button size="sm">Send reminder</Button>
+      </Card>
+      <Card
+        actions={
           <Button size="sm" variant="secondary">
             Download PDF
           </Button>
+        }
+      >
+        <span style={stack}>
+          <InvoiceSummary />
+          <span style={{ color: 'var(--bh-text-secondary)' }}>
+            Paid in two instalments. The second cleared on 2 October, eleven days after the first.
+          </span>
         </span>
-      </span>
-    ),
-  },
+      </Card>
+    </div>
+  ),
 };
 
 /** When cards in a list carry a status and the bar helps the eye group them. The status is still written out. */

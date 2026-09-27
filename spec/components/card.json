@@ -4,7 +4,7 @@
   "layer": "frame",
   "purpose": "A bounded surface around content the user might act on as a unit.",
   "notFor": [
-    "A paragraph \u2014 that is a border with extra steps",
+    "A paragraph — that is a border with extra steps",
     "Cards with two actions inside"
   ],
   "composition": "composite",
@@ -13,6 +13,16 @@
       "part": "bh-card",
       "element": "TODO",
       "note": "TODO: read it off the React render"
+    },
+    {
+      "part": "bh-card__body",
+      "element": "div",
+      "required": false
+    },
+    {
+      "part": "bh-card__actions",
+      "element": "div",
+      "required": false
     }
   ],
   "props": {
@@ -46,7 +56,7 @@
         "critical"
       ],
       "default": "none",
-      "note": "Decorative \u2014 never the only carrier of a status. An accented card takes section padding on its leading side to make room for the bar."
+      "note": "Decorative — never the only carrier of a status. An accented card takes section padding on its leading side to make room for the bar."
     },
     "padding": {
       "kind": "enum",
@@ -59,6 +69,12 @@
     "dragging": {
       "kind": "boolean",
       "default": false
+    },
+    "actions": {
+      "kind": "slot",
+      "content": "Buttons; primary last",
+      "note": "A row at the foot, trailing edge. Never together with onClick: a card that is a button cannot hold buttons.",
+      "react": "actions?: ReactNode (never with onClick)"
     }
   },
   "states": [
@@ -90,7 +106,9 @@
     "duration.normal",
     "easing.standard",
     "elevation.floating",
-    "radius.pill"
+    "radius.pill",
+    "gap.normal",
+    "gap.snug"
   ],
   "interactive": true
 }

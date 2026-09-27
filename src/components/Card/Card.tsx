@@ -12,10 +12,8 @@ import type { ReactNode } from 'react';
  * stay a plain surface, because nesting interactive elements leaves the user
  * unable to predict what a click does.
  */
-export type CardProps = {
+type CardBase = {
   children: ReactNode;
-  /** Turns the card into a single button. `ariaLabel` becomes its name. */
-  onClick?: () => void;
   ariaLabel?: string;
   /**
    * `raised` is the default since 4.2 - a card sits one step off the page and
@@ -30,6 +28,31 @@ export type CardProps = {
   dragging?: boolean;
 };
 
+/**
+ * A union, because `actions` and `onClick` exclude each other. `Omit` on a
+ * union flattens it; to drop a key when wrapping Card, use
+ * `DistributiveOmit<CardProps, 'children'>`.
+ */
+export type CardProps = CardBase &
+  (
+    | {
+        /** Turns the card into a single button. `ariaLabel` becomes its name. */
+        onClick: () => void;
+        actions?: never;
+      }
+    | {
+        onClick?: never;
+        /**
+         * The card's own actions, rendered as a row at the bottom, aligned to
+         * the trailing edge, primary last. The card becomes a column so the
+         * row sits at the foot of the card, and cards in a grid row line their
+         * actions up. Not with `onClick`: a card that is a button cannot hold
+         * buttons.
+         */
+        actions?: ReactNode;
+      }
+  );
+
 export function Card({
   children,
   onClick,
@@ -38,7 +61,10 @@ export function Card({
   accent = 'none',
   padding = 'normal',
   dragging = false,
+  actions,
 }: CardProps) {
+  // Not `actions &&`: a falsy node such as 0 would render as text.
+  const hasActions = actions != null && actions !== false;
   const className = [
     'bh-card',
     `bh-card--${elevation}`,
@@ -46,6 +72,7 @@ export function Card({
     accent !== 'none' && `bh-card--accent-${accent}`,
     dragging && 'bh-card--dragging',
     onClick && 'bh-card--interactive bh-focusable',
+    hasActions && 'bh-card--with-actions',
   ]
     .filter(Boolean)
     .join(' ');
@@ -58,5 +85,13 @@ export function Card({
     );
   }
 
-  return <div className={className}>{children}</div>;
+  return (
+    <div className={className}>
+      {hasActions ? <div className="bh-card__body">{children}</div> : children}
+      {hasActions && <div className="bh-card__actions">{actions}</div>}
+    </div>
+  );
 }
+
+/** `Omit` that keeps a union a union, for wrapping components with exclusive props. */
+export type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
