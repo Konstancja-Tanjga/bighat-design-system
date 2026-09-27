@@ -10,3 +10,9 @@ that fades. Unlike the Button it does not lift, because chips come in rows and a
 row that rises under the pointer is motion for its own sake. A pressed chip
 keeps `selection.bg` and its `selection.mark` border and check. The remove
 button hovers with the translucent `fill.hover`. No prop was removed or renamed.
+
+**SegmentedControl** follows. The chosen segment is that same glass capsule,
+sitting in a well of the translucent `fill.hover` instead of a grey box with a
+`border.strong` edge, and the track is a capsule to match. An unchosen segment
+darkens its label on hover. In forced-colours mode, which drops the capsule's
+fill and shadow, the chosen segment is outlined in `Highlight`.

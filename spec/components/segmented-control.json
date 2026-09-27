@@ -84,22 +84,26 @@
   },
   "tokensUsed": [
     "border.focus",
-    "border.strong",
     "control.md",
     "control.sm",
-    "elevation.raised",
     "font.family",
     "gap.hairline",
     "gap.tight",
     "padding.inline",
-    "radius.control",
-    "surface.base",
-    "surface.sunken",
     "text.primary",
     "text.secondary",
     "text.sizeBody",
     "text.sizeCaption",
-    "text.weightEmphasis"
+    "text.weightEmphasis",
+    "fill.hover",
+    "radius.pill",
+    "material.regular.bg",
+    "material.regular.blur",
+    "material.saturation",
+    "material.rim",
+    "elevation.control",
+    "duration.fast",
+    "easing.standard"
   ],
   "interactive": true
 }
