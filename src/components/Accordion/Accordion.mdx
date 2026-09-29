@@ -20,6 +20,16 @@ Disclosure in place: a heading the user opens to read more.
 | Long forms broken into sections users can skip   | Content everyone needs — just show it          |
 | A dense list where each row has a detail view    | Navigation                                     |
 
+## Plain or inset
+
+<Canvas of={AccordionStories.Inset} />
+
+`plain`, the default, takes the surface it sits on, with hairlines between
+items, so it can live in a panel or a card without a box inside a box. `inset`
+gives it its own raised surface, drawn with height like a `Card` - for a
+settings or FAQ page where the accordion is the content. The chevron sits in a
+round well that fills when the trigger is hovered.
+
 ## Do and don't
 
 ### A button inside a heading, not a clickable div

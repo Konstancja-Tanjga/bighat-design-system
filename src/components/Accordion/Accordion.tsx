@@ -30,6 +30,12 @@ export type AccordionProps = {
    * breaks heading navigation as surely as skipping a level in prose.
    */
   headingLevel?: 2 | 3 | 4 | 5 | 6;
+  /**
+   * `plain` takes the surface it sits on. `inset` is a grouped accordion on
+   * its own raised surface, like a Card - for a settings or FAQ page, not for
+   * one inside a panel or a card.
+   */
+  variant?: 'plain' | 'inset';
   children: ReactNode;
 };
 
@@ -37,6 +43,7 @@ export function Accordion({
   multiple = false,
   defaultOpen = [],
   headingLevel = 3,
+  variant = 'plain',
   children,
 }: AccordionProps) {
   const [open, setOpen] = useState<string[]>(defaultOpen);
@@ -52,7 +59,7 @@ export function Accordion({
   };
 
   return (
-    <div className="bh-accordion">
+    <div className={`bh-accordion bh-accordion--${variant}`}>
       <AccordionContext.Provider value={value}>{children}</AccordionContext.Provider>
     </div>
   );

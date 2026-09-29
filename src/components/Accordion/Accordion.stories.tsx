@@ -38,3 +38,20 @@ export const Multiple: Story = {
     </Accordion>
   ),
 };
+
+/** A grouped accordion on its own raised surface, for a settings or FAQ page. */
+export const Inset: Story = {
+  render: () => (
+    <Accordion variant="inset" defaultOpen={['shipping']}>
+      <AccordionItem id="shipping" title="Shipping" meta="3 options">
+        Delivery is quoted at checkout and depends on the destination country.
+      </AccordionItem>
+      <AccordionItem id="returns" title="Returns">
+        Thirty days from delivery, in the original packaging.
+      </AccordionItem>
+      <AccordionItem id="invoices" title="Invoices">
+        Issued the day the order ships and sent to the billing address.
+      </AccordionItem>
+    </Accordion>
+  ),
+};
