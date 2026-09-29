@@ -107,7 +107,8 @@
     "easing.standard",
     "fill.hover",
     "text.secondary",
-    "text.weightEmphasis"
+    "text.weightEmphasis",
+    "fontFamily.sans"
   ],
   "interactive": true
 }

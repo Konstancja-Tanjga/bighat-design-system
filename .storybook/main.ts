@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite';
+import remarkGfm from 'remark-gfm';
 
 /**
  * The deployed Storybook is this system's primary artefact, which changes two
@@ -24,7 +25,17 @@ const config: StorybookConfig = {
     '../src/**/*.stories.tsx',
   ],
 
-  addons: ['@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-themes'],
+  // remark-gfm, because MDX on its own does not parse GitHub-flavoured tables:
+  // every "When to use it" and props table in the docs rendered as a paragraph
+  // of pipes and dashes until this was added.
+  addons: [
+    {
+      name: '@storybook/addon-docs',
+      options: { mdxPluginOptions: { mdxCompileOptions: { remarkPlugins: [remarkGfm] } } },
+    },
+    '@storybook/addon-a11y',
+    '@storybook/addon-themes',
+  ],
 
   docs: { defaultName: 'Docs' },
 
