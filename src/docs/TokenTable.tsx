@@ -1,5 +1,5 @@
 import { contrast, tokens } from '../../dist/tokens';
-import { contrastRatio } from '../tokens/contrast';
+import { compositeOver, contrastRatio } from '../tokens/contrast';
 
 /**
  * Documentation rendered from the token source rather than transcribed from
@@ -111,10 +111,18 @@ export function ContrastTable() {
         </tr>
       </thead>
       <tbody>
-        {contrast.pairs.map(([fg, bg, requirement]) => {
-          const name = `${fg} on ${bg}`;
-          const light = contrastRatio(tokens[fg].light, tokens[bg].light);
-          const dark = contrastRatio(tokens[fg].dark, tokens[bg].dark);
+        {contrast.pairs.map((pair) => {
+          // A fourth entry names the opaque surface a translucent background
+          // sits on (fill.hover, the materials). Measuring the rgba value
+          // alone threw and took the whole page down; composite it first, as
+          // the contrast gate does.
+          const [fg, bg, requirement] = pair;
+          const over = (pair as readonly string[])[3] as keyof typeof tokens | undefined;
+          const name = over ? `${fg} on ${bg} over ${over}` : `${fg} on ${bg}`;
+          const background = (theme: 'light' | 'dark') =>
+            over ? compositeOver(tokens[bg][theme], tokens[over][theme]) : tokens[bg][theme];
+          const light = contrastRatio(tokens[fg].light, background('light'));
+          const dark = contrastRatio(tokens[fg].dark, background('dark'));
           const threshold = contrast.thresholds[requirement];
 
           return (
