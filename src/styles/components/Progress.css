@@ -25,8 +25,8 @@
 .bh-progress__track {
   overflow: hidden;
   border-radius: var(--bh-radius-pill);
-  background: var(--bh-surface-sunken);
-  border: 1px solid var(--bh-border-subtle);
+  background: var(--bh-fill-hover);
+  border: 1px solid transparent;
 }
 
 .bh-progress__track--sm {
@@ -36,9 +36,11 @@
   height: 8px;
 }
 
+/* The fill is the value, so it is selection.mark, held to 3:1 against the
+   track and the page; the light primary green was about 1.9:1 on white. */
 .bh-progress__fill {
   height: 100%;
-  background: var(--bh-action-primary-bg);
+  background: var(--bh-selection-mark);
   transition: width var(--bh-duration-normal) var(--bh-easing-standard);
 }
 

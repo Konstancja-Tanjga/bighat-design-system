@@ -124,8 +124,6 @@
     ]
   },
   "tokensUsed": [
-    "action.primary.bg",
-    "action.primary.fg",
     "border.strong",
     "border.focus",
     "status.critical.fg",
@@ -137,7 +135,10 @@
     "textSize.label",
     "control.md",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "selection.mark",
+    "text.inverse",
+    "border.hover"
   ],
   "content": {
     "label": "Sentence case, no trailing period. Phrase it so that checked means yes.",
