@@ -106,6 +106,7 @@
   --bh-layer-overlay: 100;
   --bh-layer-toast: 1000;
   --bh-fill-hover: rgba(20, 24, 28, 0.06);
+  --bh-fill-selected: rgba(20, 24, 28, 0.1);
   --bh-material-thin-bg: rgba(255, 255, 255, 0.38);
   --bh-material-thin-blur: 16px;
   --bh-material-regular-bg: rgba(255, 255, 255, 0.52);
@@ -237,6 +238,7 @@
   --bh-layer-overlay: 100;
   --bh-layer-toast: 1000;
   --bh-fill-hover: rgba(255, 255, 255, 0.08);
+  --bh-fill-selected: rgba(255, 255, 255, 0.14);
   --bh-material-thin-bg: rgba(37, 43, 50, 0.4);
   --bh-material-thin-blur: 16px;
   --bh-material-regular-bg: rgba(37, 43, 50, 0.52);
@@ -367,6 +369,7 @@
     --bh-layer-overlay: 100;
     --bh-layer-toast: 1000;
     --bh-fill-hover: rgba(255, 255, 255, 0.08);
+    --bh-fill-selected: rgba(255, 255, 255, 0.14);
     --bh-material-thin-bg: rgba(37, 43, 50, 0.4);
     --bh-material-thin-blur: 16px;
     --bh-material-regular-bg: rgba(37, 43, 50, 0.52);

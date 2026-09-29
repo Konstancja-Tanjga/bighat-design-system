@@ -688,6 +688,19 @@
           "hex": "#14181c"
         }
       },
+      "10": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.078431,
+            0.094118,
+            0.109804
+          ],
+          "alpha": 0.1,
+          "hex": "#14181c"
+        }
+      },
       "18": {
         "$type": "color",
         "$value": {
@@ -717,7 +730,20 @@
           "hex": "#ffffff"
         }
       },
-      "$description": "Added in 4.2. White at partial opacity - hairlines and hover fills on a dark page."
+      "$description": "Added in 4.2. White at partial opacity - hairlines and hover fills on a dark page.",
+      "14": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 0.14,
+          "hex": "#ffffff"
+        }
+      }
     },
     "blackAlpha": {
       "32": {

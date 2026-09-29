@@ -107,6 +107,7 @@ export type TokenPath =
   | 'layer.overlay'
   | 'layer.toast'
   | 'fill.hover'
+  | 'fill.selected'
   | 'material.thin.bg'
   | 'material.thin.blur'
   | 'material.regular.bg'
@@ -246,6 +247,7 @@ export const tokens = {
   'layer.overlay': { light: "100", dark: "100" },
   'layer.toast': { light: "1000", dark: "1000" },
   'fill.hover': { light: "rgba(20, 24, 28, 0.06)", dark: "rgba(255, 255, 255, 0.08)" },
+  'fill.selected': { light: "rgba(20, 24, 28, 0.1)", dark: "rgba(255, 255, 255, 0.14)" },
   'material.thin.bg': { light: "rgba(255, 255, 255, 0.38)", dark: "rgba(37, 43, 50, 0.4)" },
   'material.thin.blur': { light: "16px", dark: "16px" },
   'material.regular.bg': { light: "rgba(255, 255, 255, 0.52)", dark: "rgba(37, 43, 50, 0.52)" },
@@ -562,6 +564,30 @@ export const contrast = {
       "avatar.olive.fg",
       "avatar.olive.bg",
       "bodyText"
+    ],
+    [
+      "text.primary",
+      "fill.selected",
+      "bodyText",
+      "surface.base"
+    ],
+    [
+      "text.primary",
+      "fill.selected",
+      "bodyText",
+      "surface.raised"
+    ],
+    [
+      "text.muted",
+      "fill.selected",
+      "bodyText",
+      "surface.base"
+    ],
+    [
+      "selection.mark",
+      "fill.selected",
+      "nonText",
+      "surface.base"
     ]
   ]
 } as const;

@@ -559,6 +559,12 @@
       "dark": "rgba(255, 255, 255, 0.08)",
       "description": "A hovered or active row on a translucent surface. surface.sunken is opaque, and on glass it punches a solid hole in the material."
     },
+    "fill.selected": {
+      "type": "color",
+      "light": "rgba(20, 24, 28, 0.1)",
+      "dark": "rgba(255, 255, 255, 0.14)",
+      "description": "Added in 4.x. The item you are on in a list of places - NavList's active item: one step past fill.hover, so it reads as held rather than passed over, and neutral, so green stays the colour of action."
+    },
     "material.thin.bg": {
       "type": "color",
       "light": "rgba(255, 255, 255, 0.38)",

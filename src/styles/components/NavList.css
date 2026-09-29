@@ -51,19 +51,20 @@
   background: var(--bh-fill-hover);
 }
 
-/* Active is a tinted fill, a heavier weight and a leading bar in
-   selection.mark - the one cue held to 3:1, since the fill is barely a step
-   off the surface in either theme. A bar, not the ring it had until 4.9: the
-   ring drew a second green shape beside the primary action on the same
-   screen. The bar is the one the Article contents and NavRail use. */
+/* Active is a neutral capsule, a heavier weight and a leading bar in
+   selection.mark - the one cue held to 3:1. The capsule is fill.selected, a
+   step past fill.hover so the item reads as held rather than passed over, and
+   neutral rather than green: a sidebar full of green shapes left none for the
+   primary action on the same screen. The bar is the one the Article contents
+   and NavRail use. */
 .bh-navitem--active {
-  background: var(--bh-selection-bg);
+  background: var(--bh-fill-selected);
   box-shadow: inset 2px 0 0 var(--bh-selection-mark);
   font-weight: var(--bh-text-weight-heading);
 }
 
 .bh-navitem--active:hover {
-  background: var(--bh-selection-bg);
+  background: var(--bh-fill-selected);
 }
 
 /* Forced colours drop the fill and the bar with it; an outline in the system

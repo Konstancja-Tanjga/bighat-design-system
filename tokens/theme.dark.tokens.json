@@ -155,6 +155,9 @@
   "fill": {
     "hover": {
       "$value": "{color.whiteAlpha.8}"
+    },
+    "selected": {
+      "$value": "{color.whiteAlpha.14}"
     }
   },
   "elevation": {

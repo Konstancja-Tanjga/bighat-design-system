@@ -410,6 +410,10 @@
     "hover": {
       "$value": "{color.inkAlpha.6}",
       "$description": "A hovered or active row on a translucent surface. surface.sunken is opaque, and on glass it punches a solid hole in the material."
+    },
+    "selected": {
+      "$value": "{color.inkAlpha.10}",
+      "$description": "Added in 4.x. The item you are on in a list of places - NavList's active item: one step past fill.hover, so it reads as held rather than passed over, and neutral, so green stays the colour of action."
     }
   },
   "material": {
@@ -762,6 +766,30 @@
           "avatar.olive.fg",
           "avatar.olive.bg",
           "bodyText"
+        ],
+        [
+          "text.primary",
+          "fill.selected",
+          "bodyText",
+          "surface.base"
+        ],
+        [
+          "text.primary",
+          "fill.selected",
+          "bodyText",
+          "surface.raised"
+        ],
+        [
+          "text.muted",
+          "fill.selected",
+          "bodyText",
+          "surface.base"
+        ],
+        [
+          "selection.mark",
+          "fill.selected",
+          "nonText",
+          "surface.base"
         ]
       ]
     }
