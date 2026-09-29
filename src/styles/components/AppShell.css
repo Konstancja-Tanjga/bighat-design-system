@@ -15,23 +15,25 @@
   overflow: hidden;
 }
 
+/* No rule of its own: AppBar draws the hairline beneath itself, and a second
+   line here stacked a 2px rule under every screen. That hairline is a shadow,
+   which forced colours drop, so there the header draws the line itself. */
 .bh-shell__header {
   grid-area: header;
-  border-bottom: 1px solid var(--bh-border-subtle);
   background: var(--bh-surface-base);
   z-index: 2;
 }
 
 .bh-shell__rail {
   grid-area: rail;
-  border-right: 1px solid var(--bh-border-subtle);
+  border-right: 1px solid var(--bh-border-hairline);
   background: var(--bh-surface-base);
   overflow-y: auto;
 }
 
 .bh-shell__sidebar {
   grid-area: sidebar;
-  border-right: 1px solid var(--bh-border-subtle);
+  border-right: 1px solid var(--bh-border-hairline);
   background: var(--bh-surface-base);
   min-height: 0;
   display: flex;
@@ -39,7 +41,7 @@
 
 .bh-shell__aside {
   grid-area: aside;
-  border-left: 1px solid var(--bh-border-subtle);
+  border-left: 1px solid var(--bh-border-hairline);
   background: var(--bh-surface-base);
   min-height: 0;
   display: flex;
@@ -151,4 +153,10 @@
 
 .bh-skip-link:focus-visible {
   transform: translateY(0);
+}
+
+@media (forced-colors: active) {
+  .bh-shell__header {
+    border-bottom: 1px solid CanvasText;
+  }
 }

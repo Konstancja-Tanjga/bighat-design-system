@@ -6,9 +6,12 @@
  */
 .bh-table-wrapper {
   container-type: inline-size;
-  border: 1px solid var(--bh-border-subtle);
+  /* Drawn as Card is since 4.2: height instead of a grey line. The border
+     stays, transparent, for forced colours, which drop the shadow. */
+  border: 1px solid transparent;
   border-radius: var(--bh-radius-surface);
-  background: var(--bh-surface-base);
+  background: var(--bh-surface-raised);
+  box-shadow: var(--bh-elevation-raised);
 }
 
 /* Wide tables scroll inside their own container so the page body never gains
@@ -43,7 +46,7 @@
 .bh-table th,
 .bh-table td {
   padding: var(--bh-padding-block) var(--bh-padding-inline);
-  border-bottom: 1px solid var(--bh-border-subtle);
+  border-bottom: 1px solid var(--bh-border-hairline);
   text-align: left;
   vertical-align: middle;
   transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
@@ -68,13 +71,15 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Sentence case at body size, not tracked capitals on a grey band: a column
+   heading is read as a word, and weight and colour already set it apart. The
+   background is the table's own, so a sticky header still covers the rows it
+   scrolls over. */
 .bh-table thead th {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-surface-raised);
   color: var(--bh-text-secondary);
-  font-size: var(--bh-text-size-label);
-  font-weight: var(--bh-text-weight-heading);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-size: var(--bh-text-size-body);
+  font-weight: var(--bh-text-weight-emphasis);
   white-space: nowrap;
 }
 
@@ -90,7 +95,7 @@
 }
 
 .bh-table tbody tr:hover td {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
 }
 
 /* Selected outranks hover: the reader needs to see what they picked while
@@ -103,7 +108,7 @@
 .bh-table tfoot td {
   border-top: 1px solid var(--bh-border-strong);
   border-bottom: 0;
-  background: var(--bh-surface-base);
+  background: var(--bh-surface-raised);
   font-weight: var(--bh-text-weight-heading);
 }
 
@@ -232,7 +237,7 @@
   .bh-table--stack tbody tr {
     display: block;
     padding: var(--bh-padding-block) 0;
-    border-bottom: 1px solid var(--bh-border-strong);
+    border-bottom: 1px solid var(--bh-border-hairline);
   }
 
   .bh-table--stack tbody tr:last-child {
@@ -254,11 +259,9 @@
      simply spans the full width instead of showing an empty gutter. */
   .bh-table--stack tbody td[data-label]::before {
     content: attr(data-label);
-    font-size: var(--bh-text-size-label);
-    font-weight: var(--bh-text-weight-heading);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--bh-text-muted);
+    font-size: var(--bh-text-size-body);
+    font-weight: var(--bh-text-weight-emphasis);
+    color: var(--bh-text-secondary);
   }
 
   .bh-table--stack tbody td:not([data-label]) {

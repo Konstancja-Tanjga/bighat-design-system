@@ -51,3 +51,23 @@ export function contrastRatio(foreground: string, background: string): number {
   const darker = Math.min(a, b);
   return (lighter + 0.05) / (darker + 0.05);
 }
+
+/**
+ * A translucent colour laid over an opaque one, as the eye sees it.
+ *
+ * `fill.hover`, `border.hairline` and the materials are translucent, so a
+ * contrast pair against them only means something once it says what they sit
+ * on: text on a hovered row is text on `fill.hover` over `surface.raised`,
+ * which is neither colour alone. Accepts `rgba(r, g, b, a)` or opaque hex over
+ * opaque hex; returns opaque hex.
+ */
+export function compositeOver(color: string, base: string): string {
+  const rgba = /^rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d.]+)\s*\)$/i.exec(color.trim());
+  if (!rgba) return color;
+  const [, r, g, b, a] = rgba;
+  const alpha = Number(a);
+  const under = hexToRgb(base);
+  const mix = (top: number, bottom: number) => Math.round(top * alpha + bottom * (1 - alpha));
+  const hex = (n: number) => n.toString(16).padStart(2, '0');
+  return `#${hex(mix(Number(r), under.r))}${hex(mix(Number(g), under.g))}${hex(mix(Number(b), under.b))}`;
+}

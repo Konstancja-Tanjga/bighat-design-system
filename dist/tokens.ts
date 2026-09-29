@@ -249,7 +249,7 @@ export const tokens = {
 } as const satisfies Record<TokenPath, { light: string; dark: string }>;
 
 export const contrast = {
-  "$description": "Every foreground/background relationship the system promises to keep legible. contrast.test.ts iterates this list and fails the build, so an undeclared pair is a review comment rather than a production bug. requirement maps to the WCAG rule that actually applies: a focus ring is non-text at 3:1, not 4.5:1.",
+  "$description": "Every foreground/background relationship the system promises to keep legible. contrast.test.ts iterates this list and fails the build, so an undeclared pair is a review comment rather than a production bug. requirement maps to the WCAG rule that actually applies: a focus ring is non-text at 3:1, not 4.5:1. A fourth entry names the opaque surface a translucent background (fill.hover, the materials) sits on; the gate composites the two before measuring.",
   "standard": "WCAG 2.1 AA",
   "thresholds": {
     "bodyText": 4.5,
@@ -426,6 +426,76 @@ export const contrast = {
       "status.critical.fg",
       "surface.base",
       "bodyText"
+    ],
+    [
+      "text.primary",
+      "fill.hover",
+      "bodyText",
+      "surface.raised"
+    ],
+    [
+      "text.secondary",
+      "fill.hover",
+      "bodyText",
+      "surface.raised"
+    ],
+    [
+      "text.primary",
+      "fill.hover",
+      "bodyText",
+      "surface.base"
+    ],
+    [
+      "text.secondary",
+      "fill.hover",
+      "bodyText",
+      "surface.sunken"
+    ],
+    [
+      "text.muted",
+      "fill.hover",
+      "bodyText",
+      "surface.sunken"
+    ],
+    [
+      "selection.mark",
+      "fill.hover",
+      "nonText",
+      "surface.sunken"
+    ],
+    [
+      "text.secondary",
+      "fill.hover",
+      "bodyText",
+      "surface.base"
+    ],
+    [
+      "text.muted",
+      "fill.hover",
+      "bodyText",
+      "surface.base"
+    ],
+    [
+      "selection.mark",
+      "surface.raised",
+      "nonText"
+    ],
+    [
+      "selection.mark",
+      "surface.sunken",
+      "nonText"
+    ],
+    [
+      "selection.mark",
+      "fill.hover",
+      "nonText",
+      "surface.base"
+    ],
+    [
+      "selection.mark",
+      "fill.hover",
+      "nonText",
+      "surface.raised"
     ]
   ]
 } as const;

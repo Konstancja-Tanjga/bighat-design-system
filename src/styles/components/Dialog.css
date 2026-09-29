@@ -62,7 +62,8 @@
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: var(--bh-radius-control);
+  /* A round icon button, as close buttons are across the system since 4.9. */
+  border-radius: var(--bh-radius-pill);
   background: transparent;
   color: var(--bh-text-secondary);
   font-size: var(--bh-text-size-display);
@@ -72,7 +73,7 @@
 }
 
 .bh-dialog__close:hover {
-  background: var(--bh-action-secondary-bg-hover);
+  background: var(--bh-fill-hover);
 }
 
 .bh-dialog__description {

@@ -18,7 +18,7 @@
 }
 
 .bh-user-profile--button:hover {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
 }
 
 .bh-user-profile__text {

@@ -1,15 +1,14 @@
+/* No box of its own: an accordion is a list of headings, and the hairlines
+   between them are enough to read it as one. It takes the surface it sits on,
+   so it can live in a panel or a card without a box inside a box. */
 .bh-accordion {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--bh-border-subtle);
-  border-radius: var(--bh-radius-surface);
-  overflow: hidden;
   font-family: var(--bh-font-family);
-  background: var(--bh-surface-base);
 }
 
 .bh-accordion__item + .bh-accordion__item {
-  border-top: 1px solid var(--bh-border-subtle);
+  border-top: 1px solid var(--bh-border-hairline);
 }
 
 .bh-accordion__heading {
@@ -31,19 +30,22 @@
   font-weight: var(--bh-text-weight-emphasis);
   text-align: left;
   cursor: pointer;
+  border-radius: var(--bh-radius-control);
   transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-accordion__trigger:hover {
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
 }
 
 .bh-accordion__title {
   flex: 1;
 }
 
+/* text.secondary, not muted: an accordion takes the surface it sits on, and
+   muted on a hovered trigger over a raised surface drops to 4.4:1 in dark. */
 .bh-accordion__meta {
-  color: var(--bh-text-muted);
+  color: var(--bh-text-secondary);
   font-size: var(--bh-text-size-body);
   font-weight: var(--bh-text-weight-body);
 }
