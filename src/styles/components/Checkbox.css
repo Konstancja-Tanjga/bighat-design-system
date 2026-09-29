@@ -50,12 +50,27 @@
   border-radius: var(--bh-radius-indicator);
   background: var(--bh-surface-base);
   position: relative;
+  transition:
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    border-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
+/* Hover is a change of edge, as on a field. An invalid box keeps its critical
+   edge under the pointer. */
+.bh-checkbox__input:not(:checked):not(:indeterminate):not(:disabled):not(
+    [aria-invalid='true']
+  ):hover
+  + .bh-checkbox__box {
+  border-color: var(--bh-border-hover);
+}
+
+/* State is drawn in selection.mark, not action.primary.bg: the box is the
+   state cue, held to 3:1, and the light primary green is about 1.9:1 on white.
+   The mark is text.inverse, the colour opposite the fill in either theme. */
 .bh-checkbox__input:checked + .bh-checkbox__box,
 .bh-checkbox__input:indeterminate + .bh-checkbox__box {
-  background: var(--bh-action-primary-bg);
-  border-color: var(--bh-action-primary-bg);
+  background: var(--bh-selection-mark);
+  border-color: var(--bh-selection-mark);
 }
 
 .bh-checkbox__input:checked + .bh-checkbox__box::after {
@@ -65,8 +80,8 @@
   /* Equal legs. The old 2px/4px pair was tuned against an 18px box and would
      read as a thin diagonal inside a 14px content area. */
   margin: var(--bh-gap-hairline);
-  border-right: var(--bh-gap-hairline) solid var(--bh-action-primary-fg);
-  border-bottom: var(--bh-gap-hairline) solid var(--bh-action-primary-fg);
+  border-right: var(--bh-gap-hairline) solid var(--bh-text-inverse);
+  border-bottom: var(--bh-gap-hairline) solid var(--bh-text-inverse);
   transform: rotate(40deg);
 }
 
@@ -80,7 +95,7 @@
   top: 50%;
   height: var(--bh-gap-hairline);
   transform: translateY(-50%);
-  background: var(--bh-action-primary-fg);
+  background: var(--bh-text-inverse);
 }
 
 .bh-checkbox__input:focus-visible + .bh-checkbox__box {

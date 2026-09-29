@@ -42,17 +42,26 @@
   cursor: pointer;
 }
 
+/* border-box, so the checked 5px ring draws inward: without it the dot grew
+   from 20px to 28px when checked and ran into its label. */
 .bh-radio__dot {
+  box-sizing: border-box;
   width: 18px;
   height: 18px;
   border: 1px solid var(--bh-border-strong);
   border-radius: 50%;
   background: var(--bh-surface-base);
   position: relative;
+  transition: border-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
+.bh-radio__input:not(:checked):not(:disabled):hover + .bh-radio__dot {
+  border-color: var(--bh-border-hover);
+}
+
+/* The ring is the state cue, so it is selection.mark, held to 3:1. */
 .bh-radio__input:checked + .bh-radio__dot {
-  border-color: var(--bh-action-primary-bg);
+  border-color: var(--bh-selection-mark);
   border-width: 5px;
 }
 

@@ -102,18 +102,17 @@
     }
   },
   "tokensUsed": [
-    "action.primary.bg",
-    "border.subtle",
     "font.family",
     "gap.normal",
     "gap.tight",
     "radius.pill",
     "status.critical.fg",
     "status.success.fg",
-    "surface.sunken",
     "text.muted",
     "text.primary",
-    "text.sizeBody"
+    "text.sizeBody",
+    "selection.mark",
+    "fill.hover"
   ],
   "interactive": false
 }

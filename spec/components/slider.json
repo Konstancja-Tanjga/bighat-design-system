@@ -87,17 +87,16 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "action.primary.bg",
-    "border.subtle",
-    "elevation.raised",
     "gap.normal",
     "padding.block",
     "radius.pill",
     "slider.percent",
     "surface.base",
-    "surface.sunken",
     "text.secondary",
-    "text.sizeBody"
+    "text.sizeBody",
+    "selection.mark",
+    "fill.hover",
+    "elevation.control"
   ],
   "interactive": true
 }

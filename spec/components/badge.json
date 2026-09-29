@@ -53,27 +53,23 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "font.family",
     "gap.hairline",
     "gap.tight",
     "padding.block",
     "radius.pill",
     "status.critical.bg",
-    "status.critical.border",
     "status.critical.fg",
     "status.info.bg",
-    "status.info.border",
     "status.info.fg",
     "status.success.bg",
-    "status.success.border",
     "status.success.fg",
     "status.warning.bg",
-    "status.warning.border",
     "status.warning.fg",
-    "surface.sunken",
     "text.secondary",
-    "text.weightEmphasis"
+    "text.weightEmphasis",
+    "fill.hover",
+    "border.hairline"
   ],
   "interactive": false
 }

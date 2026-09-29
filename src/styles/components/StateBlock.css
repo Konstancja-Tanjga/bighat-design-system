@@ -64,8 +64,10 @@
 .bh-stateblock__spinner {
   width: 20px;
   height: 20px;
-  border: 2px solid var(--bh-border-subtle);
-  border-top-color: var(--bh-action-primary-bg);
+  /* The moving arc is selection.mark on a fill.hover track: the part that
+     says "working" is held to 3:1, where the light primary green was not. */
+  border: 2px solid var(--bh-fill-hover);
+  border-top-color: var(--bh-selection-mark);
   border-radius: 50%;
   animation: bh-spin var(--bh-duration-spin) var(--bh-easing-loop) infinite;
 }
@@ -84,7 +86,7 @@
 .bh-stateblock__diagnostics-body {
   margin-top: var(--bh-gap-tight);
   padding: var(--bh-padding-block) var(--bh-padding-inline);
-  background: var(--bh-surface-sunken);
+  background: var(--bh-fill-hover);
   border-radius: var(--bh-radius-control);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   text-align: left;

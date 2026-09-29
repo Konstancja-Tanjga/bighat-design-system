@@ -31,23 +31,26 @@
   border-radius: var(--bh-radius-pill);
   background: linear-gradient(
     to right,
-    var(--bh-action-primary-bg) var(--bh-slider-percent, 0%),
-    var(--bh-surface-sunken) var(--bh-slider-percent, 0%)
+    var(--bh-selection-mark) var(--bh-slider-percent, 0%),
+    var(--bh-fill-hover) var(--bh-slider-percent, 0%)
   );
-  border: 1px solid var(--bh-border-subtle);
+  /* Transparent, not removed: the thumb's centring counts this border, and
+     forced colours paint it. */
+  border: 1px solid transparent;
 }
 
 .bh-slider::-moz-range-track {
   height: 4px;
   border-radius: var(--bh-radius-pill);
-  background: var(--bh-surface-sunken);
-  border: 1px solid var(--bh-border-subtle);
+  background: var(--bh-fill-hover);
+  border: 1px solid transparent;
 }
 
+/* The filled part is the value, so it is selection.mark, held to 3:1. */
 .bh-slider::-moz-range-progress {
   height: 4px;
   border-radius: var(--bh-radius-pill);
-  background: var(--bh-action-primary-bg);
+  background: var(--bh-selection-mark);
 }
 
 /* 20px thumb: the smallest target that still clears the 24×24 minimum once the
@@ -59,8 +62,8 @@
   margin-top: calc(-1 * var(--bh-padding-block));
   border-radius: 50%;
   background: var(--bh-surface-base);
-  border: 2px solid var(--bh-action-primary-bg);
-  box-shadow: var(--bh-elevation-raised);
+  border: 2px solid var(--bh-selection-mark);
+  box-shadow: var(--bh-elevation-control);
 }
 
 .bh-slider::-moz-range-thumb {
@@ -68,7 +71,7 @@
   height: 18px;
   border-radius: 50%;
   background: var(--bh-surface-base);
-  border: 2px solid var(--bh-action-primary-bg);
+  border: 2px solid var(--bh-selection-mark);
 }
 
 .bh-slider:disabled {
