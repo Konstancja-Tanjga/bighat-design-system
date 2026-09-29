@@ -47,17 +47,33 @@
     color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
+/* State is drawn on the icon, not the whole item: a capsule around the glyph
+   that fills on hover and holds the selection when active, with the label
+   below it - the rail pattern of iOS and Material. The whole item stays the
+   target. */
 .bh-rail__item:hover {
-  background: var(--bh-fill-hover);
   color: var(--bh-text-primary);
 }
 
-/* Active state carries three cues, not one: fill, colour, and a leading bar.
-   Colour alone would fail 1.4.1 for anyone who cannot see the tint. */
+.bh-rail__item:hover .bh-rail__icon {
+  background: var(--bh-fill-hover);
+}
+
+/* Active carries three cues, not one: the filled capsule, a heavier label,
+   and the leading bar - the one part held to 3:1. Colour alone would fail
+   1.4.1 for anyone who cannot see the tint. */
 .bh-rail__item--active,
 .bh-rail__item--active:hover {
-  background: var(--bh-selection-bg);
   color: var(--bh-selection-fg);
+}
+
+.bh-rail__item--active .bh-rail__icon,
+.bh-rail__item--active:hover .bh-rail__icon {
+  background: var(--bh-selection-bg);
+}
+
+.bh-rail__item--active .bh-rail__label {
+  font-weight: var(--bh-text-weight-emphasis);
 }
 
 .bh-rail__item--active::before {
@@ -83,8 +99,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 40px;
+  height: 28px;
+  border-radius: var(--bh-radius-pill);
   font-size: var(--bh-text-size-heading);
   line-height: 1;
+  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
 .bh-rail__dot {
