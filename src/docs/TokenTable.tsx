@@ -126,7 +126,7 @@ export function ContrastTable() {
           const threshold = contrast.thresholds[requirement];
 
           return (
-            <tr key={name}>
+            <tr key={`${name}:${requirement}`}>
               <td style={{ ...cell, fontFamily: 'ui-monospace, monospace' }}>{name}</td>
               <td style={{ ...cell, color: 'var(--bh-text-muted)' }}>
                 {threshold}:1 · {requirement}
