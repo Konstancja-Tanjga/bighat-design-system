@@ -15,7 +15,9 @@ export function normaliseTone<T extends Tone>(
   if (tone === 'default') {
     if (import.meta.env?.DEV) {
       console.warn(
-        '[bighat] ' + component + ': tone="default" is deprecated and removed in 5.0. Use tone="neutral".',
+        '[bighat] ' +
+          component +
+          ': tone="default" is deprecated and removed in 5.0. Use tone="neutral".',
       );
     }
     return fallback;

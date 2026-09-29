@@ -90,7 +90,6 @@
     "alsoImplementedIn": "angular"
   },
   "tokensUsed": [
-    "action.secondary.bgHover",
     "border.strong",
     "font.family",
     "gap.snug",
@@ -116,7 +115,9 @@
     "material.rim",
     "elevation.floating",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "fill.hover",
+    "radius.pill"
   ],
   "interactive": true
 }

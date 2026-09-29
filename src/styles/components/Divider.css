@@ -1,6 +1,6 @@
 .bh-divider {
   border: 0;
-  background: var(--bh-border-subtle);
+  background: var(--bh-border-hairline);
   flex: none;
 }
 
@@ -43,13 +43,12 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--bh-border-subtle);
+  background: var(--bh-border-hairline);
 }
 
+/* Sentence case: a label between sections is read as words. */
 .bh-divider__label {
-  color: var(--bh-text-muted);
+  color: var(--bh-text-secondary);
   font-size: var(--bh-text-size-body);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
   white-space: nowrap;
 }

@@ -62,14 +62,13 @@
     "status": "react-only"
   },
   "tokensUsed": [
-    "border.subtle",
     "duration.sweep",
     "radius.control",
     "radius.pill",
     "radius.surface",
     "surface.base",
-    "surface.sunken",
-    "radius.field"
+    "radius.field",
+    "fill.hover"
   ],
   "interactive": false
 }

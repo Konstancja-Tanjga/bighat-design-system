@@ -25,12 +25,21 @@
   border-radius: var(--bh-radius-pill);
   background: var(--bh-surface-sunken);
   cursor: pointer;
-  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
+  transition:
+    background-color var(--bh-duration-fast) var(--bh-easing-standard),
+    border-color var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
+.bh-switch[aria-checked='false']:not(:disabled):hover {
+  border-color: var(--bh-border-hover);
+}
+
+/* On is selection.mark, not action.primary.bg: the track is the state cue,
+   and the thumb is the page colour on it - 3:1 and more in both themes, where
+   white on the light primary green was about 1.9:1. */
 .bh-switch[aria-checked='true'] {
-  background: var(--bh-action-primary-bg);
-  border-color: var(--bh-action-primary-bg);
+  background: var(--bh-selection-mark);
+  border-color: var(--bh-selection-mark);
 }
 
 .bh-switch:disabled {
@@ -45,6 +54,8 @@
   border-radius: 50%;
   background: var(--bh-surface-base);
   border: 1px solid var(--bh-border-strong);
+  /* A knob, lifted a step, as a secondary Button is. */
+  box-shadow: var(--bh-elevation-control);
   transition: transform var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
