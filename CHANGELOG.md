@@ -1,5 +1,58 @@
 # @bighat/ui
 
+## 4.12.0
+
+### Minor Changes
+
+- 760f54d: **Choice and value controls draw their state in `selection.mark`.** Checkbox,
+  RadioGroup, Switch, Slider and Progress drew "on", "checked" and "filled" in
+  `action.primary.bg`, the light primary green, which is about 1.9:1 on white -
+  for the very shape that says what state the control is in. They now use
+  `selection.mark`, held to 3:1, as Tabs and NavList already do. In dark it is
+  the same green as before. The primary Button stays light green: its text
+  identifies it.
+
+  - A checked `Checkbox` is `selection.mark` with a `text.inverse` mark; an
+    unchecked one darkens its edge to `border.hover` on hover.
+  - A checked `RadioGroup` ring is `selection.mark`, and the dot no longer grows
+    from 20px to 28px when checked and runs into its label.
+  - `Switch`: on is `selection.mark`; the thumb carries `elevation.control`; an
+    off switch darkens its edge on hover.
+  - `Slider` and `Progress`: the filled part is `selection.mark` on a
+    `fill.hover` track with no grey border.
+
+  Edges that must hold 3:1 - an unchecked box, an off track - keep their
+  `border.strong` line. New contrast pairs for the mark and thumb on
+  `selection.mark`, all passing. No prop was removed or renamed.
+
+- 1bbbc5c: **Status and state components drop their last 4.1 surfaces.**
+
+  - `Badge`: no coloured border - beside borderless glass chips a bordered pill
+    read as a disabled chip. Status badges sit on their own fill, the neutral
+    badge on `fill.hover`, all with a `border.hairline` edge so the shape holds
+    where a status fill matches the surface (in dark).
+  - `Skeleton`: `fill.hover`, without the grey inset ring.
+  - `FileDropzone`: `fill.hover` inside its dashed `border.strong` edge, which
+    stays because it identifies the drop target. Invalid is a critical edge on
+    `status.critical.bg`, as on a field, instead of a 2px border that changed
+    the box.
+  - `StateBlock`: the loading arc is `selection.mark` on a `fill.hover` track;
+    the diagnostics block sits on `fill.hover`.
+  - `Divider`: the rule is `border.hairline` and the label is sentence case in
+    `text.secondary`.
+
+  `Pagination`, `DatePicker` and `ScrollArea` needed no change: they are built
+  from Button, Select and Input, and a scroll thumb must hold 3:1. No prop was
+  removed or renamed.
+
+### Patch Changes
+
+- The active `NavList` item gains a leading bar in `selection.mark`, the same one
+  the `Article` contents and `NavRail` use. Without it, once the 1px ring was
+  removed, the active item had no cue held to 3:1: `selection.bg` is about
+  1.1-1.25:1 against the surface, which left weight alone. The NavList, NavRail
+  and SidePanel docs list the tokens their contracts do.
+
 ## 4.11.0
 
 ### Minor Changes
