@@ -57,7 +57,6 @@
     "gap.hairline",
     "gap.tight",
     "padding.block",
-    "radius.pill",
     "status.critical.bg",
     "status.critical.fg",
     "status.info.bg",
@@ -69,7 +68,8 @@
     "text.secondary",
     "text.weightEmphasis",
     "fill.hover",
-    "border.hairline"
+    "border.hairline",
+    "radius.tag"
   ],
   "interactive": false
 }
