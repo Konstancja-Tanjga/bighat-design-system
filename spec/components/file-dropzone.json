@@ -115,13 +115,14 @@
     "selection.fg",
     "selection.mark",
     "status.critical.fg",
-    "surface.sunken",
     "textLeading.normal",
     "text.primary",
     "text.secondary",
     "textSize.body",
     "textSize.caption",
-    "textWeight.emphasis"
+    "textWeight.emphasis",
+    "fill.hover",
+    "status.critical.bg"
   ],
   "interactive": true,
   "implementations": {

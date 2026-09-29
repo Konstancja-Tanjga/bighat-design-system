@@ -56,8 +56,7 @@ is whether you know the shape, not how long the wait is.
 A skeleton has one state. It is not interactive, and it does not know when
 loading ends: you remove it and render the content in its place. The shimmer is
 not a state. It is controlled by `animated` and switched off entirely under
-`prefers-reduced-motion: reduce`, which leaves a flat placeholder with a subtle
-border.
+`prefers-reduced-motion: reduce`, which leaves a flat `fill.hover` placeholder.
 
 ## Accessibility
 
@@ -114,4 +113,4 @@ border.
 
 ## Tokens consumed
 
-`border.subtle` · `duration.sweep` · `radius.control` · `radius.pill` · `radius.surface` · `surface.base` · `surface.sunken`
+`duration.sweep` · `radius.control` · `radius.pill` · `radius.surface` · `surface.base` · `radius.field` · `fill.hover`
