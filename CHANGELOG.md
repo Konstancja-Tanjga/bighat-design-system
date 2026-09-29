@@ -1,5 +1,52 @@
 # @bighat/ui
 
+## 4.11.0
+
+### Minor Changes
+
+- 72f61fc: **Small controls join the glass direction.**
+
+  - `Dialog`'s and `Toast`'s close buttons are round (`radius.pill`) and hover
+    with `fill.hover` instead of the opaque `action.secondary.bgHover`.
+  - `Tabs`: the selected tab's indicator is `selection.mark` instead of
+    `action.primary.bg`. It is the state cue, so it is held to 3:1, and the light
+    primary green is about 1.9:1 on a white page. The list's rule is
+    `border.hairline`, a hovered tab fills with `fill.hover` rounded at the top,
+    and the count badge sits on `fill.hover`.
+  - `UserProfile` hovers with `fill.hover`.
+  - `Avatar` is a disc of the `fill.hover` tint on `surface.base` with a
+    `border.hairline` edge, instead of `surface.sunken` ringed with
+    `border.subtle`; it stays opaque so overlapping avatars in a group hide each
+    other's initials.
+
+  New contrast pairs for text on `fill.hover` over `surface.base`, all passing.
+  No prop was removed or renamed.
+
+- 4713f70: **Surfaces stop drawing grey 1px boxes.** The last surfaces still in the 4.1
+  look now follow Card: height instead of a line, hairlines instead of rules,
+  translucent hovers, and sentence-case labels.
+
+  - `AppShell`: region rules are `border.hairline`; the header draws none of its
+    own, since `AppBar` already draws one and the two stacked into 2px.
+  - `Board`: a column is a well of `fill.hover`; a card has `elevation.raised`
+    and lifts to `elevation.floating` on hover; the move select takes
+    `radius.field`. An over-limit column still colours its (transparent) border.
+  - `Table`: the wrapper is drawn with `elevation.raised`; cell rules are
+    hairlines; column headings are sentence case at body size on the table's
+    own surface instead of tracked capitals on a grey band; row hover is
+    `fill.hover`. Stacked rows and their labels follow.
+  - `Accordion`: no box of its own, hairlines between items, `fill.hover` on the
+    trigger.
+  - `ListView`: its scrolling region is drawn with `elevation.raised`; rows are
+    separated by hairlines and hover with `fill.hover`.
+  - `DescriptionList`: terms are sentence case in `text.secondary`; rules are
+    hairlines.
+  - `IconPicker`: the grid is a well of `fill.hover`; tiles hover with
+    `fill.hover`.
+
+  Forced-colours mode keeps an edge on every surface that lost its visible
+  border: the border stays, transparent. No prop was removed or renamed.
+
 ## 4.10.0
 
 ### Minor Changes
