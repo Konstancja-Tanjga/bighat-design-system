@@ -196,6 +196,10 @@
     },
     "display": {
       "$value": "{fontSize.xl}"
+    },
+    "title": {
+      "$value": "{fontSize.2xl}",
+      "$description": "Added in 4.x. The title of a long read - Article's h1. One step past display, which is the page and section heading in an application."
     }
   },
   "textLeading": {
@@ -303,6 +307,10 @@
     "indicator": {
       "$value": "{radius.sm}",
       "$description": "Added in 4.0. The corner of a small drawn control - a checkbox box, a radio dot's ring. Was a 4px literal, which was never on the radius scale at all; radius.control (6px) reads as too round on a 16px box, and the 1px difference from 3px is not a design decision worth a new primitive."
+    },
+    "tag": {
+      "$value": "{radius.md}",
+      "$description": "Added in 4.x. A Badge: rounder than a checkbox, squarer than a chip, so a label that states something is not mistaken for a control that does something."
     },
     "overlay": {
       "$value": "{radius.xl}",
@@ -734,8 +742,63 @@
           "text.secondary",
           "status.critical.bg",
           "bodyText"
+        ],
+        [
+          "avatar.violet.fg",
+          "avatar.violet.bg",
+          "bodyText"
+        ],
+        [
+          "avatar.teal.fg",
+          "avatar.teal.bg",
+          "bodyText"
+        ],
+        [
+          "avatar.plum.fg",
+          "avatar.plum.bg",
+          "bodyText"
+        ],
+        [
+          "avatar.olive.fg",
+          "avatar.olive.bg",
+          "bodyText"
         ]
       ]
+    }
+  },
+  "avatar": {
+    "$description": "Added in 4.x. A person's colour on Avatar, chosen from the name so it is the same everywhere. Never a status.",
+    "violet": {
+      "bg": {
+        "$value": "{color.avatar.light.violet.bg}"
+      },
+      "fg": {
+        "$value": "{color.avatar.light.violet.fg}"
+      }
+    },
+    "teal": {
+      "bg": {
+        "$value": "{color.avatar.light.teal.bg}"
+      },
+      "fg": {
+        "$value": "{color.avatar.light.teal.fg}"
+      }
+    },
+    "plum": {
+      "bg": {
+        "$value": "{color.avatar.light.plum.bg}"
+      },
+      "fg": {
+        "$value": "{color.avatar.light.plum.fg}"
+      }
+    },
+    "olive": {
+      "bg": {
+        "$value": "{color.avatar.light.olive.bg}"
+      },
+      "fg": {
+        "$value": "{color.avatar.light.olive.fg}"
+      }
     }
   }
 }

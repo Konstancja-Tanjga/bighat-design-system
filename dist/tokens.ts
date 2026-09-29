@@ -55,6 +55,7 @@ export type TokenPath =
   | 'textSize.label'
   | 'textSize.heading'
   | 'textSize.display'
+  | 'textSize.title'
   | 'textLeading.tight'
   | 'textLeading.normal'
   | 'textWeight.body'
@@ -80,6 +81,7 @@ export type TokenPath =
   | 'radius.surface'
   | 'radius.pill'
   | 'radius.indicator'
+  | 'radius.tag'
   | 'radius.overlay'
   | 'radius.modal'
   | 'elevation.flat'
@@ -116,7 +118,15 @@ export type TokenPath =
   | 'material.saturation'
   | 'material.rim'
   | 'scrim.bg'
-  | 'scrim.blur';
+  | 'scrim.blur'
+  | 'avatar.violet.bg'
+  | 'avatar.violet.fg'
+  | 'avatar.teal.bg'
+  | 'avatar.teal.fg'
+  | 'avatar.plum.bg'
+  | 'avatar.plum.fg'
+  | 'avatar.olive.bg'
+  | 'avatar.olive.fg';
 
 /**
  * Reference a semantic token from component CSS-in-JS or a style attribute.
@@ -184,6 +194,7 @@ export const tokens = {
   'textSize.label': { light: "11px", dark: "11px" },
   'textSize.heading': { light: "16px", dark: "16px" },
   'textSize.display': { light: "20px", dark: "20px" },
+  'textSize.title': { light: "26px", dark: "26px" },
   'textLeading.tight': { light: "1.25", dark: "1.25" },
   'textLeading.normal': { light: "1.5", dark: "1.5" },
   'textWeight.body': { light: "400", dark: "400" },
@@ -209,6 +220,7 @@ export const tokens = {
   'radius.surface': { light: "20px", dark: "20px" },
   'radius.pill': { light: "9999px", dark: "9999px" },
   'radius.indicator': { light: "3px", dark: "3px" },
+  'radius.tag': { light: "6px", dark: "6px" },
   'radius.overlay': { light: "16px", dark: "16px" },
   'radius.modal': { light: "26px", dark: "26px" },
   'elevation.flat': { light: "none", dark: "none" },
@@ -246,6 +258,14 @@ export const tokens = {
   'material.rim': { light: "inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 0 0 1px rgba(255, 255, 255, 0.45)", dark: "inset 0 1px 0 rgba(255, 255, 255, 0.14), inset 0 0 0 1px rgba(255, 255, 255, 0.07)" },
   'scrim.bg': { light: "rgba(20, 24, 28, 0.18)", dark: "rgba(0, 0, 0, 0.32)" },
   'scrim.blur': { light: "6px", dark: "6px" },
+  'avatar.violet.bg': { light: "#ede9fe", dark: "#33295a" },
+  'avatar.violet.fg': { light: "#5b21b6", dark: "#d8cffc" },
+  'avatar.teal.bg': { light: "#d5f5f0", dark: "#173b38" },
+  'avatar.teal.fg': { light: "#0f5e57", dark: "#a7e8de" },
+  'avatar.plum.bg': { light: "#f7e3f5", dark: "#3f2140" },
+  'avatar.plum.fg': { light: "#86198f", dark: "#f0c6ec" },
+  'avatar.olive.bg': { light: "#eef3d6", dark: "#2f3417" },
+  'avatar.olive.fg': { light: "#4d5b12", dark: "#dbe6a6" },
 } as const satisfies Record<TokenPath, { light: string; dark: string }>;
 
 export const contrast = {
@@ -521,6 +541,26 @@ export const contrast = {
     [
       "text.secondary",
       "status.critical.bg",
+      "bodyText"
+    ],
+    [
+      "avatar.violet.fg",
+      "avatar.violet.bg",
+      "bodyText"
+    ],
+    [
+      "avatar.teal.fg",
+      "avatar.teal.bg",
+      "bodyText"
+    ],
+    [
+      "avatar.plum.fg",
+      "avatar.plum.bg",
+      "bodyText"
+    ],
+    [
+      "avatar.olive.fg",
+      "avatar.olive.bg",
       "bodyText"
     ]
   ]

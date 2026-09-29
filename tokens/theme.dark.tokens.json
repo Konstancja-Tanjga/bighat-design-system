@@ -203,5 +203,39 @@
     "bg": {
       "$value": "{color.blackAlpha.32}"
     }
+  },
+  "avatar": {
+    "violet": {
+      "bg": {
+        "$value": "{color.avatar.dark.violet.bg}"
+      },
+      "fg": {
+        "$value": "{color.avatar.dark.violet.fg}"
+      }
+    },
+    "teal": {
+      "bg": {
+        "$value": "{color.avatar.dark.teal.bg}"
+      },
+      "fg": {
+        "$value": "{color.avatar.dark.teal.fg}"
+      }
+    },
+    "plum": {
+      "bg": {
+        "$value": "{color.avatar.dark.plum.bg}"
+      },
+      "fg": {
+        "$value": "{color.avatar.dark.plum.fg}"
+      }
+    },
+    "olive": {
+      "bg": {
+        "$value": "{color.avatar.dark.olive.bg}"
+      },
+      "fg": {
+        "$value": "{color.avatar.dark.olive.fg}"
+      }
+    }
   }
 }

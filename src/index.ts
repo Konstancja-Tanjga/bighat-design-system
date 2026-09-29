@@ -78,8 +78,13 @@ export type { Toast, ToastTone } from './components/Toast/Toast';
 export { Accordion, AccordionItem } from './components/Accordion/Accordion';
 export type { AccordionItemProps, AccordionProps } from './components/Accordion/Accordion';
 
-export { Avatar, AvatarGroup } from './components/Avatar/Avatar';
-export type { AvatarGroupProps, AvatarProps, AvatarSize } from './components/Avatar/Avatar';
+export { Avatar, AvatarGroup, avatarTone } from './components/Avatar/Avatar';
+export type {
+  AvatarGroupProps,
+  AvatarProps,
+  AvatarSize,
+  AvatarTone,
+} from './components/Avatar/Avatar';
 
 export { Breadcrumbs } from './components/Breadcrumbs/Breadcrumbs';
 export type { BreadcrumbItem, BreadcrumbsProps } from './components/Breadcrumbs/Breadcrumbs';

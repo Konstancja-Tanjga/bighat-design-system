@@ -45,6 +45,19 @@
       "default": false,
       "note": "True when the name is already visible next to it."
     },
+    "tone": {
+      "kind": "enum",
+      "values": [
+        "auto",
+        "neutral",
+        "violet",
+        "teal",
+        "plum",
+        "olive"
+      ],
+      "default": "auto",
+      "note": "auto picks the person's colour from the name, stable across screens. Never a status colour."
+    },
     "AvatarGroup.label": {
       "kind": "string"
     },
@@ -82,7 +95,15 @@
     "text.sizeHeading",
     "text.weightHeading",
     "fill.hover",
-    "border.hairline"
+    "border.hairline",
+    "avatar.violet.bg",
+    "avatar.violet.fg",
+    "avatar.teal.bg",
+    "avatar.teal.fg",
+    "avatar.plum.bg",
+    "avatar.plum.fg",
+    "avatar.olive.bg",
+    "avatar.olive.fg"
   ],
   "interactive": false
 }

@@ -20,6 +20,25 @@
   user-select: none;
 }
 
+/* A person's colour: the tone's own tint and initials, held to 4.5:1 in both
+   themes. The neutral disc above is the fallback and the tone="neutral" look. */
+.bh-avatar--violet {
+  background: var(--bh-avatar-violet-bg);
+  color: var(--bh-avatar-violet-fg);
+}
+.bh-avatar--teal {
+  background: var(--bh-avatar-teal-bg);
+  color: var(--bh-avatar-teal-fg);
+}
+.bh-avatar--plum {
+  background: var(--bh-avatar-plum-bg);
+  color: var(--bh-avatar-plum-fg);
+}
+.bh-avatar--olive {
+  background: var(--bh-avatar-olive-bg);
+  color: var(--bh-avatar-olive-fg);
+}
+
 .bh-avatar img {
   width: 100%;
   height: 100%;

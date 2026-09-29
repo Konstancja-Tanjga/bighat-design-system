@@ -46,3 +46,16 @@ export const Group: Story = {
     />
   ),
 };
+
+/** Four people, four stable colours from their names, and the neutral disc. */
+export const Colours: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--bh-gap-snug)', alignItems: 'center' }}>
+      <Avatar name="Ada Lovelace" />
+      <Avatar name="Grace Hopper" />
+      <Avatar name="Alan Turing" />
+      <Avatar name="Radia Perlman" />
+      <Avatar name="Ada Lovelace" tone="neutral" />
+    </div>
+  ),
+};
