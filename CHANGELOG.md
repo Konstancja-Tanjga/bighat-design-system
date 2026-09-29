@@ -1,5 +1,19 @@
 # @bighat/ui
 
+## 4.12.1
+
+### Patch Changes
+
+- af944fc: `NavList` sets its own font family (`fontFamily.sans`), so it no longer renders
+  in the browser's serif default outside a `bh-root` or `AppShell`. The docs site
+  also parses GitHub-flavoured tables now: every "When to use it" and props table
+  rendered as a paragraph of pipes and dashes.
+- 04837f1: The Foundations/Tokens docs page renders again. Its contrast table measured
+  every declared pair with `contrastRatio`, which only accepts opaque hex, so the
+  pairs on a translucent background (`fill.hover` over a surface) threw and took
+  the whole page down. The table now composites them with `compositeOver`, as the
+  contrast gate does, and names the surface underneath ("… over surface.raised").
+
 ## 4.12.0
 
 ### Minor Changes
