@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { useAfterMount } from '../liveRegion';
+import { Announcement } from '../liveRegion';
 
 import type { StateBlockScope } from '../../tokens/vocabulary';
 
@@ -83,30 +83,36 @@ export function StateBlock({
   }
   const resolvedScope = scope ?? density ?? 'section';
   const role = liveRegionRole[state];
-  // Loading and error are live regions, and a region is only announced for
-  // what changes inside it: so it mounts empty and fills one render later. No
-  // aria-busy either - it tells assistive tech to hold announcements back,
-  // and nothing ever cleared it. Empty is not a live region and renders at once.
-  const mounted = useAfterMount();
-  const showContent = role === undefined || mounted;
+  // The visible content renders at once - no empty box, no layout jump, text
+  // in the server render. The announcement is a separate hidden region keyed
+  // by state, so a StateBlock that goes from loading to error mounts a fresh
+  // region instead of reusing one that already holds words. The visible title
+  // and description are hidden from assistive tech while a region carries
+  // them, so they are not read twice. No aria-busy: it held announcements back
+  // and nothing ever cleared it. Empty is not a live region.
+  const announced = role !== undefined;
 
   return (
     <div
       className={`bh-stateblock bh-stateblock--${state} bh-stateblock--${resolvedScope}`}
-      role={role}
       data-state={state}
     >
-      {showContent && (
-        <StateBlockContent
-          state={state}
-          title={title}
-          description={description}
-          action={action}
-          secondaryAction={secondaryAction}
-          icon={icon}
-          diagnostics={diagnostics}
-        />
+      {announced && (
+        <Announcement key={state} role={role}>
+          {title}
+          {description ? <> {description}</> : null}
+        </Announcement>
       )}
+      <StateBlockContent
+        state={state}
+        title={title}
+        description={description}
+        action={action}
+        secondaryAction={secondaryAction}
+        icon={icon}
+        diagnostics={diagnostics}
+        hideText={announced}
+      />
     </div>
   );
 }
@@ -119,10 +125,11 @@ function StateBlockContent({
   secondaryAction,
   icon,
   diagnostics,
+  hideText,
 }: Pick<
   StateBlockProps,
   'state' | 'title' | 'description' | 'action' | 'secondaryAction' | 'icon' | 'diagnostics'
->) {
+> & { hideText: boolean }) {
   return (
     <>
       {state === 'loading' ? (
@@ -135,9 +142,15 @@ function StateBlockContent({
         )
       )}
 
-      <p className="bh-stateblock__title">{title}</p>
+      <p className="bh-stateblock__title" aria-hidden={hideText || undefined}>
+        {title}
+      </p>
 
-      {description && <p className="bh-stateblock__description">{description}</p>}
+      {description && (
+        <p className="bh-stateblock__description" aria-hidden={hideText || undefined}>
+          {description}
+        </p>
+      )}
 
       {(action || secondaryAction) && (
         <div className="bh-stateblock__actions">

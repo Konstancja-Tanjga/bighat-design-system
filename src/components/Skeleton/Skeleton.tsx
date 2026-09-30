@@ -1,4 +1,4 @@
-import { useAfterMount } from '../liveRegion';
+import { useAfterPaint } from '../liveRegion';
 
 /**
  * A placeholder for content that is on its way.
@@ -50,11 +50,11 @@ export function SkeletonGroup({
   children: React.ReactNode;
   className?: string;
 }) {
-  // The bones draw at once; the label joins the live region one render after
-  // mount, which is what makes it heard - a region is announced for what
-  // changes in it, not for what it arrives with. No aria-busy: it held the
-  // announcement back and nothing ever cleared it.
-  const mounted = useAfterMount();
+  // The bones draw at once; the label joins the live region after a paint,
+  // which is what makes it heard - a region is announced for what changes in
+  // it, not for what it arrives with. No aria-busy: it held the announcement
+  // back and nothing ever cleared it.
+  const mounted = useAfterPaint();
   return (
     <div className={className} role="status">
       {mounted && <span className="bh-visually-hidden">{label}</span>}

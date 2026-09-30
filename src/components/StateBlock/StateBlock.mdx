@@ -29,6 +29,12 @@ whether someone read the wiki.
 | `error`   | `role="alert"` — assertive | Their action failed and they need to know now.           |
 | `empty`   | none                       | A successful response that contains no rows.             |
 
+The words you see render at once. What a screen reader hears comes from a
+separate, visually hidden region: a live region is announced for what changes
+inside it, so the status region mounts empty and fills after the first paint,
+while an alert is announced as it is inserted. The region is keyed by state, so
+a block that goes from loading to error and back again is heard each time.
+
 <Heuristic name="Visibility of system status">
   Feedback within reasonable time, for every state — including the ones that are not the happy path.
   A list that renders nothing while it loads has told the user nothing, and a screen-reader user has

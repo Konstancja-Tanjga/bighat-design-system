@@ -1,35 +1,54 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 import { StateBlock } from './StateBlock';
 
 describe('StateBlock', () => {
-  it('announces loading politely', () => {
+  it('announces loading politely, once the region has painted empty', async () => {
     render(<StateBlock state="loading" title="Loading invoices" />);
 
     const region = screen.getByRole('status');
     // No aria-busy: it tells assistive tech to hold announcements back, and
     // nothing ever cleared it.
     expect(region).not.toHaveAttribute('aria-busy');
-    expect(region).toHaveTextContent('Loading invoices');
+    expect(region).toBeEmptyDOMElement();
+    await waitFor(() => expect(region).toHaveTextContent('Loading invoices'));
   });
 
-  // A live region is announced for what changes inside it. Mounted with its
-  // words already in it, most screen readers say nothing - so it arrives
-  // empty and fills one render later. The server render is that first mount.
-  it('mounts its live region empty, so the words arrive as a change', () => {
-    const first = renderToStaticMarkup(<StateBlock state="loading" title="Loading invoices" />);
-    expect(first).toContain('role="status"');
-    expect(first).not.toContain('Loading invoices');
-
-    const empty = renderToStaticMarkup(<StateBlock state="empty" title="No invoices yet" />);
-    expect(empty).toContain('No invoices yet');
+  it('draws its content at once, so there is no empty box and the server render has text', () => {
+    const html = renderToStaticMarkup(<StateBlock state="loading" title="Loading invoices" />);
+    expect(html).toContain('Loading invoices');
+    expect(html).toContain('role="status"');
+    // The visible copy is hidden from assistive tech: the region carries it.
+    expect(html).toMatch(/class="bh-stateblock__title" aria-hidden="true"/);
   });
 
-  it('announces errors assertively', () => {
+  it('announces errors assertively, inserted with their words', () => {
     render(<StateBlock state="error" title="We could not load your invoices" />);
     expect(screen.getByRole('alert')).toHaveTextContent('We could not load your invoices');
+  });
+
+  // The regression the review found: Table keeps one StateBlock and changes
+  // its state. The region must be a fresh element for each state, not the old
+  // one with new words and a new role.
+  it('mounts a fresh region for each state on the same instance', async () => {
+    const { rerender } = render(<StateBlock state="empty" title="No invoices yet" />);
+
+    rerender(<StateBlock state="loading" title="Loading invoices" />);
+    const loading = screen.getByRole('status');
+    expect(loading).toBeEmptyDOMElement();
+    await waitFor(() => expect(loading).toHaveTextContent('Loading invoices'));
+
+    rerender(<StateBlock state="error" title="We could not load your invoices" />);
+    const error = screen.getByRole('alert');
+    expect(error).not.toBe(loading);
+    expect(error).toHaveTextContent('We could not load your invoices');
+
+    rerender(<StateBlock state="loading" title="Loading invoices" />);
+    const again = screen.getByRole('status');
+    expect(again).not.toBe(loading);
+    expect(again).toBeEmptyDOMElement();
   });
 
   it('gives the empty state no live region at all', () => {

@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 import { Skeleton, SkeletonGroup } from './Skeleton';
 
 describe('SkeletonGroup', () => {
-  it('announces its label once, with every bone hidden', () => {
+  it('announces its label once, with every bone hidden', async () => {
     render(
       <SkeletonGroup label="Loading invoices">
         <Skeleton />
@@ -13,7 +13,7 @@ describe('SkeletonGroup', () => {
       </SkeletonGroup>,
     );
     const region = screen.getByRole('status');
-    expect(region).toHaveTextContent('Loading invoices');
+    await waitFor(() => expect(region).toHaveTextContent('Loading invoices'));
     expect(region).not.toHaveAttribute('aria-busy');
     expect(region.querySelectorAll('.bh-skeleton[aria-hidden="true"]')).toHaveLength(2);
   });
