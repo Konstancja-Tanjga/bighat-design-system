@@ -128,7 +128,7 @@
     "attributes": {
       "data-state": "mirrors state, for tests"
     },
-    "labelling": "The title is the accessible name of the region when a live role is present.",
+    "labelling": "The region has no name of its own; the title, and the description when it is plain text, are its content.",
     "focus": "Never steals focus. A block that grabs focus on render interrupts whatever the user was doing.",
     "announcements": "loading is polite (role=status) because it is transient and must not interrupt reading. error is assertive (role=alert) because the user's action did not happen. empty gets no live region at all — it is the rendered result of a successful request, and announcing it is noise. Getting this wrong in either direction is a real failure, which is why it is a component and not a guideline. The visible title and description render at once and are hidden from assistive technology; a separate visually hidden region carries the words. For loading it mounts empty and fills after the first paint, so a screen reader announces it; for error the alert is inserted with its words, which role=alert announces on insertion. The region is keyed by state, so a block that moves from loading to error to loading announces each change. No aria-busy.",
     "wcag": [

@@ -31,11 +31,11 @@ is whether you know the shape, not how long the wait is.
 
 ## Anatomy
 
-| part                  | element                             | rendered | note                                                                                                                                                                                           |
-| --------------------- | ----------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bh-skeleton`         | `<span>`                            | always   | One per placeholder. Always `aria-hidden="true"`. Takes `bh-skeleton--{radius}`, and `bh-skeleton--animated` when `animated` is true. Displayed as a block, so it fills the width it is given. |
-| `SkeletonGroup`       | `<div>`                             | always   | `role="status"`; its hidden label joins after the first paint. Wraps a set of skeletons. Accepts a `className` for layout. Adds no styles of its own.                                                |
-| `SkeletonGroup` label | `<span class="bh-visually-hidden">` | always   | The `label` text. Hidden from view but not from screen readers, so it is the only part assistive technology reads.                                                                             |
+| part                  | element                             | rendered          | note                                                                                                                                                                                           |
+| --------------------- | ----------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-skeleton`         | `<span>`                            | always            | One per placeholder. Always `aria-hidden="true"`. Takes `bh-skeleton--{radius}`, and `bh-skeleton--animated` when `animated` is true. Displayed as a block, so it fills the width it is given. |
+| `SkeletonGroup`       | `<div>`                             | always            | `role="status"`; its hidden label joins after the first paint. Wraps a set of skeletons. Accepts a `className` for layout. Adds no styles of its own.                                          |
+| `SkeletonGroup` label | `<span class="bh-visually-hidden">` | after first paint | The `label` text. Hidden from view but not from screen readers, so it is the only part assistive technology reads.                                                                             |
 
 ## Props
 

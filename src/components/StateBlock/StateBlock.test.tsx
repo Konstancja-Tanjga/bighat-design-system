@@ -82,4 +82,16 @@ describe('StateBlock', () => {
     render(<StateBlock state="error" title="Something broke" diagnostics="HTTP 503" />);
     expect(screen.getByRole('group')).not.toHaveAttribute('open');
   });
+
+  it('leaves a description with a link in the page instead of copying it into the alert', () => {
+    render(
+      <StateBlock
+        state="error"
+        title="Couldn’t load invoices"
+        description={<a href="/status">Check service status</a>}
+      />,
+    );
+    expect(screen.getByRole('alert')).toHaveTextContent(/^Couldn’t load invoices$/);
+    expect(screen.getAllByRole('link', { name: 'Check service status' })).toHaveLength(1);
+  });
 });

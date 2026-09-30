@@ -97,10 +97,13 @@ export function StateBlock({
       className={`bh-stateblock bh-stateblock--${state} bh-stateblock--${resolvedScope}`}
       data-state={state}
     >
+      {/* Only text is copied into the region. A description that is a node
+          (a link, say) stays in the page where it can be reached, and is
+          read there, not announced. */}
       {announced && (
         <Announcement key={state} role={role}>
           {title}
-          {description ? <> {description}</> : null}
+          {typeof description === 'string' ? ` ${description}` : null}
         </Announcement>
       )}
       <StateBlockContent
@@ -147,7 +150,10 @@ function StateBlockContent({
       </p>
 
       {description && (
-        <p className="bh-stateblock__description" aria-hidden={hideText || undefined}>
+        <p
+          className="bh-stateblock__description"
+          aria-hidden={(hideText && typeof description === 'string') || undefined}
+        >
           {description}
         </p>
       )}
