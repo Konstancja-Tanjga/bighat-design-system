@@ -1,4 +1,4 @@
-import { useAfterPaint } from '../liveRegion';
+import { useAfterPaint } from '../StateBlock/liveRegion';
 
 /**
  * A placeholder for content that is on its way.

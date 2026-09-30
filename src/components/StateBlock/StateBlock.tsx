@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { Announcement } from '../liveRegion';
+import { Announcement } from './liveRegion';
 
 import type { StateBlockScope } from '../../tokens/vocabulary';
 
