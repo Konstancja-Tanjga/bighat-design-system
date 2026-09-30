@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { AppShell } from './AppShell';
 import { NavRail } from '../NavRail/NavRail';
@@ -54,6 +56,86 @@ describe('AppShell', () => {
       </AppShell>,
     );
     expect(screen.getByRole('main')).toHaveAttribute('id', 'main-content');
+  });
+});
+
+describe('AppShell overlay', () => {
+  // jsdom has no layout, so the viewport width is whatever matchMedia says.
+  function setNarrow(narrow: boolean) {
+    vi.stubGlobal('matchMedia', (query: string) => ({
+      matches: narrow,
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    }));
+  }
+  afterEach(() => vi.unstubAllGlobals());
+
+  function Shell() {
+    const [open, setOpen] = useState(false);
+    return (
+      <AppShell
+        header={
+          <button type="button" onClick={() => setOpen(true)}>
+            Menu
+          </button>
+        }
+        sidebar={
+          <SidePanel ariaLabel="Conversations">
+            <a href="#q3">Q3 invoices</a>
+          </SidePanel>
+        }
+        navOpen={open}
+        onNavToggle={() => setOpen((value) => !value)}
+      >
+        <button type="button">In main</button>
+      </AppShell>
+    );
+  }
+
+  it('moves focus into the panel and makes the rest inert', async () => {
+    setNarrow(true);
+    render(<Shell />);
+    await userEvent.click(screen.getByRole('button', { name: 'Menu' }));
+
+    expect(screen.getByRole('link', { name: 'Q3 invoices' })).toHaveFocus();
+    expect(document.querySelector('main')).toHaveAttribute('inert');
+    expect(document.querySelector('header')).toHaveAttribute('inert');
+    expect(screen.getByRole('button', { name: 'Close navigation' })).not.toHaveAttribute('inert');
+  });
+
+  it('closes on Escape and returns focus to the opener', async () => {
+    setNarrow(true);
+    render(<Shell />);
+    const opener = screen.getByRole('button', { name: 'Menu' });
+    await userEvent.click(opener);
+    await userEvent.keyboard('{Escape}');
+
+    expect(screen.queryByRole('button', { name: 'Close navigation' })).not.toBeInTheDocument();
+    expect(document.querySelector('main')).not.toHaveAttribute('inert');
+    expect(opener).toHaveFocus();
+  });
+
+  it('returns focus to the opener when the scrim closes it', async () => {
+    setNarrow(true);
+    render(<Shell />);
+    const opener = screen.getByRole('button', { name: 'Menu' });
+    await userEvent.click(opener);
+    await userEvent.click(screen.getByRole('button', { name: 'Close navigation' }));
+
+    expect(opener).toHaveFocus();
+  });
+
+  it('leaves focus and the page alone when the panel sits in the grid', async () => {
+    setNarrow(false);
+    render(<Shell />);
+    const opener = screen.getByRole('button', { name: 'Menu' });
+    await userEvent.click(opener);
+
+    expect(opener).toHaveFocus();
+    expect(document.querySelector('main')).not.toHaveAttribute('inert');
+    await userEvent.keyboard('{Escape}');
+    expect(screen.getByRole('button', { name: 'Close navigation' })).toBeInTheDocument();
   });
 });
 

@@ -3,9 +3,7 @@
   "name": "AppShell",
   "layer": "frame",
   "purpose": "The frame every application screen sits in. Owns the landmark structure — header, nav, main, complementary.",
-  "notFor": [
-    "Documentation and marketing pages — use height=\"flow\" or no shell at all"
-  ],
+  "notFor": ["Documentation and marketing pages — use height=\"flow\" or no shell at all"],
   "composition": "composite",
   "anatomy": [
     {
@@ -70,10 +68,7 @@
     },
     "height": {
       "kind": "enum",
-      "values": [
-        "fill",
-        "flow"
-      ],
+      "values": ["fill", "flow"],
       "default": "fill",
       "meaning": "fill pins to the viewport and scrolls each region independently"
     },
@@ -94,12 +89,10 @@
       "kind": "event"
     }
   },
-  "states": [
-    "default",
-    "focus-visible"
-  ],
+  "states": ["default", "focus-visible"],
   "keyboard": {
-    "Enter": "Follows the link. Native."
+    "Enter": "Follows the link. Native.",
+    "Escape": "Closes an overlaid panel through its toggle. Only below breakpoint.md."
   },
   "aria": {
     "role": "banner (in a landmark context) (implicit, from <header>)",
@@ -107,7 +100,7 @@
       "aria-label": "Close"
     },
     "labelling": null,
-    "focus": null,
+    "focus": "An overlaid panel is modal: focus moves to its first control on open, header, main and the other panels are inert, and focus returns to the opener on close. No focus management while the panels sit in the grid.",
     "announcements": null
   },
   "implementations": {

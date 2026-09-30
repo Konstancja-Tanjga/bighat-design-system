@@ -74,10 +74,11 @@ until it receives keyboard focus, then moves into view.
 | ----------------------------------- | --------------------------------------------------------------------------------------------------- |
 | <kbd>Enter</kbd>                    | On `SkipLink`: follows the link to `#main-content`. Native.                                         |
 | <kbd>Enter</kbd> / <kbd>Space</kbd> | On the scrim: closes the overlaid panel by calling `onNavToggle` or `onAsideToggle`. Native button. |
+| <kbd>Escape</kbd>                   | While a panel is overlaid: closes it through the same toggle.                                       |
 
-There is no <kbd>Escape</kbd> handling in the shell. If a product wants
-
-<kbd>Escape</kbd> to close an overlaid panel, it listens for it and calls the same toggle.
+<kbd>Escape</kbd> is handled only while a panel is overlaid, below `breakpoint.md`. A component
+inside the panel that uses Escape itself, such as an open `Menu`, keeps it: the shell ignores a key
+that has already been handled.
 
 ## Accessibility
 
@@ -88,14 +89,16 @@ There is no <kbd>Escape</kbd> handling in the shell. If a product wants
   `NavRail` names its `nav` through `ariaLabel` (default "Primary"), and
   `SidePanel` requires `ariaLabel`. The scrim labels are fixed text and
   cannot be changed through props.
-- **Focus** — the shell manages no focus itself. `main` has `tabIndex={-1}`
-  so that it can receive focus from the skip link, and draws no ring when it
-  does, because it is not a control. Opening an
-  overlay does not send focus into the panel, closing it with the scrim does
-  not return focus to the control that opened it, and the content behind an
-  open overlay stays in the tab order. The scrim comes last in the source, so a
-  keyboard reader reaches it only after the panel, the whole of `main` and any
-  trailing panel. Anything more is done in the toggle handler.
+- **Focus** — `main` has `tabIndex={-1}` so that it can receive focus from
+  the skip link, and draws no ring when it does, because it is not a control.
+  An overlaid panel behaves as a modal. On open, focus moves to the panel's
+  first control, or to the panel itself if it has none. The header, `main`
+  and the other panels become `inert`, so neither Tab nor a screen reader's
+  virtual cursor can wander behind it, and the scrim stays reachable as the
+  way out. On close, by Escape, the scrim or your own button, focus returns to
+  the control that opened it. It does not move if the reader has already put it
+  somewhere else. At full width the panels sit in the grid and none of this
+  applies: `navOpen` then changes nothing about focus.
 - **Announcements** — none. The shell has no live region, and opening or
   closing a panel is not announced by the shell. If the control that opens a
   panel should report its state, that is set on the control.
