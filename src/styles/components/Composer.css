@@ -5,6 +5,11 @@
   font-family: var(--bh-font-family);
 }
 
+/* The label sits as close to the box as it does on Input and Textarea. */
+.bh-composer > .bh-field__label {
+  margin-block-end: calc(var(--bh-gap-tight) - var(--bh-gap-snug));
+}
+
 .bh-composer__field {
   display: flex;
   align-items: flex-end;

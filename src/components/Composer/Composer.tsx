@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 
 /**
  * The prompt input.
@@ -66,11 +66,14 @@ export function Composer({
   maxRows = 8,
 }: ComposerProps) {
   const id = useId();
-  if (import.meta.env?.DEV && hideLabel && placeholder !== label) {
-    console.warn(
-      `[bighat] Composer: with hideLabel, the placeholder must repeat the label ("${label}") so voice control can target the field.`,
-    );
-  }
+  // In an effect, not the render body: the draft re-renders on every keystroke.
+  useEffect(() => {
+    if (import.meta.env?.DEV && hideLabel && placeholder !== label) {
+      console.warn(
+        `[bighat] Composer: with hideLabel, the placeholder must repeat the label ("${label}") so voice control can target the field.`,
+      );
+    }
+  }, [hideLabel, placeholder, label]);
   const [internal, setInternal] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 

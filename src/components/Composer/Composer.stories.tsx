@@ -24,7 +24,7 @@ const meta: Meta<typeof Composer> = {
   tags: ['autodocs'],
   args: {
     label: 'Ask anything about the business',
-    placeholder: 'Ask anything about the business',
+    placeholder: 'Which invoices are overdue this month?',
   },
   parameters: { layout: 'padded' },
   decorators: [
@@ -45,7 +45,7 @@ const MODES = [
   { id: 'chart', label: 'Make a chart' },
 ];
 
-/** The starting point: a labelled prompt whose placeholder repeats the label, for a screen with one question to ask. */
+/** The starting point: a visible label and an example question as the placeholder, for a screen with one question to ask. */
 export const Default: Story = {};
 
 /** When the same prompt can be answered in more than one way and the reader has to choose before sending. */
