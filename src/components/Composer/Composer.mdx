@@ -30,23 +30,24 @@ form never receives its value. If the text is one field among several, it is a `
 
 ## Anatomy
 
-| part                     | element                 | rendered                            | note                                                                                                  |
-| ------------------------ | ----------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `bh-composer`            | `<form>`                | always                              | Submitting it, by Enter or by the button, calls `onSubmit`. Also holds the visually hidden `<label>`. |
-| `bh-composer__field`     | `<div>`                 | always                              | Carries the border and the focus ring, drawn with `:focus-within`.                                    |
-| `bh-composer__input`     | `<textarea>`            | always                              | Starts at one row and grows with its content up to `maxRows`, then scrolls.                           |
-| `bh-composer__tools`     | `<div>`                 | always                              | Holds `tools`, then the submit button.                                                                |
-| `bh-composer__submit`    | `<button[type=submit]>` | always                              | Disabled while the draft is empty or whitespace.                                                      |
-| `bh-composer__modes`     | `<fieldset>`            | when `modes` has at least one entry | Its `<legend>` is visually hidden and always reads "Response mode".                                   |
-| `bh-composer__mode`      | `<label>`               | one per mode                        | Wraps a visually hidden radio; the label carries the checked styling.                                 |
-| `bh-composer__mode-icon` | `<span>`                | when the mode has an `icon`         | `aria-hidden`, so the mode's name comes from its text alone.                                          |
-| `bh-composer__hint`      | `<p>`                   | when `hint` is set                  | Referenced by the textarea's `aria-describedby`.                                                      |
+| part                     | element                 | rendered                            | note                                                                                                                    |
+| ------------------------ | ----------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `bh-composer`            | `<form>`                | always                              | Submitting it, by Enter or by the button, calls `onSubmit`. Also holds the field `<label>`, visible unless `hideLabel`. |
+| `bh-composer__field`     | `<div>`                 | always                              | Carries the border and the focus ring, drawn with `:focus-within`.                                                      |
+| `bh-composer__input`     | `<textarea>`            | always                              | Starts at one row and grows with its content up to `maxRows`, then scrolls.                                             |
+| `bh-composer__tools`     | `<div>`                 | always                              | Holds `tools`, then the submit button.                                                                                  |
+| `bh-composer__submit`    | `<button[type=submit]>` | always                              | Disabled while the draft is empty or whitespace.                                                                        |
+| `bh-composer__modes`     | `<fieldset>`            | when `modes` has at least one entry | Its `<legend>` is visually hidden and always reads "Response mode".                                                     |
+| `bh-composer__mode`      | `<label>`               | one per mode                        | Wraps a visually hidden radio; the label carries the checked styling.                                                   |
+| `bh-composer__mode-icon` | `<span>`                | when the mode has an `icon`         | `aria-hidden`, so the mode's name comes from its text alone.                                                            |
+| `bh-composer__hint`      | `<p>`                   | when `hint` is set                  | Referenced by the textarea's `aria-describedby`.                                                                        |
 
 ## Props
 
 | prop            | values  | default        | meaning                                                                                                                                       |
 | --------------- | ------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `label`         | string  | —              | Required. The field's accessible name, rendered in a visually hidden `<label>`.                                                               |
+| `label`         | string  | —              | Required. The field's name, shown above it as a field label.                                                                                  |
+| `hideLabel`     | boolean | `false`        | Hides the label for a chat box whose context names it. The placeholder must then repeat the label word for word.                              |
 | `placeholder`   | string  | `Ask anything` | The only text a sighted reader sees in the empty field. Keep it consistent with `label`.                                                      |
 | `value`         | string  | —              | Makes the draft controlled. When set, the Composer does not clear itself after submit.                                                        |
 | `onValueChange` | event   | —              | Called with the new draft on every change, controlled or not.                                                                                 |
@@ -86,14 +87,13 @@ arrow keys move the selection within it.
 ## Accessibility
 
 - **Role** — textbox (implicit, from `<textarea>`)
-- **Labelling** — `label` is required, but it is always visually hidden: the
-  only visible text in an empty field is the placeholder, and it goes at the
-  first keystroke. Voice-control users say what they see, so make the
-  placeholder match the label — the default `Ask anything` matches no label
-  unless you choose it. This departs from the system's rule that labels are
-  visible, and it is why the conformance audit marks Composer as failing; the
-  gap is open, not settled. The mode group is named by a hidden legend fixed to
-  "Response mode", and `hint` is added to the field's description.
+- **Labelling** — `label` is required and shown above the field, as on every
+  other form control. `hideLabel` hides it for the one case that earns it, a
+  chat box whose context already names it; then the placeholder must repeat
+  the label word for word, because voice-control users say what they see
+  (WCAG 2.5.3), and a development warning says so when they differ. The mode
+  group is named by a hidden legend fixed to "Response mode", and `hint` is
+  added to the field's description.
 - **Focus** — The Composer does not move focus: it neither takes focus on
   mount nor returns it after sending. Enter keeps focus in the field, which is
   what a reader asking a follow-up needs. Sending with the submit button does
@@ -108,17 +108,18 @@ arrow keys move the selection within it.
 
 ## Do and don't
 
-### Make the placeholder say what the label says
+### With hideLabel, make the placeholder say what the label says
 
 <Guidance>
-  <Do reason="The label is hidden, so the placeholder is the only name a sighted reader sees. When the two match, a voice-control user can say what is on screen and reach the field, and a screen reader user hears the same question everyone else reads.">
+  <Do reason="With hideLabel the placeholder is the only name a sighted reader sees. When the two match, a voice-control user can say what is on screen and reach the field, and a screen reader user hears the same question everyone else reads.">
     <Composer
       label="Ask anything about the business"
+      hideLabel
       placeholder="Ask anything about the business"
     />
   </Do>
   <Dont reason='A voice-control user says "click Type your message" and nothing happens, because the field is named "Chat input". A screen reader user hears "Chat input", which describes the widget and not the question it takes.'>
-    <Composer label="Chat input" placeholder="Type your message…" />
+    <Composer label="Chat input" hideLabel placeholder="Type your message…" />
   </Dont>
 </Guidance>
 

@@ -71,4 +71,20 @@ describe('Composer', () => {
     render(<Composer label="Ask" submitLabel="Ask" />);
     expect(screen.getByRole('button', { name: 'Ask' })).toBeDisabled();
   });
+
+  it('shows its label above the field', () => {
+    render(<Composer label="Ask anything about the business" />);
+    const label = screen.getByText('Ask anything about the business');
+    expect(label.tagName).toBe('LABEL');
+    expect(label).not.toHaveClass('bh-visually-hidden');
+    expect(
+      screen.getByRole('textbox', { name: 'Ask anything about the business' }),
+    ).toBeInTheDocument();
+  });
+
+  it('hides the label only when asked, and keeps the name', () => {
+    render(<Composer label="Ask" hideLabel placeholder="Ask" />);
+    expect(screen.getByText('Ask', { selector: 'label' })).toHaveClass('bh-visually-hidden');
+    expect(screen.getByRole('textbox', { name: 'Ask' })).toBeInTheDocument();
+  });
 });

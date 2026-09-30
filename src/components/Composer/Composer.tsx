@@ -21,7 +21,14 @@ import { useId, useRef, useState, type ReactNode } from 'react';
 export type ComposerMode = { id: string; label: string; icon?: ReactNode };
 
 export type ComposerProps = {
+  /** The field's name, shown above it (SKILL.md rule 6). */
   label: string;
+  /**
+   * Hides the label for the one case that earns it: a chat box whose context
+   * already names it. Then the placeholder must repeat the label word for
+   * word, so a voice-control user can say what they see (WCAG 2.5.3).
+   */
+  hideLabel?: boolean;
   placeholder?: string;
   value?: string;
   onValueChange?: (value: string) => void;
@@ -43,6 +50,7 @@ export type ComposerProps = {
 
 export function Composer({
   label,
+  hideLabel = false,
   placeholder = 'Ask anything',
   value,
   onValueChange,
@@ -58,6 +66,11 @@ export function Composer({
   maxRows = 8,
 }: ComposerProps) {
   const id = useId();
+  if (import.meta.env?.DEV && hideLabel && placeholder !== label) {
+    console.warn(
+      `[bighat] Composer: with hideLabel, the placeholder must repeat the label ("${label}") so voice control can target the field.`,
+    );
+  }
   const [internal, setInternal] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -84,7 +97,10 @@ export function Composer({
         submit();
       }}
     >
-      <label className="bh-visually-hidden" htmlFor={id}>
+      {/* The same label a field has, above the box. It was always visually
+          hidden until 4.x, which broke the rule every other form control
+          keeps; hideLabel is now the explicit exception. */}
+      <label className={`bh-field__label${hideLabel ? ' bh-visually-hidden' : ''}`} htmlFor={id}>
         {label}
       </label>
 

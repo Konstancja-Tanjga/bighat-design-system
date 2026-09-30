@@ -354,6 +354,7 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
       <div className="bh-ai__composer">
         <Composer
           label="Ask anything about the business"
+          hideLabel
           placeholder="Ask anything about the business"
           modes={MODES}
           activeMode={mode}
