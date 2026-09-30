@@ -54,6 +54,7 @@
   --bh-text-size-label: 11px;
   --bh-text-size-heading: 16px;
   --bh-text-size-display: 20px;
+  --bh-text-size-title: 26px;
   --bh-text-leading-tight: 1.25;
   --bh-text-leading-normal: 1.5;
   --bh-text-weight-body: 400;
@@ -79,6 +80,7 @@
   --bh-radius-surface: 20px;
   --bh-radius-pill: 9999px;
   --bh-radius-indicator: 3px;
+  --bh-radius-tag: 6px;
   --bh-radius-overlay: 16px;
   --bh-radius-modal: 26px;
   --bh-elevation-flat: none;
@@ -104,6 +106,7 @@
   --bh-layer-overlay: 100;
   --bh-layer-toast: 1000;
   --bh-fill-hover: rgba(20, 24, 28, 0.06);
+  --bh-fill-selected: rgba(20, 24, 28, 0.1);
   --bh-material-thin-bg: rgba(255, 255, 255, 0.38);
   --bh-material-thin-blur: 16px;
   --bh-material-regular-bg: rgba(255, 255, 255, 0.52);
@@ -116,6 +119,14 @@
   --bh-material-rim: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 0 0 1px rgba(255, 255, 255, 0.45);
   --bh-scrim-bg: rgba(20, 24, 28, 0.18);
   --bh-scrim-blur: 6px;
+  --bh-avatar-violet-bg: #ede9fe;
+  --bh-avatar-violet-fg: #5b21b6;
+  --bh-avatar-teal-bg: #d5f5f0;
+  --bh-avatar-teal-fg: #0f5e57;
+  --bh-avatar-plum-bg: #f7e3f5;
+  --bh-avatar-plum-fg: #86198f;
+  --bh-avatar-olive-bg: #eef3d6;
+  --bh-avatar-olive-fg: #4d5b12;
   color-scheme: light;
 
   --bh-font-family: var(--bh-font-family-sans); /* deprecated in 4.0, removed in 5.0 */
@@ -175,6 +186,7 @@
   --bh-text-size-label: 11px;
   --bh-text-size-heading: 16px;
   --bh-text-size-display: 20px;
+  --bh-text-size-title: 26px;
   --bh-text-leading-tight: 1.25;
   --bh-text-leading-normal: 1.5;
   --bh-text-weight-body: 400;
@@ -200,6 +212,7 @@
   --bh-radius-surface: 20px;
   --bh-radius-pill: 9999px;
   --bh-radius-indicator: 3px;
+  --bh-radius-tag: 6px;
   --bh-radius-overlay: 16px;
   --bh-radius-modal: 26px;
   --bh-elevation-flat: none;
@@ -225,6 +238,7 @@
   --bh-layer-overlay: 100;
   --bh-layer-toast: 1000;
   --bh-fill-hover: rgba(255, 255, 255, 0.08);
+  --bh-fill-selected: rgba(255, 255, 255, 0.14);
   --bh-material-thin-bg: rgba(37, 43, 50, 0.4);
   --bh-material-thin-blur: 16px;
   --bh-material-regular-bg: rgba(37, 43, 50, 0.52);
@@ -237,6 +251,14 @@
   --bh-material-rim: inset 0 1px 0 rgba(255, 255, 255, 0.14), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
   --bh-scrim-bg: rgba(0, 0, 0, 0.32);
   --bh-scrim-blur: 6px;
+  --bh-avatar-violet-bg: #33295a;
+  --bh-avatar-violet-fg: #d8cffc;
+  --bh-avatar-teal-bg: #173b38;
+  --bh-avatar-teal-fg: #a7e8de;
+  --bh-avatar-plum-bg: #3f2140;
+  --bh-avatar-plum-fg: #f0c6ec;
+  --bh-avatar-olive-bg: #2f3417;
+  --bh-avatar-olive-fg: #dbe6a6;
   color-scheme: dark;
 }
 
@@ -295,6 +317,7 @@
     --bh-text-size-label: 11px;
     --bh-text-size-heading: 16px;
     --bh-text-size-display: 20px;
+    --bh-text-size-title: 26px;
     --bh-text-leading-tight: 1.25;
     --bh-text-leading-normal: 1.5;
     --bh-text-weight-body: 400;
@@ -320,6 +343,7 @@
     --bh-radius-surface: 20px;
     --bh-radius-pill: 9999px;
     --bh-radius-indicator: 3px;
+    --bh-radius-tag: 6px;
     --bh-radius-overlay: 16px;
     --bh-radius-modal: 26px;
     --bh-elevation-flat: none;
@@ -345,6 +369,7 @@
     --bh-layer-overlay: 100;
     --bh-layer-toast: 1000;
     --bh-fill-hover: rgba(255, 255, 255, 0.08);
+    --bh-fill-selected: rgba(255, 255, 255, 0.14);
     --bh-material-thin-bg: rgba(37, 43, 50, 0.4);
     --bh-material-thin-blur: 16px;
     --bh-material-regular-bg: rgba(37, 43, 50, 0.52);
@@ -357,6 +382,14 @@
     --bh-material-rim: inset 0 1px 0 rgba(255, 255, 255, 0.14), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
     --bh-scrim-bg: rgba(0, 0, 0, 0.32);
     --bh-scrim-blur: 6px;
+    --bh-avatar-violet-bg: #33295a;
+    --bh-avatar-violet-fg: #d8cffc;
+    --bh-avatar-teal-bg: #173b38;
+    --bh-avatar-teal-fg: #a7e8de;
+    --bh-avatar-plum-bg: #3f2140;
+    --bh-avatar-plum-fg: #f0c6ec;
+    --bh-avatar-olive-bg: #2f3417;
+    --bh-avatar-olive-fg: #dbe6a6;
     color-scheme: dark;
   }
 }

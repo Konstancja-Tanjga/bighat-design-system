@@ -688,6 +688,19 @@
           "hex": "#14181c"
         }
       },
+      "10": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.078431,
+            0.094118,
+            0.109804
+          ],
+          "alpha": 0.1,
+          "hex": "#14181c"
+        }
+      },
       "18": {
         "$type": "color",
         "$value": {
@@ -717,7 +730,20 @@
           "hex": "#ffffff"
         }
       },
-      "$description": "Added in 4.2. White at partial opacity - hairlines and hover fills on a dark page."
+      "$description": "Added in 4.2. White at partial opacity - hairlines and hover fills on a dark page.",
+      "14": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 0.14,
+          "hex": "#ffffff"
+        }
+      }
     },
     "blackAlpha": {
       "32": {
@@ -842,6 +868,237 @@
             ],
             "alpha": 0.58,
             "hex": "#14181c"
+          }
+        }
+      }
+    },
+    "avatar": {
+      "$description": "Added in 4.x for Avatar only: four muted hues, none of them a status colour, so a person's colour never reads as success, warning, critical or info. Light and dark pairs, each held to 4.5:1 for the initials.",
+      "light": {
+        "violet": {
+          "bg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.929412,
+                0.913725,
+                0.996078
+              ],
+              "alpha": 1,
+              "hex": "#ede9fe"
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.356863,
+                0.129412,
+                0.713725
+              ],
+              "alpha": 1,
+              "hex": "#5b21b6"
+            }
+          }
+        },
+        "teal": {
+          "bg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.835294,
+                0.960784,
+                0.941176
+              ],
+              "alpha": 1,
+              "hex": "#d5f5f0"
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.058824,
+                0.368627,
+                0.341176
+              ],
+              "alpha": 1,
+              "hex": "#0f5e57"
+            }
+          }
+        },
+        "plum": {
+          "bg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.968627,
+                0.890196,
+                0.960784
+              ],
+              "alpha": 1,
+              "hex": "#f7e3f5"
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.52549,
+                0.098039,
+                0.560784
+              ],
+              "alpha": 1,
+              "hex": "#86198f"
+            }
+          }
+        },
+        "olive": {
+          "bg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.933333,
+                0.952941,
+                0.839216
+              ],
+              "alpha": 1,
+              "hex": "#eef3d6"
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.301961,
+                0.356863,
+                0.070588
+              ],
+              "alpha": 1,
+              "hex": "#4d5b12"
+            }
+          }
+        }
+      },
+      "dark": {
+        "violet": {
+          "bg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.2,
+                0.160784,
+                0.352941
+              ],
+              "alpha": 1,
+              "hex": "#33295a"
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.847059,
+                0.811765,
+                0.988235
+              ],
+              "alpha": 1,
+              "hex": "#d8cffc"
+            }
+          }
+        },
+        "teal": {
+          "bg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.090196,
+                0.231373,
+                0.219608
+              ],
+              "alpha": 1,
+              "hex": "#173b38"
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.654902,
+                0.909804,
+                0.870588
+              ],
+              "alpha": 1,
+              "hex": "#a7e8de"
+            }
+          }
+        },
+        "plum": {
+          "bg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.247059,
+                0.129412,
+                0.25098
+              ],
+              "alpha": 1,
+              "hex": "#3f2140"
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.941176,
+                0.776471,
+                0.92549
+              ],
+              "alpha": 1,
+              "hex": "#f0c6ec"
+            }
+          }
+        },
+        "olive": {
+          "bg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.184314,
+                0.203922,
+                0.090196
+              ],
+              "alpha": 1,
+              "hex": "#2f3417"
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.858824,
+                0.901961,
+                0.65098
+              ],
+              "alpha": 1,
+              "hex": "#dbe6a6"
+            }
           }
         }
       }

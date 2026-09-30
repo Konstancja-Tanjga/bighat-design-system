@@ -60,6 +60,15 @@
       "kind": "slot",
       "note": "Count or status next to the title.",
       "content": "TODO"
+    },
+    "variant": {
+      "kind": "enum",
+      "values": [
+        "plain",
+        "inset"
+      ],
+      "default": "plain",
+      "note": "inset is a grouped accordion on its own raised surface. Not inside a panel or a card."
     }
   },
   "states": [
@@ -99,7 +108,12 @@
     "easing.standard",
     "border.hairline",
     "fill.hover",
-    "radius.control"
+    "radius.control",
+    "surface.raised",
+    "radius.surface",
+    "elevation.raised",
+    "radius.pill",
+    "control.indicator"
   ],
   "interactive": true
 }

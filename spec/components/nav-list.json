@@ -94,7 +94,6 @@
     "gap.snug",
     "gap.tight",
     "radius.control",
-    "selection.bg",
     "selection.mark",
     "text.muted",
     "text.primary",
@@ -108,7 +107,8 @@
     "fill.hover",
     "text.secondary",
     "text.weightEmphasis",
-    "fontFamily.sans"
+    "fontFamily.sans",
+    "fill.selected"
   ],
   "interactive": true
 }

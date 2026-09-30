@@ -121,8 +121,19 @@
     left: 0;
   }
 
+  /* Beside the rail, at the rail's real width: NavRail is 56px, 76px with
+     captions (its default). The 44px this used to assume let the overlaid
+     sidebar cover half of a captioned rail. Keep in step with NavRail.css. */
+  .bh-shell[data-has-rail] {
+    --bh-shell-rail-width: 56px;
+  }
+
+  .bh-shell[data-has-rail]:has(.bh-rail--labelled) {
+    --bh-shell-rail-width: 76px;
+  }
+
   .bh-shell[data-nav-open][data-has-rail] .bh-shell__sidebar {
-    left: var(--bh-control-lg);
+    left: var(--bh-shell-rail-width);
   }
 
   .bh-shell[data-aside-open] .bh-shell__aside {

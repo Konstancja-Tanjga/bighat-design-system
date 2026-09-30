@@ -51,7 +51,7 @@
     },
     "showLabels": {
       "kind": "boolean",
-      "default": false,
+      "default": true,
       "note": "Prefer it past about five destinations."
     },
     "ariaLabel": {
@@ -97,7 +97,9 @@
     "text.sizeLabel",
     "duration.fast",
     "easing.standard",
-    "fill.hover"
+    "fill.hover",
+    "radius.pill",
+    "text.weightEmphasis"
   ],
   "interactive": true
 }

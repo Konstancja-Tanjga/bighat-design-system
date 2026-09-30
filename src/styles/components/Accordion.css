@@ -7,6 +7,15 @@
   font-family: var(--bh-font-family);
 }
 
+/* Grouped: its own raised surface, drawn with height like a Card. */
+.bh-accordion--inset {
+  padding: var(--bh-gap-tight);
+  background: var(--bh-surface-raised);
+  border: 1px solid transparent;
+  border-radius: var(--bh-radius-surface);
+  box-shadow: var(--bh-elevation-raised);
+}
+
 .bh-accordion__item + .bh-accordion__item {
   border-top: 1px solid var(--bh-border-hairline);
 }
@@ -50,18 +59,35 @@
   font-weight: var(--bh-text-weight-body);
 }
 
-/* The chevron rotates, but the state is carried by aria-expanded. */
+/* The chevron sits in a round well that fills on hover, like an icon button,
+   so the trigger shows where it can be pressed. It rotates, but the state is
+   carried by aria-expanded. */
 .bh-accordion__chevron {
-  width: 8px;
-  height: 8px;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: calc(var(--bh-control-indicator) + var(--bh-gap-snug));
+  height: calc(var(--bh-control-indicator) + var(--bh-gap-snug));
+  border-radius: var(--bh-radius-pill);
+  transition: background-color var(--bh-duration-fast) var(--bh-easing-standard);
+}
+
+.bh-accordion__chevron::after {
+  content: '';
+  width: 7px;
+  height: 7px;
   border-right: 2px solid var(--bh-text-secondary);
   border-bottom: 2px solid var(--bh-text-secondary);
-  transform: rotate(-45deg);
+  transform: translate(-1px, 0) rotate(-45deg);
   transition: transform var(--bh-duration-fast) var(--bh-easing-standard);
 }
 
-.bh-accordion__chevron[data-open='true'] {
-  transform: rotate(45deg);
+.bh-accordion__chevron[data-open='true']::after {
+  transform: translate(0, -1px) rotate(45deg);
+}
+
+.bh-accordion__trigger:hover .bh-accordion__chevron {
+  background: var(--bh-fill-hover);
 }
 
 .bh-accordion__panel {

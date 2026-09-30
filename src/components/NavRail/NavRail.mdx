@@ -50,9 +50,14 @@ accessible name, it is the `title` tooltip, and it is the visible caption when
 
 <Canvas of={NavRailStories.WithLabels} />
 
-Turn captions on past about five destinations. Below that a person can hold the
-mapping; above it they are counting positions, and the vertical space a caption
-costs is cheaper than the click that goes to the wrong place.
+Captions are on by default. Past about five destinations a person is counting
+positions rather than recalling glyphs, and the vertical space a caption costs
+is cheaper than the click that goes to the wrong place. Turn them off only for a
+rail of a few destinations whose icons cannot be mistaken.
+
+The state is drawn on the icon: a capsule around the glyph that fills on hover
+and holds the selection when active, with the caption below. The leading bar
+beside the active item is the cue held to 3:1.
 
 ## Active is an attribute, not a highlight
 
@@ -85,14 +90,14 @@ consumer's to name.
 
 ## Props
 
-| prop          | values  | default     | meaning                                                                 |
-| ------------- | ------- | ----------- | ----------------------------------------------------------------------- |
-| `items`       | data    | —           | `id`, required `label`, `icon`, optional `badge`.                       |
-| `activeId`    | string  | —           | The current destination. Draws the tint and sets `aria-current="page"`. |
-| `onSelect`    | event   | —           | Called with the item's `id`.                                            |
-| `footerItems` | data    | —           | Pinned to the bottom — settings, account, help.                         |
-| `showLabels`  | boolean | `false`     | Captions under each icon. Prefer it past about five destinations.       |
-| `ariaLabel`   | string  | `'Primary'` | Names the landmark, so two rails can be told apart.                     |
+| prop          | values  | default     | meaning                                                                         |
+| ------------- | ------- | ----------- | ------------------------------------------------------------------------------- |
+| `items`       | data    | —           | `id`, required `label`, `icon`, optional `badge`.                               |
+| `activeId`    | string  | —           | The current destination. Draws the tint and sets `aria-current="page"`.         |
+| `onSelect`    | event   | —           | Called with the item's `id`.                                                    |
+| `footerItems` | data    | —           | Pinned to the bottom — settings, account, help.                                 |
+| `showLabels`  | boolean | `true`      | Captions under each icon. On by default; off only for a few unmistakable icons. |
+| `ariaLabel`   | string  | `'Primary'` | Names the landmark, so two rails can be told apart.                             |
 
 <Controls />
 
@@ -128,4 +133,4 @@ consumer's to name.
 
 ## Tokens consumed
 
-`font.family` · `gap.hairline` · `gap.snug` · `gap.tight` · `radius.control` · `radius.indicator` · `selection.bg` · `selection.fg` · `selection.mark` · `status.critical.fg` · `surface.base` · `text.primary` · `text.secondary` · `text.sizeHeading` · `text.sizeLabel` · `duration.fast` · `easing.standard` · `fill.hover`
+`font.family` · `gap.hairline` · `gap.snug` · `gap.tight` · `radius.control` · `radius.indicator` · `selection.bg` · `selection.fg` · `selection.mark` · `status.critical.fg` · `surface.base` · `text.primary` · `text.secondary` · `text.sizeHeading` · `text.sizeLabel` · `duration.fast` · `easing.standard` · `fill.hover` · `radius.pill` · `text.weightEmphasis`

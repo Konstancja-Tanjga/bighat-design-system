@@ -12,6 +12,19 @@ A person, as a picture with a name behind it.
 
 <Canvas of={AvatarStories.Sizes} />
 
+## A colour from the name
+
+<Canvas of={AvatarStories.Colours} />
+
+`tone="auto"`, the default, picks one of four person colours from the name, so
+Ada Lovelace is the same colour in the sidebar, the table and the comment
+thread. The four hues - violet, teal, plum and olive - are the avatar's own and
+none is a status colour, so no one's avatar reads as an error or a warning.
+Each pair holds its initials at 4.5:1 in both themes. Pass `tone="neutral"` for
+a list where colour would be noise, or a tone by name when a product assigns
+colours itself. `avatarTone(name)` is exported for anything that needs to match
+it.
+
 ## The `name` prop is not optional
 
 It produces the initials, the accessible name when the avatar stands alone, and

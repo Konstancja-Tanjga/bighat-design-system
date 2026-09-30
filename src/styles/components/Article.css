@@ -34,7 +34,9 @@
 
 .bh-article__title {
   margin: 0;
-  font-size: var(--bh-text-size-display);
+  /* textSize.title, one step past display: a long read's title opens the
+     page, where display is an application's section heading. */
+  font-size: var(--bh-text-size-title);
   font-weight: var(--bh-text-weight-heading);
   line-height: var(--bh-text-leading-tight);
   text-wrap: balance;

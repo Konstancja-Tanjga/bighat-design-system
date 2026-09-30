@@ -4,7 +4,10 @@
   gap: var(--bh-gap-tight);
   padding: var(--bh-gap-hairline) var(--bh-padding-block);
   border: 1px solid transparent;
-  border-radius: var(--bh-radius-pill);
+  /* A tag, not a capsule: rounder than a checkbox, squarer than the chips and
+     buttons beside it, so a label that states something is not mistaken for a
+     control that does something. */
+  border-radius: var(--bh-radius-tag);
   font-family: var(--bh-font-family);
   font-size: var(--bh-text-size-body);
   font-weight: var(--bh-text-weight-emphasis);

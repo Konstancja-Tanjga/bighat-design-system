@@ -27,8 +27,9 @@ export type NavRailProps = {
   /** Items pinned to the bottom — settings, account, help. */
   footerItems?: NavRailItem[];
   /**
-   * Captions under each icon. Costs vertical space and removes the guessing.
-   * Prefer it whenever the rail has more than about five destinations.
+   * Captions under each icon. On by default: a glyph alone is a memory test,
+   * and the caption removes the guessing for a few pixels of height. Turn it
+   * off only for a rail of a few destinations whose icons are unmistakable.
    */
   showLabels?: boolean;
   /** Names the landmark, so a screen reader can tell two navs apart. */
@@ -73,7 +74,7 @@ export function NavRail({
   activeId,
   onSelect,
   footerItems,
-  showLabels = false,
+  showLabels = true,
   ariaLabel = 'Primary',
 }: NavRailProps) {
   return (

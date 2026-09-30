@@ -60,6 +60,7 @@ $tokens: (
   'textSize.label': 11px,
   'textSize.heading': 16px,
   'textSize.display': 20px,
+  'textSize.title': 26px,
   'textLeading.tight': 1.25,
   'textLeading.normal': 1.5,
   'textWeight.body': 400,
@@ -85,6 +86,7 @@ $tokens: (
   'radius.surface': 20px,
   'radius.pill': 9999px,
   'radius.indicator': 3px,
+  'radius.tag': 6px,
   'radius.overlay': 16px,
   'radius.modal': 26px,
   'elevation.flat': none,
@@ -110,6 +112,7 @@ $tokens: (
   'layer.overlay': 100,
   'layer.toast': 1000,
   'fill.hover': rgba(20, 24, 28, 0.06),
+  'fill.selected': rgba(20, 24, 28, 0.1),
   'material.thin.bg': rgba(255, 255, 255, 0.38),
   'material.thin.blur': 16px,
   'material.regular.bg': rgba(255, 255, 255, 0.52),
@@ -122,6 +125,14 @@ $tokens: (
   'material.rim': inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 0 0 1px rgba(255, 255, 255, 0.45),
   'scrim.bg': rgba(20, 24, 28, 0.18),
   'scrim.blur': 6px,
+  'avatar.violet.bg': #ede9fe,
+  'avatar.violet.fg': #5b21b6,
+  'avatar.teal.bg': #d5f5f0,
+  'avatar.teal.fg': #0f5e57,
+  'avatar.plum.bg': #f7e3f5,
+  'avatar.plum.fg': #86198f,
+  'avatar.olive.bg': #eef3d6,
+  'avatar.olive.fg': #4d5b12,
 );
 
 @function var($path) {

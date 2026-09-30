@@ -13,6 +13,10 @@ import { useState } from 'react';
  */
 export type AvatarSize = Size;
 
+/** The four person colours. None is a status colour, so none reads as one. */
+export type AvatarTone = 'violet' | 'teal' | 'plum' | 'olive';
+const tones: AvatarTone[] = ['violet', 'teal', 'plum', 'olive'];
+
 export type AvatarProps = {
   /** Full name. Used for initials and for the accessible name. */
   name: string;
@@ -20,6 +24,12 @@ export type AvatarProps = {
   size?: AvatarSize;
   /** True when the name is already visible next to the avatar. */
   decorative?: boolean;
+  /**
+   * `auto`, the default, picks the person's colour from their name, so the
+   * same person has the same colour on every screen. `neutral` is the grey
+   * disc, for a list where colour would be noise. Colour is never a status.
+   */
+  tone?: 'auto' | 'neutral' | AvatarTone;
 };
 
 /** Two initials at most: more is unreadable at 24px and wrong more often. */
@@ -30,13 +40,28 @@ function initials(name: string) {
   return (parts[0]![0]! + parts[parts.length - 1]![0]!).toUpperCase();
 }
 
-export function Avatar({ name, src, size = 'md', decorative = false }: AvatarProps) {
+/**
+ * A stable colour from a name: the same string always lands on the same tone,
+ * independent of where or in which order it renders. FNV-1a, because it is
+ * short and spreads short strings well enough for four buckets.
+ */
+export function avatarTone(name: string): AvatarTone {
+  let hash = 0x811c9dc5;
+  for (const char of name.trim().toLowerCase()) {
+    hash ^= char.codePointAt(0)!;
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return tones[(hash >>> 0) % tones.length]!;
+}
+
+export function Avatar({ name, src, size = 'md', decorative = false, tone = 'auto' }: AvatarProps) {
   const [failed, setFailed] = useState(false);
   const showImage = Boolean(src) && !failed;
+  const resolved = tone === 'auto' ? avatarTone(name) : tone;
 
   return (
     <span
-      className={`bh-avatar bh-avatar--${size}`}
+      className={`bh-avatar bh-avatar--${size}${resolved === 'neutral' ? '' : ` bh-avatar--${resolved}`}`}
       role={decorative ? undefined : 'img'}
       aria-label={decorative ? undefined : name}
       aria-hidden={decorative || undefined}

@@ -57,6 +57,26 @@ export const Default: Story = {
   },
 };
 
+/** Icons only, for a rail of a few destinations whose glyphs cannot be mistaken. */
+export const IconsOnly: Story = {
+  render: function Render() {
+    const [current, setCurrent] = useState('invoices');
+
+    return (
+      <div style={frame}>
+        <NavRail
+          items={items}
+          footerItems={footerItems}
+          activeId={current}
+          onSelect={setCurrent}
+          showLabels={false}
+          ariaLabel="Primary"
+        />
+      </div>
+    );
+  },
+};
+
 export const WithLabels: Story = {
   name: 'Captions on',
   render: function Render() {
