@@ -3,7 +3,10 @@
   "name": "UserProfile",
   "layer": "control",
   "purpose": "Who is signed in, and the account actions. Name as text, not only as initials.",
-  "notFor": ["Showing another person — that is Avatar", "App navigation"],
+  "notFor": [
+    "Showing another person — that is Avatar",
+    "App navigation"
+  ],
   "composition": "leaf",
   "anatomy": [
     {
@@ -53,7 +56,10 @@
       "content": "TODO"
     }
   },
-  "states": ["default", "hover"],
+  "states": [
+    "default",
+    "hover"
+  ],
   "keyboard": {},
   "aria": {
     "role": "TODO"

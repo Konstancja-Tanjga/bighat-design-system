@@ -54,7 +54,13 @@
       "content": "TODO"
     }
   },
-  "states": ["default", "hover", "selected", "disabled", "empty"],
+  "states": [
+    "default",
+    "hover",
+    "selected",
+    "disabled",
+    "empty"
+  ],
   "keyboard": {
     "ArrowDown": "TODO",
     "ArrowUp": "TODO",

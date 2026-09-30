@@ -82,7 +82,10 @@
       "default": "No matches"
     }
   },
-  "states": ["default", "selected"],
+  "states": [
+    "default",
+    "selected"
+  ],
   "keyboard": {
     "ArrowDown": "TODO",
     "ArrowUp": "TODO",

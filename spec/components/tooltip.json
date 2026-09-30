@@ -30,7 +30,10 @@
     },
     "placement": {
       "kind": "enum",
-      "values": ["top", "bottom"],
+      "values": [
+        "top",
+        "bottom"
+      ],
       "default": "top"
     },
     "delay": {
@@ -39,7 +42,9 @@
       "note": "Hover only. Focus shows it immediately."
     }
   },
-  "states": ["default"],
+  "states": [
+    "default"
+  ],
   "keyboard": {
     "Escape": "TODO"
   },
@@ -48,7 +53,9 @@
     "labelling": null,
     "focus": null,
     "announcements": null,
-    "wcag": ["1.4.13"]
+    "wcag": [
+      "1.4.13"
+    ]
   },
   "implementations": {
     "version": "3.2.0",

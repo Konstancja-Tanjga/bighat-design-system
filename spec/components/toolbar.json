@@ -3,7 +3,10 @@
   "name": "Toolbar",
   "layer": "frame",
   "purpose": "A row of controls acting on the content below it. One tab stop, arrows between controls.",
-  "notFor": ["Page-level navigation — that is AppBar", "A single button"],
+  "notFor": [
+    "Page-level navigation — that is AppBar",
+    "A single button"
+  ],
   "composition": "composite",
   "anatomy": [
     {
@@ -36,7 +39,10 @@
     },
     "orientation": {
       "kind": "enum",
-      "values": ["horizontal", "vertical"],
+      "values": [
+        "horizontal",
+        "vertical"
+      ],
       "default": "horizontal"
     },
     "flush": {
@@ -44,7 +50,9 @@
       "default": false
     }
   },
-  "states": ["default"],
+  "states": [
+    "default"
+  ],
   "keyboard": {
     "Home": "TODO",
     "End": "TODO",

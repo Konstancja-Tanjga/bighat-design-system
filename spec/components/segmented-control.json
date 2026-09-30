@@ -3,7 +3,10 @@
   "name": "SegmentedControl",
   "layer": "control",
   "purpose": "Two to five mutually exclusive options, all visible. A radio group that looks like buttons.",
-  "notFor": ["More than five options", "A filter with a cleared state"],
+  "notFor": [
+    "More than five options",
+    "A filter with a cleared state"
+  ],
   "composition": "composite",
   "anatomy": [
     {
@@ -53,11 +56,18 @@
     },
     "size": {
       "kind": "size",
-      "values": ["sm", "md"],
+      "values": [
+        "sm",
+        "md"
+      ],
       "default": "md"
     }
   },
-  "states": ["default", "focus-visible", "disabled"],
+  "states": [
+    "default",
+    "focus-visible",
+    "disabled"
+  ],
   "keyboard": {
     "Arrow keys": "Moves between options in the group. Native.",
     "Space": "Selects. Native."

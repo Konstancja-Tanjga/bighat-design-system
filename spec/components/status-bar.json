@@ -3,7 +3,10 @@
   "name": "StatusBar",
   "layer": "frame",
   "purpose": "The thin bar at the bottom of an application. Its message slot is a polite live region.",
-  "notFor": ["Anything urgent — that is Toast", "Actions — that is Toolbar"],
+  "notFor": [
+    "Anything urgent — that is Toast",
+    "Actions — that is Toolbar"
+  ],
   "composition": "composite",
   "anatomy": [
     {
@@ -54,7 +57,9 @@
       "default": "Status"
     }
   },
-  "states": ["default"],
+  "states": [
+    "default"
+  ],
   "keyboard": {},
   "aria": {
     "role": "contentinfo",

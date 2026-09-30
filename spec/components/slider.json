@@ -67,7 +67,10 @@
       "note": "Becomes aria-valuetext — '24' alone means nothing."
     }
   },
-  "states": ["default", "disabled"],
+  "states": [
+    "default",
+    "disabled"
+  ],
   "keyboard": {},
   "aria": {
     "role": "slider (implicit, from <input[type=range]>)",

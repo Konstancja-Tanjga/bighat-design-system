@@ -106,7 +106,9 @@
       "react": "footer?: ReactNode"
     }
   },
-  "states": ["default"],
+  "states": [
+    "default"
+  ],
   "keyboard": {
     "Enter": "On a table of contents entry, moves to that heading. Native link."
   },

@@ -58,7 +58,10 @@
     },
     "variant": {
       "kind": "enum",
-      "values": ["plain", "inset"],
+      "values": [
+        "plain",
+        "inset"
+      ],
       "default": "plain",
       "note": "inset is a grouped list on its own raised surface, like a Card. Not inside a panel or a card."
     },
@@ -80,7 +83,10 @@
       "content": "TODO"
     }
   },
-  "states": ["default", "hover"],
+  "states": [
+    "default",
+    "hover"
+  ],
   "keyboard": {
     "Enter": "Follows the link. Native."
   },

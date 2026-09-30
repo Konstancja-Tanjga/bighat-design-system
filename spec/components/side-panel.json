@@ -3,7 +3,10 @@
   "name": "SidePanel",
   "layer": "frame",
   "purpose": "A persistent panel beside the main content.",
-  "notFor": ["Anything blocking — use Dialog", "Transient drawers"],
+  "notFor": [
+    "Anything blocking — use Dialog",
+    "Transient drawers"
+  ],
   "composition": "composite",
   "anatomy": [
     {
@@ -42,7 +45,10 @@
     },
     "side": {
       "kind": "enum",
-      "values": ["start", "end"],
+      "values": [
+        "start",
+        "end"
+      ],
       "default": "start"
     },
     "title": {
@@ -75,7 +81,10 @@
       "kind": "event"
     }
   },
-  "states": ["default", "hover"],
+  "states": [
+    "default",
+    "hover"
+  ],
   "keyboard": {},
   "aria": {
     "role": "button (implicit, from <button[type=button]>)",

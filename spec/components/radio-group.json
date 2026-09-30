@@ -71,14 +71,21 @@
     },
     "orientation": {
       "kind": "enum",
-      "values": ["vertical", "horizontal"],
+      "values": [
+        "vertical",
+        "horizontal"
+      ],
       "default": "vertical"
     },
     "error": {
       "kind": "string"
     }
   },
-  "states": ["default", "focus-visible", "disabled"],
+  "states": [
+    "default",
+    "focus-visible",
+    "disabled"
+  ],
   "keyboard": {
     "Arrow keys": "Moves between options in the group. Native.",
     "Space": "Selects. Native."

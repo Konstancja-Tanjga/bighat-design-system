@@ -1,7 +1,9 @@
 {
   "$schema": "../schema.json",
   "name": "Dialog",
-  "aliases": ["Modal"],
+  "aliases": [
+    "Modal"
+  ],
   "layer": "feedback",
   "purpose": "A decision or a short task that must finish before the page continues.",
   "notFor": [
@@ -61,7 +63,11 @@
     },
     "size": {
       "kind": "size",
-      "values": ["sm", "md", "lg"],
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "default": "md"
     },
     "children": {
@@ -82,7 +88,10 @@
       "note": "When false, Escape and the backdrop stop closing it, but the close button stays \u2014 removing every exit is never correct."
     }
   },
-  "states": ["default", "loading"],
+  "states": [
+    "default",
+    "loading"
+  ],
   "keyboard": {
     "Escape": "Closes, unless dismissible is false. Native to <dialog>, cancellable.",
     "Tab": "Cycles inside the dialog only. Native.",
@@ -97,7 +106,12 @@
     "labelling": "From the title. Required.",
     "focus": "On open, focus moves to the first focusable element in the body, or the dialog itself if there is none \u2014 never to the close button, which invites accidental dismissal. On close, focus returns to the element that opened it; the opener is captured on open, not assumed to still be document.activeElement.",
     "announcements": "None. The dialog's own role announces it; a live region on top of that double-announces.",
-    "wcag": ["2.1.2", "2.4.3", "2.4.7", "4.1.2"]
+    "wcag": [
+      "2.1.2",
+      "2.4.3",
+      "2.4.7",
+      "4.1.2"
+    ]
   },
   "tokensUsed": [
     "text.primary",

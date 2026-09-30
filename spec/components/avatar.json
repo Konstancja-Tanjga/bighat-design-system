@@ -3,7 +3,10 @@
   "name": "Avatar",
   "layer": "control",
   "purpose": "A person, as a picture with a name behind it.",
-  "notFor": ["A logo", "Carrying status on its own"],
+  "notFor": [
+    "A logo",
+    "Carrying status on its own"
+  ],
   "composition": "leaf",
   "anatomy": [
     {
@@ -30,7 +33,11 @@
     },
     "size": {
       "kind": "size",
-      "values": ["sm", "md", "lg"],
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "default": "md"
     },
     "decorative": {
@@ -40,7 +47,14 @@
     },
     "tone": {
       "kind": "enum",
-      "values": ["auto", "neutral", "violet", "teal", "plum", "olive"],
+      "values": [
+        "auto",
+        "neutral",
+        "violet",
+        "teal",
+        "plum",
+        "olive"
+      ],
       "default": "auto",
       "note": "auto picks the person's colour from the name, stable across screens. Never a status colour."
     },
@@ -52,7 +66,9 @@
       "default": 4
     }
   },
-  "states": ["default"],
+  "states": [
+    "default"
+  ],
   "keyboard": {},
   "aria": {
     "role": "group",

@@ -3,7 +3,9 @@
   "name": "Board",
   "layer": "frame",
   "purpose": "Columns of cards — kanban, pipeline, review queue.",
-  "notFor": ["Ordered data the user compares — that is Table"],
+  "notFor": [
+    "Ordered data the user compares — that is Table"
+  ],
   "composition": "composite",
   "anatomy": [
     {
@@ -92,7 +94,10 @@
       "note": "Required for a pointer-free move — WCAG 2.5.1."
     }
   },
-  "states": ["default", "hover"],
+  "states": [
+    "default",
+    "hover"
+  ],
   "keyboard": {
     "Enter / Space": "On the move button, opens the menu on the first destination.",
     "Arrow keys": "Move between destinations. Nothing moves yet.",

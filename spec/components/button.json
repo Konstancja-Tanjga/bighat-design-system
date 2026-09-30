@@ -1,7 +1,9 @@
 {
   "$schema": "../schema.json",
   "name": "Button",
-  "aliases": ["CTA"],
+  "aliases": [
+    "CTA"
+  ],
   "layer": "control",
   "purpose": "An action the user takes.",
   "notFor": [
@@ -37,20 +39,31 @@
   "props": {
     "variant": {
       "kind": "variant",
-      "values": ["primary", "secondary", "ghost"],
+      "values": [
+        "primary",
+        "secondary",
+        "ghost"
+      ],
       "default": "primary",
       "meaning": "how much visual weight it carries"
     },
     "tone": {
       "kind": "tone",
-      "values": ["neutral", "critical"],
+      "values": [
+        "neutral",
+        "critical"
+      ],
       "default": "neutral",
       "meaning": "what happens if you press it",
       "note": "Renamed from 'default' in 4.0 so that every tone axis in the system shares one vocabulary."
     },
     "size": {
       "kind": "size",
-      "values": ["sm", "md", "lg"],
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "default": "md"
     },
     "loading": {
@@ -88,7 +101,14 @@
       "react": "children: ReactNode"
     }
   },
-  "states": ["default", "hover", "focus-visible", "active", "disabled", "loading"],
+  "states": [
+    "default",
+    "hover",
+    "focus-visible",
+    "active",
+    "disabled",
+    "loading"
+  ],
   "keyboard": {
     "Enter": "Activates. Native.",
     "Space": "Activates on keyup. Native.",
@@ -103,7 +123,13 @@
     "labelling": "From the label slot. Required; there is no aria-label prop, because a prop invites an icon-only button.",
     "focus": "Visible ring from border.focus at 3:1 against both surface.base and surface.raised. Never removed on :focus-visible.",
     "announcements": "loadingLabel is announced when loading becomes true; the label itself does not change.",
-    "wcag": ["1.4.11", "2.1.1", "2.4.7", "2.5.5", "4.1.2"]
+    "wcag": [
+      "1.4.11",
+      "2.1.1",
+      "2.4.7",
+      "2.5.5",
+      "4.1.2"
+    ]
   },
   "tokensUsed": [
     "action.primary.bg",
