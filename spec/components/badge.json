@@ -3,10 +3,7 @@
   "name": "Badge",
   "layer": "feedback",
   "purpose": "Short status attached to an object.",
-  "notFor": [
-    "Bare counts",
-    "Anything clickable"
-  ],
+  "notFor": ["Bare counts", "Anything clickable"],
   "composition": "leaf",
   "anatomy": [
     {
@@ -21,13 +18,7 @@
   "props": {
     "tone": {
       "kind": "tone",
-      "values": [
-        "neutral",
-        "info",
-        "success",
-        "warning",
-        "critical"
-      ],
+      "values": ["neutral", "info", "success", "warning", "critical"],
       "default": "neutral"
     },
     "dot": {
@@ -41,9 +32,7 @@
       "content": "TODO"
     }
   },
-  "states": [
-    "default"
-  ],
+  "states": ["default"],
   "keyboard": {},
   "aria": {
     "role": "TODO"

@@ -105,8 +105,8 @@
       "aria-label": "ariaLabel",
       "aria-hidden": "true"
     },
-    "labelling": null,
-    "focus": null,
+    "labelling": "The move button is named \"Move to… {title}\", starting with its visible text (WCAG 2.5.3); the menu it opens is named \"Move “{title}” to\".",
+    "focus": "The move menu takes focus on open and returns it to the move button on Escape or choice. When the product re-renders the card in its new column the button is removed and focus drops; the announcement says where the card went.",
     "announcements": null
   },
   "implementations": {

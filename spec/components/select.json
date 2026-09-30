@@ -3,11 +3,7 @@
   "name": "Select",
   "layer": "control",
   "purpose": "Choosing one value from a short, known list. Native element underneath.",
-  "notFor": [
-    "Search",
-    "Multi-select",
-    "Async or very long option lists"
-  ],
+  "notFor": ["Search", "Multi-select", "Async or very long option lists"],
   "composition": "leaf",
   "anatomy": [
     {
@@ -63,9 +59,7 @@
       "kind": "string"
     }
   },
-  "states": [
-    "default"
-  ],
+  "states": ["default"],
   "keyboard": {
     "Arrow keys": "Moves between options. Native.",
     "Enter": "Commits. Native."
@@ -80,13 +74,7 @@
     "labelling": "From the associated <label>, which is required. There is no aria-label prop: a select whose name lives in an attribute is a select nobody can point voice control at (WCAG 2.5.3).",
     "focus": "Ring on the wrapper, driven from :focus-visible on the native select via a sibling selector, so it cannot desynchronise from real focus.",
     "announcements": "None. The native select announces its own expanded state and option count; a live region on top of that double-announces. An error is read from aria-describedby on focus, not announced when it appears.",
-    "wcag": [
-      "1.3.1",
-      "2.5.3",
-      "3.3.1",
-      "3.3.2",
-      "4.1.2"
-    ]
+    "wcag": ["1.3.1", "2.5.3", "3.3.1", "3.3.2", "4.1.2"]
   },
   "implementations": {
     "version": "3.2.0",

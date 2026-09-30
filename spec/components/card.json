@@ -3,10 +3,7 @@
   "name": "Card",
   "layer": "frame",
   "purpose": "A bounded surface around content the user might act on as a unit.",
-  "notFor": [
-    "A paragraph — that is a border with extra steps",
-    "Cards with two actions inside"
-  ],
+  "notFor": ["A paragraph — that is a border with extra steps", "Cards with two actions inside"],
   "composition": "composite",
   "anatomy": [
     {
@@ -40,30 +37,18 @@
     },
     "elevation": {
       "kind": "enum",
-      "values": [
-        "flat",
-        "raised"
-      ],
+      "values": ["flat", "raised"],
       "default": "raised"
     },
     "accent": {
       "kind": "enum",
-      "values": [
-        "none",
-        "info",
-        "success",
-        "warning",
-        "critical"
-      ],
+      "values": ["none", "info", "success", "warning", "critical"],
       "default": "none",
       "note": "Decorative — never the only carrier of a status. An accented card takes section padding on its leading side to make room for the bar."
     },
     "padding": {
       "kind": "enum",
-      "values": [
-        "snug",
-        "normal"
-      ],
+      "values": ["snug", "normal"],
       "default": "normal"
     },
     "dragging": {
@@ -77,10 +62,7 @@
       "react": "actions?: ReactNode (never with onClick)"
     }
   },
-  "states": [
-    "default",
-    "hover"
-  ],
+  "states": ["default", "hover"],
   "keyboard": {},
   "aria": {
     "role": "TODO"

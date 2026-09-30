@@ -3,9 +3,7 @@
   "name": "NavList",
   "layer": "frame",
   "purpose": "Grouped list inside a side panel — saved views, recent items, a shallow tree.",
-  "notFor": [
-    "Tabular data — use Table"
-  ],
+  "notFor": ["Tabular data — use Table"],
   "composition": "composite",
   "anatomy": [
     {
@@ -67,10 +65,7 @@
       "note": "On NavList."
     }
   },
-  "states": [
-    "default",
-    "hover"
-  ],
+  "states": ["default", "hover"],
   "keyboard": {},
   "aria": {
     "role": "list (implicit, from <ul>)",

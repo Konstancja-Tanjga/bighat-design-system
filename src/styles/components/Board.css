@@ -121,8 +121,9 @@
 }
 
 /* The Menu trigger, a size down: a card's own action should not outweigh the
-   record it belongs to. */
-.bh-board__move-trigger {
+   record it belongs to. Scoped under the card so it outranks Menu.css, which
+   loads later. */
+.bh-board__move .bh-board__move-trigger {
   height: var(--bh-control-sm);
   font-size: var(--bh-text-size-body);
 }

@@ -3,10 +3,7 @@
   "name": "DatePicker",
   "layer": "control",
   "purpose": "A native date input, with the format and range stated in the description.",
-  "notFor": [
-    "A custom calendar grid",
-    "A duration — that is two fields"
-  ],
+  "notFor": ["A custom calendar grid", "A duration — that is two fields"],
   "composition": "leaf",
   "anatomy": [
     {
@@ -55,12 +52,7 @@
     },
     "granularity": {
       "kind": "enum",
-      "values": [
-        "date",
-        "month",
-        "week",
-        "datetime-local"
-      ],
+      "values": ["date", "month", "week", "datetime-local"],
       "default": "date"
     },
     "min": {
@@ -77,9 +69,7 @@
       "kind": "string"
     }
   },
-  "states": [
-    "default"
-  ],
+  "states": ["default"],
   "keyboard": {},
   "aria": {
     "role": "TODO"

@@ -1,6 +1,6 @@
 import type { MenuItemTone } from '../../tokens/vocabulary';
 
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 
 /**
  * A list of actions behind a trigger.
@@ -48,6 +48,7 @@ export function Menu({ label, items, align = 'start', renderTrigger }: MenuProps
   const menuId = useId();
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [up, setUp] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -68,6 +69,31 @@ export function Menu({ label, items, align = 'start', renderTrigger }: MenuProps
     };
     document.addEventListener('pointerdown', onPointerDown);
     return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, [open]);
+
+  // The list is positioned inside its trigger's box, so a scrolling ancestor
+  // (a board's columns, a table's wrapper) clips it. Open upward when there is
+  // no room below and there is above; measured before paint, so it never jumps.
+  useLayoutEffect(() => {
+    if (!open) {
+      setUp(false);
+      return;
+    }
+    const list = menuRef.current;
+    const trigger = triggerRef.current;
+    if (!list || !trigger) return;
+    let top = 0;
+    let bottom = window.innerHeight;
+    for (let el = trigger.parentElement; el; el = el.parentElement) {
+      if (getComputedStyle(el).overflowY !== 'visible') {
+        const rect = el.getBoundingClientRect();
+        top = Math.max(top, rect.top);
+        bottom = Math.min(bottom, rect.bottom);
+      }
+    }
+    const box = trigger.getBoundingClientRect();
+    const height = list.offsetHeight + 4;
+    setUp(box.bottom + height > bottom && box.top - height >= top);
   }, [open]);
 
   useEffect(() => {
@@ -125,7 +151,7 @@ export function Menu({ label, items, align = 'start', renderTrigger }: MenuProps
         role="menu"
         aria-label={typeof label === 'string' ? label : undefined}
         hidden={!open}
-        className={`bh-menu__list bh-menu__list--${align}`}
+        className={`bh-menu__list bh-menu__list--${align}${up ? ' bh-menu__list--up' : ''}`}
         onKeyDown={(event) => {
           if (event.key === 'Escape') {
             event.preventDefault();

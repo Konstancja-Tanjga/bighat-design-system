@@ -3,9 +3,7 @@
   "name": "Table",
   "layer": "data",
   "purpose": "Dense enterprise data. Sort and paging are controlled, empty/loading/error delegate to StateBlock, and the narrow form is declared rather than guessed.",
-  "notFor": [
-    "Layout"
-  ],
+  "notFor": ["Layout"],
   "composition": "composite",
   "anatomy": [
     {
@@ -77,10 +75,7 @@
     },
     "sort": {
       "kind": "enum",
-      "values": [
-        "{ key: string; direction: ascending",
-        "descending }"
-      ],
+      "values": ["{ key: string; direction: ascending", "descending }"],
       "note": "Controlled — the same component works with server-side sorting."
     },
     "onSortChange": {
@@ -92,11 +87,7 @@
     },
     "responsive": {
       "kind": "enum",
-      "values": [
-        "scroll",
-        "stack",
-        "priority"
-      ],
+      "values": ["scroll", "stack", "priority"],
       "default": "scroll",
       "note": "scroll keeps the grid and scrolls the container — right when the reader is comparing across columns. stack turns each row into term/value pairs via DescriptionList — right at six columns or fewer. priority moves low-priority columns into a per-row disclosure — right for a wide table with one identifying column. Queries are @container, so it responds to its own width and works in a SidePanel."
     },
@@ -115,10 +106,7 @@
     },
     "density": {
       "kind": "density",
-      "values": [
-        "comfortable",
-        "compact"
-      ],
+      "values": ["comfortable", "compact"],
       "default": "comfortable"
     },
     "totals": {
@@ -126,10 +114,7 @@
       "note": "Rendered in <tfoot>, so a sort cannot move it into the data."
     }
   },
-  "states": [
-    "default",
-    "hover"
-  ],
+  "states": ["default", "hover"],
   "keyboard": {},
   "aria": {
     "role": "table (implicit, from <table>)",
@@ -141,11 +126,7 @@
     "labelling": "From <caption>, which is optional but strongly preferred — an uncaptioned table in a page of tables is unidentifiable in a screen reader’s table list.",
     "focus": "The table itself is not focusable. Sortable headers are buttons and are in the tab order; rows are not, unless rowActivated is bound, in which case the row needs its own focusable trigger rather than a click handler on the <tr>.",
     "announcements": "aria-sort on the sorted header. The row count is exposed via aria-rowcount rather than announced. Empty, loading and error states delegate to StateBlock inside a full-width cell, and inherit its policy.",
-    "wcag": [
-      "1.3.1",
-      "1.4.10",
-      "2.4.7"
-    ]
+    "wcag": ["1.3.1", "1.4.10", "2.4.7"]
   },
   "implementations": {
     "version": "3.2.0",

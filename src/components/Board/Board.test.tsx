@@ -70,6 +70,32 @@ describe('Board', () => {
 
     await userEvent.keyboard('{Enter}');
     expect(onMove).toHaveBeenCalledTimes(1);
+    expect(onMove).toHaveBeenCalledWith('done');
+  });
+
+  it('backs out on Escape without moving, and returns to the button', async () => {
+    const onMove = vi.fn();
+    render(
+      <Board ariaLabel="Board">
+        <BoardColumn title="Inbox" count={1}>
+          <BoardCard
+            title="Scan"
+            moveTargets={[{ id: 'review', label: 'In review' }]}
+            onMove={onMove}
+          >
+            Scan
+          </BoardCard>
+        </BoardColumn>
+      </Board>,
+    );
+
+    const trigger = screen.getByRole('button', { name: 'Move to… Scan' });
+    await userEvent.click(trigger);
+    await userEvent.keyboard('{Escape}');
+
+    expect(onMove).not.toHaveBeenCalled();
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
   });
 
   it('announces a move through a live region', () => {

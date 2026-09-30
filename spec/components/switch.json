@@ -3,9 +3,7 @@
   "name": "Switch",
   "layer": "control",
   "purpose": "An immediate setting. Takes effect on click, with no Save button.",
-  "notFor": [
-    "A value submitted with a form — that is Checkbox"
-  ],
+  "notFor": ["A value submitted with a form — that is Checkbox"],
   "composition": "composite",
   "anatomy": [
     {
@@ -55,17 +53,11 @@
     },
     "labelPosition": {
       "kind": "enum",
-      "values": [
-        "start",
-        "end"
-      ],
+      "values": ["start", "end"],
       "default": "end"
     }
   },
-  "states": [
-    "default",
-    "disabled"
-  ],
+  "states": ["default", "disabled"],
   "keyboard": {},
   "aria": {
     "role": "switch",

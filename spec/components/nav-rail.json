@@ -3,9 +3,7 @@
   "name": "NavRail",
   "layer": "frame",
   "purpose": "Narrow icon navigation rail.",
-  "notFor": [
-    "Destinations whose meaning needs more than two words"
-  ],
+  "notFor": ["Destinations whose meaning needs more than two words"],
   "composition": "composite",
   "anatomy": [
     {
@@ -59,10 +57,7 @@
       "note": "Names the landmark."
     }
   },
-  "states": [
-    "default",
-    "hover"
-  ],
+  "states": ["default", "hover"],
   "keyboard": {},
   "aria": {
     "role": "button (implicit, from <button[type=button]>)",

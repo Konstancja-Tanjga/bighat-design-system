@@ -3,10 +3,7 @@
   "name": "Breadcrumbs",
   "layer": "frame",
   "purpose": "Position in a hierarchy. The last crumb is the current page and is not a link.",
-  "notFor": [
-    "Click history",
-    "A two-level hierarchy — a back link is enough"
-  ],
+  "notFor": ["Click history", "A two-level hierarchy — a back link is enough"],
   "composition": "composite",
   "anatomy": [
     {
@@ -54,9 +51,7 @@
       "note": "Beyond this the middle collapses; root and leaf always show."
     }
   },
-  "states": [
-    "default"
-  ],
+  "states": ["default"],
   "keyboard": {
     "Enter": "Follows the link, or on the ellipsis button reveals the collapsed levels and moves focus to the first. Native."
   },

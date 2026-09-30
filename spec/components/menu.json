@@ -3,10 +3,7 @@
   "name": "Menu",
   "layer": "control",
   "purpose": "A list of actions behind a trigger. Focus moves in on open and back on close.",
-  "notFor": [
-    "Navigation \u2014 those are links",
-    "Choosing a value \u2014 that is Select"
-  ],
+  "notFor": ["Navigation — those are links", "Choosing a value — that is Select"],
   "composition": "composite",
   "anatomy": [
     {
@@ -20,7 +17,8 @@
     {
       "part": "bh-menu__list",
       "element": "div",
-      "required": false
+      "required": false,
+      "note": "Opens below the trigger, or above it (bh-menu__list--up) when a scrolling ancestor or the viewport leaves no room below."
     },
     {
       "part": "bh-menu__item",
@@ -43,10 +41,7 @@
     },
     "align": {
       "kind": "enum",
-      "values": [
-        "start",
-        "end"
-      ],
+      "values": ["start", "end"],
       "default": "start"
     },
     "renderTrigger": {
@@ -54,12 +49,7 @@
       "note": "For an icon button or an avatar trigger."
     }
   },
-  "states": [
-    "default",
-    "hover",
-    "focus-visible",
-    "disabled"
-  ],
+  "states": ["default", "hover", "focus-visible", "disabled"],
   "keyboard": {
     "ArrowDown": "TODO",
     "Enter": "TODO",

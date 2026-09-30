@@ -3,10 +3,7 @@
   "name": "Progress",
   "layer": "feedback",
   "purpose": "How far along something is. Determinate or honestly indeterminate.",
-  "notFor": [
-    "A fake bar that waits at 90%",
-    "A skeleton's job — an unknown layout"
-  ],
+  "notFor": ["A fake bar that waits at 90%", "A skeleton's job — an unknown layout"],
   "composition": "composite",
   "anatomy": [
     {
@@ -55,11 +52,7 @@
     },
     "tone": {
       "kind": "tone",
-      "values": [
-        "neutral",
-        "success",
-        "critical"
-      ],
+      "values": ["neutral", "success", "critical"],
       "default": "neutral",
       "note": "Renamed from \"default\" in 4.0. Button and Progress were the only two components whose tone scale started somewhere other than neutral, and they disagreed with each other about which values existed."
     },
@@ -68,10 +61,7 @@
       "default": false
     }
   },
-  "states": [
-    "default",
-    "indeterminate"
-  ],
+  "states": ["default", "indeterminate"],
   "keyboard": {},
   "aria": {
     "role": "progressbar",
@@ -85,9 +75,7 @@
     "labelling": null,
     "focus": null,
     "announcements": null,
-    "wcag": [
-      "1.4.1"
-    ]
+    "wcag": ["1.4.1"]
   },
   "implementations": {
     "version": "3.2.0",

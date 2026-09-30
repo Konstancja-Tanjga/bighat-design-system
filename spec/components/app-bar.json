@@ -3,9 +3,7 @@
   "name": "AppBar",
   "layer": "frame",
   "purpose": "The top bar. Three slots in reading order: brand, title, actions.",
-  "notFor": [
-    "Repeating the product name in title \u2014 brand already carries it"
-  ],
+  "notFor": ["Repeating the product name in title \u2014 brand already carries it"],
   "composition": "composite",
   "anatomy": [
     {
@@ -56,9 +54,7 @@
       "content": "TODO"
     }
   },
-  "states": [
-    "default"
-  ],
+  "states": ["default"],
   "keyboard": {},
   "aria": {
     "role": "TODO"

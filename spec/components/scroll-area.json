@@ -3,10 +3,7 @@
   "name": "ScrollArea",
   "layer": "control",
   "purpose": "A scrollable region that is reachable by keyboard and keeps the platform scrollbar.",
-  "notFor": [
-    "Replacing the scrollbar with divs",
-    "A region that never overflows"
-  ],
+  "notFor": ["Replacing the scrollbar with divs", "A region that never overflows"],
   "composition": "composite",
   "anatomy": [
     {
@@ -26,11 +23,7 @@
     },
     "axis": {
       "kind": "enum",
-      "values": [
-        "vertical",
-        "horizontal",
-        "both"
-      ],
+      "values": ["vertical", "horizontal", "both"],
       "default": "vertical"
     },
     "fade": {
@@ -38,10 +31,7 @@
       "default": true
     }
   },
-  "states": [
-    "default",
-    "hover"
-  ],
+  "states": ["default", "hover"],
   "keyboard": {},
   "aria": {
     "role": "group",
@@ -56,10 +46,6 @@
     "version": "3.2.0",
     "status": "react-only"
   },
-  "tokensUsed": [
-    "border.strong",
-    "radius.pill",
-    "text.muted"
-  ],
+  "tokensUsed": ["border.strong", "radius.pill", "text.muted"],
   "interactive": true
 }

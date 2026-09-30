@@ -3,9 +3,7 @@
   "name": "Skeleton",
   "layer": "feedback",
   "purpose": "A placeholder for content whose shape is already known.",
-  "notFor": [
-    "Waits with no known shape — use StateBlock state=\"loading\""
-  ],
+  "notFor": ["Waits with no known shape — use StateBlock state=\"loading\""],
   "composition": "composite",
   "anatomy": [
     {
@@ -25,12 +23,7 @@
     },
     "radius": {
       "kind": "enum",
-      "values": [
-        "control",
-        "field",
-        "surface",
-        "pill"
-      ],
+      "values": ["control", "field", "surface", "pill"],
       "default": "control"
     },
     "animated": {
@@ -43,9 +36,7 @@
       "note": "On SkeletonGroup."
     }
   },
-  "states": [
-    "default"
-  ],
+  "states": ["default"],
   "keyboard": {},
   "aria": {
     "role": "status",

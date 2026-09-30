@@ -3,10 +3,7 @@
   "name": "Tabs",
   "layer": "frame",
   "purpose": "A filter over one screen. Roving tabindex, arrows to move, panel is the next tab stop.",
-  "notFor": [
-    "Content with its own URL — those are links",
-    "More tabs than fit without scrolling"
-  ],
+  "notFor": ["Content with its own URL — those are links", "More tabs than fit without scrolling"],
   "composition": "composite",
   "anatomy": [
     {
@@ -58,12 +55,7 @@
       "kind": "string"
     }
   },
-  "states": [
-    "default",
-    "hover",
-    "selected",
-    "disabled"
-  ],
+  "states": ["default", "hover", "selected", "disabled"],
   "keyboard": {
     "ArrowRight": "TODO",
     "ArrowLeft": "TODO",

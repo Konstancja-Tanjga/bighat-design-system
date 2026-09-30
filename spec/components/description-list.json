@@ -3,10 +3,7 @@
   "name": "DescriptionList",
   "layer": "data",
   "purpose": "Term and value pairs — a record read rather than a form filled. A real <dl>, so a screen reader knows which label owns which value.",
-  "notFor": [
-    "A form — these are values, not inputs",
-    "Two columns of unrelated data"
-  ],
+  "notFor": ["A form — these are values, not inputs", "Two columns of unrelated data"],
   "composition": "composite",
   "anatomy": [
     {
@@ -35,19 +32,13 @@
     },
     "layout": {
       "kind": "enum",
-      "values": [
-        "rows",
-        "columns"
-      ],
+      "values": ["rows", "columns"],
       "default": "columns",
       "note": "rows stacks term above value — right in a narrow panel. columns puts the term in a gutter so values align and can be read down."
     },
     "density": {
       "kind": "density",
-      "values": [
-        "comfortable",
-        "compact"
-      ],
+      "values": ["comfortable", "compact"],
       "default": "comfortable"
     },
     "ariaLabel": {
@@ -55,9 +46,7 @@
       "note": "Makes it a labelled group. Omit inside an already-labelled region — a nameless group is noise."
     }
   },
-  "states": [
-    "default"
-  ],
+  "states": ["default"],
   "keyboard": {},
   "aria": {
     "role": "varies — see announcements",

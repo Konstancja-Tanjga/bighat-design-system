@@ -3,9 +3,7 @@
   "name": "Divider",
   "layer": "control",
   "purpose": "A line between things. Decorative unless it carries a label.",
-  "notFor": [
-    "Spacing — use the gap tokens"
-  ],
+  "notFor": ["Spacing — use the gap tokens"],
   "composition": "leaf",
   "anatomy": [
     {
@@ -16,10 +14,7 @@
   "props": {
     "orientation": {
       "kind": "enum",
-      "values": [
-        "horizontal",
-        "vertical"
-      ],
+      "values": ["horizontal", "vertical"],
       "default": "horizontal"
     },
     "children": {
@@ -29,17 +24,11 @@
     },
     "spacing": {
       "kind": "enum",
-      "values": [
-        "none",
-        "snug",
-        "loose"
-      ],
+      "values": ["none", "snug", "loose"],
       "default": "snug"
     }
   },
-  "states": [
-    "default"
-  ],
+  "states": ["default"],
   "keyboard": {},
   "aria": {
     "role": "separator",

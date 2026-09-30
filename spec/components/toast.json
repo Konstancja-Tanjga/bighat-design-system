@@ -3,9 +3,7 @@
   "name": "Toast",
   "layer": "feedback",
   "purpose": "Ephemeral confirmation that something happened.",
-  "notFor": [
-    "Errors the user must act on in place \u2014 use StateBlock"
-  ],
+  "notFor": ["Errors the user must act on in place \u2014 use StateBlock"],
   "composition": "composite",
   "anatomy": [
     {
@@ -40,12 +38,7 @@
   "props": {
     "tone": {
       "kind": "tone",
-      "values": [
-        "info",
-        "success",
-        "warning",
-        "critical"
-      ],
+      "values": ["info", "success", "warning", "critical"],
       "note": "critical routes to the assertive live region and never auto-dismisses."
     },
     "title": {
@@ -59,10 +52,7 @@
       "default": "5000, or null for critical"
     }
   },
-  "states": [
-    "default",
-    "hover"
-  ],
+  "states": ["default", "hover"],
   "keyboard": {
     "Tab": "Reaches the action, then the dismiss button. The toast itself is not focusable and never takes focus.",
     "Escape": "Dismisses the focused toast. Not a global handler: a page-level Escape would fight every dialog and menu on screen."
@@ -78,11 +68,7 @@
     "labelling": "From the toast title. Required.",
     "focus": "Never steals focus \u2014 a toast that grabs focus interrupts whatever the user was doing, and the thing it interrupts is often the action the toast is about. The dismiss button is reachable by tab.",
     "announcements": "Two live regions, not one with a bound politeness: info and success are polite, warning and critical assertive. A changing aria-live on an existing region is unreliable, since several screen readers only register a region when the node is inserted. Critical has no auto-dismiss, because dismissing an error on a timer is how a user finds out an hour later.",
-    "wcag": [
-      "1.4.13",
-      "2.2.1",
-      "4.1.3"
-    ]
+    "wcag": ["1.4.13", "2.2.1", "4.1.3"]
   },
   "implementations": {
     "version": "3.2.0",
