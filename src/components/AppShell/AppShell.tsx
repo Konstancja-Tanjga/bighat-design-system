@@ -41,26 +41,32 @@ function useOverlay(
     const elements = panels.map((ref) => ref.current).filter((el): el is HTMLDivElement => !!el);
 
     // The first control in the panel, or the panel itself if it has none.
-    const first = elements.map((el) => el.querySelector<HTMLElement>(FOCUSABLE)).find(Boolean);
+    const first = elements
+      .flatMap((el) => Array.from(el.querySelectorAll<HTMLElement>(FOCUSABLE)))
+      .find((el) => !el.closest('[hidden]') && (el as HTMLInputElement).type !== 'hidden');
     const target = first ?? elements[0];
-    if (target && !first) target.tabIndex = -1;
+    const addedTabIndex = !!target && !first && !target.hasAttribute('tabindex');
+    if (addedTabIndex) target.tabIndex = -1;
     target?.focus();
 
     // Set as an attribute so it works on React 18, which does not know the prop.
     const hidden = background.map((ref) => ref.current).filter((el): el is HTMLElement => !!el);
     hidden.forEach((el) => el.setAttribute('inert', ''));
 
+    // Escape is the panel's only when nothing inside has used it: a component
+    // that handles it calls preventDefault, and a modal <dialog> handles it
+    // through its own cancel event, which preventDefault here would suppress.
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && !event.defaultPrevented) {
-        event.preventDefault();
-        closeRef.current?.();
-      }
+      if (event.key !== 'Escape' || event.defaultPrevented || event.isComposing) return;
+      if (document.querySelector('dialog[open]')) return;
+      closeRef.current?.();
     };
     document.addEventListener('keydown', onKeyDown);
 
     return () => {
       document.removeEventListener('keydown', onKeyDown);
       hidden.forEach((el) => el.removeAttribute('inert'));
+      if (addedTabIndex) target.removeAttribute('tabindex');
       // Back to the opener only if focus is still in the panel or was dropped
       // with the scrim; a reader who has moved on is left where they are.
       const current = document.activeElement;
@@ -143,19 +149,20 @@ export function AppShell({
   const asideCollapsible = Boolean(onAsideToggle && aside);
 
   const showNavScrim = navCollapsible && navOpen;
-  const showAsideScrim = asideCollapsible && asideOpen;
-
   const narrow = useMediaQuery(OVERLAY_QUERY);
+  // One overlay at a time. If both are open on a narrow screen the navigation
+  // is shown and the trailing panel waits behind it, undrawn, so there is one
+  // scrim and it closes the panel the reader can see.
+  const showAsideScrim = asideCollapsible && asideOpen && !(narrow && showNavScrim);
+
   const headerRef = useRef<HTMLElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLElement>(null);
   const asideRef = useRef<HTMLDivElement>(null);
 
-  // One overlay at a time: if both are open, the navigation is the one shown
-  // over the content, and the trailing panel is behind it with everything else.
   const navOverlay = narrow && showNavScrim;
-  const asideOverlay = narrow && showAsideScrim && !navOverlay;
+  const asideOverlay = narrow && showAsideScrim;
   useOverlay(navOverlay, [railRef, sidebarRef], [headerRef, mainRef, asideRef], onNavToggle);
   useOverlay(asideOverlay, [asideRef], [headerRef, railRef, sidebarRef, mainRef], onAsideToggle);
 

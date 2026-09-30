@@ -3,7 +3,9 @@
   "name": "AppShell",
   "layer": "frame",
   "purpose": "The frame every application screen sits in. Owns the landmark structure — header, nav, main, complementary.",
-  "notFor": ["Documentation and marketing pages — use height=\"flow\" or no shell at all"],
+  "notFor": [
+    "Documentation and marketing pages — use height=\"flow\" or no shell at all"
+  ],
   "composition": "composite",
   "anatomy": [
     {
@@ -68,7 +70,10 @@
     },
     "height": {
       "kind": "enum",
-      "values": ["fill", "flow"],
+      "values": [
+        "fill",
+        "flow"
+      ],
       "default": "fill",
       "meaning": "fill pins to the viewport and scrolls each region independently"
     },
@@ -89,7 +94,10 @@
       "kind": "event"
     }
   },
-  "states": ["default", "focus-visible"],
+  "states": [
+    "default",
+    "focus-visible"
+  ],
   "keyboard": {
     "Enter": "Follows the link. Native.",
     "Escape": "Closes an overlaid panel through its toggle. Only below breakpoint.md."

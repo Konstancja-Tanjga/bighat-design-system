@@ -1,10 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { AppShell } from './AppShell';
 import { NavRail } from '../NavRail/NavRail';
+import { Combobox } from '../Combobox/Combobox';
+import { Dialog } from '../Dialog/Dialog';
 import { SidePanel } from '../SidePanel/SidePanel';
 
 describe('AppShell', () => {
@@ -61,32 +63,54 @@ describe('AppShell', () => {
 
 describe('AppShell overlay', () => {
   // jsdom has no layout, so the viewport width is whatever matchMedia says.
+  // Keeps its listeners, so a test can cross the breakpoint with a panel open.
+  let listeners: Array<(event: { matches: boolean }) => void> = [];
   function setNarrow(narrow: boolean) {
+    listeners = [];
     vi.stubGlobal('matchMedia', (query: string) => ({
       matches: narrow,
       media: query,
-      addEventListener: () => {},
+      addEventListener: (_: string, fn: (event: { matches: boolean }) => void) =>
+        listeners.push(fn),
       removeEventListener: () => {},
     }));
   }
+  function crossTo(narrow: boolean) {
+    act(() => listeners.forEach((fn) => fn({ matches: narrow })));
+  }
   afterEach(() => vi.unstubAllGlobals());
 
-  function Shell() {
+  function Shell({
+    sidebar = <a href="#q3">Q3 invoices</a>,
+    initialAside = false,
+  }: {
+    sidebar?: React.ReactNode;
+    initialAside?: boolean;
+  }) {
     const [open, setOpen] = useState(false);
+    const [asideOpen, setAsideOpen] = useState(initialAside);
     return (
       <AppShell
         header={
-          <button type="button" onClick={() => setOpen(true)}>
-            Menu
-          </button>
+          <>
+            <button type="button" onClick={() => setOpen(true)}>
+              Menu
+            </button>
+            <button type="button" onClick={() => setAsideOpen(true)}>
+              Details
+            </button>
+          </>
         }
-        sidebar={
-          <SidePanel ariaLabel="Conversations">
-            <a href="#q3">Q3 invoices</a>
+        sidebar={<SidePanel ariaLabel="Conversations">{sidebar}</SidePanel>}
+        aside={
+          <SidePanel ariaLabel="Details" side="end">
+            <button type="button">Pin</button>
           </SidePanel>
         }
         navOpen={open}
         onNavToggle={() => setOpen((value) => !value)}
+        asideOpen={asideOpen}
+        onAsideToggle={() => setAsideOpen((value) => !value)}
       >
         <button type="button">In main</button>
       </AppShell>
@@ -133,6 +157,91 @@ describe('AppShell overlay', () => {
     await userEvent.click(opener);
 
     expect(opener).toHaveFocus();
+    expect(document.querySelector('main')).not.toHaveAttribute('inert');
+    await userEvent.keyboard('{Escape}');
+    expect(screen.getByRole('button', { name: 'Close navigation' })).toBeInTheDocument();
+  });
+
+  it('does the same for the trailing panel', async () => {
+    setNarrow(true);
+    render(<Shell />);
+    const opener = screen.getByRole('button', { name: 'Details' });
+    await userEvent.click(opener);
+
+    expect(screen.getByRole('button', { name: 'Pin' })).toHaveFocus();
+    expect(document.querySelector('.bh-shell__sidebar')).toHaveAttribute('inert');
+    await userEvent.keyboard('{Escape}');
+    expect(opener).toHaveFocus();
+  });
+
+  it('focuses a panel with nothing to focus, and gives its tabindex back', async () => {
+    setNarrow(true);
+    render(<Shell sidebar={<p>No conversations yet</p>} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Menu' }));
+
+    const panel = document.querySelector('.bh-shell__sidebar');
+    expect(panel).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
+    expect(panel).not.toHaveAttribute('tabindex');
+  });
+
+  it('shows one overlay when both are open: the navigation, with one scrim', async () => {
+    setNarrow(true);
+    render(<Shell initialAside />);
+    await userEvent.click(screen.getByRole('button', { name: 'Menu' }));
+
+    expect(screen.getAllByRole('button', { name: /^Close/ })).toHaveLength(1);
+    await userEvent.click(screen.getByRole('button', { name: 'Close navigation' }));
+    expect(screen.getByRole('button', { name: 'Close panel' })).toBeInTheDocument();
+  });
+
+  it('leaves Escape to a combobox inside the panel', async () => {
+    setNarrow(true);
+    render(
+      <Shell
+        sidebar={
+          <Combobox
+            label="Owner"
+            options={[{ value: 'ada', label: 'Ada Lovelace' }]}
+            value={null}
+            onChange={() => {}}
+          />
+        }
+      />,
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Menu' }));
+    await userEvent.type(screen.getByRole('combobox', { name: 'Owner' }), 'a');
+    await userEvent.keyboard('{Escape}');
+
+    expect(screen.getByRole('button', { name: 'Close navigation' })).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}{Escape}');
+    expect(screen.queryByRole('button', { name: 'Close navigation' })).not.toBeInTheDocument();
+  });
+
+  it('leaves Escape to a dialog opened over the panel', async () => {
+    setNarrow(true);
+    render(
+      <Shell
+        sidebar={
+          <Dialog open onClose={() => {}} title="Delete conversation">
+            <p>This cannot be undone.</p>
+          </Dialog>
+        }
+      />,
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Menu' }));
+    await userEvent.keyboard('{Escape}');
+
+    expect(screen.getByRole('button', { name: 'Close navigation' })).toBeInTheDocument();
+  });
+
+  it('lets go when the viewport widens with the panel open', async () => {
+    setNarrow(true);
+    render(<Shell />);
+    await userEvent.click(screen.getByRole('button', { name: 'Menu' }));
+    expect(document.querySelector('main')).toHaveAttribute('inert');
+
+    crossTo(false);
     expect(document.querySelector('main')).not.toHaveAttribute('inert');
     await userEvent.keyboard('{Escape}');
     expect(screen.getByRole('button', { name: 'Close navigation' })).toBeInTheDocument();

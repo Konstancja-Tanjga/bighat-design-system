@@ -76,9 +76,14 @@ until it receives keyboard focus, then moves into view.
 | <kbd>Enter</kbd> / <kbd>Space</kbd> | On the scrim: closes the overlaid panel by calling `onNavToggle` or `onAsideToggle`. Native button. |
 | <kbd>Escape</kbd>                   | While a panel is overlaid: closes it through the same toggle.                                       |
 
-<kbd>Escape</kbd> is handled only while a panel is overlaid, below `breakpoint.md`. A component
-inside the panel that uses Escape itself, such as an open `Menu`, keeps it: the shell ignores a key
-that has already been handled.
+<kbd>Escape</kbd> is handled only while a panel is overlaid, below `breakpoint.md`, and only when
+nothing inside has used it. An open `Menu` or `Combobox` list closes first; so does a `Dialog`
+opened over the panel. The next Escape closes the panel. A component of your own keeps the key the
+same way, by calling `preventDefault()` on it.
+
+If both panels are open on a narrow screen, the navigation is shown and the
+trailing panel waits, undrawn, until it closes. There is one scrim, and it
+closes the panel the reader can see.
 
 ## Accessibility
 
