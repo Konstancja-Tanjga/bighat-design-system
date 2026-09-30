@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 import { StateBlock } from './StateBlock';
@@ -8,8 +9,22 @@ describe('StateBlock', () => {
     render(<StateBlock state="loading" title="Loading invoices" />);
 
     const region = screen.getByRole('status');
-    expect(region).toHaveAttribute('aria-busy', 'true');
+    // No aria-busy: it tells assistive tech to hold announcements back, and
+    // nothing ever cleared it.
+    expect(region).not.toHaveAttribute('aria-busy');
     expect(region).toHaveTextContent('Loading invoices');
+  });
+
+  // A live region is announced for what changes inside it. Mounted with its
+  // words already in it, most screen readers say nothing - so it arrives
+  // empty and fills one render later. The server render is that first mount.
+  it('mounts its live region empty, so the words arrive as a change', () => {
+    const first = renderToStaticMarkup(<StateBlock state="loading" title="Loading invoices" />);
+    expect(first).toContain('role="status"');
+    expect(first).not.toContain('Loading invoices');
+
+    const empty = renderToStaticMarkup(<StateBlock state="empty" title="No invoices yet" />);
+    expect(empty).toContain('No invoices yet');
   });
 
   it('announces errors assertively', () => {

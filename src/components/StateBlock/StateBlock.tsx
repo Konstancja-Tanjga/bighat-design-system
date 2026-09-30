@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import { useAfterMount } from '../liveRegion';
+
 import type { StateBlockScope } from '../../tokens/vocabulary';
 
 /**
@@ -81,14 +83,48 @@ export function StateBlock({
   }
   const resolvedScope = scope ?? density ?? 'section';
   const role = liveRegionRole[state];
+  // Loading and error are live regions, and a region is only announced for
+  // what changes inside it: so it mounts empty and fills one render later. No
+  // aria-busy either - it tells assistive tech to hold announcements back,
+  // and nothing ever cleared it. Empty is not a live region and renders at once.
+  const mounted = useAfterMount();
+  const showContent = role === undefined || mounted;
 
   return (
     <div
       className={`bh-stateblock bh-stateblock--${state} bh-stateblock--${resolvedScope}`}
       role={role}
-      aria-busy={state === 'loading' || undefined}
       data-state={state}
     >
+      {showContent && (
+        <StateBlockContent
+          state={state}
+          title={title}
+          description={description}
+          action={action}
+          secondaryAction={secondaryAction}
+          icon={icon}
+          diagnostics={diagnostics}
+        />
+      )}
+    </div>
+  );
+}
+
+function StateBlockContent({
+  state,
+  title,
+  description,
+  action,
+  secondaryAction,
+  icon,
+  diagnostics,
+}: Pick<
+  StateBlockProps,
+  'state' | 'title' | 'description' | 'action' | 'secondaryAction' | 'icon' | 'diagnostics'
+>) {
+  return (
+    <>
       {state === 'loading' ? (
         <span className="bh-stateblock__spinner" aria-hidden="true" />
       ) : (
@@ -116,6 +152,6 @@ export function StateBlock({
           <div className="bh-stateblock__diagnostics-body">{diagnostics}</div>
         </details>
       )}
-    </div>
+    </>
   );
 }

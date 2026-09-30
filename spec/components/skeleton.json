@@ -50,12 +50,11 @@
   "aria": {
     "role": "status",
     "attributes": {
-      "aria-hidden": "true",
-      "aria-busy": "true"
+      "aria-hidden": "true"
     },
     "labelling": null,
     "focus": null,
-    "announcements": null
+    "announcements": "The live region mounts empty and receives its words one render later, so a screen reader announces them; no aria-busy."
   },
   "implementations": {
     "version": "3.2.0",
