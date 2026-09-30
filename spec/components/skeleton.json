@@ -54,7 +54,7 @@
     },
     "labelling": null,
     "focus": null,
-    "announcements": "The live region mounts empty and receives its hidden label after the first paint, so a screen reader announces them; no aria-busy."
+    "announcements": "The live region mounts empty and receives its hidden label after the first paint, so a screen reader announces it; no aria-busy."
   },
   "implementations": {
     "version": "3.2.0",

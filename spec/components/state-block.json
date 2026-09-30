@@ -9,9 +9,9 @@
   "layer": "feedback",
   "purpose": "The three states that are not the happy path: nothing to show, fetching, broke.",
   "notFor": [
-    "A validation message on a single field — that is the field's own error",
-    "A transient confirmation — that is Toast",
-    "A blocking failure that needs a decision — that is Dialog"
+    "A validation message on a single field \u2014 that is the field's own error",
+    "A transient confirmation \u2014 that is Toast",
+    "A blocking failure that needs a decision \u2014 that is Dialog"
   ],
   "composition": "composite",
   "anatomy": [
@@ -130,7 +130,7 @@
     },
     "labelling": "The region has no name of its own; the title, and the description when it is plain text, are its content.",
     "focus": "Never steals focus. A block that grabs focus on render interrupts whatever the user was doing.",
-    "announcements": "loading is polite (role=status) because it is transient and must not interrupt reading. error is assertive (role=alert) because the user's action did not happen. empty gets no live region at all — it is the rendered result of a successful request, and announcing it is noise. Getting this wrong in either direction is a real failure, which is why it is a component and not a guideline. The visible title and description render at once and are hidden from assistive technology; a separate visually hidden region carries the words. For loading it mounts empty and fills after the first paint, so a screen reader announces it; for error the alert is inserted with its words, which role=alert announces on insertion. The region is keyed by state, so a block that moves from loading to error to loading announces each change. No aria-busy.",
+    "announcements": "loading is polite (role=status) because it is transient and must not interrupt reading. error is assertive (role=alert) because the user's action did not happen. empty gets no live region at all \u2014 it is the rendered result of a successful request, and announcing it is noise. Getting this wrong in either direction is a real failure, which is why it is a component and not a guideline. The visible title and description render at once and are hidden from assistive technology; a separate visually hidden region carries the words. For loading it mounts empty and fills after the first paint, so a screen reader announces it; for error the alert is inserted with its words, which role=alert announces on insertion. The region is keyed by state, so a block that moves from loading to error to loading announces each change. No aria-busy.",
     "wcag": [
       "4.1.3",
       "1.4.1"
@@ -154,7 +154,7 @@
   "content": {
     "title": "Sentence case, no trailing period. 'No invoices yet', not 'No Invoices Found.'",
     "error": "Say what did not happen and whether data changed: 'We could not load your invoices. Your data has not changed.' Never 'Something went wrong'.",
-    "empty": "Distinguish 'nothing yet' from 'nothing matches these filters' — they need different actions."
+    "empty": "Distinguish 'nothing yet' from 'nothing matches these filters' \u2014 they need different actions."
   },
   "implementations": {
     "version": "4.0.0",
