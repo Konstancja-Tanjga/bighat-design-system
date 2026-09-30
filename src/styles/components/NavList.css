@@ -110,3 +110,11 @@
   display: inline-flex;
   align-items: center;
 }
+
+/* On the active item's fill, the icon and subline move up from text.muted to
+   text.secondary: muted on fill.selected over a raised surface is 3.6:1 in
+   dark, below the 4.5:1 it needs. */
+.bh-navitem--active .bh-navitem__icon,
+.bh-navitem--active .bh-navitem__subline {
+  color: var(--bh-text-secondary);
+}

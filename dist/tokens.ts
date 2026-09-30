@@ -588,6 +588,24 @@ export const contrast = {
       "fill.selected",
       "nonText",
       "surface.base"
+    ],
+    [
+      "text.secondary",
+      "fill.selected",
+      "bodyText",
+      "surface.base"
+    ],
+    [
+      "text.secondary",
+      "fill.selected",
+      "bodyText",
+      "surface.raised"
+    ],
+    [
+      "selection.mark",
+      "fill.selected",
+      "nonText",
+      "surface.raised"
     ]
   ]
 } as const;
