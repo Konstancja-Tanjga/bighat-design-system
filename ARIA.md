@@ -2,7 +2,7 @@
 
 `@bighat/ui`, audited against the WAI-ARIA Authoring Practices.
 
-**46 implemented components.** 10 conform, 12 partial, 14 fail. 0 source-level errors, 3 warnings.
+**46 implemented components.** 10 conform, 13 partial, 13 fail. 0 source-level errors, 3 warnings.
 
 This is not an axe run. axe checks a rendered tree and finds what is wrong in it; this checks the contract against the pattern it claims, and finds what was never built — a required keyboard interaction that nobody implemented leaves no rendered evidence for axe to catch.
 
@@ -11,7 +11,7 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 | component | APG pattern | status | missing |
 | --- | --- | --- | --- |
 | Avatar | `group` | partial | WCAG: 1.3.1 |
-| Board | `select (native)` | **fail** | labelling not specified · WCAG: 1.3.1, 3.3.2, 4.1.2 |
+| Board | `status` | partial | WCAG: 4.1.3 |
 | Breadcrumbs | `navigation` | partial | WCAG: 1.3.1, 2.4.1 |
 | Button | `button` | pass | — |
 | Checkbox | `checkbox` | pass | — |
@@ -49,7 +49,6 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 
 ### Pattern notes
 
-- **Board** (`select (native)`) — Native `<select>`. Keyboard interaction, the popup and expanded state are the platform’s; the component is responsible for the accessible name and the error association only.
 - **Checkbox** (`checkbox`) — A tri-state checkbox sets aria-checked="mixed" — and indeterminate is a DOM property, not an attribute.
 - **Composer** (`textbox`) — A placeholder is not a name (WCAG 2.5.3 needs the visible label to match).
 - **Dialog** (`dialog`) — aria-modal is implicit on a native `<dialog>` opened with showModal(). Focus must return to the opener.

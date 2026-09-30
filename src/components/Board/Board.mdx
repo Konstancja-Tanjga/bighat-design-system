@@ -47,20 +47,20 @@ of the board is always off screen.
 | `bh-board__card-inner`   | `<div>`                 | always      | The card surface. Its border darkens on hover.                                                                                         |
 | `bh-board__card-open`    | `<button[type=button]>` | always      | A `<button>` only when `onOpen` is set; otherwise a `<div>` with the same class. Its accessible name is its children.                  |
 | `bh-board__move`         | `<div>`                 | conditional | Only when `moveTargets` is non-empty **and** `onMove` is set.                                                                          |
-| `bh-board__move-select`  | `<select>`              | conditional | Same condition. Labelled by a visually hidden "Move “`title`” to". The first option, "Move to…", is disabled.                          |
+| `bh-board__move-trigger` | `<button>`              | conditional | Same condition. A `Menu` trigger reading "Move to…", named "Move to… `title`". Opens a menu named "Move “`title`” to".                 |
 
 ## Props
 
-| prop                    | values | default | meaning                                                                                                                                        |
-| ----------------------- | ------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Board.ariaLabel`       | string | —       | Required. Names the region, so a screen reader user can find the board in the landmark list.                                                   |
-| `Board.announcement`    | string | —       | Spoken by the board's live region after a move.                                                                                                |
-| `BoardColumn.title`     | string | —       | The column heading, and the first half of the card list's accessible name.                                                                     |
-| `BoardColumn.count`     | number | —       | Shown beside the title and folded into the list's accessible name. Taken as given — not counted from the children.                             |
-| `BoardColumn.limit`     | number | —       | WIP limit — surfaced, never enforced.                                                                                                          |
-| `BoardColumn.empty`     | slot   | —       | Use a StateBlock with copy specific to the column.                                                                                             |
-| `BoardCard.moveTargets` | data   | —       | The columns this card can move to, as `{ id, label }`. Each becomes an option in the card's "Move to…" select; `id` is what `onMove` receives. |
-| `BoardCard.onMove`      | event  | —       | Required for a pointer-free move — WCAG 2.5.7.                                                                                                 |
+| prop                    | values | default | meaning                                                                                                                                    |
+| ----------------------- | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `Board.ariaLabel`       | string | —       | Required. Names the region, so a screen reader user can find the board in the landmark list.                                               |
+| `Board.announcement`    | string | —       | Spoken by the board's live region after a move.                                                                                            |
+| `BoardColumn.title`     | string | —       | The column heading, and the first half of the card list's accessible name.                                                                 |
+| `BoardColumn.count`     | number | —       | Shown beside the title and folded into the list's accessible name. Taken as given — not counted from the children.                         |
+| `BoardColumn.limit`     | number | —       | WIP limit — surfaced, never enforced.                                                                                                      |
+| `BoardColumn.empty`     | slot   | —       | Use a StateBlock with copy specific to the column.                                                                                         |
+| `BoardCard.moveTargets` | data   | —       | The columns this card can move to, as `{ id, label }`. Each becomes an item in the card's "Move to…" menu; `id` is what `onMove` receives. |
+| `BoardCard.onMove`      | event  | —       | Required for a pointer-free move — WCAG 2.5.7.                                                                                             |
 
 `BoardColumn` also takes `action` (a column-level control beside the heading)
 and `children`; `BoardCard` takes `title` (required), `onOpen` and `children`.
@@ -76,16 +76,19 @@ over-limit column is not a state of the component; it is derived from `count` an
 
 ## Keyboard
 
-| key                   | action                                                                                                    |
-| --------------------- | --------------------------------------------------------------------------------------------------------- |
-| <kbd>Arrow keys</kbd> | Moves between options. On Windows, on a closed select, this also commits: the first press moves the card. |
-| <kbd>Enter</kbd>      | Commits. Native.                                                                                          |
+| key                                 | action                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------- |
+| <kbd>Enter</kbd> / <kbd>Space</kbd> | On the "Move to…" button, opens the menu on the first destination.        |
+| <kbd>Arrow keys</kbd>               | Move between destinations. Nothing moves yet.                             |
+| <kbd>Enter</kbd>                    | On a destination, moves the card there and closes the menu.               |
+| <kbd>Escape</kbd>                   | Closes the menu without moving the card, and returns focus to the button. |
 
-Both rows describe the card's move `<select>`, which is a native control, so
-exactly how it opens and commits follows the browser and platform. Board adds
-no key handling of its own: <kbd>Tab</kbd> reaches each card's open button
-(when `onOpen` is set) and then its move select, in document order. There is no
-drag and drop in the component.
+The move control is a `Menu`, not a `<select>`. On Windows a closed select
+commits as its value changes, so the first arrow key moved the card before the
+user had seen the options; a menu moves nothing until a destination is chosen.
+
+<kbd>Tab</kbd> reaches each card's open button (when `onOpen` is set) and then its "Move to…"
+button, in document order. There is no drag and drop in the component.
 
 ## Accessibility
 
@@ -94,13 +97,14 @@ drag and drop in the component.
   saying. The board itself is a `<section>` named by `ariaLabel`, so it is a
   region landmark; each column is an `<h3>` followed by a `<ul>`.
 - **Labelling** — required, not merely supported. `Board.ariaLabel` and
-  `BoardCard.title` are both required props. `title` is used for the move
-  select's label, "Move “Invoice INV-2047” to", which is what a voice-control
+  `BoardCard.title` are both required props. `title` is used in the move
+  button's name, "Move to… Invoice INV-2047", which begins with the words on
+  the button and is what a voice-control
   user says and what a screen reader reads out of context. It does not name the
   card's open button; that button is named by its children.
-- **Focus** — Board does not manage focus. The move select is the focus target
+- **Focus** — Board does not manage focus. The "Move to…" button is the focus target
   for moving, and when the product re-renders the card in its new column the
-  select the user was on is removed with it, so the browser drops focus. The
+  button the user was on is removed with it, so the browser drops focus. The
   obvious fix — follow the card — is not something the component does; the
   announcement is what tells the user where the card went.
 - **Announcements** — the board owns the region, the product writes the
@@ -114,7 +118,7 @@ drag and drop in the component.
 ## Do and don't
 
 <Guidance>
-  <Do reason="The select names every destination, so a keyboard, switch or voice-control user can move the card in one step, and a pointer user does not have to discover the columns by dragging. This is the WCAG 2.5.7 alternative, and it only appears when both props are set.">
+  <Do reason="The menu names every destination, so a keyboard, switch or voice-control user can move the card in one step, and a pointer user does not have to discover the columns by dragging. This is the WCAG 2.5.7 alternative, and it only appears when both props are set.">
     <Board ariaLabel="Invoices by stage">
       <BoardColumn title="Awaiting approval" count={1}>
         <BoardCard

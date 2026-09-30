@@ -1,4 +1,6 @@
-import { useId, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
+import { Menu } from '../Menu/Menu';
 
 /**
  * Columns of cards — a kanban board, a pipeline, a review queue.
@@ -95,10 +97,6 @@ export type BoardCardProps = {
 };
 
 export function BoardCard({ children, moveTargets, onMove, onOpen, title }: BoardCardProps) {
-  // Not derived from the title: two cards can share one, and a title with
-  // spaces is not a valid id, so either would attach the label to the wrong
-  // select.
-  const moveId = useId();
   return (
     <li className="bh-board__card">
       <div className="bh-board__card-inner">
@@ -112,29 +110,32 @@ export function BoardCard({ children, moveTargets, onMove, onOpen, title }: Boar
 
         {moveTargets && moveTargets.length > 0 && onMove && (
           <div className="bh-board__move">
-            {/* A visible select, not a drag handle. It is operable by pointer,
-                keyboard, voice and switch, and it states the destinations
-                instead of requiring the user to discover them by dragging. */}
-            <label className="bh-visually-hidden" htmlFor={moveId}>
-              Move “{title}” to
-            </label>
-            <select
-              id={moveId}
-              className="bh-board__move-select bh-focusable"
-              value=""
-              onChange={(event) => {
-                if (event.target.value) onMove(event.target.value);
-              }}
-            >
-              <option value="" disabled>
-                Move to…
-              </option>
-              {moveTargets.map((target) => (
-                <option key={target.id} value={target.id}>
-                  {target.label}
-                </option>
-              ))}
-            </select>
+            {/* A menu of destinations, not a drag handle and no longer a
+                select. It is operable by pointer, keyboard, voice and switch,
+                and it states the destinations instead of requiring the user
+                to discover them by dragging. A select moved the card on the
+                first arrow key on Windows, where a closed select commits as
+                it changes; a menu moves nothing until an item is chosen. */}
+            <Menu
+              label={`Move “${title}” to`}
+              items={moveTargets.map((target) => ({
+                label: target.label,
+                onSelect: () => onMove(target.id),
+              }))}
+              renderTrigger={(trigger) => (
+                <button
+                  type="button"
+                  {...trigger}
+                  className={`${trigger.className} bh-board__move-trigger`}
+                  // Starts with the visible words, so a voice-control user can
+                  // say them (WCAG 2.5.3); the title tells two cards apart.
+                  aria-label={`Move to… ${title}`}
+                >
+                  Move to…
+                  <span className="bh-menu__caret" aria-hidden="true" />
+                </button>
+              )}
+            />
           </div>
         )}
       </div>

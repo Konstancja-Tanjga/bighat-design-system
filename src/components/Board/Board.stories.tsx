@@ -8,7 +8,7 @@ import { Board, BoardCard, BoardColumn } from './Board';
  * Columns of cards for work that moves through stages — documents through
  * classification and review, invoices from draft to paid. The decision it
  * encodes is that moving a card is never a drag-only gesture: `BoardCard`
- * renders a visible "Move to…" select from `moveTargets` and `onMove`, and the
+ * renders a visible "Move to…" menu from `moveTargets` and `onMove`, and the
  * board owns one polite live region so the move is announced.
  *
  * Scaffolded from packages/spec/components/board.json. The anatomy, props,
@@ -156,7 +156,7 @@ export const EmptyColumn: Story = {
 
 type Invoice = { id: string; title: string; stage: string };
 
-/** Reach for this to check the whole move: select a destination, the card moves, the move is announced. */
+/** Reach for this to check the whole move: choose a destination, the card moves, the move is announced. */
 export const KeyboardMove: Story = {
   args: { ariaLabel: 'Invoices by stage', children: null },
   render: function Render(args) {

@@ -3,9 +3,7 @@
   "name": "Board",
   "layer": "frame",
   "purpose": "Columns of cards — kanban, pipeline, review queue.",
-  "notFor": [
-    "Ordered data the user compares — that is Table"
-  ],
+  "notFor": ["Ordered data the user compares — that is Table"],
   "composition": "composite",
   "anatomy": [
     {
@@ -58,8 +56,9 @@
       "element": "div"
     },
     {
-      "part": "bh-board__move-select",
-      "element": "select"
+      "part": "bh-board__move-trigger",
+      "element": "button[type=button]",
+      "note": "A Menu trigger. Named \"Move to… {title}\"; the menu is named \"Move “{title}” to\"."
     }
   ],
   "props": {
@@ -93,13 +92,12 @@
       "note": "Required for a pointer-free move — WCAG 2.5.1."
     }
   },
-  "states": [
-    "default",
-    "hover"
-  ],
+  "states": ["default", "hover"],
   "keyboard": {
-    "Arrow keys": "Moves between options. Native.",
-    "Enter": "Commits. Native."
+    "Enter / Space": "On the move button, opens the menu on the first destination.",
+    "Arrow keys": "Move between destinations. Nothing moves yet.",
+    "Enter": "On a destination, moves the card and closes the menu.",
+    "Escape": "Closes the menu without moving; focus returns to the button."
   },
   "aria": {
     "role": "status",
