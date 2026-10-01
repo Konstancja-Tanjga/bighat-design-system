@@ -71,4 +71,28 @@ describe('Composer', () => {
     render(<Composer label="Ask" submitLabel="Ask" />);
     expect(screen.getByRole('button', { name: 'Ask' })).toBeDisabled();
   });
+
+  it('shows its label above the field', () => {
+    render(<Composer label="Ask anything about the business" />);
+    const label = screen.getByText('Ask anything about the business');
+    expect(label.tagName).toBe('LABEL');
+    expect(label).not.toHaveClass('bh-visually-hidden');
+    expect(
+      screen.getByRole('textbox', { name: 'Ask anything about the business' }),
+    ).toBeInTheDocument();
+  });
+
+  it('hides the label only when asked, and keeps the name', () => {
+    render(<Composer label="Ask" hideLabel placeholder="Ask" />);
+    expect(screen.getByText('Ask', { selector: 'label' })).toHaveClass('bh-visually-hidden');
+    expect(screen.getByRole('textbox', { name: 'Ask' })).toBeInTheDocument();
+  });
+
+  it('warns once, not per keystroke, when a hidden label and the placeholder differ', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    render(<Composer label="Chat input" hideLabel placeholder="Type your message…" />);
+    await userEvent.type(screen.getByRole('textbox', { name: 'Chat input' }), 'hello');
+    expect(warn).toHaveBeenCalledTimes(1);
+    warn.mockRestore();
+  });
 });

@@ -51,6 +51,11 @@
     "label": {
       "kind": "string"
     },
+    "hideLabel": {
+      "kind": "boolean",
+      "default": false,
+      "note": "For a chat box whose context names it. The placeholder must then repeat the label."
+    },
     "placeholder": {
       "kind": "string",
       "default": "Ask anything"
@@ -117,7 +122,7 @@
       "aria-disabled": "busy",
       "aria-hidden": "true"
     },
-    "labelling": null,
+    "labelling": "A visible <label> above the field; hideLabel hides it, and then the placeholder must match it (WCAG 2.5.3).",
     "focus": null,
     "announcements": null
   },
