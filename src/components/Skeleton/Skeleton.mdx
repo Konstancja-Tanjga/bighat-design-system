@@ -31,11 +31,11 @@ is whether you know the shape, not how long the wait is.
 
 ## Anatomy
 
-| part                  | element                             | rendered | note                                                                                                                                                                                           |
-| --------------------- | ----------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bh-skeleton`         | `<span>`                            | always   | One per placeholder. Always `aria-hidden="true"`. Takes `bh-skeleton--{radius}`, and `bh-skeleton--animated` when `animated` is true. Displayed as a block, so it fills the width it is given. |
-| `SkeletonGroup`       | `<div>`                             | always   | `role="status"` and `aria-busy="true"`. Wraps a set of skeletons. Accepts a `className` for layout. Adds no styles of its own.                                                                 |
-| `SkeletonGroup` label | `<span class="bh-visually-hidden">` | always   | The `label` text. Hidden from view but not from screen readers, so it is the only part assistive technology reads.                                                                             |
+| part                  | element                             | rendered          | note                                                                                                                                                                                           |
+| --------------------- | ----------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bh-skeleton`         | `<span>`                            | always            | One per placeholder. Always `aria-hidden="true"`. Takes `bh-skeleton--{radius}`, and `bh-skeleton--animated` when `animated` is true. Displayed as a block, so it fills the width it is given. |
+| `SkeletonGroup`       | `<div>`                             | always            | `role="status"`; its hidden label joins after the first paint. Wraps a set of skeletons. Accepts a `className` for layout. Adds no styles of its own.                                          |
+| `SkeletonGroup` label | `<span class="bh-visually-hidden">` | after first paint | The `label` text. Hidden from view but not from screen readers, so it is the only part assistive technology reads.                                                                             |
 
 ## Props
 
@@ -63,7 +63,7 @@ not a state. It is controlled by `animated` and switched off entirely under
 - **Role** — status
 - **Labelling** — `label` is required on `SkeletonGroup`, and the type will not compile without it. It is rendered as visually hidden text inside the group. Each `Skeleton` is `aria-hidden="true"` and has nothing to label, so a skeleton outside a group is silent to a screen reader.
 - **Focus** — Nothing here takes focus: no skeleton and no group is focusable. Do not add a `tabindex` to move focus to the group while it loads. The label reaches screen reader users through the status role, and moving focus to a placeholder takes them away from where they were only to land on something that will soon be removed. The component does not move focus when the content arrives either; that is up to the screen.
-- **Announcements** — One label per group rather than one per skeleton. `role="status"` is a polite live region, and `aria-busy="true"` marks it as still loading. Because every skeleton is hidden, a screen reader finds the group's label and not forty blank placeholders. Whether the label is spoken when the group appears depends on the screen reader: it is already inside the region when the region is inserted, and `aria-busy` tells assistive technology to hold announcements until it clears, which it never does because the group is removed. Nothing is announced when loading finishes: the group is removed, and the content that replaces it is responsible for any announcement.
+- **Announcements** — One label per group rather than one per skeleton, spoken once and politely. `role="status"` is a polite live region, and every skeleton is hidden, so a screen reader hears the group's label and not forty blank placeholders. The region mounts empty and the label arrives after the first paint: a live region is announced for what changes inside it, and most screen readers stay silent about one that appears with its words already in it. There is no `aria-busy`, which would hold the announcement back. Nothing is announced when loading finishes: the group is removed, and the content that replaces it is responsible for any announcement.
 
 ## Do and don't
 

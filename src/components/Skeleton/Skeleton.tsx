@@ -1,3 +1,5 @@
+import { useAfterPaint } from '../StateBlock/liveRegion';
+
 /**
  * A placeholder for content that is on its way.
  *
@@ -27,9 +29,9 @@ export function Skeleton({
     <span
       className={`bh-skeleton bh-skeleton--${radius}${animated ? ' bh-skeleton--animated' : ''}`}
       style={{ width, height }}
-      // The whole group is announced once by its container's aria-busy, so
-      // individual bones must not reach assistive technology at all —
-      // otherwise a screen reader reads "blank" forty times.
+      // The group announces once on behalf of all of them, so individual
+      // bones must not reach assistive technology at all - otherwise a screen
+      // reader reads "blank" forty times.
       aria-hidden="true"
     />
   );
@@ -48,9 +50,14 @@ export function SkeletonGroup({
   children: React.ReactNode;
   className?: string;
 }) {
+  // The bones draw at once; the label joins the live region after a paint,
+  // which is what makes it heard - a region is announced for what changes in
+  // it, not for what it arrives with. No aria-busy: it held the announcement
+  // back and nothing ever cleared it.
+  const mounted = useAfterPaint();
   return (
-    <div className={className} role="status" aria-busy="true">
-      <span className="bh-visually-hidden">{label}</span>
+    <div className={className} role="status">
+      {mounted && <span className="bh-visually-hidden">{label}</span>}
       {children}
     </div>
   );
