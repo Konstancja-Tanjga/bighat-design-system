@@ -74,6 +74,11 @@
   flex-direction: column;
 }
 
+.bh-menu__list--up {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+
 .bh-menu__list[hidden] {
   display: none;
 }

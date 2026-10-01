@@ -58,8 +58,9 @@
       "element": "div"
     },
     {
-      "part": "bh-board__move-select",
-      "element": "select"
+      "part": "bh-board__move-trigger",
+      "element": "button[type=button]",
+      "note": "A Menu trigger. Named \"Move to… {title}\"; the menu is named \"Move “{title}” to\"."
     }
   ],
   "props": {
@@ -98,8 +99,10 @@
     "hover"
   ],
   "keyboard": {
-    "Arrow keys": "Moves between options. Native.",
-    "Enter": "Commits. Native."
+    "Enter / Space": "On the move button, opens the menu on the first destination.",
+    "Arrow keys": "Move between destinations. Nothing moves yet.",
+    "Enter": "On a destination, moves the card and closes the menu.",
+    "Escape": "Closes the menu without moving; focus returns to the button."
   },
   "aria": {
     "role": "status",
@@ -107,8 +110,8 @@
       "aria-label": "ariaLabel",
       "aria-hidden": "true"
     },
-    "labelling": null,
-    "focus": null,
+    "labelling": "The move button is named \"Move to… {title}\", starting with its visible text (WCAG 2.5.3); the menu it opens is named \"Move “{title}” to\".",
+    "focus": "The move menu takes focus on open and returns it to the move button on Escape or choice. When the product re-renders the card in its new column the button is removed and focus drops; the announcement says where the card went.",
     "announcements": null
   },
   "implementations": {

@@ -11,7 +11,7 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 | component | APG pattern | status | missing |
 | --- | --- | --- | --- |
 | Avatar | `group` | partial | WCAG: 1.3.1 |
-| Board | `select (native)` | **fail** | labelling not specified · WCAG: 1.3.1, 3.3.2, 4.1.2 |
+| Board | `status` | partial | WCAG: 4.1.3 |
 | Breadcrumbs | `navigation` | partial | WCAG: 1.3.1, 2.4.1 |
 | Button | `button` | pass | — |
 | Checkbox | `checkbox` | pass | — |
@@ -49,7 +49,6 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 
 ### Pattern notes
 
-- **Board** (`select (native)`) — Native `<select>`. Keyboard interaction, the popup and expanded state are the platform’s; the component is responsible for the accessible name and the error association only.
 - **Checkbox** (`checkbox`) — A tri-state checkbox sets aria-checked="mixed" — and indeterminate is a DOM property, not an attribute.
 - **Composer** (`textbox`) — A placeholder is not a name (WCAG 2.5.3 needs the visible label to match).
 - **Dialog** (`dialog`) — aria-modal is implicit on a native `<dialog>` opened with showModal(). Focus must return to the opener.

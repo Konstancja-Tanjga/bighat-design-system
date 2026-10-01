@@ -120,15 +120,10 @@
   padding: 0 var(--bh-padding-inline) var(--bh-padding-block);
 }
 
-.bh-board__move-select {
-  width: 100%;
-  height: 28px;
-  padding: 0 var(--bh-gap-snug);
-  background: var(--bh-surface-base);
-  color: var(--bh-text-secondary);
-  border: 1px solid var(--bh-border-strong);
-  border-radius: var(--bh-radius-field);
-  font-family: inherit;
+/* The Menu trigger, a size down: a card's own action should not outweigh the
+   record it belongs to. Scoped under the card so it outranks Menu.css, which
+   loads later. */
+.bh-board__move .bh-board__move-trigger {
+  height: var(--bh-control-sm);
   font-size: var(--bh-text-size-body);
-  cursor: pointer;
 }

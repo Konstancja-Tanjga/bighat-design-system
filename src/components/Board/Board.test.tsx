@@ -36,32 +36,66 @@ describe('Board', () => {
       </Board>,
     );
 
-    const move = screen.getByLabelText('Move “Invoice INV-2041” to');
-    await userEvent.selectOptions(move, 'review');
+    await userEvent.click(screen.getByRole('button', { name: 'Move to… Invoice INV-2041' }));
+    await userEvent.click(screen.getByRole('menuitem', { name: 'In review' }));
 
     expect(onMove).toHaveBeenCalledWith('review');
   });
 
-  // The id used to be `move-${title}`: two cards with one title shared it, so
-  // the second label pointed at the first select.
-  it('labels each move select even when two cards share a title', () => {
-    const targets = [{ id: 'review', label: 'In review' }];
+  // The select this replaced committed on the first arrow key on Windows, so a
+  // keyboard user moved the card while looking at the options.
+  it('moves nothing until a destination is chosen', async () => {
+    const onMove = vi.fn();
     render(
       <Board ariaLabel="Board">
-        <BoardColumn title="Inbox" count={2}>
-          <BoardCard title="Scan" moveTargets={targets} onMove={() => {}}>
-            Scan
-          </BoardCard>
-          <BoardCard title="Scan" moveTargets={targets} onMove={() => {}}>
+        <BoardColumn title="Inbox" count={1}>
+          <BoardCard
+            title="Scan"
+            moveTargets={[
+              { id: 'review', label: 'In review' },
+              { id: 'done', label: 'Done' },
+            ]}
+            onMove={onMove}
+          >
             Scan
           </BoardCard>
         </BoardColumn>
       </Board>,
     );
 
-    const selects = screen.getAllByLabelText('Move “Scan” to');
-    expect(selects).toHaveLength(2);
-    expect(selects[0].id).not.toBe(selects[1].id);
+    screen.getByRole('button', { name: 'Move to… Scan' }).focus();
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+    expect(onMove).not.toHaveBeenCalled();
+    expect(screen.getByRole('menu', { name: 'Move “Scan” to' })).toBeInTheDocument();
+
+    await userEvent.keyboard('{Enter}');
+    expect(onMove).toHaveBeenCalledTimes(1);
+    expect(onMove).toHaveBeenCalledWith('done');
+  });
+
+  it('backs out on Escape without moving, and returns to the button', async () => {
+    const onMove = vi.fn();
+    render(
+      <Board ariaLabel="Board">
+        <BoardColumn title="Inbox" count={1}>
+          <BoardCard
+            title="Scan"
+            moveTargets={[{ id: 'review', label: 'In review' }]}
+            onMove={onMove}
+          >
+            Scan
+          </BoardCard>
+        </BoardColumn>
+      </Board>,
+    );
+
+    const trigger = screen.getByRole('button', { name: 'Move to… Scan' });
+    await userEvent.click(trigger);
+    await userEvent.keyboard('{Escape}');
+
+    expect(onMove).not.toHaveBeenCalled();
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
   });
 
   it('announces a move through a live region', () => {

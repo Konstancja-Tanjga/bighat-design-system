@@ -20,7 +20,8 @@
     {
       "part": "bh-menu__list",
       "element": "div",
-      "required": false
+      "required": false,
+      "note": "Opens below the trigger, or above it (bh-menu__list--up) when a scrolling ancestor or the viewport leaves no room below."
     },
     {
       "part": "bh-menu__item",

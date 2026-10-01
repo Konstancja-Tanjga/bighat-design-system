@@ -1,5 +1,30 @@
 # Migration guide
 
+## 4.x → 5.0 — `BoardCard` moves with a menu, not a select
+
+### What changed
+
+The card's move control was a native `<select class="bh-board__move-select">`.
+It is now a `Menu` whose trigger is `<button class="bh-board__move-trigger">`.
+A closed select commits on the first arrow key on Windows, so keyboard users
+moved cards they were only looking at.
+
+Nothing changes in how you use `BoardCard`: `moveTargets` and `onMove` are the
+same props, called with the same `id`.
+
+### What to update
+
+```bash
+rg 'bh-board__move-select' src     # your own CSS or selectors
+rg 'Move “.*” to' src               # tests that found the select by its label
+```
+
+```diff
+- await userEvent.selectOptions(screen.getByLabelText('Move “Invoice INV-2041” to'), 'review');
++ await userEvent.click(screen.getByRole('button', { name: 'Move to… Invoice INV-2041' }));
++ await userEvent.click(screen.getByRole('menuitem', { name: 'In review' }));
+```
+
 ## 2.x → 3.0 — `variant="danger"` is removed
 
 ### What changed
