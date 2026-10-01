@@ -99,7 +99,8 @@
     "focus-visible"
   ],
   "keyboard": {
-    "Enter": "Follows the link. Native."
+    "Enter": "Follows the link. Native.",
+    "Escape": "Closes an overlaid panel through its toggle. Only below breakpoint.md."
   },
   "aria": {
     "role": "banner (in a landmark context) (implicit, from <header>)",
@@ -107,7 +108,7 @@
       "aria-label": "Close"
     },
     "labelling": null,
-    "focus": null,
+    "focus": "An overlaid panel is modal: focus moves to its first control on open, header, main and the other panels are inert, and focus returns to the opener on close. No focus management while the panels sit in the grid.",
     "announcements": null
   },
   "implementations": {

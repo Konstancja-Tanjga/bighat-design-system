@@ -149,8 +149,12 @@ export function Combobox({
               }
             } else if (event.key === 'Escape') {
               // First Escape closes the list, a second one clears the field.
-              if (open) setOpen(false);
-              else {
+              // preventDefault marks the key as used, so a surrounding overlay
+              // (an AppShell panel) does not close on the same press.
+              if (open) {
+                event.preventDefault();
+                setOpen(false);
+              } else {
                 setQuery('');
                 onChange(null);
               }

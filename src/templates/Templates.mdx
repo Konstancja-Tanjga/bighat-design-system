@@ -74,7 +74,9 @@ columns is not a phone layout in any arrangement.
 
 **They no longer simply vanish.** `AppShell` takes `onNavToggle` and
 `onAsideToggle`; wire either one and the region returns as an overlay with a real
-dismiss button, above the content and without reflowing it. This was listed here
+dismiss button, above the content and without reflowing it. While it is
+open it behaves as a modal: focus moves in, the rest is inert, Escape closes it,
+and focus returns to the control that opened it. This was listed here
 as a gap through 3.0 and 3.1, and 3.2 closes it. Omit the handlers and the old
 behaviour is unchanged.
 
