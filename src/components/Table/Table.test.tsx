@@ -138,17 +138,26 @@ describe('Table selection', () => {
 describe('Table row actions', () => {
   it('gives every row its own menu', () => {
     render(<Table {...base} rowActions={() => [{ label: 'Archive' }]} />);
-    expect(screen.getAllByRole('button', { name: 'Row actions' })).toHaveLength(2);
+    expect(screen.getAllByRole('button', { name: /^Actions for / })).toHaveLength(2);
   });
 
   it('builds the items from the row it belongs to', async () => {
     const onSelect = vi.fn();
     render(<Table {...base} rowActions={(row) => [{ label: `Archive ${row.name}`, onSelect }]} />);
 
-    await userEvent.click(screen.getAllByRole('button', { name: 'Row actions' })[0]);
+    await userEvent.click(screen.getAllByRole('button', { name: /^Actions for / })[0]);
     await userEvent.click(screen.getByRole('menuitem', { name: 'Archive Northwind' }));
 
     expect(onSelect).toHaveBeenCalled();
+  });
+});
+
+describe('Table row actions names', () => {
+  it('names each trigger after its row', () => {
+    render(
+      <Table {...base} rowActions={() => [{ label: 'Archive' }]} rowLabel={(row) => row.name} />,
+    );
+    expect(screen.getByRole('button', { name: 'Actions for Northwind' })).toBeInTheDocument();
   });
 });
 

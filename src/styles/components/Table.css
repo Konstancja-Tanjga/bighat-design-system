@@ -162,6 +162,22 @@
   text-align: right;
 }
 
+/* The row's overflow trigger: a quiet round icon button, not the glass
+   capsule a standalone Menu gets. Two classes, so its resting look outranks
+   .bh-menu__trigger. The hover tint is Menu's. */
+.bh-table__actions .bh-table__actions-trigger {
+  justify-content: center;
+  width: var(--bh-control-sm);
+  height: var(--bh-control-sm);
+  padding: 0;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-heading);
+  line-height: 1;
+}
+
 .bh-table__disclose summary {
   display: inline-flex;
   align-items: center;

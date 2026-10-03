@@ -47,18 +47,9 @@
 
 .bh-ai__explainer-head {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--bh-gap-snug);
-}
-
-.bh-ai__eyebrow {
-  margin: 0;
-  font-size: var(--bh-text-size-body);
-  font-weight: var(--bh-text-weight-heading);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--bh-text-muted);
 }
 
 .bh-ai__explainer-title {

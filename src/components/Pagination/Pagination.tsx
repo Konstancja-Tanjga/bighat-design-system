@@ -68,7 +68,8 @@ export function Pagination({
             disabled={busy}
             options={pageSizeOptions.map((size) => ({
               value: String(size),
-              label: `${size} per page`,
+              // The label already says "Per page"; the option is the number.
+              label: String(size),
             }))}
             onChange={(event) => {
               // Changing the page size while on page 5 would land the reader

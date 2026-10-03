@@ -6,7 +6,6 @@ import { Badge, type BadgeTone } from '../components/Badge/Badge';
 import { Breadcrumbs } from '../components/Breadcrumbs/Breadcrumbs';
 import { Button } from '../components/Button/Button';
 import { DescriptionList } from '../components/DescriptionList/DescriptionList';
-import { Divider } from '../components/Divider/Divider';
 import { Input } from '../components/Input/Input';
 import { NavRail } from '../components/NavRail/NavRail';
 import { Pagination } from '../components/Pagination/Pagination';
@@ -333,8 +332,11 @@ export function Records({ variant = 'ready' }: RecordsProps) {
       <SkipLink />
 
       <div className="bh-records">
+        {/* Flush: at the top of the content the filters are part of the
+            page, a hairline under them rather than a tinted well. */}
         <Toolbar
           ariaLabel="Filter invoices"
+          flush
           end={
             selectionCount > 0 ? (
               // The action names the size of the set before it runs.
@@ -373,8 +375,6 @@ export function Records({ variant = 'ready' }: RecordsProps) {
             ]}
           />
         </Toolbar>
-
-        <Divider />
 
         <Table
           caption="Invoices"
