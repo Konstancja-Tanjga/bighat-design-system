@@ -56,6 +56,12 @@
     {
       "part": "bh-table__actions",
       "element": "td"
+    },
+    {
+      "part": "bh-table__actions-trigger",
+      "element": "button[type=button]",
+      "required": false,
+      "note": "Icon-only Menu trigger, one per row. Named \"Actions for {rowLabel|rowKey}\"; the glyph is aria-hidden."
     }
   ],
   "props": {
@@ -108,6 +114,11 @@
       "kind": "event",
       "note": "Per-row overflow Menu, which already solves focus return."
     },
+    "rowLabel": {
+      "kind": "event",
+      "default": "rowKey",
+      "note": "Names a row for its actions button: \"Actions for INV-2046\"."
+    },
     "stickyHeader": {
       "kind": "boolean",
       "default": false,
@@ -136,7 +147,7 @@
     "attributes": {
       "aria-sort": "isSorted",
       "aria-hidden": "true",
-      "aria-label": "More"
+      "aria-label": "Actions for {rowLabel|rowKey}"
     },
     "labelling": "From <caption>, which is optional but strongly preferred — an uncaptioned table in a page of tables is unidentifiable in a screen reader’s table list.",
     "focus": "The table itself is not focusable. Sortable headers are buttons and are in the tab order; rows are not, unless rowActivated is bound, in which case the row needs its own focusable trigger rather than a click handler on the <tr>.",

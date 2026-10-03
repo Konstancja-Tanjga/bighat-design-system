@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 
 import { AppBar } from '../components/AppBar/AppBar';
 import { AppShell, SkipLink } from '../components/AppShell/AppShell';
@@ -151,6 +151,7 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
   const [types, setTypes] = useState<Set<string>>(new Set());
   const [onlyMine, setOnlyMine] = useState(false);
   const [needsReview, setNeedsReview] = useState(false);
+  const appliedRef = useRef<HTMLDivElement>(null);
   const typeGroup = useId();
   const showGroup = useId();
   const toggleType = (type: string) =>
@@ -363,18 +364,38 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
 
         {/* What is applied, next to what it narrows, each removable in one
             press - the sidebar can be scrolled away or collapsed. */}
-        {active.length > 0 && (
-          <div className="bh-kanban__applied" role="group" aria-label="Applied filters">
-            {active.map((filter) => (
+        {/* Always rendered: removing the last chip must leave focus somewhere
+            that still says what happened, not on the page body. */}
+        <div
+          className="bh-kanban__applied"
+          role="group"
+          aria-label="Applied filters"
+          ref={appliedRef}
+          tabIndex={-1}
+        >
+          {active.length === 0 ? (
+            <span className="bh-kanban__applied-none">No filters applied</span>
+          ) : (
+            active.map((filter, index) => (
               <RemovableChip
                 key={filter.key}
                 label={filter.label}
-                onRemove={filter.remove}
-                removeLabel={`Remove filter: ${filter.label}`}
+                removeLabel={`Remove filter ${filter.label}`}
+                onRemove={() => {
+                  filter.remove();
+                  // The removed chip took focus with it. Move to the chip that
+                  // takes its place, or to the group once none are left.
+                  requestAnimationFrame(() => {
+                    const group = appliedRef.current;
+                    const buttons = group?.querySelectorAll<HTMLButtonElement>('button');
+                    const next = buttons?.[Math.min(index, buttons.length - 1)];
+                    (next ?? group)?.focus();
+                  });
+                }}
               />
-            ))}
-          </div>
-        )}
+            ))
+          )}
+        </div>
 
         {state === 'loading' && (
           <SkeletonGroup label="Loading documents" className="bh-kanban__skeleton">

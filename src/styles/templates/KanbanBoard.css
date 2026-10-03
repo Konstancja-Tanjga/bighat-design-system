@@ -48,7 +48,17 @@
 .bh-kanban__applied {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--bh-gap-snug);
+}
+
+.bh-kanban__applied {
+  min-height: var(--bh-control-sm);
+}
+
+.bh-kanban__applied-none {
+  font-size: var(--bh-text-size-body);
+  color: var(--bh-text-muted);
 }
 
 .bh-kanban__card-title {
