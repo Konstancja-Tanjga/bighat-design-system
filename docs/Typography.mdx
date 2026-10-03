@@ -19,16 +19,17 @@ A component never names a pixel size. It names what the text is for.
 | `textSize.heading` | 16px  | a section or card heading                        |
 | `textSize.caption` | 14px  | the default reading size in a comfortable layout |
 | `textSize.body`    | 12px  | the default reading size in a dense application  |
-| `textSize.dense`   | 10px  | table cells and dense lists, one step tighter    |
+| `textSize.dense`   | 12px  | table cells and dense lists                      |
 | `textSize.label`   | 10px  | field labels, badges, metadata                   |
 
 **10px is for labels and metadata only.** At 10px this font stack renders
 numerals ambiguously at typical ERP zoom, so a figure the user has to read -
 an amount, a date, a count - is never set in `label`.
 
-`dense` and `label` resolve to the same value today and are still two tokens,
-because they answer different questions: one is body copy in a tight layout,
-the other is a label anywhere. When labels need to change, one of them moves.
+`dense` and `label` were one value until the 4px grid made `label` 10px. They
+were always two tokens because they answer different questions — one is body
+copy in a tight layout, the other is a label anywhere — and this is the case
+that was for: `dense` stayed at 12px, because table cells hold figures.
 
 Note that `body` is smaller than `caption`. That is not a mistake — this is a
 system for ERP screens, where the default reading size is 12px and 14px is the

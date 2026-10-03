@@ -258,8 +258,9 @@
     },
     "textSize.dense": {
       "type": "dimension",
-      "light": "10px",
-      "dark": "10px"
+      "light": "12px",
+      "dark": "12px",
+      "description": "12px, not 10px: table cells and dense lists hold figures, and at 10px this font stack renders numerals ambiguously. Moved off fontSize.xs when the 4px grid made label 10px."
     },
     "textSize.label": {
       "type": "dimension",
@@ -395,9 +396,9 @@
     },
     "radius.field": {
       "type": "dimension",
-      "light": "16px",
-      "dark": "16px",
-      "description": "Added in 4.5. Input, Select, Textarea and the other text fields: 16px since the 4px grid, one step rounder than radius.control, so a field beside a pill button reads as the same system. Not a pill, because a multi-line field would lose its shape."
+      "light": "12px",
+      "dark": "12px",
+      "description": "Added in 4.5. Input, Select, Textarea and the other text fields: 12px, the same corner as radius.control. 16px read as a pill on a 36px field, and a field that looks like a button invites a press instead of typing. Not a pill, because a multi-line field would lose its shape."
     },
     "radius.surface": {
       "type": "dimension",
