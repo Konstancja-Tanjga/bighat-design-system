@@ -33,12 +33,12 @@ whatever controls you put inside.
 
 <Guidance>
   <Do reason="ariaLabel='Invoice list' tells the user which content these controls affect. On a screen with two toolbars — one for the list, one for the editor — this is the only thing that tells them apart.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       <code>{'<Toolbar ariaLabel="Invoice list">'}</code>
     </p>
   </Do>
   <Dont reason="'Toolbar' as the label, or no label. The user hears 'toolbar' twice on one page and has to guess which is which by tabbing into each.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       <code>{'<Toolbar ariaLabel="Toolbar">'}</code>
     </p>
   </Dont>
@@ -68,12 +68,12 @@ label. A bare glyph with neither is a control only its author can operate.
 
 <Guidance>
   <Do reason="The toolbar holds the actions that apply to the whole collection. The primary action for the screen also sits in the app bar, where users look for it first.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       App bar: New invoice · Toolbar: Import, Export, Delete
     </p>
   </Do>
   <Dont reason="Twelve controls of equal weight, primary buried among them. A toolbar is scanned, not read, and everything competing at the same volume means nothing is found quickly.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       New · Import · Export · Delete · Archive · Merge · Split · Tag · Assign · Print · Share · Lock
     </p>
   </Dont>

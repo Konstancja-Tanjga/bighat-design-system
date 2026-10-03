@@ -35,7 +35,7 @@ export const MasterDetail: Story = {
         <div>
           <h3 style={{ marginTop: 0 }}>{current?.title}</h3>
           <p style={{ color: 'var(--bh-text-muted)' }}>{current?.description}</p>
-          <p style={{ fontSize: 13 }}>
+          <p style={{ fontSize: 'var(--bh-text-size-body)' }}>
             Arrow keys move the selection, Home and End jump to the ends, and typing the first
             letters of a name finds it.
           </p>

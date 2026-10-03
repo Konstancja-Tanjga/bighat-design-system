@@ -30,12 +30,12 @@ range are acceptable. That is the gap this component closes.
 
 <Guidance>
   <Do reason="min and max generate a hint automatically, so the constraint is visible while the user types rather than after they submit. An 'invalid date' they could not have predicted is the standard failure of every date field.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       <code>min="2026-08-18" max="2026-12-31"</code> → “Between 2026-08-18 and 2026-12-31.”
     </p>
   </Do>
   <Dont reason="A bare field that rejects the date after submission. The user has no way to know whether the problem is the range, the format, or the century.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       “Please enter a valid date.”
     </p>
   </Dont>

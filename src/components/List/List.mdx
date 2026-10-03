@@ -39,10 +39,12 @@ A row with `href` ends in a chevron, because it leads somewhere. A row with
 
 <Guidance>
   <Do reason="A list element announces 'list, 12 items' and lets a screen reader user jump from list to list. The count alone changes how someone decides whether to read or skip.">
-    <p style={{ margin: 0, fontSize: 13 }}>“List, 12 items. Item 1 of 12, INV-2043…”</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
+      “List, 12 items. Item 1 of 12, INV-2043…”
+    </p>
   </Do>
   <Dont reason="A stack of divs. It announces nothing, is indistinguishable from prose, and gives no way to skip past — the user has to read every row to find out how many there were.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       “INV-2043 … INV-2042 …”
     </p>
   </Dont>
@@ -64,14 +66,14 @@ its name — "INV-2043, 12 400 zł, Pending, link".
 
 <Guidance>
   <Do reason="Title and one line of context. The list stays scannable at a glance, which is the only reason to choose a list over a table.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       <strong>INV-2043</strong>
       <br />
       Nordwind sp. z o.o. · 12 400 zł
     </p>
   </Do>
   <Dont reason="Three lines and four chips per row. That is a card, and a column of cards is a layout the user scrolls rather than a list they scan.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Title / customer / amount / due date / owner / two badges / a description
     </p>
   </Dont>

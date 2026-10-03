@@ -36,7 +36,14 @@ export function TokenTable({ group }: { group: string }) {
   if (entries.length === 0) return <p>No tokens in “{group}”.</p>;
 
   return (
-    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, margin: '16px 0' }}>
+    <table
+      style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        fontSize: 'var(--bh-text-size-body)',
+        margin: '16px 0',
+      }}
+    >
       <caption style={{ ...cell, fontWeight: 600, fontSize: 14, borderBottom: 0 }}>{group}</caption>
       <thead>
         <tr>
@@ -101,7 +108,14 @@ function Swatch({ value }: { value: string }) {
 
 export function ContrastTable() {
   return (
-    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, margin: '16px 0' }}>
+    <table
+      style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        fontSize: 'var(--bh-text-size-body)',
+        margin: '16px 0',
+      }}
+    >
       <thead>
         <tr>
           <th style={cell}>Pair</th>

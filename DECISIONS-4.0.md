@@ -42,6 +42,10 @@ precisely what a scale is for eliminating.
 Avatar and NavRail. 10px is below the smallest size the system declares, and
 at 10px this font stack renders numerals ambiguously at typical ERP zoom.
 
+> Superseded by the 4px grid, which made 10px the declared label size. The
+> numeral concern still stands, which is why 10px is for labels and metadata
+> only - see Foundations → Typography.
+
 ### `22px` ×2, `24px` ×1 → **snap to `textSize.display` (20px)**
 
 Two templates and StateBlock. Templates are examples; an example that invents
@@ -67,7 +71,7 @@ for that.
 ### `3px`, `5px` ×1 each → **snap to `gap.hairline` (2px) / `gap.tight` (4px)**
 
 Both in Checkbox, both inside the drawn checkmark geometry. Worth noting these
-are *drawing* values rather than layout values — see the exemption below.
+are _drawing_ values rather than layout values — see the exemption below.
 
 ### `1px` ×2 → **exempt: a hairline border, not spacing**
 
@@ -106,7 +110,7 @@ upstream:
   "centred in an 18px box" and would need recomputing every time the box moved
 
 **The general lesson, and it cost two new gate rules:** a literal that encodes
-a *relationship* is more dangerous than one that encodes a value. `left: 3px`
+a _relationship_ is more dangerous than one that encodes a value. `left: 3px`
 centring something is correct exactly once.
 
 ## border-radius — 1 site, and a blind spot
@@ -184,7 +188,7 @@ chose.
 ### `linear` ×7 → **`easing.loop`**
 
 All seven are on loops — spinners, skeleton sweeps, indeterminate progress.
-`easing.loop` *is* linear; this is a naming change, not a curve change.
+`easing.loop` _is_ linear; this is a naming change, not a curve change.
 
 ### `ease-in` ×2 → **`easing.exit`**
 
@@ -202,8 +206,8 @@ That ratio is the useful number: **51 of 56 off-scale values were not missing
 roles, they were drift.** The scale was right; nothing was checking that anyone
 used it.
 
-The five that were real roles all have the same shape — a *control's own
-geometry*, which the original scale had no vocabulary for at all. `control.*`
+The five that were real roles all have the same shape — a _control's own
+geometry_, which the original scale had no vocabulary for at all. `control.*`
 held three heights and nothing else, so a checkbox's box size, a switch's track
 and a select's arrow gutter each got hand-set. That was the actual gap, and it
 took running the gate to see it.

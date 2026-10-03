@@ -23,7 +23,7 @@ const DRY = process.argv.includes('--dry');
 const decisions = [
   ['font-size', '12px', 'var(--bh-text-size-body)', '15 sites across 11 components is drift, not a role'],
   ['font-size', '18px', 'var(--bh-text-size-heading)', 'all five are titles; there is already a role for a title'],
-  ['font-size', '10px', 'var(--bh-text-size-label)', 'below the smallest declared size; renders numerals ambiguously'],
+  ['font-size', '10px', 'var(--bh-text-size-label)', 'not on the 4.0 scale; renders numerals ambiguously (the 4px grid later made 10px the label size)'],
   ['font-size', '22px', 'var(--bh-text-size-display)', 'templates should not invent type sizes'],
   ['font-size', '24px', 'var(--bh-text-size-display)', 'same'],
   ['font-weight', '700', 'var(--bh-text-weight-heading)', '600 vs 700 in a system stack is a rendering artefact, not a hierarchy'],

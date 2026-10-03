@@ -39,8 +39,8 @@ For the questions that are not a handoff — spacing, "bighat cannot do this",
 
 The system exports two token layers and only one of them is an API.
 
-Primitives (`color.blue.500`, `space.4`) say what a value *is*. Semantics
-(`action.primary.hover`, `text.muted`, `border.focus`) say what it *means*.
+Primitives (`color.blue.500`, `space.4`) say what a value _is_. Semantics
+(`action.primary.hover`, `text.muted`, `border.focus`) say what it _means_.
 Product code and generated code may reference semantics only.
 
 If no semantic token fits what you are building, that is a signal the system is
@@ -55,6 +55,9 @@ z-index resolves to a token. There are no exceptions and no eyeballed values.
 
 `padding: 13px` is always wrong, including when it looks better. The scale is
 4px-based, and a value off the scale is a value that will drift.
+
+`textSize.label` is 10px: labels and metadata only. An amount, a date or a
+count the user has to read is never set in it.
 
 This is enforced, not requested: `packages/tokens/src/drift.test.ts` walks
 every stylesheet and fails the build on a literal. If you find yourself wanting
@@ -143,12 +146,12 @@ those opinions are not versioned.
 Announced in one major, removed in the next, warned in development throughout.
 Never use a deprecated form in new code, even though it still works:
 
-| do not write | write | removed in |
-| --- | --- | --- |
-| `variant="danger"` | `tone="critical"` | removed in 3.0 |
-| `tone="default"` | `tone="neutral"` | 5.0 |
-| `StateBlock density` | `scope` | 5.0 |
-| `--bh-font-family` | `--bh-font-family-sans` | 5.0 |
+| do not write         | write                   | removed in     |
+| -------------------- | ----------------------- | -------------- |
+| `variant="danger"`   | `tone="critical"`       | removed in 3.0 |
+| `tone="default"`     | `tone="neutral"`        | 5.0            |
+| `StateBlock density` | `scope`                 | 5.0            |
+| `--bh-font-family`   | `--bh-font-family-sans` | 5.0            |
 
 ## Before you invent a component
 
@@ -162,7 +165,7 @@ it. Not that the library looks incomplete without it.
 ## The contracts are the specification
 
 `packages/spec/components/<name>.json` — one file per component, with its
-purpose, what it is *not* for, anatomy, states, keyboard map, ARIA contract and
+purpose, what it is _not_ for, anatomy, states, keyboard map, ARIA contract and
 the tokens it consumes. It is framework-neutral and it is the source both
 libraries are built from.
 

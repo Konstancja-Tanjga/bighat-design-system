@@ -50,7 +50,7 @@
   --bh-control-track: 48px;
   --bh-text-size-caption: 14px;
   --bh-text-size-body: 12px;
-  --bh-text-size-dense: 10px;
+  --bh-text-size-dense: 12px;
   --bh-text-size-label: 10px;
   --bh-text-size-heading: 16px;
   --bh-text-size-display: 20px;
@@ -76,7 +76,7 @@
   --bh-padding-gutter: 32px;
   --bh-padding-hero: 48px;
   --bh-radius-control: 12px;
-  --bh-radius-field: 16px;
+  --bh-radius-field: 12px;
   --bh-radius-surface: 24px;
   --bh-radius-pill: 9999px;
   --bh-radius-indicator: 4px;
@@ -182,7 +182,7 @@
   --bh-control-track: 48px;
   --bh-text-size-caption: 14px;
   --bh-text-size-body: 12px;
-  --bh-text-size-dense: 10px;
+  --bh-text-size-dense: 12px;
   --bh-text-size-label: 10px;
   --bh-text-size-heading: 16px;
   --bh-text-size-display: 20px;
@@ -208,7 +208,7 @@
   --bh-padding-gutter: 32px;
   --bh-padding-hero: 48px;
   --bh-radius-control: 12px;
-  --bh-radius-field: 16px;
+  --bh-radius-field: 12px;
   --bh-radius-surface: 24px;
   --bh-radius-pill: 9999px;
   --bh-radius-indicator: 4px;
@@ -313,7 +313,7 @@
     --bh-control-track: 48px;
     --bh-text-size-caption: 14px;
     --bh-text-size-body: 12px;
-    --bh-text-size-dense: 10px;
+    --bh-text-size-dense: 12px;
     --bh-text-size-label: 10px;
     --bh-text-size-heading: 16px;
     --bh-text-size-display: 20px;
@@ -339,7 +339,7 @@
     --bh-padding-gutter: 32px;
     --bh-padding-hero: 48px;
     --bh-radius-control: 12px;
-    --bh-radius-field: 16px;
+    --bh-radius-field: 12px;
     --bh-radius-surface: 24px;
     --bh-radius-pill: 9999px;
     --bh-radius-indicator: 4px;

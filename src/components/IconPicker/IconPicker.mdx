@@ -24,12 +24,12 @@ the search — an icon nobody can name is an icon nobody can find.
 
 <Guidance>
   <Do reason="Native radios inside a fieldset: one tab stop, arrow keys between tiles, and a state that announces as selected. Choosing an icon is choosing a value, so it uses the control that means 'choose one'.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       Tab once into the grid, then arrow to the icon you want.
     </p>
   </Do>
   <Dont reason="Forty buttons in a grid. Every one takes a tab stop, none of them announces as selected, and the current choice is carried by a border colour that says nothing out loud.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Tab, tab, tab, tab… thirty-six more times.
     </p>
   </Dont>
@@ -39,12 +39,12 @@ the search — an icon nobody can name is an icon nobody can find.
 
 <Guidance>
   <Do reason="keywords catch the word the user actually types. Somebody looking for a bin, a delete or a remove all end up at the same trash icon.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       <code>{"{ name: 'trash', keywords: ['bin', 'remove', 'delete'] }"}</code>
     </p>
   </Do>
   <Dont reason="Matching only the internal name. The user types 'bin', gets 'No icon matches', and concludes the icon does not exist — while it sits three rows down.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       <code>{"{ name: 'trash' }"}</code>
     </p>
   </Dont>

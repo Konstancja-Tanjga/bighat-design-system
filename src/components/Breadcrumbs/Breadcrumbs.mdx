@@ -40,7 +40,7 @@ them anything about the structure they are in.
   </Do>
   <Dont reason="A link to the page you are already on. It takes a tab stop, it announces as a link, and activating it reloads the screen the user is looking at — a control whose entire behaviour is to do nothing.">
     <nav aria-label="Wrong example">
-      <span style={{ fontSize: 13 }}>
+      <span style={{ fontSize: 'var(--bh-text-size-body)' }}>
         <a href="#">Home</a> / <a href="#">Invoices</a> /{' '}
         <a href="#" style={{ fontWeight: 600 }}>
           INV-2043
@@ -76,10 +76,10 @@ through the trail, that route disappears at 375px.
 
 <Guidance>
   <Do reason="The page's own name, ellipsised by CSS when the space runs out. The full text stays in the DOM, so it is read out and found by search.">
-    <p style={{ margin: 0, fontSize: 13 }}>Home / Invoices / INV-2043</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>Home / Invoices / INV-2043</p>
   </Do>
   <Dont reason="Truncating in JavaScript. 'Master services agr…' is what the screen reader gets too, and the user cannot recover the rest by any means.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Home / Docs / Master services agr…
     </p>
   </Dont>

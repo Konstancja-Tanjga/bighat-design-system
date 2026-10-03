@@ -30,12 +30,12 @@ that is really a menu of pages.
 
 <Guidance>
   <Do reason="Roving tabindex: only the selected tab is in the tab order, arrows move between the rest, and the next Tab press lands in the panel. A ten-tab list costs the keyboard user two key presses to get past.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       Tab → selected tab. → and ← → move. Tab again → panel content.
     </p>
   </Do>
   <Dont reason="Every tab focusable. The user presses Tab ten times to reach the content they are already looking at, and there is no way to skip the list.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Tab, Tab, Tab, Tab, Tab, Tab, Tab, Tab, Tab, Tab → content.
     </p>
   </Dont>
@@ -68,10 +68,10 @@ it is the step most hand-rolled implementations skip.
 
 <Guidance>
   <Do reason="Tabs hold alternatives — three views of the same invoices. Nothing is lost by never opening one, because the user chose which slice they needed.">
-    <p style={{ margin: 0, fontSize: 13 }}>Open · Paid · Overdue</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>Open · Paid · Overdue</p>
   </Do>
   <Dont reason="Tabs holding a form the user must complete. Fields hidden in an unvisited tab fail validation invisibly, and the error the user gets points at something they cannot see.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Details · Billing · Permissions — all required before Save
     </p>
   </Dont>

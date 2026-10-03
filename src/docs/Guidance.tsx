@@ -30,7 +30,7 @@ const banner = (accent: string, tint: string): React.CSSProperties => ({
   background: tint,
   color: accent,
   padding: '8px 14px',
-  fontSize: 13,
+  fontSize: 'var(--bh-text-size-body)',
   fontWeight: 700,
   letterSpacing: '0.06em',
   textTransform: 'uppercase',

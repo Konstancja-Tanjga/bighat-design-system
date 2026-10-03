@@ -13,18 +13,23 @@ none — because no weight token was emitted to use. Two of the sizes in use
 
 A component never names a pixel size. It names what the text is for.
 
-| token | value | for |
-| --- | --- | --- |
-| `textSize.display` | 20px | a dialog title, an empty-state headline |
-| `textSize.heading` | 16px | a section or card heading |
-| `textSize.caption` | 14px | the default reading size in a comfortable layout |
-| `textSize.body` | 12px | the default reading size in a dense application |
-| `textSize.dense` | 10px | table cells and dense lists, one step tighter |
-| `textSize.label` | 10px | field labels, badges, metadata |
+| token              | value | for                                              |
+| ------------------ | ----- | ------------------------------------------------ |
+| `textSize.display` | 20px  | a dialog title, an empty-state headline          |
+| `textSize.heading` | 16px  | a section or card heading                        |
+| `textSize.caption` | 14px  | the default reading size in a comfortable layout |
+| `textSize.body`    | 12px  | the default reading size in a dense application  |
+| `textSize.dense`   | 12px  | table cells and dense lists                      |
+| `textSize.label`   | 10px  | field labels, badges, metadata                   |
 
-`dense` and `label` resolve to the same value today and are still two tokens,
-because they answer different questions: one is body copy in a tight layout,
-the other is a label anywhere. When labels need to change, one of them moves.
+**10px is for labels and metadata only.** At 10px this font stack renders
+numerals ambiguously at typical ERP zoom, so a figure the user has to read -
+an amount, a date, a count - is never set in `label`.
+
+`dense` and `label` were one value until the 4px grid made `label` 10px. They
+were always two tokens because they answer different questions — one is body
+copy in a tight layout, the other is a label anywhere — and this is the case
+that was for: `dense` stayed at 12px, because table cells hold figures.
 
 Note that `body` is smaller than `caption`. That is not a mistake — this is a
 system for ERP screens, where the default reading size is 12px and 14px is the
@@ -35,11 +40,11 @@ hides and a named role makes obvious.
 
 Three. Not four.
 
-| token | value |
-| --- | --- |
-| `textWeight.body` | 400 |
-| `textWeight.emphasis` | 500 |
-| `textWeight.heading` | 600 |
+| token                 | value |
+| --------------------- | ----- |
+| `textWeight.body`     | 400   |
+| `textWeight.emphasis` | 500   |
+| `textWeight.heading`  | 600   |
 
 `700` appeared four times in 3.2.0 and is not on the scale. Snapped to
 `heading` in 4.0: at these sizes, on these surfaces, the difference between 600
