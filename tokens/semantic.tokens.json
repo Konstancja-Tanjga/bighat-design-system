@@ -291,15 +291,15 @@
   "radius": {
     "control": {
       "$value": "{radius.lg}",
-      "$description": "Rounder in 4.3 (6px → 10px), to sit beside pill buttons and 20px surfaces without looking like a leftover."
+      "$description": "Rounder in 4.3 (6px → 10px), and on the 4px grid since 5.0 (12px), to sit beside pill buttons and surfaces without looking like a leftover."
     },
     "field": {
       "$value": "{radius.lgPlus}",
-      "$description": "Added in 4.5. Input, Select, Textarea and the other text fields: 12px, one step rounder than radius.control, so a field beside a pill button reads as the same system. Not a pill, because a multi-line field would lose its shape."
+      "$description": "Added in 4.5. Input, Select, Textarea and the other text fields: 16px since the 4px grid, one step rounder than radius.control, so a field beside a pill button reads as the same system. Not a pill, because a multi-line field would lose its shape."
     },
     "surface": {
       "$value": "{radius.2xl}",
-      "$description": "Rounder in 4.2 (10px → 20px): with no border to draw it, the corner is what gives a surface its shape."
+      "$description": "Rounder in 4.2 (10px → 20px), 24px on the 4px grid: with no border to draw it, the corner is what gives a surface its shape."
     },
     "pill": {
       "$value": "{radius.full}"
