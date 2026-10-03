@@ -64,4 +64,14 @@ describe('Button', () => {
     expect(className).toContain('bh-button--ghost');
     expect(className).toContain('bh-button--critical');
   });
+
+  it('takes tone="neutral", and still accepts the pre-4.0 "default" with a warning', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { rerender } = render(<Button tone="neutral">Save</Button>);
+    const neutral = screen.getByRole('button', { name: 'Save' }).className;
+    rerender(<Button tone="default">Save</Button>);
+    expect(screen.getByRole('button', { name: 'Save' }).className).toBe(neutral);
+    expect(warn).toHaveBeenCalledTimes(1);
+    warn.mockRestore();
+  });
 });

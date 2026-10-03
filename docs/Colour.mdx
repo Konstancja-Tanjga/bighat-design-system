@@ -8,7 +8,7 @@ Two layers, and only one of them is an API.
 
 ## Primitives are not for you
 
-`color.blue.500` says what a colour *is*. Fifty of them exist, they are defined
+`color.blue.500` says what a colour _is_. Fifty of them exist, they are defined
 in `primitive.tokens.json`, and product code may not touch them. They exist to
 define the layer below and for nothing else.
 
@@ -18,13 +18,13 @@ and stop.
 
 ## Semantics are roles
 
-| group | what it answers |
-| --- | --- |
-| `surface.*` | what is this sitting on |
-| `text.*` | how important is this text |
-| `border.*` | is this decoration, a control boundary, or focus |
-| `action.*` | what does pressing this do |
-| `status.*` | what state is this in |
+| group       | what it answers                                  |
+| ----------- | ------------------------------------------------ |
+| `surface.*` | what is this sitting on                          |
+| `text.*`    | how important is this text                       |
+| `border.*`  | is this decoration, a control boundary, or focus |
+| `action.*`  | what does pressing this do                       |
+| `status.*`  | what state is this in                            |
 
 `text.muted` survives a rebrand. `text.grey500` does not.
 
@@ -45,7 +45,9 @@ of `neutral` and disagreed with each other about which values existed. Nothing
 was broken in any one file. It was broken across files, which is the only place
 a design system can be broken.
 
-`tone="default"` resolves for the whole 4.x line and is removed in 5.0.
+`tone="default"` resolves for the whole 4.x line. Menu and Progress drop it in
+5.0; Button keeps it until 6.0, because until 5.0 its own type still said
+`default` and never accepted `neutral` - the one file the rename missed.
 
 ## Selection is not a status
 
@@ -53,8 +55,8 @@ a design system can be broken.
 picked, the destination they are on, the tile that is checked.
 
 Six components used to say that with `status.info`, and it was the wrong role
-by one word. A status is a message the system is making: *this failed*, *this
-saved*, *here is something you should know*. Selection is not news the system
+by one word. A status is a message the system is making: _this failed_, _this
+saved_, _here is something you should know_. Selection is not news the system
 has; it is the answer to a question the reader just asked by clicking. The two
 happened to want a tint and a border, so one stood in for the other, and the
 tell was that a selected row and an information banner were the same colour —
@@ -82,11 +84,11 @@ The thresholds are not all 4.5:1, and getting that distinction wrong in either
 direction is a real failure — too lax ships unreadable UI, too strict forces a
 washed-out palette nobody wants:
 
-| requirement | ratio | what it applies to |
-| --- | --- | --- |
-| `bodyText` | 4.5:1 | body copy, button labels, status messages |
-| `largeText` | 3:1 | headings above 18.66px bold or 24px regular |
-| `nonText` | 3:1 | control boundaries and the focus ring (WCAG 1.4.11) |
+| requirement | ratio | what it applies to                                  |
+| ----------- | ----- | --------------------------------------------------- |
+| `bodyText`  | 4.5:1 | body copy, button labels, status messages           |
+| `largeText` | 3:1   | headings above 18.66px bold or 24px regular         |
+| `nonText`   | 3:1   | control boundaries and the focus ring (WCAG 1.4.11) |
 
 Adding a token that renders text or a control boundary means adding a line to
 the pairs list. That list is not documentation. An undeclared pair is a review
