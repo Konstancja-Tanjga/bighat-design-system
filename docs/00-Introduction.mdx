@@ -35,6 +35,11 @@ script. Everything else — the CSS custom properties, the SCSS, the typed TS
 helper, the flat JSON — is generated from it, and CI fails if a committed
 artefact has drifted from the source.
 
+The same file is where the Figma library comes from: four variable collections
+(Primitives, Color in Light and Dark, Size, Type), each semantic variable
+carrying its `var(--bh-…)` name as code syntax, and Button built on them. Code
+is the source of truth; the library follows it.
+
 If no semantic role fits, that is a signal the system is missing a role, not a
 licence to reach one layer down. See **Foundations → Colour & tone**.
 
