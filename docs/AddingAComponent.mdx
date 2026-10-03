@@ -14,64 +14,89 @@ That means the argument for a new component is evidence, not symmetry.
 what the hand-rolled version does worse. The last part is the only argument
 that counts. "Every design system has a Stepper" is not one.
 
+## Two homes, one source of truth
+
+A component lives in two places: the Big Hat library in Figma, where it is
+designed, reviewed and used to compose screens, and this repository, where it
+ships. They are kept in step on purpose, and when they disagree **the code
+wins** — `tokens/*.tokens.json` is the source the Figma variables were
+generated from, not the other way round.
+
+That does not make Figma a copy. A decision can start there: the 4px radius
+grid was set in the library first. What it cannot do is stay there. A value
+changed in Figma and not in `tokens/` is drift, and it is resolved by a pull
+request that moves the token, or by putting the Figma value back.
+
 ## The order, and why it is this order
 
-**1. Write the contract first.** `packages/spec/components/<name>.json`, before
-either implementation. Purpose, what it is *not* for, anatomy, states, the
-keyboard map, the ARIA contract, the tokens it consumes.
+**1. Write the contract first.** `spec/components/<name>.json`, before any
+drawing or code: purpose, what it is _not_ for, anatomy, states, the keyboard
+map, the ARIA contract, the tokens it consumes. `npm run spec:validate` tells
+you what is still missing.
 
-This is the step that used to be skipped, and skipping it is what made "port it
-to Angular" read as a rewrite. In 3.2.0 the keyboard map, the announcement
-strategy and the DOM contract existed only inside `.tsx` — so a second
-implementer had to read React and guess which parts were the design and which
-were incidental. Writing the contract first makes the second implementation a
-translation.
+The contract is what lets the same component exist in Figma, in React and in
+the sibling [Angular library](https://github.com/Konstancja-Tanjga/bighat-design-system-angular)
+without three people guessing which parts are the design and which are
+incidental. Writing it first makes every other step a translation.
 
-`node scripts/validate.mjs` tells you what is still missing.
+**2. Design it in Figma, from the library.** Every fill, stroke, radius, gap
+and size is bound to a Big Hat variable — the `Color` collection for roles, in
+Light and Dark, `Size` for spacing and radii, `Type` for the face. The
+primitives are hidden from the pickers for the same reason product code may not
+use them. If no role fits, that is a missing token: propose it in
+`tokens/semantic.tokens.json`, not as a local value in one file.
 
-**2. CSS in `@bighat/css`.** BEM parts matching the contract's `anatomy`,
-tokens only. The drift gate will fail the build on a literal, which is the
-intended way to find out that the system is missing a role.
+Name the variant properties after the props: `variant`, `size`, `state`, with
+the values code uses (`primary`, `md`, `disabled`). The component description
+carries the purpose and the "do not use it for" line from the contract, so the
+designer reaching for it in the Assets panel reads the same warning a developer
+reads in the contract's `notFor`.
 
-**3. Implement in one framework.** Either one. The contract does not care which
-came first, and building React first out of habit is how the Angular version
-inherits React's shape.
+Review happens here, in Light and Dark, before anything is built — a frame of
+instances that switches the Color mode is the cheapest place to find a state
+nobody drew.
 
-**4. Implement in the other.** Idiomatically, not identically — see
-`packages/ui-angular/README.md` for the mapping rules. A prop expressed as
-content projection in Angular and a `ReactNode` in React is the same prop; the
-contract's `react:` and `angular:` fields record both, and the parity check
-reads them.
+**3. CSS in `src/styles/components/<Name>.css`.** BEM parts matching the
+contract's `anatomy`, tokens only. The drift audit fails the build on a
+literal, which is the intended way to find out that the system is missing a
+role.
 
-**5. Stories with the same names in both.** `scripts/check-parity.mjs` asserts
-it. A story in one Storybook and not the other is a variant one framework's
-users cannot see documented. Genuine divergence goes in
-`implementations.allowedStoryDivergence` with a reason.
+**4. React in `src/components/<Name>/`.** The props are the Figma variant
+properties, under the same names. The Angular library translates from the
+contract, idiomatically rather than line by line.
 
-**6. Tests for every state in the contract.** 3.2.0 had tests for 18 of 41
-components, and the gaps included `Dialog`, `Select`, `RadioGroup`, `Slider`
-and `DatePicker` — the highest-risk keyboard and focus surfaces in the library.
-A state listed in the contract and not asserted in a test is a state nobody is
-watching.
+**5. Stories and docs.** `node scripts/scaffold-docs.mjs src spec/components`
+writes a story file
+and an MDX page from the contract: anatomy, props, states, keyboard, tokens.
+What it cannot write is the judgement — when to use it, what to use instead,
+the do/don't with reasons — so it leaves TODO markers, and `npm run check:docs`
+fails until they are gone.
 
-**7. Docs.** The per-component MDX template, same sections in the same order:
-purpose · use this / use something else · anatomy · variants · states ·
-keyboard · ARIA · do and don't with reasons · tokens consumed · related.
+**6. Tests for every state in the contract.** A state listed in the contract
+and not asserted in a test is a state nobody is watching.
 
-**8. Set `implementations.status`.** And let the parity check confirm it rather
-than asserting it by hand. `parity` is a claim about two codebases, and a claim
-nobody executes is already false somewhere.
+**7. Connect Figma to the code.** A Code Connect template in
+`figma/<Name>.figma.ts` maps each Figma property to its prop, so Dev Mode shows
+the `<Component>` a developer would write rather than CSS read off the canvas.
+Leave defaults out of the snippet: a primary, medium button reads
+`<Button>Save</Button>`.
+
+**8. Release both sides.** A changeset for the package — `npm run verify`
+regenerates the ARIA conformance report and the drift report on the way — and,
+once it merges, a new publish of the Figma library with the same note.
+Publishing is a person's step on both sides: it is a commitment to every team
+using the library.
 
 ## Naming
 
-PascalCase, and the same name in all four places: the Storybook title, the
-React export, the Angular selector stem, the contract filename. 3.2.0's story
-titles disagreed with its export names in twelve places — `Toolbar` shipped as
-"Function Bar", `SegmentedControl` as "Segmented Button" — so searching
-Storybook for the thing you were importing found nothing.
+PascalCase, and the same name everywhere it appears: the Figma component, the
+Storybook title, the React export, the Angular selector stem, the contract
+filename. Story titles once disagreed with their export names in twelve places
+— `Toolbar` shipped as "Function Bar" — so searching Storybook for the thing
+you were importing found nothing.
 
-Where the designer-facing word is genuinely better, it goes in `aliases` and
-search matches both. The identifier stays the identifier.
+Where the designer-facing word is genuinely better, it goes in the contract's
+`aliases`, and search matches both. The identifier stays the identifier.
 
 ## What does not need a component
 
