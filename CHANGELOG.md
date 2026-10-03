@@ -1,5 +1,63 @@
 # @bighat/ui
 
+## 5.0.0
+
+### Major Changes
+
+- d9e6f44: `BoardCard`'s move control is now a `Menu` instead of a `<select>`. On Windows
+  a closed select commits as its value changes, so the first arrow key moved the
+  card before the user had seen where it could go; the menu moves nothing until a
+  destination is chosen, and Escape closes it without moving. The button reads
+  "Move to…" and is named "Move to… {title}", so the words a voice-control user
+  sees are the start of its name.
+
+  Breaking: the `<select>` and its `bh-board__move-select` class are gone, and the
+  control is now a `bh-board__move-trigger` button. Tests that called
+  `selectOptions` on it need to click the button and then the destination. See
+  MIGRATION.md.
+
+  `Menu` now opens upward when a scrolling ancestor or the viewport leaves no
+  room below the trigger, so the last card in a board column, or the last row in
+  a scrolling table, is no longer clipped.
+
+### Minor Changes
+
+- f7ef21d: An overlaid `AppShell` panel now behaves as a modal. Below `breakpoint.md`,
+  opening the navigation or the trailing panel moves focus to its first control,
+  and makes the header, `main` and the other panels `inert`. Escape closes it
+  through the same toggle, unless something inside used it first (an open
+  `Menu`, a `Combobox` list, a `Dialog`), and on close focus returns to the control that opened
+  it. Before, focus stayed behind the scrim, Tab walked through the hidden page,
+  and closing left focus on `<body>`. At full width nothing changes. `Combobox` now marks the Escape that closes its
+  list as handled, so an enclosing overlay stays open. If your
+  product added its own Escape listener for the overlay, remove it, or the toggle
+  runs twice.
+- faf2a64: Radius and the two smallest type sizes move onto the 4px grid, matching the
+  Figma library. Every corner gets a little rounder: `radius.sm` 3 → 4, `md`
+  6 → 8, `lg` 10 → 12, `lgPlus` 12 → 16, `xl` 16 → 20, `2xl` 20 → 24, `3xl`
+  26 → 32, so `radius.control` is now 12px, `radius.surface` 24px and
+  `radius.modal` 32px. `radius.field` stays at 12px by moving to `radius.lg`,
+  the control's corner: 16px read as a pill on a 36px field.
+
+  Text gets a step smaller at the label end: `fontSize.sm` 13 → 12
+  (`textSize.body`) and `fontSize.xs` 11 → 10 (`textSize.label`).
+  `textSize.dense` moves to `fontSize.sm` (12px), so table cells and dense lists
+  keep figures legible. Nothing to change in product code; check dense screens,
+  where labels are now 10px.
+
+### Patch Changes
+
+- 82916e5: `StateBlock` (loading and error) and `SkeletonGroup` are now heard when they
+  appear. Their live region used to mount with its words already inside it,
+  which most screen readers do not announce, and with `aria-busy="true"`, which
+  tells assistive technology to hold announcements back and was never cleared.
+  The visible content still renders at once, so nothing shifts and server-rendered
+  markup keeps its text. The words are now spoken from a visually hidden region:
+  a status region mounts empty and fills after the first paint, and an error is
+  inserted as an alert with its words. The region is keyed by state, so a
+  StateBlock that goes from loading to error and back announces each step.
+  `aria-busy` is gone. The empty state is not a live region and is unchanged.
+
 ## 4.14.0
 
 ### Minor Changes
