@@ -15,9 +15,23 @@
   align-items: flex-end;
   gap: var(--bh-gap-snug);
   padding: var(--bh-gap-snug);
+  /* A text field, so it keeps a field's edge and states (Input.css): a 3:1
+     border.strong boundary, the control shadow under it, and a hover that
+     darkens the edge rather than the surface the reader types on. Not glass,
+     for the same reason a field is not. */
   background: var(--bh-surface-base);
   border: 1px solid var(--bh-border-strong);
   border-radius: var(--bh-radius-surface);
+  box-shadow: var(--bh-elevation-control);
+  transition: border-color var(--bh-duration-fast) var(--bh-easing-standard);
+}
+
+.bh-composer__field:hover:not(:focus-within) {
+  border-color: var(--bh-border-hover);
+}
+
+.bh-composer__field:focus-within {
+  border-color: var(--bh-border-focus);
 }
 
 /* The ring goes on the field, not the textarea, so the focus indicator wraps

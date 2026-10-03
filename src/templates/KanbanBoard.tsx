@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 import { AppBar } from '../components/AppBar/AppBar';
 import { AppShell, SkipLink } from '../components/AppShell/AppShell';
@@ -6,14 +6,14 @@ import { Badge, type BadgeTone } from '../components/Badge/Badge';
 import { Board, BoardCard, BoardColumn } from '../components/Board/Board';
 import { Breadcrumbs } from '../components/Breadcrumbs/Breadcrumbs';
 import { Button } from '../components/Button/Button';
-import { Checkbox } from '../components/Checkbox/Checkbox';
 import { Combobox } from '../components/Combobox/Combobox';
 import { DateRangePicker } from '../components/DatePicker/DatePicker';
 import { Divider } from '../components/Divider/Divider';
+import { FilterChip } from '../components/FilterChip/FilterChip';
 import { Input } from '../components/Input/Input';
 import { NavRail } from '../components/NavRail/NavRail';
 import { SegmentedControl } from '../components/SegmentedControl/SegmentedControl';
-import { Select } from '../components/Select/Select';
+import { RemovableChip } from '../components/RemovableChip/RemovableChip';
 import { SidePanel } from '../components/SidePanel/SidePanel';
 import { Skeleton, SkeletonGroup } from '../components/Skeleton/Skeleton';
 import { StateBlock } from '../components/StateBlock/StateBlock';
@@ -48,6 +48,12 @@ const OWNERS = [
   { value: 'finance', label: 'Finance team', hint: '11 people' },
   { value: 'grace', label: 'Grace Hopper', hint: 'Compliance' },
   { value: 'katherine', label: 'Katherine Johnson', hint: 'Finance' },
+];
+
+const DOC_TYPES = [
+  { value: 'contract', label: 'Contract' },
+  { value: 'invoice', label: 'Invoice' },
+  { value: 'certificate', label: 'Certificate' },
 ];
 
 const COLUMNS: Array<{ id: ColumnId; title: string; limit?: number }> = [
@@ -142,8 +148,29 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
   const [owner, setOwner] = useState<string | null>(null);
   const [uploaded, setUploaded] = useState('30');
   const [layout, setLayout] = useState('board');
+  const [types, setTypes] = useState<Set<string>>(new Set());
   const [onlyMine, setOnlyMine] = useState(false);
   const [needsReview, setNeedsReview] = useState(false);
+  const typeGroup = useId();
+  const showGroup = useId();
+  const toggleType = (type: string) =>
+    setTypes((current) => {
+      const next = new Set(current);
+      if (next.has(type)) next.delete(type);
+      else next.add(type);
+      return next;
+    });
+  const active = [
+    ...DOC_TYPES.filter((t) => types.has(t.value)).map((t) => ({
+      key: t.value,
+      label: t.label,
+      remove: () => toggleType(t.value),
+    })),
+    ...(onlyMine ? [{ key: 'mine', label: 'Owned by me', remove: () => setOnlyMine(false) }] : []),
+    ...(needsReview
+      ? [{ key: 'review', label: 'Needs my review', remove: () => setNeedsReview(false) }]
+      : []),
+  ];
 
   const move = (docId: string, targetId: string) => {
     const doc = docs.find((d) => d.id === docId);
@@ -209,20 +236,29 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
         <SidePanel
           ariaLabel="Filters"
           title="Filters"
-          width={248}
+          width={272}
           header={<Input label="Search documents" hideLabel placeholder="Search documents" />}
         >
           <div className="bh-kanban__filters">
-            <Select
-              label="Document type"
-              placeholder="All types"
-              defaultValue=""
-              options={[
-                { value: 'contract', label: 'Contract' },
-                { value: 'invoice', label: 'Invoice' },
-                { value: 'certificate', label: 'Certificate' },
-              ]}
-            />
+            {/* Chips rather than a select: types combine (contracts and
+                invoices), and every option stays in view instead of behind a
+                closed control. The group is named, so the chips are not four
+                unrelated buttons to a keyboard reader. */}
+            <div className="bh-kanban__chip-group" role="group" aria-labelledby={typeGroup}>
+              <span className="bh-field__label" id={typeGroup}>
+                Document type
+              </span>
+              <div className="bh-kanban__chips">
+                {DOC_TYPES.map((type) => (
+                  <FilterChip
+                    key={type.value}
+                    label={type.label}
+                    pressed={types.has(type.value)}
+                    onClick={() => toggleType(type.value)}
+                  />
+                ))}
+              </div>
+            </div>
             {/* Owner is a Combobox rather than a Select: the list is every
                 person in the tenant, which is not a list anyone scans. */}
             <Combobox
@@ -256,17 +292,23 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
 
             <Divider spacing="snug" />
 
-            <Checkbox
-              label="Only documents I own"
-              checked={onlyMine}
-              onChange={(event) => setOnlyMine(event.target.checked)}
-            />
-            <Checkbox
-              label="Needs my review"
-              description="Documents waiting on a decision from you."
-              checked={needsReview}
-              onChange={(event) => setNeedsReview(event.target.checked)}
-            />
+            <div className="bh-kanban__chip-group" role="group" aria-labelledby={showGroup}>
+              <span className="bh-field__label" id={showGroup}>
+                Show
+              </span>
+              <div className="bh-kanban__chips">
+                <FilterChip
+                  label="Owned by me"
+                  pressed={onlyMine}
+                  onClick={() => setOnlyMine((value) => !value)}
+                />
+                <FilterChip
+                  label="Needs my review"
+                  pressed={needsReview}
+                  onClick={() => setNeedsReview((value) => !value)}
+                />
+              </div>
+            </div>
           </div>
         </SidePanel>
       }
@@ -318,6 +360,21 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
             </Button>
           </Tooltip>
         </Toolbar>
+
+        {/* What is applied, next to what it narrows, each removable in one
+            press - the sidebar can be scrolled away or collapsed. */}
+        {active.length > 0 && (
+          <div className="bh-kanban__applied" role="group" aria-label="Applied filters">
+            {active.map((filter) => (
+              <RemovableChip
+                key={filter.key}
+                label={filter.label}
+                onRemove={filter.remove}
+                removeLabel={`Remove filter: ${filter.label}`}
+              />
+            ))}
+          </div>
+        )}
 
         {state === 'loading' && (
           <SkeletonGroup label="Loading documents" className="bh-kanban__skeleton">

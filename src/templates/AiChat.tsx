@@ -25,6 +25,7 @@ import {
   IconAttach,
   IconBrief,
   IconChart,
+  IconClose,
   IconDoc,
   IconFlow,
   IconGrid,
@@ -249,19 +250,20 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
 
         {explainerOpen && state === 'ready' && (
           <Card>
+            {/* The heading says what the card is; an all-caps label above it
+                only repeated that in a smaller voice. */}
             <div className="bh-ai__explainer">
               <div className="bh-ai__explainer-head">
-                <p className="bh-ai__eyebrow">How AI Chat works</p>
+                <h3 className="bh-ai__explainer-title">An assistant that shows its work</h3>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setExplainerOpen(false)}
                   aria-label="Dismiss explanation"
                 >
-                  ✕
+                  <IconClose />
                 </Button>
               </div>
-              <h3 className="bh-ai__explainer-title">An assistant that shows its work.</h3>
               <p className="bh-ai__explainer-body">
                 Ask anything about the business in plain English. AI Chat plans the analysis,
                 queries your live data, and returns the answer together with the chart, the SQL it

@@ -1,5 +1,23 @@
 # Migration guide
 
+## 4.x → 5.0 — `Table` row actions are an icon button named after the row
+
+### What changed
+
+Each row's actions trigger was a capsule reading "Row actions", forty times
+down a column. It is now a round `⋯` icon button whose name carries the row:
+"Actions for INV-2046". The name comes from the new `rowLabel` prop, or from
+`rowKey` when `rowLabel` is not given.
+
+### What to update
+
+```diff
+- screen.getAllByRole('button', { name: 'Row actions' })
++ screen.getAllByRole('button', { name: /^Actions for / })
+```
+
+Pass `rowLabel` when the key is not what a reader sees, e.g. an internal id.
+
 ## 4.x → 5.0 — `BoardCard` moves with a menu, not a select
 
 ### What changed

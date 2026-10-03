@@ -119,3 +119,9 @@ export const IconInbox = () => (
     <path d="M4.5 5h15l1.5 8v6H3v-6z" />
   </svg>
 );
+
+export const IconClose = () => (
+  <svg {...base} width={16} height={16}>
+    <path d="M6 6l12 12M18 6 6 18" />
+  </svg>
+);

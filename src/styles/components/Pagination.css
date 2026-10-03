@@ -30,6 +30,8 @@
    labels — so the field lays out inline instead of stacking. */
 .bh-pagination__size .bh-field {
   display: flex;
+  /* .bh-field is a column; without this the label stacked above the box. */
+  flex-direction: row;
   align-items: center;
   gap: var(--bh-gap-snug);
 }

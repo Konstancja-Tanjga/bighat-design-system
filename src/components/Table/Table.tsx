@@ -88,6 +88,11 @@ export type TableProps<Row> = {
   selection?: TableSelection;
   /** Per-row overflow menu, in a column of its own at the end. */
   rowActions?: (row: Row) => MenuItem[];
+  /**
+   * Names a row for its actions button: "Actions for INV-2046". Defaults to
+   * `rowKey`, which is right when the key is what a reader sees.
+   */
+  rowLabel?: (row: Row) => string;
   /** Keeps the header in view while the body scrolls. */
   stickyHeader?: boolean;
   density?: Density;
@@ -108,6 +113,7 @@ export function Table<Row>({
   state,
   selection,
   rowActions,
+  rowLabel,
   stickyHeader = false,
   density = 'comfortable',
   totals,
@@ -286,7 +292,25 @@ export function Table<Row>({
                   ))}
                   {rowActions && (
                     <td className="bh-table__actions">
-                      <Menu label="Row actions" align="end" items={rowActions(row)} />
+                      {/* An icon, not a labelled capsule: one per row, a word
+                          would repeat down the column and outweigh the data.
+                          The name carries the row, so a voice-control or
+                          screen reader user can tell forty of them apart. */}
+                      <Menu
+                        label={`Actions for ${rowLabel ? rowLabel(row) : key}`}
+                        align="end"
+                        items={rowActions(row)}
+                        renderTrigger={(trigger) => (
+                          <button
+                            type="button"
+                            {...trigger}
+                            className={`${trigger.className} bh-table__actions-trigger`}
+                            aria-label={`Actions for ${rowLabel ? rowLabel(row) : key}`}
+                          >
+                            <span aria-hidden="true">⋯</span>
+                          </button>
+                        )}
+                      />
                     </td>
                   )}
                 </tr>
