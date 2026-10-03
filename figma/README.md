@@ -24,6 +24,11 @@ state, not a prop, and maps to nothing.
 | `Switch.figma.ts`           | Switch              | `src/components/Switch/Switch.tsx`                     |
 | `RadioGroup.figma.ts`       | RadioGroup          | `src/components/RadioGroup/RadioGroup.tsx`             |
 | `SegmentedControl.figma.ts` | SegmentedControl    | `src/components/SegmentedControl/SegmentedControl.tsx` |
+| `Tab.figma.ts`              | Tabs / Tab          | `<Tab>` in `src/components/Tabs/Tabs.tsx`              |
+| `TabList.figma.ts`          | Tabs / List         | `<Tabs>` and `<TabList>`, with the tabs inside         |
+| `Tooltip.figma.ts`          | Tooltip             | `src/components/Tooltip/Tooltip.tsx`                   |
+| `Toast.figma.ts`            | Toast               | the `toast.show()` call from `useToast`                |
+| `Dialog.figma.ts`           | Dialog              | `src/components/Dialog/Dialog.tsx`                     |
 
 Pointer and keyboard states drawn in Figma — `hover`, `focus`, a menu's
 `active` item — map to nothing: they are the browser's, not props. Data that
