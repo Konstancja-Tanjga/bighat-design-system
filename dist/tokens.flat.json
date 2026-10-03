@@ -253,18 +253,18 @@
     },
     "textSize.body": {
       "type": "dimension",
-      "light": "13px",
-      "dark": "13px"
+      "light": "12px",
+      "dark": "12px"
     },
     "textSize.dense": {
       "type": "dimension",
-      "light": "11px",
-      "dark": "11px"
+      "light": "10px",
+      "dark": "10px"
     },
     "textSize.label": {
       "type": "dimension",
-      "light": "11px",
-      "dark": "11px"
+      "light": "10px",
+      "dark": "10px"
     },
     "textSize.heading": {
       "type": "dimension",
@@ -389,21 +389,21 @@
     },
     "radius.control": {
       "type": "dimension",
-      "light": "10px",
-      "dark": "10px",
-      "description": "Rounder in 4.3 (6px → 10px), to sit beside pill buttons and 20px surfaces without looking like a leftover."
+      "light": "12px",
+      "dark": "12px",
+      "description": "Rounder in 4.3 (6px → 10px), and on the 4px grid since 5.0 (12px), to sit beside pill buttons and surfaces without looking like a leftover."
     },
     "radius.field": {
       "type": "dimension",
-      "light": "12px",
-      "dark": "12px",
-      "description": "Added in 4.5. Input, Select, Textarea and the other text fields: 12px, one step rounder than radius.control, so a field beside a pill button reads as the same system. Not a pill, because a multi-line field would lose its shape."
+      "light": "16px",
+      "dark": "16px",
+      "description": "Added in 4.5. Input, Select, Textarea and the other text fields: 16px since the 4px grid, one step rounder than radius.control, so a field beside a pill button reads as the same system. Not a pill, because a multi-line field would lose its shape."
     },
     "radius.surface": {
       "type": "dimension",
-      "light": "20px",
-      "dark": "20px",
-      "description": "Rounder in 4.2 (10px → 20px): with no border to draw it, the corner is what gives a surface its shape."
+      "light": "24px",
+      "dark": "24px",
+      "description": "Rounder in 4.2 (10px → 20px), 24px on the 4px grid: with no border to draw it, the corner is what gives a surface its shape."
     },
     "radius.pill": {
       "type": "dimension",
@@ -412,26 +412,26 @@
     },
     "radius.indicator": {
       "type": "dimension",
-      "light": "3px",
-      "dark": "3px",
+      "light": "4px",
+      "dark": "4px",
       "description": "Added in 4.0. The corner of a small drawn control - a checkbox box, a radio dot's ring. Was a 4px literal, which was never on the radius scale at all; radius.control (6px) reads as too round on a 16px box, and the 1px difference from 3px is not a design decision worth a new primitive."
     },
     "radius.tag": {
       "type": "dimension",
-      "light": "6px",
-      "dark": "6px",
+      "light": "8px",
+      "dark": "8px",
       "description": "Added in 4.x. A Badge: rounder than a checkbox, squarer than a chip, so a label that states something is not mistaken for a control that does something."
     },
     "radius.overlay": {
       "type": "dimension",
-      "light": "16px",
-      "dark": "16px",
+      "light": "20px",
+      "dark": "20px",
       "description": "Added in 4.2. Menu, popover and listbox - smaller than a surface because they are smaller."
     },
     "radius.modal": {
       "type": "dimension",
-      "light": "26px",
-      "dark": "26px",
+      "light": "32px",
+      "dark": "32px",
       "description": "Added in 4.2. Dialog and sheet."
     },
     "elevation.flat": {
