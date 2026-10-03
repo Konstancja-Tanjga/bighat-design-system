@@ -89,6 +89,10 @@
 
 .bh-dialog__footer {
   display: flex;
+  /* Wraps rather than overflowing: in a small dialog, two buttons that name
+     their outcome ("Keep workspace", "Delete workspace") can be wider than the
+     panel, and a footer that does not wrap pushes one of them out of it. */
+  flex-wrap: wrap;
   justify-content: flex-end;
-  gap: var(--bh-gap-normal);
+  gap: var(--bh-gap-snug) var(--bh-gap-normal);
 }
