@@ -28,10 +28,10 @@ Foundations page shows the primitives and the colour roles in both modes.
 
 Components so far: Button (both tones), Badge, Input, Textarea, Select,
 Checkbox, RadioGroup, Switch, SegmentedControl, FilterChip, RemovableChip and
-Menu, every value bound to those variables,
-variant properties named after the props, and each with a review frame that
-switches the same instances to Dark by changing one mode. Code Connect templates
-in [`figma/`](figma/) make Dev Mode show the component a developer would write.
+Menu, every value bound to those variables, variant properties named after the
+props, and each with a review frame that switches the same instances to Dark by
+changing one mode. Code Connect templates in [`figma/`](figma/) make Dev Mode
+show the component a developer would write.
 
 Code stays the source of truth and the library follows it. Pressed states are
 not drawn; the browser draws them. Two things do not survive the trip: Figma
