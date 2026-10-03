@@ -17,6 +17,24 @@ front door.
 There is a sibling: **[Big Hat — Angular](https://github.com/Konstancja-Tanjga/bighat-design-system-angular)**,
 built from the same component contracts.
 
+## In Figma
+
+The tokens are also a Figma library, built from `tokens/*.tokens.json` rather
+than redrawn: 224 variables in four collections — Primitives, Color (Light and
+Dark), Size and Type. Every semantic variable carries its CSS name as code
+syntax, so Dev Mode shows `var(--bh-action-primary-bg)`, not a hex, and the
+primitives are hidden from every picker, as they are from product code. Button
+is the first component in it: both tones, every size, the default, hover and
+disabled states and a Loading toggle, bound to those variables, with a review
+frame that switches the same instances to Dark by changing one mode.
+
+Code stays the source of truth and the library follows it. Pressed and focus are
+not drawn yet. Two things do not survive the trip: Figma cannot saturate a
+backdrop, so the glass secondary button is a little flatter there than in a
+browser, and the dark floating shadow keeps its light-theme geometry.
+
+![The Big Hat library in Figma: Button and Button / Critical in every size and state drawn there, and the same instances in Light and Dark](docs/assets/figma-library.png)
+
 ## Install
 
 ```bash
