@@ -1,5 +1,28 @@
 # @bighat/ui
 
+## 6.0.0
+
+### Major Changes
+
+- 85398b8: `Table` row actions are a round `⋯` icon button named after its row ("Actions
+  for INV-2046") instead of a "Row actions" capsule in every row. A new
+  `rowLabel` prop supplies the row's name; it defaults to `rowKey`. Tests that
+  found the trigger by "Row actions" need the new name (see MIGRATION.md).
+
+  `Pagination` lays its page-size control out inline as intended (the label had
+  been stacking above the box) and lists plain numbers, since the label already
+  says "Per page". `Composer`'s field gets the same edge as every other text
+  field: the control shadow, and a hover and focus that change the border.
+
+### Minor Changes
+
+- 41a5ab9: `Button` takes `tone="neutral"`, like every other tone axis. The 4.0 rename
+  missed Button: its own type still said `'default' | 'critical'`, so
+  `tone="neutral"` was a type error there while the docs, the contract and
+  Menu and Progress all used it. `tone="default"` keeps working and warns once
+  in development; for Button it is removed in 6.0, not 5.0, because there was
+  never a release in which the replacement worked.
+
 ## 5.0.0
 
 ### Major Changes
