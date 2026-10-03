@@ -38,12 +38,12 @@ you should not write a second one:
 
 <Guidance>
   <Do reason="On blur the field snaps back to the committed selection. Half-typed text is not a value, and leaving it on screen tells the user they chose something they did not.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       Type <code>Pol</code>, click away — the field clears, because nothing was committed.
     </p>
   </Do>
   <Dont reason="Keeping the typed text as if it were a selection. The form submits 'Pol', the backend rejects it, and the user is told their country is invalid when the field showed them something that looked chosen.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Field still reads <code>Pol</code>, value is <code>null</code>.
     </p>
   </Dont>
@@ -74,10 +74,12 @@ browser's focus ring: nothing in the list is ever focused.
 
 <Guidance>
   <Do reason="First Escape closes the list and leaves the value; second Escape clears the field. The user can back out one step at a time, which is the behaviour every desktop combobox has had for thirty years.">
-    <p style={{ margin: 0, fontSize: 13 }}>Escape → list closes. Escape again → field empties.</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
+      Escape → list closes. Escape again → field empties.
+    </p>
   </Do>
   <Dont reason="A single Escape that clears everything. The user who only wanted to dismiss the dropdown has lost their selection and has to find it again.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Escape → list closes and the value is gone.
     </p>
   </Dont>

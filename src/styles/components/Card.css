@@ -54,7 +54,7 @@
 /* Accent is a bar rather than a whole-card tint: a tinted surface changes the
    background every piece of text inside it was contrast-tested against.
 
-   Since 4.2 the corner is 20px, and an edge stripe has to bend with it - it
+   Since 4.2 the corner is large (radius.surface), and an edge stripe has to bend with it - it
    read as a crescent, not a mark. So the bar is its own capsule inside the
    padding, centred in it and running the height of the card's content - its
    actions too - which is the

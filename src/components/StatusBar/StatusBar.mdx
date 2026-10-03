@@ -32,12 +32,12 @@ anything urgent belongs somewhere else.
 
 <Guidance>
   <Do reason="The message element is always rendered, even when empty. A live region added to the DOM at the same moment its text appears is not announced at all — the browser has nothing to compare against.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       <code>{'<p role="status" aria-live="polite">{message}</p>'}</code> — always in the tree.
     </p>
   </Do>
   <Dont reason="Rendering the whole element only when there is a message. It looks identical, and it is silent every single time.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       <code>{'{message && <p role="status">{message}</p>}'}</code>
     </p>
   </Dont>

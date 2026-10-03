@@ -28,12 +28,12 @@ anything else tells a screen reader user to expect commands they will not find.
 
 <Guidance>
   <Do reason="Opening moves focus to the first item; Escape closes and returns it to the trigger. The user ends where they started, which is the only way a menu is usable without a mouse.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       ↓ opens on the first item · ↑ opens on the last · Esc returns to the trigger
     </p>
   </Do>
   <Dont reason="A menu that opens without moving focus. The keyboard user has opened something they cannot reach, and their next Tab press goes to whatever follows the trigger — past the menu entirely.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Menu opens · focus stays on the trigger · Tab leaves the menu behind
     </p>
   </Dont>
@@ -50,10 +50,12 @@ open menu takes two attempts.
 
 <Guidance>
   <Do reason="tone='critical' plus a specific label. The colour is reinforcement; the word 'invoice' is what tells the user what disappears. Position at the end keeps it away from the item the pointer lands on first.">
-    <p style={{ margin: 0, fontSize: 13 }}>Rename · Duplicate · Export · **Delete invoice**</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
+      Rename · Duplicate · Export · **Delete invoice**
+    </p>
   </Do>
   <Dont reason="A red 'Delete' between two routine items. Colour alone carries the warning, and the label does not say what is being deleted — so the confirmation dialog is doing all the work.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Rename · <span style={{ color: 'var(--bh-status-critical-fg)' }}>Delete</span> · Duplicate
     </p>
   </Dont>

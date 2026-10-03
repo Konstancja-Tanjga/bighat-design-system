@@ -34,7 +34,7 @@ a mouse. This component styles the track and thumb and changes nothing else.
 <Guidance>
   <Do reason="The number sits next to the label and updates as the thumb moves. A slider without a readout asks the user to estimate their own input from a thumb position, which nobody can do to better than about ten percent.">
     <div style={{ minWidth: 260 }}>
-      <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+      <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
         Opacity — 40% shown beside the label, live.
       </p>
     </div>
@@ -62,7 +62,7 @@ only in the visual design.
 
 <Guidance>
   <Do reason="A step that matches the precision the value deserves. If the product stores whole hours, the slider moves in whole hours and every arrow press produces a value the system can keep.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       <code>
         min={1} max={72} step={1}
       </code>{' '}
@@ -70,7 +70,7 @@ only in the visual design.
     </p>
   </Do>
   <Dont reason="A continuous range over four decimal places. The arrow keys now take four thousand presses to cross it, and the value the user sets is never the value they meant.">
-    <p style={{ margin: 0, fontSize: 13 }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
       <code>
         min={0} max={1} step={0.0001}
       </code>

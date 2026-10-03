@@ -34,10 +34,12 @@ accessible name, it is the `title` tooltip, and it is the visible caption when
 
 <Guidance>
   <Do reason="One required string doing all three jobs. Turning captions on is a prop, not a content migration, because the words were already there.">
-    <p style={{ margin: 0, fontSize: 13 }}>label: "Invoices" → name · tooltip · caption</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
+      label: "Invoices" → name · tooltip · caption
+    </p>
   </Do>
   <Dont reason="An optional label beside a required icon. Every item ships without one, the rail passes review because it looks clean, and the accessible name of the whole navigation becomes “button, button, button”.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       icon: ✓ &nbsp;·&nbsp; label: undefined
     </p>
   </Dont>

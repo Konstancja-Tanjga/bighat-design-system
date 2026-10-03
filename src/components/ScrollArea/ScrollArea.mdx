@@ -29,10 +29,12 @@ dead weight in the tab order.
 
 <Guidance>
   <Do reason="scrollbar-color and scrollbar-width, plus the WebKit pseudo-elements. It is still the browser's scrollbar, so it keeps momentum scrolling, click-in-track paging, and high-contrast rendering.">
-    <p style={{ margin: 0, fontSize: 13 }}>Thin, tokenised, and still a real scrollbar.</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
+      Thin, tokenised, and still a real scrollbar.
+    </p>
   </Do>
   <Dont reason="Two divs and a drag handler. Overlay scrollbars drawn in JavaScript lose the platform's paging, its touch behaviour and its accessibility mapping — and they are the first thing to break on a trackpad with inertia.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       A custom thumb that only responds to drag.
     </p>
   </Dont>

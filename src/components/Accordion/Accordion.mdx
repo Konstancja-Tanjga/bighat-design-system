@@ -83,10 +83,12 @@ be read side by side.
 
 <Guidance>
   <Do reason="Secondary detail behind the disclosure: shipping rules, invoicing terms, the small print. The user's main task never requires opening anything.">
-    <p style={{ margin: 0, fontSize: 13 }}>Order summary visible · “Delivery details” collapsed</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
+      Order summary visible · “Delivery details” collapsed
+    </p>
   </Do>
   <Dont reason="The Pay button inside a collapsed panel. Every extra click before the goal costs conversions, and the users who never open it never find out the action exists.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       ▸ Payment — contains the only Pay button on the page
     </p>
   </Dont>

@@ -25,13 +25,13 @@ that point it is dividing the page into named regions.
 
 <Guidance>
   <Do reason="Grouping done with spacing. Proximity is the strongest grouping cue there is, it costs no ink, and it survives every theme and zoom level.">
-    <div style={{ display: 'grid', gap: 20, fontSize: 13 }}>
+    <div style={{ display: 'grid', gap: 20, fontSize: 'var(--bh-text-size-body)' }}>
       <span>Billing address</span>
       <span>Delivery address</span>
     </div>
   </Do>
   <Dont reason="A rule between every element. The page becomes a grid of boxes where nothing is grouped, because when everything is separated, separation stops meaning anything.">
-    <div style={{ fontSize: 13, width: '100%' }}>
+    <div style={{ fontSize: 'var(--bh-text-size-body)', width: '100%' }}>
       <div>Billing address</div>
       <Divider spacing="none" />
       <div>Line 1</div>

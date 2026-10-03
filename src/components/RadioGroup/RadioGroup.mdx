@@ -38,7 +38,9 @@ One choice out of a small, mutually exclusive set — with every option visible.
   </Do>
   <Dont reason="Loose radios with a heading above them. The heading is not associated with anything, so the user arrives at 'PDF, radio button, one of two' with no idea what is being chosen — and tabs through every option instead of arrowing.">
     <div>
-      <strong style={{ display: 'block', marginBottom: 8, fontSize: 13 }}>Invoice format</strong>
+      <strong style={{ display: 'block', marginBottom: 8, fontSize: 'var(--bh-text-size-body)' }}>
+        Invoice format
+      </strong>
       <label style={{ marginRight: 12 }}>
         <input type="radio" name="loose-demo" /> PDF
       </label>

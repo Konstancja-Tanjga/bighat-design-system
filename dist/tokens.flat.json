@@ -391,7 +391,7 @@
       "type": "dimension",
       "light": "12px",
       "dark": "12px",
-      "description": "Rounder in 4.3 (6px → 10px), and on the 4px grid since 5.0 (12px), to sit beside pill buttons and surfaces without looking like a leftover."
+      "description": "Rounder in 4.3 (6px → 10px), and 12px on the 4px grid, to sit beside pill buttons and surfaces without looking like a leftover."
     },
     "radius.field": {
       "type": "dimension",
@@ -414,7 +414,7 @@
       "type": "dimension",
       "light": "4px",
       "dark": "4px",
-      "description": "Added in 4.0. The corner of a small drawn control - a checkbox box, a radio dot's ring. Was a 4px literal, which was never on the radius scale at all; radius.control (6px) reads as too round on a 16px box, and the 1px difference from 3px is not a design decision worth a new primitive."
+      "description": "Added in 4.0. The corner of a small drawn control - a checkbox box, a radio dot's ring. 4px on the grid; radius.control reads as too round on a 16px box."
     },
     "radius.tag": {
       "type": "dimension",

@@ -34,10 +34,10 @@ something that looks like a tree and answers to none of its keyboard contract.
 
 <Guidance>
   <Do reason="NavGroup gives the label an id and the list an aria-labelledby pointing at it. A screen reader announces “Pinned, list, 2 items” — the name, the role and the size, before the user commits to reading it.">
-    <p style={{ margin: 0, fontSize: 13 }}>Pinned → list, 2 items</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>Pinned → list, 2 items</p>
   </Do>
   <Dont reason="A styled paragraph above a list. Sighted users read the two as one thing because they are close together; a screen reader reads a stray word, then an unnamed list of unknown length.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Pinned &nbsp;·&nbsp; list, 2 items
     </p>
   </Dont>

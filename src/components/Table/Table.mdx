@@ -95,14 +95,20 @@ sortable column tells a screen reader the table is sorted four ways at once.
 
 <Guidance>
   <Do reason="Row actions are visible without hovering. They work on touch, they are reachable by keyboard in document order, and the user can see what a row affords before committing to it.">
-    <div style={{ display: 'flex', gap: 10, fontSize: 13 }}>
+    <div style={{ display: 'flex', gap: 10, fontSize: 'var(--bh-text-size-body)' }}>
       <span style={{ color: 'var(--bh-text-link)' }}>Open</span>
       <span style={{ color: 'var(--bh-text-link)' }}>Duplicate</span>
       <span style={{ color: 'var(--bh-status-critical-fg)' }}>Delete</span>
     </div>
   </Do>
   <Dont reason="Hover-only actions do not exist on touch devices, are invisible to anyone scanning for what is possible, and are frequently skipped by keyboard users because nothing indicates they are there.">
-    <div style={{ fontSize: 13, color: 'var(--bh-text-muted)', fontStyle: 'italic' }}>
+    <div
+      style={{
+        fontSize: 'var(--bh-text-size-body)',
+        color: 'var(--bh-text-muted)',
+        fontStyle: 'italic',
+      }}
+    >
       (actions appear on hover)
     </div>
   </Dont>

@@ -24,10 +24,12 @@ to move, Home and End to jump, type-ahead to find.
 
 <Guidance>
   <Do reason="The container takes the focus and aria-activedescendant points at the current row. Forty rows cost the keyboard user one Tab press and a few arrow keys.">
-    <p style={{ margin: 0, fontSize: 13 }}>Tab → list. ↓ ↑ → move. Type “ga” → jumps to Gamma.</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>
+      Tab → list. ↓ ↑ → move. Type “ga” → jumps to Gamma.
+    </p>
   </Do>
   <Dont reason="A <ul> of buttons. It works with a mouse and makes a keyboard user press Tab forty times to reach the fortieth conversation — and forty more to leave the list.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Tab × 40 to reach the last row.
     </p>
   </Dont>
@@ -48,10 +50,10 @@ close greys, the bar is the cue that survives.
 
 <Guidance>
   <Do reason="One selection driving one pane. The interaction stays a single question — which record am I looking at — and the arrow keys answer it.">
-    <p style={{ margin: 0, fontSize: 13 }}>Selected: Nordwind sp. z o.o.</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>Selected: Nordwind sp. z o.o.</p>
   </Do>
   <Dont reason="Rows that are both activated and ticked. That is a table with a checkbox column, and Table already does it with sorting, headers and a caption. Two selection models in one control is the state nobody can explain.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       ☑ row · also “current” · also opens the detail pane
     </p>
   </Dont>

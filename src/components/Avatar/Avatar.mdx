@@ -54,10 +54,10 @@ circle that says "graphic" out loud.
 
 <Guidance>
   <Do reason="Status as a Badge with a word. 'Away' is readable in greyscale, in a screenshot pasted into a ticket, and out loud.">
-    <p style={{ margin: 0, fontSize: 13 }}>Ada Lovelace · Away</p>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)' }}>Ada Lovelace · Away</p>
   </Do>
   <Dont reason="A green or amber dot on the avatar. Colour is the only carrier of meaning — WCAG 1.4.1 — and the dot is unlabelled, so no assistive technology can report it.">
-    <p style={{ margin: 0, fontSize: 13, color: 'var(--bh-text-muted)' }}>
+    <p style={{ margin: 0, fontSize: 'var(--bh-text-size-body)', color: 'var(--bh-text-muted)' }}>
       Ada Lovelace <span style={{ color: 'var(--bh-status-success-fg)' }}>●</span>
     </p>
   </Dont>

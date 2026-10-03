@@ -46,7 +46,7 @@ export const ColourIsNeverTheOnlyCue: Story = {
         <Badge tone="warning">Pending</Badge>
         <Badge tone="critical">Overdue</Badge>
       </div>
-      <p style={{ margin: 0, color: 'var(--bh-text-muted)', fontSize: 13 }}>
+      <p style={{ margin: 0, color: 'var(--bh-text-muted)', fontSize: 'var(--bh-text-size-body)' }}>
         There is no <code>color</code> prop and the label is required. Rendering three identical
         dots in three colours is the version of this component that fails WCAG 1.4.1 — and it is the
         version that gets built when the badge accepts a colour instead of a tone.
