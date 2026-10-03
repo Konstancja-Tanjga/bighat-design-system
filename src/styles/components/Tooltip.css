@@ -10,7 +10,10 @@
   transform: translateX(-50%);
   max-width: 240px;
   padding: var(--bh-gap-tight) var(--bh-gap-snug);
-  border-radius: var(--bh-radius-control);
+  /* The tag corner, not the control's: a one-line tooltip is about 24px tall,
+     and on the 4px grid radius.control (12px) turned it into a pill - the
+     shape of something you press. */
+  border-radius: var(--bh-radius-tag);
   background: var(--bh-surface-inverse);
   color: var(--bh-text-inverse);
   font-family: var(--bh-font-family);
