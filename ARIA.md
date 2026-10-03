@@ -2,7 +2,7 @@
 
 `@bighat/ui`, audited against the WAI-ARIA Authoring Practices.
 
-**46 implemented components.** 10 conform, 13 partial, 13 fail. 0 source-level errors, 3 warnings.
+**46 implemented components.** 10 conform, 14 partial, 12 fail. 0 source-level errors, 3 warnings.
 
 This is not an axe run. axe checks a rendered tree and finds what is wrong in it; this checks the contract against the pattern it claims, and finds what was never built — a required keyboard interaction that nobody implemented leaves no rendered evidence for axe to catch.
 
