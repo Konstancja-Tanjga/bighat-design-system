@@ -1,4 +1,5 @@
-import type { Size, Variant } from '../../tokens/vocabulary';
+import { normaliseTone } from '../../tokens/normaliseTone';
+import type { ButtonTone, Size, Variant } from '../../tokens/vocabulary';
 
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
@@ -10,12 +11,18 @@ import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
  * error rather than a silent fallback. See MIGRATION.md.
  */
 export type ButtonVariant = Variant;
-export type ButtonTone = 'default' | 'critical';
+export type { ButtonTone };
 export type ButtonSize = Size;
 
 export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & {
   variant?: ButtonVariant;
-  tone?: ButtonTone;
+  /**
+   * `neutral` or `critical`, the vocabulary every tone axis shares.
+   * `"default"` is the pre-4.0 name: it still works and warns once in
+   * development. Button never accepted `neutral` until now, so its removal
+   * waits a full major line, to 6.0.
+   */
+  tone?: ButtonTone | 'default';
   size?: ButtonSize;
   /** Renders a spinner, disables the button, and keeps the label readable. */
   loading?: boolean;
@@ -31,7 +38,7 @@ export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'classNa
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant = 'primary',
-    tone = 'default',
+    tone: toneProp,
     size = 'md',
     loading = false,
     loadingLabel = 'Loading',
@@ -44,6 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
+  const tone = normaliseTone(toneProp, 'neutral', 'Button');
   const classes = [
     'bh-button',
     'bh-focusable',

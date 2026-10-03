@@ -3,7 +3,8 @@ import type { Tone } from '../tokens/vocabulary';
 /**
  * Accepts the 3.x `tone="default"` and returns the 4.x `neutral`.
  *
- * Deprecated in 4.0, removed in 5.0. When that happens this file is deleted and
+ * Deprecated in 4.0. Button only adopted `neutral` in 5.0 - its own type had
+ * kept `default` - so the shim stays until 6.0. Then this file is deleted and
  * the three call sites become plain prop reads — which is the point of having
  * one shim rather than three inlined fallbacks.
  */
@@ -17,7 +18,7 @@ export function normaliseTone<T extends Tone>(
       console.warn(
         '[bighat] ' +
           component +
-          ': tone="default" is deprecated and removed in 5.0. Use tone="neutral".',
+          ': tone="default" is deprecated and will be removed in 6.0. Use tone="neutral".',
       );
     }
     return fallback;
