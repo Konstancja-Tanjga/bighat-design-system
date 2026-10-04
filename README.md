@@ -63,8 +63,8 @@ has a Design tab that shows the component's Figma set.
 
 ## Templates
 
-Screens assembled only from library components, each with its loading, empty
-and error states as stories.
+Screens assembled only from library components, each with its loading and
+error states as stories, and an empty one where the screen can be empty.
 
 |                                                                                                                                        |                                                                                                                                            |
 | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
