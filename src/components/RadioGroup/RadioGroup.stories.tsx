@@ -6,6 +6,12 @@ import { RadioGroup } from './RadioGroup';
 const meta: Meta<typeof RadioGroup> = {
   title: 'Components/RadioGroup',
   component: RadioGroup,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=27-38',
+    },
+  },
 };
 
 export default meta;

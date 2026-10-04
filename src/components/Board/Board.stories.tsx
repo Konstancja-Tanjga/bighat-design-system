@@ -19,7 +19,13 @@ const meta = {
   title: 'Components/Board',
   component: Board,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=65-174',
+    },
+    layout: 'padded',
+  },
 } satisfies Meta<typeof Board>;
 export default meta;
 

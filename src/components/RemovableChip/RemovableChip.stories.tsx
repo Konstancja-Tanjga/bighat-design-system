@@ -7,7 +7,13 @@ const meta = {
   title: 'Components/RemovableChip',
   component: RemovableChip,
   args: { label: 'Finance', onRemove: () => {} },
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=21-33',
+    },
+    layout: 'padded',
+  },
 } satisfies Meta<typeof RemovableChip>;
 
 export default meta;

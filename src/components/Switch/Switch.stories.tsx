@@ -6,6 +6,12 @@ import { Switch } from './Switch';
 const meta: Meta<typeof Switch> = {
   title: 'Components/Switch',
   component: Switch,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=27-165',
+    },
+  },
 };
 
 export default meta;

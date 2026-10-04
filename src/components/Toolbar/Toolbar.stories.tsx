@@ -9,6 +9,12 @@ import { SegmentedControl } from '../SegmentedControl/SegmentedControl';
 const meta: Meta<typeof Toolbar> = {
   title: 'Components/Toolbar',
   component: Toolbar,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=49-79',
+    },
+  },
 };
 
 export default meta;

@@ -9,7 +9,13 @@ import { Article, ArticleMargin } from './Article';
 const meta = {
   title: 'Components/Article',
   component: Article,
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=66-68',
+    },
+    layout: 'padded',
+  },
 } satisfies Meta<typeof Article>;
 
 export default meta;

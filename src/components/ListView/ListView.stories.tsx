@@ -6,6 +6,12 @@ import { ListView } from './ListView';
 const meta: Meta<typeof ListView> = {
   title: 'Components/ListView',
   component: ListView,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=61-111',
+    },
+  },
 };
 
 export default meta;

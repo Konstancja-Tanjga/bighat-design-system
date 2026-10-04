@@ -6,6 +6,12 @@ import { Slider } from './Slider';
 const meta: Meta<typeof Slider> = {
   title: 'Components/Slider',
   component: Slider,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=61-2244',
+    },
+  },
 };
 
 export default meta;

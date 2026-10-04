@@ -9,7 +9,13 @@ const meta = {
   title: 'Components/FileDropzone',
   component: FileDropzone,
   args: { label: 'Attachments', onFiles: () => {} },
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=64-32',
+    },
+    layout: 'padded',
+  },
   decorators: [
     (Story) => (
       <div style={{ maxWidth: 480 }}>

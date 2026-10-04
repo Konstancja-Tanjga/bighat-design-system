@@ -14,6 +14,12 @@ const meta: Meta<typeof NavList> = {
   title: 'Components/NavList',
   component: NavList,
   tags: ['autodocs'],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=61-28',
+    },
+  },
 };
 export default meta;
 

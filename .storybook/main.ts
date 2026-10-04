@@ -35,6 +35,9 @@ const config: StorybookConfig = {
     },
     '@storybook/addon-a11y',
     '@storybook/addon-themes',
+    // The Design tab: each component's Figma set, from parameters.design in its
+    // stories file. The Figma side links back through documentation links.
+    '@storybook/addon-designs',
   ],
 
   docs: { defaultName: 'Docs' },

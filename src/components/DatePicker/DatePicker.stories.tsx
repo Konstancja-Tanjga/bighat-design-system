@@ -6,6 +6,12 @@ const meta: Meta<typeof DatePicker> = {
   title: 'Components/DatePicker',
   component: DatePicker,
   args: { label: 'Issue date' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=63-227',
+    },
+  },
 };
 
 export default meta;

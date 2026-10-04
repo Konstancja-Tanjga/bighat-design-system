@@ -11,6 +11,12 @@ const meta = {
     tone: { control: 'inline-radio', options: ['default', 'critical'] },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
   },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=6-83',
+    },
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;

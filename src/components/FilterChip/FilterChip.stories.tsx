@@ -7,7 +7,13 @@ const meta = {
   title: 'Components/FilterChip',
   component: FilterChip,
   args: { label: 'Finance', pressed: false },
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=21-24',
+    },
+    layout: 'padded',
+  },
 } satisfies Meta<typeof FilterChip>;
 
 export default meta;

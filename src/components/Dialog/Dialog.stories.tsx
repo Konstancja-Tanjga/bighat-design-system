@@ -9,6 +9,10 @@ const meta = {
   title: 'Components/Dialog',
   component: Dialog,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=32-93',
+    },
     docs: {
       description: {
         component:

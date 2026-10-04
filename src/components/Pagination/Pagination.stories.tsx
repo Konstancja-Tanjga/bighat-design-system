@@ -7,6 +7,10 @@ const meta = {
   title: 'Components/Pagination',
   component: Pagination,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=43-21',
+    },
     docs: {
       description: {
         component:

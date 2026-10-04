@@ -23,6 +23,10 @@ const meta: Meta<typeof AppShell> = {
   component: AppShell,
   tags: ['autodocs'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=66-453',
+    },
     layout: 'fullscreen',
     // `fill` is `100dvh`. Rendered inline on the docs page, every story would
     // be a full viewport tall and each would add another `#main-content`.

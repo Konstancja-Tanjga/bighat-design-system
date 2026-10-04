@@ -8,6 +8,12 @@ import { Button } from '../Button/Button';
 const meta: Meta<typeof List> = {
   title: 'Components/List',
   component: List,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=59-103',
+    },
+  },
 };
 
 export default meta;

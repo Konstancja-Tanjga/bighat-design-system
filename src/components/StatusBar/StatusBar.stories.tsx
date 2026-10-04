@@ -8,6 +8,12 @@ import { Button } from '../Button/Button';
 const meta: Meta<typeof StatusBar> = {
   title: 'Components/StatusBar',
   component: StatusBar,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=49-80',
+    },
+  },
 };
 
 export default meta;

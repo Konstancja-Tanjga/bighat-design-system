@@ -16,7 +16,13 @@ const meta: Meta<typeof Card> = {
   title: 'Components/Card',
   component: Card,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=41-79',
+    },
+    layout: 'padded',
+  },
   decorators: [
     (Story, { parameters }) => (
       <div style={{ maxWidth: parameters.wide ? 640 : 360 }}>

@@ -5,6 +5,12 @@ import { Breadcrumbs } from './Breadcrumbs';
 const meta: Meta<typeof Breadcrumbs> = {
   title: 'Components/Breadcrumbs',
   component: Breadcrumbs,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=43-10',
+    },
+  },
 };
 
 export default meta;

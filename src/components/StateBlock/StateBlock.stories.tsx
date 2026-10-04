@@ -7,6 +7,10 @@ const meta = {
   title: 'Components/StateBlock',
   component: StateBlock,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=44-81',
+    },
     docs: {
       description: {
         component:

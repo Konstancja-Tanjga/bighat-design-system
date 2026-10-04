@@ -6,6 +6,12 @@ import { Combobox } from './Combobox';
 const meta: Meta<typeof Combobox> = {
   title: 'Components/Combobox',
   component: Combobox,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=63-84',
+    },
+  },
 };
 
 export default meta;

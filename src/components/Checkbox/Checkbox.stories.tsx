@@ -7,6 +7,12 @@ const meta: Meta<typeof Checkbox> = {
   title: 'Components/Checkbox',
   component: Checkbox,
   args: { label: 'Send me the monthly summary' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=20-126',
+    },
+  },
 };
 
 export default meta;
