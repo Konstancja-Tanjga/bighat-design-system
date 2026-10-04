@@ -20,7 +20,7 @@ built from the same component contracts.
 ## In Figma
 
 The tokens are also a Figma library, built from `tokens/*.tokens.json` rather
-than redrawn: 230 variables in four collections — Primitives, Color (Light and
+than redrawn: 233 variables in four collections — Primitives, Color (Light and
 Dark), Size and Type. Every semantic variable carries its CSS name as code
 syntax, so Dev Mode shows `var(--bh-action-primary-bg)`, not a hex, and the
 primitives are hidden from every picker, as they are from product code. A
@@ -28,10 +28,12 @@ Foundations page shows the primitives and the colour roles in both modes.
 
 Components so far: Button (both tones), Badge, Input, Textarea, Select,
 Checkbox, RadioGroup, Switch, SegmentedControl, FilterChip, RemovableChip, Menu,
-Tabs, Tooltip, Toast and Dialog, every value bound to those variables, variant
-properties named after the props, and each with a review frame that switches the
-same instances to Dark by changing one mode. Code Connect templates in
-[`figma/`](figma/) make Dev Mode show the component a developer would write.
+Tabs, Tooltip, Toast, Dialog, Card, Avatar, UserProfile, Breadcrumbs,
+Pagination, Progress, Skeleton and StateBlock, every value bound to those
+variables, variant properties named after the props, and each with a review
+frame that switches the same instances to Dark by changing one mode. Code
+Connect templates in [`figma/`](figma/) make Dev Mode show the component a
+developer would write.
 
 Code stays the source of truth and the library follows it. Pressed states are
 not drawn; the browser draws them. Two things do not survive the trip: Figma

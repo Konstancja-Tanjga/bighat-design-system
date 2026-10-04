@@ -29,6 +29,15 @@ state, not a prop, and maps to nothing.
 | `Tooltip.figma.ts`          | Tooltip             | `src/components/Tooltip/Tooltip.tsx`                   |
 | `Toast.figma.ts`            | Toast               | the `toast.show()` call from `useToast`                |
 | `Dialog.figma.ts`           | Dialog              | `src/components/Dialog/Dialog.tsx`                     |
+| `Card.figma.ts`             | Card                | `src/components/Card/Card.tsx`                         |
+| `Avatar.figma.ts`           | Avatar              | `src/components/Avatar/Avatar.tsx`                     |
+| `AvatarGroup.figma.ts`      | Avatar / Group      | `AvatarGroup` in the same file                         |
+| `UserProfile.figma.ts`      | UserProfile         | `src/components/UserProfile/UserProfile.tsx`           |
+| `Breadcrumbs.figma.ts`      | Breadcrumbs         | `src/components/Breadcrumbs/Breadcrumbs.tsx`           |
+| `Pagination.figma.ts`       | Pagination          | `src/components/Pagination/Pagination.tsx`             |
+| `Progress.figma.ts`         | Progress            | `src/components/Progress/Progress.tsx`                 |
+| `Skeleton.figma.ts`         | Skeleton            | `src/components/Skeleton/Skeleton.tsx`                 |
+| `StateBlock.figma.ts`       | StateBlock          | `src/components/StateBlock/StateBlock.tsx`             |
 
 Pointer and keyboard states drawn in Figma — `hover`, `focus`, a menu's
 `active` item — map to nothing: they are the browser's, not props. Data that
