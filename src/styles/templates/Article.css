@@ -1,96 +1,498 @@
 /*
- * The lesson template's own styles. The body's typography stands in for the
- * product's: Article lays out and does not style headings, lists or tables.
+ * The lesson template, as World of Raptors ships it: Big Hat's Article under
+ * the product's theme. The theme is a set of semantic-token overrides scoped
+ * to .tpl-article-theme, so it re-themes this template and nothing else in a
+ * page that imports the package's stylesheet.
  */
+.tpl-article-theme {
+  --tpl-accent: #a54a24;
+  --tpl-accent-soft: #f3dcc9;
+  --tpl-line: #261d1724;
+  --tpl-font-display: 'Poltawski Nowy', 'Iowan Old Style', Georgia, serif;
+  --tpl-font-text: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --tpl-sky: linear-gradient(
+    180deg,
+    #1c2c51 0%,
+    #653c6b 31%,
+    #a85556 62%,
+    #e1965d 87%,
+    #f5bc69 100%
+  );
+  --tpl-gold: #f5c46b;
+
+  --bh-surface-base: #fdfaf4;
+  --bh-surface-sunken: #f1ebdf;
+  --bh-surface-raised: #fffdf9;
+  --bh-surface-overlay: #fffdf9;
+  --bh-text-primary: #261d17;
+  --bh-text-secondary: #4a3e35;
+  --bh-text-muted: #61564d;
+  --bh-text-on-accent: #fffaf2;
+  --bh-text-link: #9a4320;
+  --bh-border-subtle: #e2d8c8;
+  --bh-border-strong: #8a7d70;
+  --bh-border-hover: #4a3e35;
+  --bh-border-focus: #2b5d86;
+  --bh-border-hairline: #261d1714;
+  --bh-action-primary-bg: #a54a24;
+  --bh-action-primary-bg-hover: #8e3e1d;
+  --bh-action-primary-fg: #fffaf2;
+  --bh-action-secondary-fg: #261d17;
+  --bh-selection-bg: #f3dcc9;
+  --bh-selection-fg: #261d17;
+  --bh-selection-mark: #a54a24;
+  --bh-fill-hover: #261d170f;
+  --bh-material-chrome-bg: #f8f3e9a8;
+  --bh-material-regular-bg: #fdfaf494;
+  /* Reading sizes: the product reads at 15px where an ERP screen reads at 12. */
+  --bh-text-size-dense: 12px;
+  --bh-text-size-label: 12px;
+  --bh-text-size-body: 15px;
+  --bh-text-size-caption: 14px;
+  --bh-text-size-heading: 18px;
+  --bh-text-size-display: 22px;
+  /* Both bars and the lesson share one column, centred on a wide screen. */
+  --tpl-gutter: max(var(--bh-padding-section), calc((100% - 76rem) / 2));
+
+  display: contents;
+}
+
+:root[data-theme='dark'] .tpl-article-theme {
+  --tpl-accent: #f5b75b;
+  --tpl-accent-soft: #2a2418;
+  --tpl-line: #f2eee61f;
+
+  --bh-surface-base: #0f1620;
+  --bh-surface-sunken: #0a1018;
+  --bh-surface-raised: #141b26;
+  --bh-surface-overlay: #1a2230;
+  --bh-text-primary: #f2eee6;
+  --bh-text-secondary: #d4cdc0;
+  --bh-text-muted: #b7b0a3;
+  --bh-text-on-accent: #0a1018;
+  --bh-text-link: #f5b75b;
+  --bh-border-subtle: #263142;
+  --bh-border-strong: #7a8594;
+  --bh-border-hover: #b7b0a3;
+  --bh-border-focus: #f5b75b;
+  --bh-border-hairline: #f2eee614;
+  --bh-action-primary-bg: #f5b75b;
+  --bh-action-primary-bg-hover: #f8c87f;
+  --bh-action-primary-fg: #0a1018;
+  --bh-action-secondary-fg: #f2eee6;
+  --bh-selection-bg: #2a2418;
+  --bh-selection-fg: #f2eee6;
+  --bh-selection-mark: #f5b75b;
+  --bh-fill-hover: #f2eee612;
+  --bh-material-chrome-bg: #0a1018a8;
+  --bh-material-regular-bg: #0f16208f;
+}
+
+.tpl-article-theme .bh-shell,
+.tpl-article-theme .bh-shell__main {
+  background: var(--bh-surface-base);
+}
+
+.tpl-article-theme .bh-appbar {
+  padding-inline: var(--tpl-gutter);
+}
+
+/* ---- app bar: brand and the course's sections ---- */
+
+.tpl-article__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+  font-family: var(--tpl-font-display);
+  font-size: var(--bh-text-size-heading);
+}
+
+.tpl-article__brand-mark {
+  width: 28px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.tpl-article__nav {
+  display: flex;
+  gap: var(--bh-gap-tight);
+}
+
+.tpl-article__nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--bh-control-md);
+  padding-inline: var(--bh-padding-inline);
+  border-radius: var(--bh-radius-pill);
+  color: var(--bh-text-primary);
+  font-size: var(--bh-text-size-caption);
+  font-weight: var(--bh-text-weight-emphasis);
+  text-decoration: none;
+}
+
+.tpl-article__nav-link:hover {
+  background: var(--bh-fill-hover);
+}
+
+/* The current section: heavier, and a short accent line under the word. */
+.tpl-article__nav-link[aria-current] {
+  font-weight: var(--bh-text-weight-heading);
+}
+
+.tpl-article__nav-link[aria-current]::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--bh-padding-inline);
+  bottom: var(--bh-gap-tight);
+  height: var(--bh-gap-hairline);
+  border-radius: var(--bh-radius-pill);
+  background: var(--tpl-accent);
+}
+
+/* ---- lesson bar: the module and its numbered lessons ---- */
+
+.tpl-article__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--bh-gap-loose);
+  min-height: var(--bh-control-lg);
+  padding-inline: var(--tpl-gutter);
+  background: var(--bh-material-chrome-bg);
+  border-bottom: 1px solid var(--bh-border-hairline);
+  font-family: var(--bh-font-family-sans);
+  overflow-x: auto;
+}
+
+.tpl-article__bar-module {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--bh-gap-snug);
+  color: var(--bh-text-primary);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.tpl-article__bar-id {
+  color: var(--tpl-accent);
+  font-weight: var(--bh-text-weight-heading);
+}
+
+.tpl-article__bar-title {
+  font-family: var(--tpl-font-display);
+  font-size: var(--bh-text-size-heading);
+  font-weight: var(--bh-text-weight-heading);
+}
+
+.tpl-article__bar-lessons {
+  display: flex;
+  align-items: center;
+  gap: var(--bh-gap-tight);
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.tpl-article__bar-lesson {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bh-gap-snug);
+  min-height: var(--bh-control-sm);
+  padding-inline: var(--bh-gap-tight);
+  border-radius: var(--bh-radius-pill);
+  color: var(--bh-text-secondary);
+  font-size: var(--bh-text-size-caption);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.tpl-article__bar-lesson:hover {
+  background: var(--bh-fill-hover);
+}
+
+.tpl-article__bar-lesson[aria-current] {
+  padding-inline-end: var(--bh-padding-inline);
+  background: var(--bh-fill-hover);
+  color: var(--bh-text-primary);
+}
+
+.tpl-article__bar-nr {
+  display: inline-grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: var(--bh-control-sm);
+  height: var(--bh-control-sm);
+  border: 1px solid var(--bh-border-strong);
+  border-radius: var(--bh-radius-pill);
+  font-size: var(--bh-text-size-dense);
+  font-weight: var(--bh-text-weight-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.tpl-article__bar-lesson[aria-current] .tpl-article__bar-nr {
+  border-color: var(--bh-text-primary);
+}
+
+/* Only the current lesson is named on screen; the others keep their name for
+   a screen reader, so the bar stays one line. */
+.tpl-article__bar-lesson:not([aria-current]) .tpl-article__bar-name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.tpl-article__bar-lesson[aria-current] .tpl-article__bar-name {
+  max-width: 22rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: var(--bh-text-weight-emphasis);
+}
+
+.tpl-article__bar-state {
+  margin: 0;
+  color: var(--bh-text-muted);
+  font-size: var(--bh-text-size-caption);
+  white-space: nowrap;
+}
+
+/* ---- the lesson ---- */
+
 .tpl-article {
-  padding: var(--bh-padding-section);
+  max-width: 76rem;
+  margin-inline: auto;
+  padding: var(--bh-padding-hero) var(--bh-padding-section);
+}
+
+.tpl-article .bh-article__title {
+  font-family: var(--tpl-font-display);
+  font-size: clamp(2.1rem, 1.6rem + 2.2vw, 3.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+}
+
+.tpl-article__eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--bh-gap-snug) var(--bh-gap-loose);
+  font-size: var(--bh-text-size-caption);
+}
+
+.tpl-article__module {
+  color: var(--tpl-accent);
+  font-weight: var(--bh-text-weight-heading);
+  text-decoration: none;
+}
+
+.tpl-article__module:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 /* Block flow, not flex: a margin note is a float, and floats only reach
    beside the paragraphs around them in ordinary block flow. */
 .tpl-article__prose {
+  counter-reset: section;
+  color: var(--bh-text-primary);
+  font-family: var(--tpl-font-text);
+  font-size: clamp(1.075rem, 1.03rem + 0.2vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.tpl-article__prose > :first-child {
+  margin-top: 0;
+}
+
+/* Every section is numbered, the number in the accent above the heading. */
+.tpl-article__prose h2 {
+  clear: right;
+  margin: calc(var(--bh-padding-hero) * 1.2) 0 var(--bh-gap-loose);
+  counter-increment: section;
+  font-family: var(--tpl-font-display);
+  font-size: clamp(1.45rem, 1.25rem + 0.9vw, 2rem);
+  font-weight: var(--bh-text-weight-heading);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  scroll-margin-top: var(--bh-padding-hero);
+}
+
+.tpl-article__prose h2::before {
+  content: counter(section);
+  display: block;
+  margin-bottom: var(--bh-gap-snug);
+  color: var(--tpl-accent);
+  font-family: var(--bh-font-family-sans);
+  font-size: var(--bh-text-size-caption);
+  font-weight: var(--bh-text-weight-heading);
+}
+
+.tpl-article__prose p,
+.tpl-article__prose ul {
+  margin: 0 0 var(--bh-gap-loose);
+}
+
+.tpl-article__prose ul {
+  padding-left: var(--bh-padding-section);
+}
+
+.tpl-article__prose li {
+  margin-block-end: var(--bh-gap-snug);
+  padding-left: var(--bh-gap-tight);
+}
+
+.tpl-article__prose li::marker {
+  color: var(--tpl-accent);
+}
+
+.tpl-article__prose strong {
+  font-weight: var(--bh-text-weight-heading);
+}
+
+.tpl-article__prose em {
+  color: var(--bh-text-secondary);
+}
+
+.tpl-article__prose a {
+  color: var(--bh-text-link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* Tables in the interface face, between two lines, no frame. */
+.tpl-article__table {
+  margin: 0 0 var(--bh-gap-loose);
+  border-block: 1px solid var(--tpl-line);
+  overflow-x: auto;
+}
+
+.tpl-article__table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--bh-font-family-sans);
   font-size: var(--bh-text-size-caption);
   line-height: var(--bh-text-leading-normal);
 }
 
-.tpl-article__prose > * + *:not(.bh-article__margin) {
-  margin-top: var(--bh-gap-normal);
+.tpl-article__table th,
+.tpl-article__table td {
+  padding: var(--bh-gap-snug) var(--bh-gap-normal) var(--bh-gap-snug) 0;
+  border-bottom: 1px solid var(--tpl-line);
+  text-align: left;
+  vertical-align: top;
 }
 
-.tpl-article__prose h2 {
-  margin-top: var(--bh-gap-loose);
-  font-size: var(--bh-text-size-heading);
-  font-weight: var(--bh-text-weight-heading);
-  scroll-margin-top: var(--bh-padding-section);
-}
-
-.tpl-article__prose p {
-  margin-bottom: 0;
-}
-
-.tpl-article__goals-title,
-.tpl-article__fact-title,
-.tpl-article__next-label {
-  margin: 0;
-  color: var(--bh-text-secondary);
-  font-size: var(--bh-text-size-body);
+.tpl-article__table th {
+  color: var(--bh-text-muted);
   font-weight: var(--bh-text-weight-emphasis);
 }
 
-.tpl-article__goals {
-  margin: var(--bh-gap-tight) 0 0;
-  padding-left: var(--bh-padding-inline);
+.tpl-article__table tr:last-child td {
+  border-bottom: 0;
+}
+
+/* ---- the margin: photos with their credit, and side notes ---- */
+
+.tpl-article .bh-article__margin {
+  color: var(--bh-text-secondary);
+  font-family: var(--bh-font-family-sans);
+  font-size: var(--bh-text-size-caption);
+  line-height: var(--bh-text-leading-normal);
+}
+
+.tpl-article .bh-article__margin > * + * {
+  margin-top: var(--bh-gap-normal);
 }
 
 .tpl-article__figure {
-  margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--bh-gap-tight);
+  margin: 0;
 }
 
 .tpl-article__photo {
+  display: block;
+  width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
-  border-radius: var(--bh-radius-control);
-  background: linear-gradient(160deg, var(--bh-surface-sunken), var(--bh-fill-hover));
-  box-shadow: inset 0 0 0 1px var(--bh-border-hairline);
+  object-fit: cover;
+  border-radius: var(--bh-radius-surface);
+  background: var(--bh-surface-sunken);
 }
 
 .tpl-article__caption {
   display: flex;
   flex-direction: column;
   gap: var(--bh-gap-hairline);
-  color: var(--bh-text-secondary);
-  font-size: var(--bh-text-size-body);
+  color: var(--bh-text-muted);
+  font-size: var(--bh-text-size-dense);
   line-height: var(--bh-text-leading-tight);
 }
 
 .tpl-article__caption-title {
-  color: var(--bh-text-primary);
+  color: var(--bh-text-secondary);
   font-weight: var(--bh-text-weight-emphasis);
 }
 
-.tpl-article__fact {
-  display: flex;
-  flex-direction: column;
-  gap: var(--bh-gap-tight);
-  padding: var(--bh-padding-inline);
-  border-radius: var(--bh-radius-control);
-  background: var(--bh-fill-hover);
-  font-size: var(--bh-text-size-body);
+/* A side note: an accent edge on a soft accent tint. */
+.tpl-article__note {
+  margin: 0;
+  padding: var(--bh-gap-normal) var(--bh-padding-section);
+  border-left: 3px solid var(--tpl-accent);
+  border-radius: 0 var(--bh-radius-surface) var(--bh-radius-surface) 0;
+  background: var(--tpl-accent-soft);
+  color: var(--bh-text-primary);
 }
 
-.tpl-article__fact p {
-  margin: 0;
+/* ---- after the lesson ---- */
+
+.tpl-article__next {
+  display: grid;
+  gap: var(--bh-gap-snug);
+  margin-top: var(--bh-gap-loose);
+  padding: var(--bh-padding-section);
+  border-radius: var(--bh-radius-modal);
+  background: var(--tpl-sky);
+  color: #f2eee6;
+  text-decoration: none;
+}
+
+.tpl-article__next-label {
+  color: var(--tpl-gold);
+  font-size: var(--bh-text-size-caption);
+  font-weight: var(--bh-text-weight-heading);
 }
 
 .tpl-article__next-title {
-  margin: var(--bh-gap-hairline) 0 0;
-  font-weight: var(--bh-text-weight-emphasis);
+  font-family: var(--tpl-font-display);
+  font-size: clamp(1.45rem, 1.25rem + 0.9vw, 2rem);
+  font-weight: var(--bh-text-weight-heading);
+  line-height: 1.08;
+}
+
+.tpl-article__next-action {
+  justify-self: start;
+  margin-top: var(--bh-gap-snug);
+  padding: var(--bh-gap-tight) var(--bh-padding-inline);
+  border-radius: var(--bh-radius-pill);
+  background: var(--tpl-gold);
+  color: #0a1018;
+  font-size: var(--bh-text-size-caption);
+  font-weight: var(--bh-text-weight-heading);
 }
 
 .tpl-article__skeleton {
   display: flex;
   flex-direction: column;
   gap: var(--bh-gap-snug);
+}
+
+@container (max-width: 640px) {
+  .tpl-article__bar-title,
+  .tpl-article__bar-state {
+    display: none;
+  }
 }
