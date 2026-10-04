@@ -22,6 +22,7 @@ import { Toolbar } from '../components/Toolbar/Toolbar';
 import { Tooltip } from '../components/Tooltip/Tooltip';
 import { UserProfile } from '../components/UserProfile/UserProfile';
 import { IconDoc, IconFlow, IconGrid, IconHome, IconInbox, IconStar } from './icons';
+import { BigHatLogo } from './BigHatLogo';
 /**
  * Template — document management board.
  *
@@ -190,14 +191,7 @@ export function KanbanTemplate({ state = 'ready', overLimit = false }: KanbanTem
         <>
           <SkipLink />
           <AppBar
-            brand={
-              <>
-                <span className="bh-kanban__logo" aria-hidden="true">
-                  bh<sup>◆</sup>
-                </span>
-                <span className="bh-visually-hidden">Big Hat Poland</span>
-              </>
-            }
+            brand={<BigHatLogo height={24} />}
             title="Document Manager"
             actions={
               <>
