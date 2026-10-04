@@ -5,9 +5,10 @@
  * page that imports the package's stylesheet.
  */
 .tpl-article-theme {
-  --tpl-accent: #a54a24;
-  --tpl-accent-soft: #f3dcc9;
-  --tpl-line: #261d1724;
+  /* The accent, its soft tint and the table lines are roles the system has. */
+  --tpl-accent: var(--bh-selection-mark);
+  --tpl-accent-soft: var(--bh-selection-bg);
+  --tpl-line: var(--bh-border-subtle);
   --tpl-font-display: 'Poltawski Nowy', 'Iowan Old Style', Georgia, serif;
   --tpl-font-text: 'Newsreader', 'Iowan Old Style', Georgia, serif;
   --tpl-sky: linear-gradient(
@@ -44,7 +45,8 @@
   --bh-fill-hover: #261d170f;
   --bh-material-chrome-bg: #f8f3e9a8;
   --bh-material-regular-bg: #fdfaf494;
-  /* Reading sizes: the product reads at 15px where an ERP screen reads at 12. */
+  /* Interface sizes: the product's controls and captions read larger than an
+     ERP screen's. The lesson's own reading text is fluid, set on the prose. */
   --bh-text-size-dense: 12px;
   --bh-text-size-label: 12px;
   --bh-text-size-body: 15px;
@@ -58,10 +60,6 @@
 }
 
 :root[data-theme='dark'] .tpl-article-theme {
-  --tpl-accent: #f5b75b;
-  --tpl-accent-soft: #2a2418;
-  --tpl-line: #f2eee61f;
-
   --bh-surface-base: #0f1620;
   --bh-surface-sunken: #0a1018;
   --bh-surface-raised: #141b26;
@@ -86,6 +84,37 @@
   --bh-fill-hover: #f2eee612;
   --bh-material-chrome-bg: #0a1018a8;
   --bh-material-regular-bg: #0f16208f;
+}
+
+/* The package also goes dark on a dark OS when no data-theme is set; the
+   theme has to follow it there too, or half its roles stay light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .tpl-article-theme {
+    --bh-surface-base: #0f1620;
+    --bh-surface-sunken: #0a1018;
+    --bh-surface-raised: #141b26;
+    --bh-surface-overlay: #1a2230;
+    --bh-text-primary: #f2eee6;
+    --bh-text-secondary: #d4cdc0;
+    --bh-text-muted: #b7b0a3;
+    --bh-text-on-accent: #0a1018;
+    --bh-text-link: #f5b75b;
+    --bh-border-subtle: #263142;
+    --bh-border-strong: #7a8594;
+    --bh-border-hover: #b7b0a3;
+    --bh-border-focus: #f5b75b;
+    --bh-border-hairline: #f2eee614;
+    --bh-action-primary-bg: #f5b75b;
+    --bh-action-primary-bg-hover: #f8c87f;
+    --bh-action-primary-fg: #0a1018;
+    --bh-action-secondary-fg: #f2eee6;
+    --bh-selection-bg: #2a2418;
+    --bh-selection-fg: #f2eee6;
+    --bh-selection-mark: #f5b75b;
+    --bh-fill-hover: #f2eee612;
+    --bh-material-chrome-bg: #0a1018a8;
+    --bh-material-regular-bg: #0f16208f;
+  }
 }
 
 .tpl-article-theme .bh-shell,
@@ -114,6 +143,9 @@
 }
 
 .tpl-article__nav {
+  /* Pushed to the trailing edge with a margin, not justify-content: flex-end,
+     which would clip the first links when the row scrolls. */
+  margin-left: auto;
   display: flex;
   gap: var(--bh-gap-tight);
 }
@@ -153,6 +185,12 @@
 /* ---- lesson bar: the module and its numbered lessons ---- */
 
 .tpl-article__bar {
+  container-type: inline-size;
+  box-sizing: border-box;
+  /* A grid item in the shell header: without these it grows to its content
+     and pushes the page wider than a phone. */
+  min-width: 0;
+  max-width: 100%;
   display: flex;
   align-items: center;
   gap: var(--bh-gap-loose);
@@ -194,6 +232,9 @@
 }
 
 .tpl-article__bar-lesson {
+  /* The containing block for the hidden lesson names, so they stay inside
+     the bar's scroll area instead of widening the page. */
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--bh-gap-snug);
@@ -309,7 +350,7 @@
 /* Every section is numbered, the number in the accent above the heading. */
 .tpl-article__prose h2 {
   clear: right;
-  margin: calc(var(--bh-padding-hero) * 1.2) 0 var(--bh-gap-loose);
+  margin: var(--bh-padding-hero) 0 var(--bh-gap-loose);
   counter-increment: section;
   font-family: var(--tpl-font-display);
   font-size: clamp(1.45rem, 1.25rem + 0.9vw, 2rem);
@@ -455,13 +496,13 @@
   margin-top: var(--bh-gap-loose);
   padding: var(--bh-padding-section);
   border-radius: var(--bh-radius-modal);
-  background: var(--tpl-sky);
-  color: #f2eee6;
+  background: var(--tpl-scene-shade), var(--tpl-scene);
+  color: var(--tpl-scene-text);
   text-decoration: none;
 }
 
 .tpl-article__next-label {
-  color: var(--tpl-gold);
+  color: var(--tpl-highlight);
   font-size: var(--bh-text-size-caption);
   font-weight: var(--bh-text-weight-heading);
 }
@@ -478,8 +519,8 @@
   margin-top: var(--bh-gap-snug);
   padding: var(--bh-gap-tight) var(--bh-padding-inline);
   border-radius: var(--bh-radius-pill);
-  background: var(--tpl-gold);
-  color: #0a1018;
+  background: var(--tpl-highlight);
+  color: var(--tpl-scene-ink);
   font-size: var(--bh-text-size-caption);
   font-weight: var(--bh-text-weight-heading);
 }
@@ -495,4 +536,17 @@
   .tpl-article__bar-state {
     display: none;
   }
+
+  .tpl-article__bar-lesson[aria-current] .tpl-article__bar-name {
+    max-width: 11rem;
+  }
+}
+
+/* On a phone the four section links do not fit beside the brand: they
+   scroll sideways within the bar instead of pushing the page wider. */
+.tpl-article-theme .bh-appbar__actions {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
 }

@@ -211,6 +211,36 @@ radios. One tab stop, native picker on Enter, and dropped files handled by the
 input itself: every drag handler can be deleted and the component still works,
 which is the test rule 9 asks for.
 
+## Found while matching the Article template to World of Raptors
+
+Source: `world-of-raptors` — a course whose lessons are the Article template
+under the product's own theme. The theme re-points the semantic roles, which
+the system supports; two things it needed have no role at all.
+
+### 9. No scene surface — a dark, image-like panel and the text on it
+
+**Reached for:** `surface.inverse` and `text.inverse`. **Wrong fit:** inverse
+is a flat swap of the page colours, and in dark mode it turns light. The
+product's next-lesson card is a sky gradient that stays dark in both themes,
+with light text, a gold label and a gold pill.
+
+**What got hand-rolled:** five custom properties in the template
+(`--tpl-scene`, `--tpl-scene-shade`, `--tpl-scene-text`, `--tpl-scene-ink`,
+`--tpl-highlight`), declared once in the theme block.
+
+**What it does worse:** the contrast gate cannot see them. The text on the
+gradient holds 4.5:1 only because a shade is laid under its leading edge; a
+change to either stop is unchecked.
+
+### 10. No fluid display sizes
+
+**Reached for:** `textSize.display` and `textSize.title`. **Wrong fit:** both
+are fixed. A reading product scales its title and section headings with the
+viewport; the template writes four `clamp()` values by hand, which the drift
+audit skips.
+
+---
+
 ## Standing gaps, not yet argued for
 
 Named so an agent stops looking rather than quietly widening something adjacent.

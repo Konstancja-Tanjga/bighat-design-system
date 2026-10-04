@@ -74,7 +74,7 @@ function CourseNav() {
           key={label}
           className="tpl-article__nav-link bh-focusable"
           href="#"
-          aria-current={index === 0 ? 'page' : undefined}
+          aria-current={index === 0 ? 'true' : undefined}
         >
           {label}
         </a>
@@ -186,7 +186,10 @@ function LessonBody() {
               </td>
               <td>wypatrzenie zdobyczy z daleka lub w ciemności</td>
               <td>
-                szczegóły w module <a href="#">A2 · Anatomia łowcy</a>
+                szczegóły w module{' '}
+                <a className="bh-focusable" href="#">
+                  A2 · Anatomia łowcy
+                </a>
               </td>
             </tr>
             <tr>
@@ -209,7 +212,11 @@ function LessonBody() {
       <ul>
         <li>
           <strong>Samica większa od samca.</strong> U wielu drapieżników samica jest wyraźnie
-          większa (tzw. odwrócony dymorfizm płciowy). Więcej w module <a href="#">A4 · Rozród</a>.
+          większa (tzw. odwrócony dymorfizm płciowy). Więcej w module{' '}
+          <a className="bh-focusable" href="#">
+            A4 · Rozród
+          </a>
+          .
         </li>
         <li>
           <strong>Wypluwki.</strong> Niestrawione resztki (sierść, pióra, kości) drapieżniki
@@ -239,7 +246,7 @@ function LessonFooter() {
   return (
     <>
       <Checkbox
-        label="Ukończyłam tę lekcję"
+        label="Oznacz jako ukończoną"
         description="Zaznacz, żeby w menu było widać postęp modułu."
       />
       <a className="tpl-article__next bh-focusable" href="#">
@@ -290,7 +297,7 @@ export function ArticleTemplate({ state = 'ready' }: ArticleTemplateProps) {
             <Article
               eyebrow={
                 <span className="tpl-article__eyebrow">
-                  <a className="tpl-article__module" href="#">
+                  <a className="tpl-article__module bh-focusable" href="#">
                     A1 Kim są ptaki drapieżne?
                   </a>
                   <span>Lekcja 1 z 5</span>

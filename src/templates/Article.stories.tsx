@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A lesson in a course as World of Raptors ships it: the system's Article under the product's own theme. The theme is a set of semantic-token overrides (warm paper, a rust accent in light and amber in dark, 15px reading text) and two serif faces, scoped to this template's wrapper - a product re-themes the roles, not the components. The module and its numbered lessons sit in a bar under the app bar; sections are numbered; photos with their credit and side notes sit in the margin at the height of their paragraph. Resize the frame to see the margin and the table of contents fold into the text.",
+          "A lesson in a course as World of Raptors ships it: the system's Article under the product's own theme. The theme is a set of semantic-token overrides (warm paper, a rust accent in light and amber in dark, larger interface sizes) and two serif faces, scoped to this template's wrapper - a product re-themes the roles, not the components. The module and its numbered lessons sit in a bar under the app bar; sections are numbered; photos with their credit and side notes sit in the margin at the height of their paragraph. Resize the frame to see the margin and the table of contents fold into the text.",
       },
     },
   },
