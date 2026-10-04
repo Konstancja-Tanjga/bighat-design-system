@@ -6,7 +6,13 @@ const meta = {
   title: 'Components/Input',
   component: Input,
   args: { label: 'Work email' },
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=12-143',
+    },
+    layout: 'padded',
+  },
   decorators: [
     (Story) => (
       <div style={{ maxWidth: 360 }}>

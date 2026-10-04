@@ -7,6 +7,10 @@ const meta = {
   title: 'Components/Toast',
   component: ToastProvider,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=31-35',
+    },
     docs: {
       description: {
         component:

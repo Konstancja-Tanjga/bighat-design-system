@@ -5,6 +5,12 @@ import { Tab, TabList, TabPanel, Tabs } from './Tabs';
 const meta: Meta<typeof Tabs> = {
   title: 'Components/Tabs',
   component: Tabs,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=30-542',
+    },
+  },
 };
 
 export default meta;

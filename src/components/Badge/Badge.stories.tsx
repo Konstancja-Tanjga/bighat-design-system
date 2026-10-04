@@ -6,6 +6,12 @@ const meta = {
   title: 'Components/Badge',
   component: Badge,
   args: { children: 'Active' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=12-18',
+    },
+  },
 } satisfies Meta<typeof Badge>;
 
 export default meta;

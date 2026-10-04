@@ -6,6 +6,12 @@ import { SegmentedControl } from './SegmentedControl';
 const meta: Meta<typeof SegmentedControl> = {
   title: 'Components/SegmentedControl',
   component: SegmentedControl,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=27-263',
+    },
+  },
 };
 
 export default meta;

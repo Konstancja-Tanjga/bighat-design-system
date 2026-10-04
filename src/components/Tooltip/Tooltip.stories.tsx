@@ -6,6 +6,12 @@ import { Button } from '../Button/Button';
 const meta: Meta<typeof Tooltip> = {
   title: 'Components/Tooltip',
   component: Tooltip,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=31-3',
+    },
+  },
 };
 
 export default meta;

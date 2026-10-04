@@ -6,7 +6,13 @@ const meta = {
   title: 'Components/Textarea',
   component: Textarea,
   args: { label: 'Reason for rejection' },
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=28-59',
+    },
+    layout: 'padded',
+  },
   decorators: [
     (Story) => (
       <div style={{ maxWidth: 420 }}>

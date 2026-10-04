@@ -5,6 +5,12 @@ import { Menu } from './Menu';
 const meta: Meta<typeof Menu> = {
   title: 'Components/Menu',
   component: Menu,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=22-34',
+    },
+  },
 };
 
 export default meta;

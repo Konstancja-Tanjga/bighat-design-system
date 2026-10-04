@@ -17,7 +17,13 @@ const meta: Meta<typeof SidePanel> = {
   component: SidePanel,
   tags: ['autodocs'],
   args: { ariaLabel: 'Folders', children: null },
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=49-94',
+    },
+    layout: 'padded',
+  },
   decorators: [
     // The panel fills the height of whatever holds it — in a product that is
     // an `AppShell` region. A fixed-height box stands in for one here.

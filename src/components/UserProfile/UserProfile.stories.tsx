@@ -6,6 +6,12 @@ import { Badge } from '../Badge/Badge';
 const meta: Meta<typeof UserProfile> = {
   title: 'Components/UserProfile',
   component: UserProfile,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=42-59',
+    },
+  },
 };
 
 export default meta;

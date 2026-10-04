@@ -17,7 +17,13 @@ const meta: Meta<typeof Skeleton> = {
   title: 'Components/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=44-44',
+    },
+    layout: 'padded',
+  },
   decorators: [
     (Story) => (
       <div style={{ maxWidth: 420 }}>

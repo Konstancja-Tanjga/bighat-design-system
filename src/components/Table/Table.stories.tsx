@@ -47,7 +47,13 @@ const columns: Array<Column<Invoice>> = [
 const meta: Meta<TableProps<Invoice>> = {
   title: 'Components/Table',
   component: Table,
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=51-101',
+    },
+  },
 };
 
 export default meta;

@@ -6,6 +6,12 @@ import { IconPicker } from './IconPicker';
 const meta: Meta<typeof IconPicker> = {
   title: 'Components/IconPicker',
   component: IconPicker,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=64-46',
+    },
+  },
 };
 
 export default meta;

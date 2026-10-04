@@ -26,7 +26,13 @@ const meta: Meta<typeof Composer> = {
     label: 'Ask anything about the business',
     placeholder: 'Which invoices are overdue this month?',
   },
-  parameters: { layout: 'padded' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=65-58',
+    },
+    layout: 'padded',
+  },
   decorators: [
     (Story) => (
       <div style={{ maxWidth: 640 }}>
