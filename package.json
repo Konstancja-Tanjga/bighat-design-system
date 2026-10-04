@@ -54,6 +54,7 @@
     "build": "npm run tokens && tsc -b && vite build && tsc -p tsconfig.build.json",
     "prepare": "npm run build",
     "tokens": "node scripts/build-tokens.mjs",
+    "figma:headers": "node scripts/figma-headers.mjs > figma/headers.json && prettier --write figma/headers.json",
     "tokens:check": "node scripts/build-tokens.mjs --check",
     "audit:drift": "node scripts/audit-drift.mjs src/styles > DRIFT-REPORT.md",
     "aria": "node scripts/audit-aria.mjs src > ARIA.md",

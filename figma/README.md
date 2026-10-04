@@ -83,3 +83,19 @@ data inside their parent, not components: `IconPicker / Tile` (one of
 The templates are outside `src/` on purpose: they import the `figma` runtime
 that only exists inside Figma, so they are not part of the package, the type
 check or the build.
+
+## Page headers
+
+Every component page in the library opens with a header: the name, its layer
+and where it is implemented, its purpose, what it is not for, and links to its
+Storybook page and its contract. The header is drawn from the contracts in
+`spec/components`, never typed in Figma:
+
+```bash
+npm run figma:headers   # writes figma/headers.json from the contracts
+```
+
+Then ask the Figma agent to redraw the headers from that file. The script fails
+when a contract has no page, so a new component cannot reach the library
+without one. Guidance that is tested and rendered live — do and don't,
+keyboard, ARIA — stays in Storybook, linked from the header, not copied.
