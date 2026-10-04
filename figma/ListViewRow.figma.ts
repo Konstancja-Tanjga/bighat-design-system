@@ -1,6 +1,6 @@
 // url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=61-110
 // source=src/components/ListView/ListView.tsx
-// component=ListView
+// component=ListViewItem
 import figma from 'figma';
 const instance = figma.selectedInstance;
 

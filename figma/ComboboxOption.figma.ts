@@ -1,6 +1,6 @@
 // url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=63-21
 // source=src/components/Combobox/Combobox.tsx
-// component=Combobox
+// component=ComboboxOption
 import figma from 'figma';
 const instance = figma.selectedInstance;
 

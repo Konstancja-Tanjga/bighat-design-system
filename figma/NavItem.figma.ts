@@ -8,7 +8,7 @@ const label = instance.getString('Label');
 const subline = instance.getBoolean('Show subline')
   ? figma.code`, subline: '${instance.getString('Subline')}'`
   : '';
-const icon = instance.getBoolean('Show icon') ? figma.code`, icon: <Icon />` : '';
+const icon = instance.getBoolean('Show icon') ? figma.code`, icon: icon` : '';
 const meta = instance.getBoolean('Show meta')
   ? figma.code`, meta: '${instance.getString('Meta')}'`
   : '';

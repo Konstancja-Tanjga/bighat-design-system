@@ -4,8 +4,8 @@
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
-// rows and comfortable are the defaults.
-const layout = instance.getEnum('layout', { rows: '', columns: ' layout="columns"' });
+// columns and comfortable are the defaults.
+const layout = instance.getEnum('layout', { rows: ' layout="rows"', columns: '' });
 const density = instance.getEnum('density', { comfortable: '', compact: ' density="compact"' });
 
 // The pairs are data; the snippet shows their shape.

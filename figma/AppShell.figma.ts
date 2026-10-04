@@ -7,7 +7,7 @@ const instance = figma.selectedInstance;
 const aside = instance.getEnum('panes', {
   sidebar: '',
   'sidebar + aside': figma.code`
-  aside={<SidePanel title="Filters">{filters}</SidePanel>}`,
+  aside={<SidePanel ariaLabel="Filters" title="Filters">{filters}</SidePanel>}`,
 });
 
 export default {

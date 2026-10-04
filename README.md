@@ -56,7 +56,7 @@ import { Button, StateBlock, ToastProvider } from '@bighat/ui';
 | path                   | what                                                                                                                    |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `tokens/*.tokens.json` | the DTCG 2025.10 source. Everything else is generated from it                                                           |
-| `src/components/`      | 45 components, one directory each                                                                                       |
+| `src/components/`      | 46 components, one directory each                                                                                       |
 | `src/styles/`          | 49 stylesheets. `bh-*` classes, container queries, tokens only                                                          |
 | `spec/components/`     | one machine-readable contract per component                                                                             |
 | `agent/`               | rules a coding agent can follow instead of inventing its own                                                            |
