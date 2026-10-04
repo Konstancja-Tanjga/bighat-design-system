@@ -1,6 +1,6 @@
 {
   "name": "@bighat/ui",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "A small, opinionated React design system: two token layers, eight value classes that cannot be literals, WCAG AA enforced in CI, and contracts an agent can read.",
   "license": "MIT",
   "author": "Konstancja Tanjga-Nawrot",

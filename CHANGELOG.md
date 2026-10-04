@@ -1,5 +1,11 @@
 # @bighat/ui
 
+## 6.0.4
+
+### Patch Changes
+
+- f1776bd: The KanbanBoard and AiChat templates show the Big Hat logo in their app bar instead of the old "bh◆" wordmark. The logo is drawn from `text.primary` and `action.primary.bg`, so it follows the theme.
+
 ## 6.0.3
 
 ### Patch Changes
