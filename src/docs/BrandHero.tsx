@@ -62,7 +62,7 @@ export function BigHatLogo({ height = 56 }: { height?: number }) {
 
 // The system face, as on the cover and in the wordmark. Set on the elements
 // themselves: the docs theme styles h1 and p directly, so inheriting loses.
-const face = 'var(--bh-font-family-sans)';
+const face = cssVar('fontFamily.sans');
 
 const headline: CSSProperties = {
   fontFamily: face,
@@ -82,7 +82,7 @@ const standfirst: CSSProperties = {
   margin: 0,
   color: cssVar('text.secondary'),
   fontSize: cssVar('textSize.heading'),
-  lineHeight: 1.5,
+  lineHeight: cssVar('textLeading.normal'),
 };
 
 export function BrandHero({ art }: { art: string }) {
