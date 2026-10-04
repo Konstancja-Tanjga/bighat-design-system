@@ -89,5 +89,7 @@ const pages = Object.entries(PAGES).map(([page, contracts]) => ({
 const drawn = Object.values(PAGES).flat();
 const missing = [...files].filter((f) => !drawn.includes(f));
 if (missing.length) throw new Error(`No Figma page lists: ${missing.join(', ')}`);
+const twice = drawn.filter((f, i) => drawn.indexOf(f) !== i);
+if (twice.length) throw new Error(`Listed on more than one page: ${twice.join(', ')}`);
 
 process.stdout.write(`${JSON.stringify(pages, null, 2)}\n`);
