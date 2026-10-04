@@ -2,7 +2,6 @@
 // source=src/components/Avatar/Avatar.tsx
 // component=AvatarGroup
 import figma from 'figma';
-const instance = figma.selectedInstance;
 
 export default {
   example: figma.code`<AvatarGroup label="Reviewers" people={people} max={3} />`,

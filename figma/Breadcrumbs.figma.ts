@@ -2,7 +2,6 @@
 // source=src/components/Breadcrumbs/Breadcrumbs.tsx
 // component=Breadcrumbs
 import figma from 'figma';
-const instance = figma.selectedInstance;
 
 // The trail is data; the last item has no href because it is the current page.
 export default {
