@@ -26,11 +26,8 @@ syntax, so Dev Mode shows `var(--bh-action-primary-bg)`, not a hex, and the
 primitives are hidden from every picker, as they are from product code. A
 Foundations page shows the primitives and the colour roles in both modes.
 
-Components so far: Button (both tones), Badge, Input, Textarea, Select,
-Checkbox, RadioGroup, Switch, SegmentedControl, FilterChip, RemovableChip, Menu,
-Tabs, Tooltip, Toast, Dialog, Card, Avatar, UserProfile, Breadcrumbs,
-Pagination, Progress, Skeleton, StateBlock, Table, AppBar, NavRail, SidePanel,
-Toolbar and StatusBar, with a set of template icons, every value bound to those
+Every component in the package is in the library — all 46, from Button (both
+tones) to AppShell — with a set of template icons, every value bound to those
 variables, variant properties named after the props, and each with a review
 frame that switches the same instances to Dark by changing one mode. Code
 Connect templates in [`figma/`](figma/) make Dev Mode show the component a
@@ -59,7 +56,7 @@ import { Button, StateBlock, ToastProvider } from '@bighat/ui';
 | path                   | what                                                                                                                    |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `tokens/*.tokens.json` | the DTCG 2025.10 source. Everything else is generated from it                                                           |
-| `src/components/`      | 45 components, one directory each                                                                                       |
+| `src/components/`      | 46 components, one directory each                                                                                       |
 | `src/styles/`          | 49 stylesheets. `bh-*` classes, container queries, tokens only                                                          |
 | `spec/components/`     | one machine-readable contract per component                                                                             |
 | `agent/`               | rules a coding agent can follow instead of inventing its own                                                            |
