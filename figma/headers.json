@@ -1,0 +1,670 @@
+[
+  {
+    "page": "Button",
+    "components": [
+      {
+        "name": "Button",
+        "layer": "Control",
+        "where": "React and Angular",
+        "purpose": "An action the user takes.",
+        "notFor": [
+          "Navigation to another page — that is an anchor, and a button breaks middle-click, cmd-click, copy-link-address and the browser's history model",
+          "A destination that should be bookmarkable",
+          "A toggle with two persistent states — that is Switch"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-button--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/button.json",
+        "contractPath": "spec/components/button.json"
+      }
+    ]
+  },
+  {
+    "page": "Badge",
+    "components": [
+      {
+        "name": "Badge",
+        "layer": "Feedback",
+        "where": "React",
+        "purpose": "Short status attached to an object.",
+        "notFor": ["Bare counts", "Anything clickable"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-badge--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/badge.json",
+        "contractPath": "spec/components/badge.json"
+      }
+    ]
+  },
+  {
+    "page": "Input",
+    "components": [
+      {
+        "name": "Input",
+        "layer": "Control",
+        "where": "React and Angular",
+        "purpose": "Single-line text entry with label, description and error wired to ARIA.",
+        "notFor": ["Controls with their own keyboard model — date pickers, comboboxes"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-input--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/input.json",
+        "contractPath": "spec/components/input.json"
+      }
+    ]
+  },
+  {
+    "page": "Checkbox",
+    "components": [
+      {
+        "name": "Checkbox",
+        "layer": "Control",
+        "where": "React and Angular",
+        "purpose": "A single boolean the user sets, or one member of a set they choose from.",
+        "notFor": [
+          "An immediate setting that takes effect on toggle — that is Switch",
+          "Choosing exactly one of several options — that is RadioGroup",
+          "A filter chip in a toolbar — that is SegmentedControl"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-checkbox--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/checkbox.json",
+        "contractPath": "spec/components/checkbox.json"
+      }
+    ]
+  },
+  {
+    "page": "Chip",
+    "components": [
+      {
+        "name": "FilterChip",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "One filter, on or off, shown next to the results it narrows.",
+        "notFor": [
+          "Exactly one of a set. That is SegmentedControl — a row of independent toggles cannot express 'exactly one', and 'none selected' is legal here and illegal there.",
+          "A fact about the row rather than something the reader asked for. That is Badge, which refuses to be clickable for this reason.",
+          "More than a handful of values. That is Select.",
+          "A chosen value with a way to take it back. That is RemovableChip."
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-filterchip--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/filter-chip.json",
+        "contractPath": "spec/components/filter-chip.json"
+      },
+      {
+        "name": "RemovableChip",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "A value the reader has already chosen, with a named way to take it back.",
+        "notFor": [
+          "A filter that toggles on and off. That is FilterChip — and the two are separate components because the remove button's name is not the chip's text, which is a difference that would otherwise land in the accessibility tree.",
+          "A fact about the row. That is Badge.",
+          "A list needing reorder or bulk selection. That is ListView.",
+          "A destructive removal that needs confirming. Confirm it in the form around the chip, not inside it."
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-removablechip--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/removable-chip.json",
+        "contractPath": "spec/components/removable-chip.json"
+      }
+    ]
+  },
+  {
+    "page": "Select",
+    "components": [
+      {
+        "name": "Select",
+        "layer": "Control",
+        "where": "React; Angular in part",
+        "purpose": "Choosing one value from a short, known list. Native element underneath.",
+        "notFor": ["Search", "Multi-select", "Async or very long option lists"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-select--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/select.json",
+        "contractPath": "spec/components/select.json"
+      }
+    ]
+  },
+  {
+    "page": "Menu",
+    "components": [
+      {
+        "name": "Menu",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "A list of actions behind a trigger. Focus moves in on open and back on close.",
+        "notFor": ["Navigation — those are links", "Choosing a value — that is Select"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-menu--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/menu.json",
+        "contractPath": "spec/components/menu.json"
+      }
+    ]
+  },
+  {
+    "page": "RadioGroup",
+    "components": [
+      {
+        "name": "RadioGroup",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "One choice out of a visible, mutually exclusive set. The group is the component.",
+        "notFor": [
+          "More than about six options — that is Select or Combobox",
+          "Independent toggles — that is Checkbox"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-radiogroup--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/radio-group.json",
+        "contractPath": "spec/components/radio-group.json"
+      }
+    ]
+  },
+  {
+    "page": "Switch",
+    "components": [
+      {
+        "name": "Switch",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "An immediate setting. Takes effect on click, with no Save button.",
+        "notFor": ["A value submitted with a form — that is Checkbox"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-switch--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/switch.json",
+        "contractPath": "spec/components/switch.json"
+      }
+    ]
+  },
+  {
+    "page": "SegmentedControl",
+    "components": [
+      {
+        "name": "SegmentedControl",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "Two to five mutually exclusive options, all visible. A radio group that looks like buttons.",
+        "notFor": ["More than five options", "A filter with a cleared state"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-segmentedcontrol--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/segmented-control.json",
+        "contractPath": "spec/components/segmented-control.json"
+      }
+    ]
+  },
+  {
+    "page": "Textarea",
+    "components": [
+      {
+        "name": "Textarea",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "Multi-line free text with label, description and error wired to ARIA.",
+        "notFor": [
+          "Single-line values — names, references, search terms. That is Input.",
+          "A message sent by pressing Enter. That is Composer, which owns the Enter key.",
+          "One of a known set of answers. That is Select, RadioGroup or Combobox."
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-textarea--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/textarea.json",
+        "contractPath": "spec/components/textarea.json"
+      }
+    ]
+  },
+  {
+    "page": "Tabs",
+    "components": [
+      {
+        "name": "Tabs",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "A filter over one screen. Roving tabindex, arrows to move, panel is the next tab stop.",
+        "notFor": [
+          "Content with its own URL — those are links",
+          "More tabs than fit without scrolling"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-tabs--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/tabs.json",
+        "contractPath": "spec/components/tabs.json"
+      }
+    ]
+  },
+  {
+    "page": "Tooltip & Toast",
+    "components": [
+      {
+        "name": "Tooltip",
+        "layer": "Feedback",
+        "where": "React",
+        "purpose": "A short label for a control that has none. Dismissible, hoverable, persistent.",
+        "notFor": [
+          "Anything interactive inside it — that is a popover",
+          "Text the user must read to succeed"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-tooltip--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/tooltip.json",
+        "contractPath": "spec/components/tooltip.json"
+      },
+      {
+        "name": "Toast",
+        "layer": "Feedback",
+        "where": "React and Angular",
+        "purpose": "Ephemeral confirmation that something happened.",
+        "notFor": ["Errors the user must act on in place — use StateBlock"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-toast--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/toast.json",
+        "contractPath": "spec/components/toast.json"
+      }
+    ]
+  },
+  {
+    "page": "Dialog",
+    "components": [
+      {
+        "name": "Dialog",
+        "layer": "Feedback",
+        "where": "React and Angular, at parity",
+        "purpose": "A decision or a short task that must finish before the page continues.",
+        "notFor": [
+          "Anything the user might want to keep open while working — that is SidePanel",
+          "A confirmation that needs no decision — that is Toast",
+          "A form long enough to scroll on a laptop — that is a route"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-dialog--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/dialog.json",
+        "contractPath": "spec/components/dialog.json"
+      }
+    ]
+  },
+  {
+    "page": "Card",
+    "components": [
+      {
+        "name": "Card",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "A bounded surface around content the user might act on as a unit.",
+        "notFor": [
+          "A paragraph — that is a border with extra steps",
+          "Cards with two actions inside"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-card--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/card.json",
+        "contractPath": "spec/components/card.json"
+      }
+    ]
+  },
+  {
+    "page": "Avatar & UserProfile",
+    "components": [
+      {
+        "name": "Avatar",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "A person, as a picture with a name behind it.",
+        "notFor": ["A logo", "Carrying status on its own"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-avatar--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/avatar.json",
+        "contractPath": "spec/components/avatar.json"
+      },
+      {
+        "name": "UserProfile",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "Who is signed in, and the account actions. Name as text, not only as initials.",
+        "notFor": ["Showing another person — that is Avatar", "App navigation"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-userprofile--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/user-profile.json",
+        "contractPath": "spec/components/user-profile.json"
+      }
+    ]
+  },
+  {
+    "page": "Breadcrumbs & Pagination",
+    "components": [
+      {
+        "name": "Breadcrumbs",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "Position in a hierarchy. The last crumb is the current page and is not a link.",
+        "notFor": ["Click history", "A two-level hierarchy — a back link is enough"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-breadcrumbs--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/breadcrumbs.json",
+        "contractPath": "spec/components/breadcrumbs.json"
+      },
+      {
+        "name": "Pagination",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "Paging over a set too large to render. Reports a range and a total, because '21–40 of 312' is a fact about the data and 'page 2 of 16' is a fact about the component.",
+        "notFor": ["Infinite scroll", "Fewer rows than one page holds — then show them all"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-pagination--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/pagination.json",
+        "contractPath": "spec/components/pagination.json"
+      }
+    ]
+  },
+  {
+    "page": "Progress, Skeleton & StateBlock",
+    "components": [
+      {
+        "name": "Progress",
+        "layer": "Feedback",
+        "where": "React",
+        "purpose": "How far along something is. Determinate or honestly indeterminate.",
+        "notFor": ["A fake bar that waits at 90%", "A skeleton's job — an unknown layout"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-progress--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/progress.json",
+        "contractPath": "spec/components/progress.json"
+      },
+      {
+        "name": "Skeleton",
+        "layer": "Feedback",
+        "where": "React",
+        "purpose": "A placeholder for content whose shape is already known.",
+        "notFor": ["Waits with no known shape — use StateBlock state=\"loading\""],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-skeleton--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/skeleton.json",
+        "contractPath": "spec/components/skeleton.json"
+      },
+      {
+        "name": "StateBlock",
+        "layer": "Feedback",
+        "where": "React and Angular, at parity",
+        "purpose": "The three states that are not the happy path: nothing to show, fetching, broke.",
+        "notFor": [
+          "A validation message on a single field — that is the field's own error",
+          "A transient confirmation — that is Toast",
+          "A blocking failure that needs a decision — that is Dialog"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-stateblock--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/state-block.json",
+        "contractPath": "spec/components/state-block.json"
+      }
+    ]
+  },
+  {
+    "page": "NavRail",
+    "components": [
+      {
+        "name": "NavRail",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "Narrow icon navigation rail.",
+        "notFor": ["Destinations whose meaning needs more than two words"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-navrail--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/nav-rail.json",
+        "contractPath": "spec/components/nav-rail.json"
+      }
+    ]
+  },
+  {
+    "page": "App frame",
+    "components": [
+      {
+        "name": "AppBar",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "The top bar. Three slots in reading order: brand, title, actions.",
+        "notFor": ["Repeating the product name in title — brand already carries it"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-appbar--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/app-bar.json",
+        "contractPath": "spec/components/app-bar.json"
+      },
+      {
+        "name": "Toolbar",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "A row of controls acting on the content below it. One tab stop, arrows between controls.",
+        "notFor": ["Page-level navigation — that is AppBar", "A single button"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-toolbar--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/toolbar.json",
+        "contractPath": "spec/components/toolbar.json"
+      },
+      {
+        "name": "StatusBar",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "The thin bar at the bottom of an application. Its message slot is a polite live region.",
+        "notFor": ["Anything urgent — that is Toast", "Actions — that is Toolbar"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-statusbar--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/status-bar.json",
+        "contractPath": "spec/components/status-bar.json"
+      },
+      {
+        "name": "SidePanel",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "A persistent panel beside the main content.",
+        "notFor": ["Anything blocking — use Dialog", "Transient drawers"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-sidepanel--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/side-panel.json",
+        "contractPath": "spec/components/side-panel.json"
+      }
+    ]
+  },
+  {
+    "page": "Table",
+    "components": [
+      {
+        "name": "Table",
+        "layer": "Data",
+        "where": "React; Angular in part",
+        "purpose": "Dense enterprise data. Sort and paging are controlled, empty/loading/error delegate to StateBlock, and the narrow form is declared rather than guessed.",
+        "notFor": ["Layout"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-table--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/table.json",
+        "contractPath": "spec/components/table.json"
+      }
+    ]
+  },
+  {
+    "page": "Accordion & Divider",
+    "components": [
+      {
+        "name": "Accordion",
+        "layer": "Data",
+        "where": "React",
+        "purpose": "Disclosure of one topic at a time. Headers are real buttons inside headings.",
+        "notFor": ["Navigation between screens", "Hiding content the user always needs"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-accordion--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/accordion.json",
+        "contractPath": "spec/components/accordion.json"
+      },
+      {
+        "name": "Divider",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "A line between things. Decorative unless it carries a label.",
+        "notFor": ["Spacing — use the gap tokens"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-divider--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/divider.json",
+        "contractPath": "spec/components/divider.json"
+      }
+    ]
+  },
+  {
+    "page": "List & DescriptionList",
+    "components": [
+      {
+        "name": "List",
+        "layer": "Data",
+        "where": "React",
+        "purpose": "A vertical list of records: leading media, title, supporting line, trailing slot.",
+        "notFor": [
+          "Data the user compares or sorts — that is Table",
+          "A selectable master pane — that is ListView"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-list--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/list.json",
+        "contractPath": "spec/components/list.json"
+      },
+      {
+        "name": "DescriptionList",
+        "layer": "Data",
+        "where": "React",
+        "purpose": "Term and value pairs — a record read rather than a form filled. A real <dl>, so a screen reader knows which label owns which value.",
+        "notFor": ["A form — these are values, not inputs", "Two columns of unrelated data"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-descriptionlist--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/description-list.json",
+        "contractPath": "spec/components/description-list.json"
+      }
+    ]
+  },
+  {
+    "page": "NavList & ListView",
+    "components": [
+      {
+        "name": "NavList",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "Grouped list inside a side panel — saved views, recent items, a shallow tree.",
+        "notFor": ["Tabular data — use Table"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-navlist--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/nav-list.json",
+        "contractPath": "spec/components/nav-list.json"
+      },
+      {
+        "name": "ListView",
+        "layer": "Data",
+        "where": "React",
+        "purpose": "A selectable master list driving a detail pane. One tab stop, arrows, type-ahead.",
+        "notFor": [
+          "Multi-select — that is a Table with a checkbox column",
+          "Static records — that is List"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-listview--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/list-view.json",
+        "contractPath": "spec/components/list-view.json"
+      }
+    ]
+  },
+  {
+    "page": "Slider",
+    "components": [
+      {
+        "name": "Slider",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "A native range input for an approximate value on a continuum.",
+        "notFor": [
+          "A value the user needs to type exactly — that is Input",
+          "Fewer than about ten steps"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-slider--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/slider.json",
+        "contractPath": "spec/components/slider.json"
+      }
+    ]
+  },
+  {
+    "page": "Combobox & DatePicker",
+    "components": [
+      {
+        "name": "Combobox",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "A text field that filters a list. The one custom listbox in the system.",
+        "notFor": [
+          "A short, fixed set — use Select",
+          "Free text — the value must come from the list"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-combobox--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/combobox.json",
+        "contractPath": "spec/components/combobox.json"
+      },
+      {
+        "name": "DatePicker",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "A native date input, with the format and range stated in the description.",
+        "notFor": ["A custom calendar grid", "A duration — that is two fields"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-datepicker--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/date-picker.json",
+        "contractPath": "spec/components/date-picker.json"
+      }
+    ]
+  },
+  {
+    "page": "FileDropzone, IconPicker & ScrollArea",
+    "components": [
+      {
+        "name": "FileDropzone",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "Choosing files to upload, by the platform picker or by dropping them onto the same control.",
+        "notFor": [
+          "Showing what was chosen. The list of files, their sizes and their errors belong to the form around it, which is the only thing that knows what 'too large' means here.",
+          "Progress of an upload in flight. That is Progress.",
+          "Reordering or moving things by drag. That is Board, which has a keyboard equivalent for it.",
+          "Validation. accept filters the platform picker and nothing else — a drop can still hand you anything, and only the server's check counts."
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-filedropzone--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/file-dropzone.json",
+        "contractPath": "spec/components/file-dropzone.json"
+      },
+      {
+        "name": "IconPicker",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "Choosing one icon from a searchable grid. A radio group, not a wall of buttons.",
+        "notFor": ["An icon set with no names — the name is the accessible label"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-iconpicker--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/icon-picker.json",
+        "contractPath": "spec/components/icon-picker.json"
+      },
+      {
+        "name": "ScrollArea",
+        "layer": "Control",
+        "where": "React",
+        "purpose": "A scrollable region that is reachable by keyboard and keeps the platform scrollbar.",
+        "notFor": ["Replacing the scrollbar with divs", "A region that never overflows"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-scrollarea--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/scroll-area.json",
+        "contractPath": "spec/components/scroll-area.json"
+      }
+    ]
+  },
+  {
+    "page": "Composer & Board",
+    "components": [
+      {
+        "name": "Composer",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "The prompt input — a textarea in a form, with optional single-choice modes.",
+        "notFor": ["Ordinary multi-line form fields"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-composer--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/composer.json",
+        "contractPath": "spec/components/composer.json"
+      },
+      {
+        "name": "Board",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "Columns of cards — kanban, pipeline, review queue.",
+        "notFor": ["Ordered data the user compares — that is Table"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-board--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/board.json",
+        "contractPath": "spec/components/board.json"
+      }
+    ]
+  },
+  {
+    "page": "Article & AppShell",
+    "components": [
+      {
+        "name": "Article",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "A long read: text at a reading measure, a margin beside it for figures and asides, and a table of contents that stays in view where there is room.",
+        "notFor": [
+          "Application screens with lists, tables or boards - that is AppShell with the data components",
+          "Short text in a card or panel - a Card, or plain text",
+          "Styling the text itself - headings, lists and tables in the body are the product's"
+        ],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-article--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/article.json",
+        "contractPath": "spec/components/article.json"
+      },
+      {
+        "name": "AppShell",
+        "layer": "Frame",
+        "where": "React",
+        "purpose": "The frame every application screen sits in. Owns the landmark structure — header, nav, main, complementary.",
+        "notFor": ["Documentation and marketing pages — use height=\"flow\" or no shell at all"],
+        "storybook": "https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/components-appshell--docs",
+        "contract": "https://github.com/Konstancja-Tanjga/bighat-design-system/blob/main/spec/components/app-shell.json",
+        "contractPath": "spec/components/app-shell.json"
+      }
+    ]
+  }
+]
