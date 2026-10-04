@@ -38,6 +38,13 @@ state, not a prop, and maps to nothing.
 | `Progress.figma.ts`         | Progress            | `src/components/Progress/Progress.tsx`                 |
 | `Skeleton.figma.ts`         | Skeleton            | `src/components/Skeleton/Skeleton.tsx`                 |
 | `StateBlock.figma.ts`       | StateBlock          | `src/components/StateBlock/StateBlock.tsx`             |
+| `AppBar.figma.ts`           | AppBar              | `src/components/AppBar/AppBar.tsx`                     |
+| `NavRail.figma.ts`          | NavRail             | `src/components/NavRail/NavRail.tsx`                   |
+| `NavRailItem.figma.ts`      | NavRail / Item      | one entry of `<NavRail items>`                         |
+| `SidePanel.figma.ts`        | SidePanel           | `src/components/SidePanel/SidePanel.tsx`               |
+| `Toolbar.figma.ts`          | Toolbar             | `src/components/Toolbar/Toolbar.tsx`                   |
+| `StatusBar.figma.ts`        | StatusBar           | `src/components/StatusBar/StatusBar.tsx`               |
+| `Table.figma.ts`            | Table               | `src/components/Table/Table.tsx`                       |
 
 Pointer and keyboard states drawn in Figma — `hover`, `focus`, a menu's
 `active` item — map to nothing: they are the browser's, not props. Data that
