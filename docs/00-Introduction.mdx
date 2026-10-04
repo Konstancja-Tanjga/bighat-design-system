@@ -1,13 +1,18 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
+import { BrandHero } from '../src/docs/BrandHero';
+import coverArt from './assets/cover-art.png';
+
 <Meta title="Introduction" />
 
-# Big Hat — React
+<BrandHero art={coverArt} />
+
+## Big Hat — React
 
 A design system built to answer the question interviews actually ask: **not
 "can you make a button", but "what did you decide, and what did it cost".**
 
-Forty-five components in two layers. Two token layers, one of which is an API
+Forty-six components in two layers. Two token layers, one of which is an API
 and one of which is not. WCAG AA enforced by a failing build rather than a
 review comment. Eight classes of value that cannot be written as a literal
 anywhere in the library. A deprecation carried from announcement to removal
