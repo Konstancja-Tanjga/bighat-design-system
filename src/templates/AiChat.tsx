@@ -21,6 +21,7 @@ import { StatusBar } from '../components/StatusBar/StatusBar';
 import { Tab, TabList, TabPanel, Tabs } from '../components/Tabs/Tabs';
 import { Tooltip } from '../components/Tooltip/Tooltip';
 import { UserProfile } from '../components/UserProfile/UserProfile';
+import { BigHatLogo } from './BigHatLogo';
 import {
   IconAttach,
   IconBrief,
@@ -136,14 +137,7 @@ export function AiChatTemplate({ state = 'ready', showExplainer = true }: AiChat
         <>
           <SkipLink />
           <AppBar
-            brand={
-              <>
-                <span className="bh-ai__logo" aria-hidden="true">
-                  bh<sup>◆</sup>
-                </span>
-                <span className="bh-visually-hidden">Big Hat Poland</span>
-              </>
-            }
+            brand={<BigHatLogo height={24} />}
             title="AI Chat"
             actions={
               <>

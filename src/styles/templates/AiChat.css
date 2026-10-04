@@ -7,13 +7,6 @@
   gap: var(--bh-padding-section);
 }
 
-.bh-ai__logo {
-  font-size: var(--bh-text-size-display);
-  font-weight: var(--bh-text-weight-heading);
-  letter-spacing: -0.02em;
-  color: var(--bh-action-primary-bg);
-}
-
 .bh-ai__head {
   display: flex;
   flex-direction: column;
