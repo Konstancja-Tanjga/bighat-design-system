@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { contrastRatio } from '../tokens/contrast';
+import { compositeOver, contrastRatio, hexToRgb } from '../tokens/contrast';
 
 /**
  * The Article template overrides semantic tokens with World of Raptors'
@@ -53,9 +53,39 @@ describe('Article template theme', () => {
     });
   }
 
-  it('follows a dark OS as well as data-theme="dark"', () => {
+  it('follows a dark OS with the same values as data-theme="dark"', () => {
+    const osDark = block(":root:not([data-theme='light']) .tpl-article-theme");
     expect(css).toMatch(
       /prefers-color-scheme: dark\)\s*\{\s*:root:not\(\[data-theme='light'\]\) \.tpl-article-theme/,
+    );
+    expect(osDark).toEqual(block(":root[data-theme='dark'] .tpl-article-theme"));
+  });
+
+  // The next-lesson card is the same in both themes: the sky under an even
+  // veil of ink. Its text is checked against every stop of the sky.
+  it.each(['--tpl-scene-text', '--tpl-highlight'])('%s on the shaded sky meets 4.5:1', (fg) => {
+    const theme = css.slice(css.indexOf('.tpl-article-theme {'));
+    const prop = (name: string) => {
+      const match = theme.match(new RegExp(`${name}:\\s*([^;]+);`));
+      expect(match, name).not.toBeNull();
+      return match![1];
+    };
+    const stops = prop('--tpl-scene').match(/#[0-9a-f]{6}/gi)!;
+    const veil = Number(prop('--tpl-scene-shade').match(/(\d+)%/)![1]) / 100;
+    const ink = hexToRgb(prop('--tpl-scene-ink'));
+    expect(stops.length).toBeGreaterThan(1);
+    const veiled = `rgba(${ink.r}, ${ink.g}, ${ink.b}, ${veil})`;
+    for (const stop of stops) {
+      const shaded = compositeOver(veiled, stop);
+      expect(contrastRatio(prop(fg), shaded), `${fg} over ${stop}`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it('the pill: ink on the highlight meets 4.5:1', () => {
+    const theme = css.slice(css.indexOf('.tpl-article-theme {'));
+    const hex = (name: string) => theme.match(new RegExp(`${name}:\\s*(#[0-9a-f]{6});`, 'i'))![1];
+    expect(contrastRatio(hex('--tpl-scene-ink'), hex('--tpl-highlight'))).toBeGreaterThanOrEqual(
+      4.5,
     );
   });
 });

@@ -228,9 +228,10 @@ with light text, a gold label and a gold pill.
 (`--tpl-scene`, `--tpl-scene-shade`, `--tpl-scene-text`, `--tpl-scene-ink`,
 `--tpl-highlight`), declared once in the theme block.
 
-**What it does worse:** the contrast gate cannot see them. The text on the
-gradient holds 4.5:1 only because a shade is laid under its leading edge; a
-change to either stop is unchecked.
+**What it does worse:** the system's contrast gate cannot see them, so the
+template carries its own check (`Article.theme.test.ts`). It composites the
+shade over every stop of the sky and holds the text to 4.5:1. That works for one
+template; a second product that wants a scene would write the same test again.
 
 ### 10. No fluid display sizes
 

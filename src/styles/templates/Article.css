@@ -11,7 +11,10 @@
   --tpl-line: var(--bh-border-subtle);
   --tpl-font-display: 'Poltawski Nowy', 'Iowan Old Style', Georgia, serif;
   --tpl-font-text: 'Newsreader', 'Iowan Old Style', Georgia, serif;
-  --tpl-sky: linear-gradient(
+  /* The next-lesson card: a dusk sky that stays dark in both themes. The
+     shade is an even veil of the ink over the whole sky, so the light text and
+     the gold label keep 4.5:1 even over the sky's lightest stop. */
+  --tpl-scene: linear-gradient(
     180deg,
     #1c2c51 0%,
     #653c6b 31%,
@@ -19,7 +22,10 @@
     #e1965d 87%,
     #f5bc69 100%
   );
-  --tpl-gold: #f5c46b;
+  --tpl-scene-ink: #0a1018;
+  --tpl-scene-shade: linear-gradient(color-mix(in srgb, var(--tpl-scene-ink) 62%, transparent) 0 0);
+  --tpl-scene-text: #f2eee6;
+  --tpl-highlight: #f5c46b;
 
   --bh-surface-base: #fdfaf4;
   --bh-surface-sunken: #f1ebdf;
