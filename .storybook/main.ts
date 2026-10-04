@@ -17,6 +17,10 @@ import remarkGfm from 'remark-gfm';
 const config: StorybookConfig = {
   framework: { name: '@storybook/react-vite', options: {} },
 
+  // The logo, served for the manager's brand image and favicon, which load
+  // files rather than components.
+  staticDirs: [{ from: '../docs/assets', to: '/brand' }],
+
   stories: [
     '../docs/00-Introduction.mdx',
     '../docs/*.mdx',
