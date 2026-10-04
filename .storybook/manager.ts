@@ -30,7 +30,7 @@ const light: ThemeVars = create({
   ...shared,
   base: 'light',
   // The logo with its ink in text.primary for each theme; the brim is the same.
-  brandImage: './brand/logo.svg',
+  brandImage: './logo.svg',
   colorPrimary: '#0a7f55', // green.700 — the accent needs 4.5:1 on white
   colorSecondary: '#0a7f55',
   appBg: '#f7f8f9', // surface.sunken
@@ -52,7 +52,7 @@ const light: ThemeVars = create({
 const dark: ThemeVars = create({
   ...shared,
   base: 'dark',
-  brandImage: './brand/logo-dark.svg',
+  brandImage: './logo-dark.svg',
   colorPrimary: '#34d399', // green.400 — the accent, as the preview uses it
   colorSecondary: '#34d399',
   appBg: '#14181c', // surface.base
