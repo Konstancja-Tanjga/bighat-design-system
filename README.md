@@ -29,7 +29,8 @@ Foundations page shows the primitives and the colour roles in both modes.
 Components so far: Button (both tones), Badge, Input, Textarea, Select,
 Checkbox, RadioGroup, Switch, SegmentedControl, FilterChip, RemovableChip, Menu,
 Tabs, Tooltip, Toast, Dialog, Card, Avatar, UserProfile, Breadcrumbs,
-Pagination, Progress, Skeleton and StateBlock, every value bound to those
+Pagination, Progress, Skeleton, StateBlock, Table, AppBar, NavRail, SidePanel,
+Toolbar and StatusBar, with a set of template icons, every value bound to those
 variables, variant properties named after the props, and each with a review
 frame that switches the same instances to Dark by changing one mode. Code
 Connect templates in [`figma/`](figma/) make Dev Mode show the component a
