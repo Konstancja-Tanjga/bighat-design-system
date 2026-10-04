@@ -1,5 +1,11 @@
 # @bighat/ui
 
+## 6.0.3
+
+### Patch Changes
+
+- c47292f: Code Connect templates for the sixteen components (seventeen exports) added to the Figma library: Accordion, Divider, List, DescriptionList, NavList, ListView, Slider, Combobox, DatePicker and DateRangePicker, FileDropzone, IconPicker, ScrollArea, Composer, Board, Article and AppShell. Every component in the package is now in the library.
+
 ## 6.0.2
 
 ### Patch Changes
