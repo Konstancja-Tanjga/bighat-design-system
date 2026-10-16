@@ -93,6 +93,11 @@ and there is no version of writing one that beats not writing one.
   renders every story of the _built_ Storybook a second time, so a story that
   only works on the dev server cannot merge. Neither knows whether a label is
   the _right_ label.
+- One axe rule is switched off: `label-content-name-mismatch`. It decides
+  whether a glyph is text by measuring the rendered font, and the icon font
+  comes from Google Fonts, so on a runner where the font has not loaded every
+  icon button with an `aria-label` fails. Label-in-name is checked as strings
+  by the contract suites instead.
 - No reduced-transparency or forced-colors mode support beyond the browser
   defaults.
 

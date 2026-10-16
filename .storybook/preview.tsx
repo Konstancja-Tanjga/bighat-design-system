@@ -46,7 +46,25 @@ const preview: Preview = {
      * addon that reports and one that gates. The published Storybook therefore
      * cannot contain a story with a known axe violation.
      */
-    a11y: { test: 'error' },
+    a11y: {
+      test: 'error',
+      config: {
+        rules: [
+          /**
+           * Off, with a reason. The rule compares a control's visible text
+           * with its accessible name, and decides whether a glyph is text by
+           * measuring the rendered font. Material Symbols arrives from Google
+           * Fonts; when it has not loaded by the time axe runs — every run on
+           * a CI runner — a ligature such as "receipt_long" counts as visible
+           * text, and every icon button with an aria-label fails. The rule
+           * passes locally and fails in CI on identical markup, which is the
+           * definition of a gate nobody keeps. Label-in-name is still checked
+           * by the contract suites, which compare labels as strings.
+           */
+          { id: 'label-content-name-mismatch', enabled: false },
+        ],
+      },
+    },
 
     options: {
       storySort: {
