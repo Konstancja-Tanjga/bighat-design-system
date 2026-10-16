@@ -20,9 +20,9 @@ adjacent component.
 npm run verify   # lint · format · token sync · 134 tests (58 contrast) · both builds
 ```
 
-Run it before reporting any change as done. `src/styles/tokens.css` is generated
-from `src/tokens/*.ts` — edit the TypeScript, never the CSS, and regenerate with
-`npm run tokens`.
+Run it before reporting any change as done. `dist/tokens.css` is generated
+from `tokens/*.tokens.json` — edit the DTCG source, never the CSS, and
+regenerate with `npm run tokens`.
 
 ## Three questions, kept apart
 

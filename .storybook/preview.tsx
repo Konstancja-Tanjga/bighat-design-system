@@ -60,6 +60,7 @@ const preview: Preview = {
          */
         order: [
           'Introduction',
+          'Getting started',
           'Foundations',
           [
             'Tokens',
@@ -73,7 +74,10 @@ const preview: Preview = {
             'Content & UX copy',
             'Accessibility',
           ],
-          'Accessibility',
+          // The two generated audit pages, together: both are the build's own
+          // numbers rather than prose, and a reader looking for one expects the other.
+          'Reports',
+          ['ARIA conformance', 'Token drift'],
           'Patterns',
           'Components',
           'Templates',

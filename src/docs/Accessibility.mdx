@@ -9,10 +9,17 @@ stated target with no mechanism is a stated target.
 
 ## Contrast is a build error, not a review comment
 
-`src/tokens/semantic.ts` declares every foreground/background relationship the
-system promises to keep legible. `src/tokens/contrast.test.ts` iterates that
-list across both themes and asserts each one against the WCAG level that
-actually applies. 58 assertions, run in CI before Storybook deploys.
+`tokens/semantic.tokens.json` declares, in its `$extensions` block, every
+foreground/background relationship the system promises to keep legible.
+`src/tokens/contrast.test.ts` iterates that list across both themes and asserts
+each one against the WCAG level that actually applies, in CI before Storybook
+deploys.
+
+To be precise about what is gated: the build fails on **contrast** and on
+**token drift**. Those two are the mechanical part of AA and the part a script
+can hold. Everything else on this page — focus, announcements, labelling — is
+checked by axe against every story and by the contract suites, which catch what
+is wrong in a rendered tree, not everything AA asks for.
 
 The nuance that makes it useful rather than annoying:
 
@@ -27,7 +34,7 @@ gets switched off within a month. Encoding the _right_ threshold per pair is
 what keeps the gate switched on.
 
 The coverage property is the other half: adding a semantic token that renders
-text means adding a line to `contrastPairs`. Forgetting is a review comment,
+text means adding a pair to that `$extensions` list. Forgetting is a review comment,
 because the pair list _is_ the coverage — there is no separate audit to fall
 behind.
 
@@ -80,8 +87,12 @@ and there is no version of writing one that beats not writing one.
 - No screen-reader testing on real assistive technology. The tests assert ARIA
   wiring and keyboard behaviour in jsdom, which catches regressions but is not
   the same as NVDA or VoiceOver telling you the flow is confusing.
-- No automated axe run in CI. The Storybook a11y addon is set to `test: 'error'`
-  so violations surface while developing, but they do not yet fail the build.
+- axe runs in CI, and still only finds what is in the rendered tree. The
+  Vitest addon runs every story in a real browser with the a11y addon set to
+  `test: 'error'`, so a violation fails `npm test`; the test runner then
+  renders every story of the _built_ Storybook a second time, so a story that
+  only works on the dev server cannot deploy. Neither knows whether a label is
+  the _right_ label.
 - No reduced-transparency or forced-colors mode support beyond the browser
   defaults.
 

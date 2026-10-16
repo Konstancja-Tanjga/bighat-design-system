@@ -112,3 +112,36 @@
 :root[data-theme='dark'] .sbdocs-toc--custom a:hover {
   color: var(--bh-text-primary);
 }
+
+/*
+ * The table of contents, in both themes.
+ *
+ * Storybook colours the current entry with its own theme's `secondary`, which
+ * in the preview document is the default blue — the one colour this system
+ * moved away from. Colour & tone makes the argument: the entry the reader is
+ * on is a selection, so it takes `selection.mark` for the bar and
+ * `text.primary` for the label, and follows the accent when the accent moves.
+ * The id gives these rules the specificity to outrank emotion's runtime class.
+ */
+#storybook-docs .sbdocs-toc--custom .toc-list,
+#storybook-docs .sbdocs-toc--custom .toc-list .toc-list {
+  border-left-color: var(--bh-border-subtle);
+}
+
+#storybook-docs .sbdocs-toc--custom .toc-list-item > a {
+  color: var(--bh-text-muted);
+}
+
+#storybook-docs .sbdocs-toc--custom .toc-list-item > a:hover,
+#storybook-docs .sbdocs-toc--custom .toc-list-item > a:focus-visible {
+  color: var(--bh-text-primary);
+}
+
+#storybook-docs .sbdocs-toc--custom .toc-list-item.is-active-li > a {
+  color: var(--bh-text-primary);
+  font-weight: var(--bh-text-weight-heading);
+}
+
+#storybook-docs .sbdocs-toc--custom .toc-list-item.is-active-li::before {
+  border-left-color: var(--bh-selection-mark);
+}

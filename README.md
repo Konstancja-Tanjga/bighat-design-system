@@ -111,15 +111,16 @@ import { Button, StateBlock, ToastProvider } from '@bighat/ui';
 npm run verify
 ```
 
-| script          | fails when                                                                                                         |
-| --------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `tokens:check`  | a committed token artefact drifted from the DTCG source                                                            |
-| `spec:validate` | a contract leaks a framework type, breaks the prop vocabulary, or a component ships against an unfinished contract |
-| `audit:drift`   | a literal appears where a token belongs, in any of eight value classes                                             |
-| `aria`          | a component's contract misses a key or attribute its APG pattern requires                                          |
-| `docs:check`    | the published conformance page claims numbers the build does not produce                                           |
-| `test`          | contrast (26 pairs × 2 themes), or a contract's keyboard map against the implementation                            |
-| `check:docs`    | a component has no story, no doc, or an unfinished scaffold                                                        |
+| script           | fails when                                                                                                                                            |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tokens:check`   | a committed token artefact drifted from the DTCG source                                                                                               |
+| `spec:validate`  | a contract leaks a framework type, breaks the prop vocabulary, or a component ships against an unfinished contract                                    |
+| `audit:drift`    | a literal appears where a token belongs, in any of eight value classes                                                                                |
+| `aria`           | a component's contract misses a key or attribute its APG pattern requires                                                                             |
+| `docs:check`     | the published conformance page claims numbers the build does not produce                                                                              |
+| `test`           | contrast across both themes, a contract's keyboard map against the implementation, or an axe violation in any story (Vitest addon, headless Chromium) |
+| `test:storybook` | the built Storybook fails to render a story (test runner, against `storybook-static`)                                                                 |
+| `check:docs`     | a component has no story, no doc, or an unfinished scaffold                                                                                           |
 
 The last one is currently red, on purpose: nine frame components have generated
 stories and docs whose prose is unwritten. An invisibly incomplete library is

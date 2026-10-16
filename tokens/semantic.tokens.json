@@ -224,16 +224,10 @@
     }
   },
   "fontFamily": {
-    "$description": "Added in 4.0. Previously hardcoded in the stylesheet renderer, so it was the one value no consumer could theme.",
+    "$description": "Added in 4.0. Previously hardcoded in the stylesheet renderer, so it was the one value no consumer could theme. References the primitive stack like every other role.",
     "sans": {
       "$type": "fontFamily",
-      "$value": [
-        "system-ui",
-        "-apple-system",
-        "Segoe UI",
-        "Roboto",
-        "sans-serif"
-      ]
+      "$value": "{fontFamily.sans}"
     }
   },
   "breakpoint": {
@@ -482,334 +476,68 @@
         "nonText": 3
       },
       "pairs": [
-        [
-          "text.primary",
-          "surface.base",
-          "bodyText"
-        ],
-        [
-          "text.primary",
-          "surface.sunken",
-          "bodyText"
-        ],
-        [
-          "text.primary",
-          "surface.raised",
-          "bodyText"
-        ],
-        [
-          "text.secondary",
-          "surface.base",
-          "bodyText"
-        ],
-        [
-          "text.secondary",
-          "surface.raised",
-          "bodyText"
-        ],
-        [
-          "text.secondary",
-          "surface.sunken",
-          "bodyText"
-        ],
-        [
-          "text.muted",
-          "surface.base",
-          "bodyText"
-        ],
-        [
-          "text.muted",
-          "surface.sunken",
-          "bodyText"
-        ],
-        [
-          "text.muted",
-          "surface.raised",
-          "bodyText"
-        ],
-        [
-          "text.inverse",
-          "surface.inverse",
-          "bodyText"
-        ],
-        [
-          "text.link",
-          "surface.base",
-          "bodyText"
-        ],
-        [
-          "action.primary.fg",
-          "action.primary.bg",
-          "bodyText"
-        ],
-        [
-          "action.primary.fg",
-          "action.primary.bgHover",
-          "bodyText"
-        ],
-        [
-          "action.primary.fg",
-          "action.primary.bgActive",
-          "bodyText"
-        ],
-        [
-          "action.secondary.fg",
-          "action.secondary.bg",
-          "bodyText"
-        ],
-        [
-          "action.secondary.fg",
-          "action.secondary.bgHover",
-          "bodyText"
-        ],
-        [
-          "action.critical.fg",
-          "action.critical.bg",
-          "bodyText"
-        ],
-        [
-          "action.critical.fg",
-          "action.critical.bgHover",
-          "bodyText"
-        ],
-        [
-          "selection.fg",
-          "selection.bg",
-          "bodyText"
-        ],
-        [
-          "selection.mark",
-          "selection.bg",
-          "nonText"
-        ],
-        [
-          "selection.mark",
-          "surface.base",
-          "nonText"
-        ],
-        [
-          "status.info.fg",
-          "status.info.bg",
-          "bodyText"
-        ],
-        [
-          "status.success.fg",
-          "status.success.bg",
-          "bodyText"
-        ],
-        [
-          "status.warning.fg",
-          "status.warning.bg",
-          "bodyText"
-        ],
-        [
-          "status.critical.fg",
-          "status.critical.bg",
-          "bodyText"
-        ],
-        [
-          "border.strong",
-          "surface.base",
-          "nonText"
-        ],
-        [
-          "border.strong",
-          "surface.raised",
-          "nonText"
-        ],
-        [
-          "border.focus",
-          "surface.base",
-          "nonText"
-        ],
-        [
-          "border.focus",
-          "surface.raised",
-          "nonText"
-        ],
-        [
-          "action.secondary.border",
-          "action.secondary.bg",
-          "nonText"
-        ],
-        [
-          "border.hover",
-          "surface.base",
-          "nonText"
-        ],
-        [
-          "text.primary",
-          "status.critical.bg",
-          "bodyText"
-        ],
-        [
-          "text.muted",
-          "status.critical.bg",
-          "bodyText"
-        ],
-        [
-          "status.critical.fg",
-          "surface.base",
-          "bodyText"
-        ],
-        [
-          "text.primary",
-          "fill.hover",
-          "bodyText",
-          "surface.raised"
-        ],
-        [
-          "text.secondary",
-          "fill.hover",
-          "bodyText",
-          "surface.raised"
-        ],
-        [
-          "text.primary",
-          "fill.hover",
-          "bodyText",
-          "surface.base"
-        ],
-        [
-          "text.secondary",
-          "fill.hover",
-          "bodyText",
-          "surface.sunken"
-        ],
-        [
-          "text.muted",
-          "fill.hover",
-          "bodyText",
-          "surface.sunken"
-        ],
-        [
-          "selection.mark",
-          "fill.hover",
-          "nonText",
-          "surface.sunken"
-        ],
-        [
-          "text.secondary",
-          "fill.hover",
-          "bodyText",
-          "surface.base"
-        ],
-        [
-          "text.muted",
-          "fill.hover",
-          "bodyText",
-          "surface.base"
-        ],
-        [
-          "selection.mark",
-          "surface.raised",
-          "nonText"
-        ],
-        [
-          "selection.mark",
-          "surface.sunken",
-          "nonText"
-        ],
-        [
-          "selection.mark",
-          "fill.hover",
-          "nonText",
-          "surface.base"
-        ],
-        [
-          "selection.mark",
-          "fill.hover",
-          "nonText",
-          "surface.raised"
-        ],
-        [
-          "text.inverse",
-          "selection.mark",
-          "nonText"
-        ],
-        [
-          "surface.base",
-          "selection.mark",
-          "nonText"
-        ],
-        [
-          "status.critical.fg",
-          "status.critical.bg",
-          "nonText"
-        ],
-        [
-          "text.primary",
-          "fill.hover",
-          "bodyText",
-          "surface.sunken"
-        ],
-        [
-          "text.secondary",
-          "status.critical.bg",
-          "bodyText"
-        ],
-        [
-          "avatar.violet.fg",
-          "avatar.violet.bg",
-          "bodyText"
-        ],
-        [
-          "avatar.teal.fg",
-          "avatar.teal.bg",
-          "bodyText"
-        ],
-        [
-          "avatar.plum.fg",
-          "avatar.plum.bg",
-          "bodyText"
-        ],
-        [
-          "avatar.olive.fg",
-          "avatar.olive.bg",
-          "bodyText"
-        ],
-        [
-          "text.primary",
-          "fill.selected",
-          "bodyText",
-          "surface.base"
-        ],
-        [
-          "text.primary",
-          "fill.selected",
-          "bodyText",
-          "surface.raised"
-        ],
-        [
-          "text.muted",
-          "fill.selected",
-          "bodyText",
-          "surface.base"
-        ],
-        [
-          "selection.mark",
-          "fill.selected",
-          "nonText",
-          "surface.base"
-        ],
-        [
-          "text.secondary",
-          "fill.selected",
-          "bodyText",
-          "surface.base"
-        ],
-        [
-          "text.secondary",
-          "fill.selected",
-          "bodyText",
-          "surface.raised"
-        ],
-        [
-          "selection.mark",
-          "fill.selected",
-          "nonText",
-          "surface.raised"
-        ]
+        ["text.primary", "surface.base", "bodyText"],
+        ["text.primary", "surface.sunken", "bodyText"],
+        ["text.primary", "surface.raised", "bodyText"],
+        ["text.secondary", "surface.base", "bodyText"],
+        ["text.secondary", "surface.raised", "bodyText"],
+        ["text.secondary", "surface.sunken", "bodyText"],
+        ["text.muted", "surface.base", "bodyText"],
+        ["text.muted", "surface.sunken", "bodyText"],
+        ["text.muted", "surface.raised", "bodyText"],
+        ["text.inverse", "surface.inverse", "bodyText"],
+        ["text.link", "surface.base", "bodyText"],
+        ["action.primary.fg", "action.primary.bg", "bodyText"],
+        ["action.primary.fg", "action.primary.bgHover", "bodyText"],
+        ["action.primary.fg", "action.primary.bgActive", "bodyText"],
+        ["action.secondary.fg", "action.secondary.bg", "bodyText"],
+        ["action.secondary.fg", "action.secondary.bgHover", "bodyText"],
+        ["action.critical.fg", "action.critical.bg", "bodyText"],
+        ["action.critical.fg", "action.critical.bgHover", "bodyText"],
+        ["selection.fg", "selection.bg", "bodyText"],
+        ["selection.mark", "selection.bg", "nonText"],
+        ["selection.mark", "surface.base", "nonText"],
+        ["status.info.fg", "status.info.bg", "bodyText"],
+        ["status.success.fg", "status.success.bg", "bodyText"],
+        ["status.warning.fg", "status.warning.bg", "bodyText"],
+        ["status.critical.fg", "status.critical.bg", "bodyText"],
+        ["border.strong", "surface.base", "nonText"],
+        ["border.strong", "surface.raised", "nonText"],
+        ["border.focus", "surface.base", "nonText"],
+        ["border.focus", "surface.raised", "nonText"],
+        ["action.secondary.border", "action.secondary.bg", "nonText"],
+        ["border.hover", "surface.base", "nonText"],
+        ["text.primary", "status.critical.bg", "bodyText"],
+        ["text.muted", "status.critical.bg", "bodyText"],
+        ["status.critical.fg", "surface.base", "bodyText"],
+        ["text.primary", "fill.hover", "bodyText", "surface.raised"],
+        ["text.secondary", "fill.hover", "bodyText", "surface.raised"],
+        ["text.primary", "fill.hover", "bodyText", "surface.base"],
+        ["text.secondary", "fill.hover", "bodyText", "surface.sunken"],
+        ["text.muted", "fill.hover", "bodyText", "surface.sunken"],
+        ["selection.mark", "fill.hover", "nonText", "surface.sunken"],
+        ["text.secondary", "fill.hover", "bodyText", "surface.base"],
+        ["text.muted", "fill.hover", "bodyText", "surface.base"],
+        ["selection.mark", "surface.raised", "nonText"],
+        ["selection.mark", "surface.sunken", "nonText"],
+        ["selection.mark", "fill.hover", "nonText", "surface.base"],
+        ["selection.mark", "fill.hover", "nonText", "surface.raised"],
+        ["text.inverse", "selection.mark", "nonText"],
+        ["surface.base", "selection.mark", "nonText"],
+        ["status.critical.fg", "status.critical.bg", "nonText"],
+        ["text.primary", "fill.hover", "bodyText", "surface.sunken"],
+        ["text.secondary", "status.critical.bg", "bodyText"],
+        ["avatar.violet.fg", "avatar.violet.bg", "bodyText"],
+        ["avatar.teal.fg", "avatar.teal.bg", "bodyText"],
+        ["avatar.plum.fg", "avatar.plum.bg", "bodyText"],
+        ["avatar.olive.fg", "avatar.olive.bg", "bodyText"],
+        ["text.primary", "fill.selected", "bodyText", "surface.base"],
+        ["text.primary", "fill.selected", "bodyText", "surface.raised"],
+        ["text.muted", "fill.selected", "bodyText", "surface.base"],
+        ["selection.mark", "fill.selected", "nonText", "surface.base"],
+        ["text.secondary", "fill.selected", "bodyText", "surface.base"],
+        ["text.secondary", "fill.selected", "bodyText", "surface.raised"],
+        ["selection.mark", "fill.selected", "nonText", "surface.raised"]
       ]
     }
   },

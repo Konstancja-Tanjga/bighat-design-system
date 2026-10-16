@@ -105,6 +105,9 @@ export function Heuristic({ name, children }: { name: string; children?: ReactNo
         padding: '12px 16px',
         margin: '20px 0',
         borderRadius: '0 8px 8px 0',
+        // Set explicitly: the docs theme styles p and strong by tag, so an
+        // aside inherits Storybook's face rather than the system's.
+        fontFamily: 'var(--bh-font-family-sans)',
         fontSize: 14,
         lineHeight: 1.55,
         color: 'var(--bh-text-secondary)',

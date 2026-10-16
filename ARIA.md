@@ -8,44 +8,44 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 
 ## Pattern conformance
 
-| component | APG pattern | status | missing |
-| --- | --- | --- | --- |
-| Avatar | `group` | partial | WCAG: 1.3.1 |
-| Board | `status` | partial | WCAG: 4.1.3 |
-| Breadcrumbs | `navigation` | partial | WCAG: 1.3.1, 2.4.1 |
-| Button | `button` | pass | — |
-| Checkbox | `checkbox` | pass | — |
-| Combobox | `combobox` | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2 · optional keys: Home, End, Alt+ArrowDown |
-| Composer | `textbox` | partial | WCAG: 1.3.1, 3.3.2, 4.1.2 |
-| Dialog | `dialog` | pass | — |
-| Divider | `separator` | partial | WCAG: 1.3.1 |
-| FileDropzone | `button` | pass | — |
-| FilterChip | `button` | partial | WCAG: 2.1.1 |
-| IconPicker | `status` | partial | WCAG: 4.1.3 |
-| Input | `textbox` | pass | — |
-| List | `list` | partial | WCAG: 1.3.1 |
-| ListView | `listbox` | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 4.1.2 |
-| Menu | `menu` | **fail** | labelling not specified · WCAG: 2.1.1, 2.1.2, 2.4.3, 4.1.2 |
-| NavList | `list` | partial | WCAG: 1.3.1 |
-| NavRail | `button` | **fail** | keys: Enter, Space · labelling not specified · WCAG: 2.1.1, 2.4.7, 4.1.2 |
-| Pagination | `navigation` | partial | WCAG: 1.3.1, 2.4.1 |
-| Progress | `progressbar` | **fail** | labelling not specified · WCAG: 1.3.1, 4.1.2 |
-| RadioGroup | `radio` | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2 |
-| RemovableChip | `button` | partial | WCAG: 2.1.1 |
-| ScrollArea | `group` | partial | WCAG: 1.3.1 |
-| SegmentedControl | `radio` | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2 |
-| Select | `select (native)` | pass | — |
-| SidePanel | `button` | **fail** | keys: Enter, Space · labelling not specified · WCAG: 2.1.1, 2.4.7, 4.1.2 |
-| Skeleton | `status` | partial | WCAG: 4.1.3 |
-| Slider | `slider` | **fail** | keys: ArrowLeft, ArrowRight, Home, End · labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.7, 4.1.2 · optional keys: PageUp, PageDown, ArrowUp, ArrowDown |
-| StateBlock | `status` | pass | — |
-| Switch | `switch` | **fail** | keys: Space · labelling not specified · WCAG: 1.3.1, 2.1.1, 4.1.2 · optional keys: Enter |
-| Table | `table` | pass | — |
-| Tabs | `tablist` | **fail** | keys: Arrow keys · labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2 |
-| Textarea | `textbox` | pass | — |
-| Toast | `alert` | pass | — |
-| Toolbar | `toolbar` | **fail** | labelling not specified · WCAG: 2.1.1, 2.4.3 |
-| Tooltip | `tooltip` | partial | WCAG: 2.1.1 |
+| component        | APG pattern       | status   | missing                                                                                                                                                   |
+| ---------------- | ----------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Avatar           | `group`           | partial  | WCAG: 1.3.1                                                                                                                                               |
+| Board            | `status`          | partial  | WCAG: 4.1.3                                                                                                                                               |
+| Breadcrumbs      | `navigation`      | partial  | WCAG: 1.3.1, 2.4.1                                                                                                                                        |
+| Button           | `button`          | pass     | —                                                                                                                                                         |
+| Checkbox         | `checkbox`        | pass     | —                                                                                                                                                         |
+| Combobox         | `combobox`        | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2 · optional keys: Home, End, Alt+ArrowDown                                                      |
+| Composer         | `textbox`         | partial  | WCAG: 1.3.1, 3.3.2, 4.1.2                                                                                                                                 |
+| Dialog           | `dialog`          | pass     | —                                                                                                                                                         |
+| Divider          | `separator`       | partial  | WCAG: 1.3.1                                                                                                                                               |
+| FileDropzone     | `button`          | pass     | —                                                                                                                                                         |
+| FilterChip       | `button`          | partial  | WCAG: 2.1.1                                                                                                                                               |
+| IconPicker       | `status`          | partial  | WCAG: 4.1.3                                                                                                                                               |
+| Input            | `textbox`         | pass     | —                                                                                                                                                         |
+| List             | `list`            | partial  | WCAG: 1.3.1                                                                                                                                               |
+| ListView         | `listbox`         | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 4.1.2                                                                                                       |
+| Menu             | `menu`            | **fail** | labelling not specified · WCAG: 2.1.1, 2.1.2, 2.4.3, 4.1.2                                                                                                |
+| NavList          | `list`            | partial  | WCAG: 1.3.1                                                                                                                                               |
+| NavRail          | `button`          | **fail** | keys: Enter, Space · labelling not specified · WCAG: 2.1.1, 2.4.7, 4.1.2                                                                                  |
+| Pagination       | `navigation`      | partial  | WCAG: 1.3.1, 2.4.1                                                                                                                                        |
+| Progress         | `progressbar`     | **fail** | labelling not specified · WCAG: 1.3.1, 4.1.2                                                                                                              |
+| RadioGroup       | `radio`           | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2                                                                                                |
+| RemovableChip    | `button`          | partial  | WCAG: 2.1.1                                                                                                                                               |
+| ScrollArea       | `group`           | partial  | WCAG: 1.3.1                                                                                                                                               |
+| SegmentedControl | `radio`           | **fail** | labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2                                                                                                |
+| Select           | `select (native)` | pass     | —                                                                                                                                                         |
+| SidePanel        | `button`          | **fail** | keys: Enter, Space · labelling not specified · WCAG: 2.1.1, 2.4.7, 4.1.2                                                                                  |
+| Skeleton         | `status`          | partial  | WCAG: 4.1.3                                                                                                                                               |
+| Slider           | `slider`          | **fail** | keys: ArrowLeft, ArrowRight, Home, End · labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.7, 4.1.2 · optional keys: PageUp, PageDown, ArrowUp, ArrowDown |
+| StateBlock       | `status`          | pass     | —                                                                                                                                                         |
+| Switch           | `switch`          | **fail** | keys: Space · labelling not specified · WCAG: 1.3.1, 2.1.1, 4.1.2 · optional keys: Enter                                                                  |
+| Table            | `table`           | pass     | —                                                                                                                                                         |
+| Tabs             | `tablist`         | **fail** | keys: Arrow keys · labelling not specified · WCAG: 1.3.1, 2.1.1, 2.4.3, 4.1.2                                                                             |
+| Textarea         | `textbox`         | pass     | —                                                                                                                                                         |
+| Toast            | `alert`           | pass     | —                                                                                                                                                         |
+| Toolbar          | `toolbar`         | **fail** | labelling not specified · WCAG: 2.1.1, 2.4.3                                                                                                              |
+| Tooltip          | `tooltip`         | partial  | WCAG: 2.1.1                                                                                                                                               |
 
 ### Pattern notes
 
@@ -65,11 +65,11 @@ This is not an axe run. axe checks a rendered tree and finds what is wrong in it
 
 ## Source-level findings — React-specific
 
-| component | file | severity | finding |
-| --- | --- | --- | --- |
-| Combobox | `components/Combobox/Combobox.tsx` | warning | a placeholder with no visible label nearby. Worth confirming by hand — the regex sees 400 characters. |
-| Composer | `components/Composer/Composer.tsx` | warning | a placeholder with no visible label nearby. Worth confirming by hand — the regex sees 400 characters. |
-| IconPicker | `components/IconPicker/IconPicker.tsx` | warning | a placeholder with no visible label nearby. Worth confirming by hand — the regex sees 400 characters. |
+| component  | file                                   | severity | finding                                                                                               |
+| ---------- | -------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------- |
+| Combobox   | `components/Combobox/Combobox.tsx`     | warning  | a placeholder with no visible label nearby. Worth confirming by hand — the regex sees 400 characters. |
+| Composer   | `components/Composer/Composer.tsx`     | warning  | a placeholder with no visible label nearby. Worth confirming by hand — the regex sees 400 characters. |
+| IconPicker | `components/IconPicker/IconPicker.tsx` | warning  | a placeholder with no visible label nearby. Worth confirming by hand — the regex sees 400 characters. |
 
 ## No APG pattern matched
 
@@ -83,12 +83,12 @@ Either the component genuinely has no pattern — a layout frame, a decorative e
 - **Card** — `TODO`
 - **DatePicker** — `TODO`
 - **DescriptionList** — `varies — see announcements`
-- **StatusBar** — `contentinfo`
+- **StatusBar** — `region`
 - **UserProfile** — `TODO`
 
 ## What this audit cannot tell you
 
 - **Colour contrast.** Gated separately, in `packages/tokens`: 26 declared pairs across two themes, asserted in CI.
-- **Whether the keyboard behaviour is *correct*.** It checks that a key is handled and documented, not that pressing it does the right thing. That is what the shared suites in `packages/spec/src/suites.ts` are for, and they run against both libraries from one file.
+- **Whether the keyboard behaviour is _correct_.** It checks that a key is handled and documented, not that pressing it does the right thing. That is what the shared suites in `packages/spec/src/suites.ts` are for, and they run against both libraries from one file.
 - **Screen reader output.** No static audit substitutes for NVDA, JAWS and VoiceOver. The announcement policies in each contract are testable claims, and nobody has tested them.
 - **Reflow and zoom.** WCAG 1.4.10 at 400%. The container-query architecture should make this pass, which is a hypothesis rather than a result.

@@ -13,8 +13,9 @@ A design system built to answer the question interviews actually ask: **not
 "can you make a button", but "what did you decide, and what did it cost".**
 
 Forty-six components in two layers. Two token layers, one of which is an API
-and one of which is not. WCAG AA enforced by a failing build rather than a
-review comment. Eight classes of value that cannot be written as a literal
+and one of which is not. Contrast and token drift enforced by a failing build
+rather than a review comment, and axe run against every story in CI; the rest
+of WCAG AA is a target this page says how it is held, not a claim it is met. Eight classes of value that cannot be written as a literal
 anywhere in the library. A deprecation carried from announcement to removal
 across two major versions. And a skill file that lets a coding agent follow the
 system's rules instead of inventing its own.
@@ -73,7 +74,7 @@ control's own size, an inset that centres something — and those are worse,
 because `left: 3px` centring a bar in an 18px box is correct exactly once and
 nothing tells you when the box moved.
 
-**Foundations → Token drift** is generated from that gate on every build.
+**Reports → Token drift** is generated from that gate on every build.
 
 ### 4. Components respond to their container, not the viewport
 
@@ -113,7 +114,7 @@ only reason two implementations of the same system agree about anything.
 ## What this system does not claim
 
 **Thirty-five of forty-five contracts are unfinished**, and
-**Accessibility → ARIA conformance** says which. The mechanical fields —
+**Reports → ARIA conformance** says which. The mechanical fields —
 anatomy, states, roles, attributes, tokens consumed — were extracted from the
 source, because they were already recorded there and retyping them would have
 introduced errors the code does not have. What is missing is the part no script
@@ -136,7 +137,8 @@ finds what was never built; it does not find what sounds wrong in NVDA.
 ## Where to start
 
 Six decisions is more than anyone reads standing up. If you have ten minutes,
-these four are the argument:
+these four are the argument. If you want to install it instead, **Getting
+started** is the next page in the sidebar.
 
 - **Foundations → Tokens** — the two layers, and why product code may only
   touch one of them.

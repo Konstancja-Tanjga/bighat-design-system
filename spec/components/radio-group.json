@@ -95,7 +95,7 @@
     "attributes": {
       "aria-describedby": "describedBy",
       "aria-invalid": "error",
-      "aria-required": "required",
+      "required": "required",
       "aria-hidden": "true"
     },
     "labelling": null,

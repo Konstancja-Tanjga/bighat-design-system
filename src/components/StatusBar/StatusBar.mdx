@@ -69,7 +69,9 @@ crowded; ten is a second toolbar with no affordances.
 
 ## Accessibility
 
-- `role="contentinfo"` with a label, so it is a findable landmark.
+- `role="region"` with a label, so it is a findable landmark that may sit
+  inside `main`. `contentinfo` is only valid at the top level of a page, and a
+  status bar almost never is.
 - The message is `role="status"` and `aria-live="polite"`, permanently in the
   DOM.
 - Values use tabular numerals, so a changing count does not shift the layout
