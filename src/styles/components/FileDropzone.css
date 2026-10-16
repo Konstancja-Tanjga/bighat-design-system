@@ -82,8 +82,19 @@
   border-color: var(--bh-selection-mark);
 }
 
+/*
+ * Disabled is said with tokens, not opacity. Fading the whole box took the
+ * prompt below 4.5:1 and axe failed the story; muted text on the sunken
+ * surface is a declared contrast pair, so the state stays legible and the
+ * gate stays honest.
+ */
 .bh-dropzone--disabled {
-  opacity: 0.6;
+  background: var(--bh-surface-sunken);
+  border-color: var(--bh-border-subtle);
+}
+
+.bh-dropzone--disabled .bh-dropzone__prompt {
+  color: var(--bh-text-muted);
 }
 
 .bh-dropzone--disabled .bh-dropzone__input {

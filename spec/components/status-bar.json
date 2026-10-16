@@ -62,7 +62,7 @@
   ],
   "keyboard": {},
   "aria": {
-    "role": "contentinfo",
+    "role": "region",
     "attributes": {
       "aria-label": "ariaLabel",
       "aria-live": "polite"

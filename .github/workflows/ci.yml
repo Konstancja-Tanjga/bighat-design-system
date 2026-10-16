@@ -33,12 +33,25 @@ jobs:
       - name: Published reports match the build
         run: npm run docs:check
 
-      # Contrast (26 pairs x 2 themes), the drift gate, and the contract-driven
-      # keyboard and anatomy suites.
+      # Two projects. `unit`: the contrast gate across both themes and the
+      # contract-driven keyboard and anatomy suites, in jsdom. `storybook`: every
+      # story rendered in headless Chromium through the Vitest addon, with the
+      # a11y addon composed in — an axe violation fails here.
+      - name: Browser for the story tests
+        run: npx playwright install --with-deps chromium
       - run: npm test
 
       - run: npm run build
       - run: npm run build-storybook
+
+      # The built site, not the source: the test runner serves storybook-static
+      # and renders every story from its index.json, so a story that only works
+      # on the dev server cannot merge. (deploy.yml is a separate workflow on
+      # main; this check gates the merge, not the deploy.) (axe already ran above; a test-runner config file would
+      # let it run here too, but Storybook 10 loads that file through module
+      # hooks Jest refuses, so this pass stays configuration-free.)
+      - name: Built Storybook renders every story
+        run: npm run test:storybook:ci
 
   # Separate job: a scaffolded doc failing should not stop the site deploying,
   # but it should be visible. Nine frame components have generated stories and

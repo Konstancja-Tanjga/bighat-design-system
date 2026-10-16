@@ -102,6 +102,7 @@ export function FileDropzone({
         className={`bh-dropzone${over ? ' bh-dropzone--over' : ''}${
           error ? ' bh-dropzone--invalid' : ''
         }${disabled ? ' bh-dropzone--disabled' : ''}`}
+        aria-disabled={disabled || undefined}
         onDragEnter={allow}
         onDragOver={allow}
         onDragLeave={() => setOver(false)}

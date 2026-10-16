@@ -89,17 +89,36 @@ function Swatch({ value }: { value: string }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
       {isColour(value) && (
+        // The colour sits inside a checkerboard frame, as a colour picker
+        // draws one. The frame is what keeps a dark value legible on the dark
+        // page and a light one on the light page — an opaque swatch would
+        // cover a checkerboard underneath it completely — and a translucent
+        // value shows its alpha against the same pattern.
         <span
           aria-hidden="true"
           style={{
-            width: 18,
-            height: 18,
-            borderRadius: 4,
-            background: value,
+            display: 'inline-flex',
+            width: 22,
+            height: 22,
+            padding: 2,
+            boxSizing: 'border-box',
+            borderRadius: 5,
             border: '1px solid var(--bh-border-strong)',
             flex: 'none',
+            background:
+              'repeating-conic-gradient(var(--bh-border-subtle) 0 25%, var(--bh-surface-base) 0 50%) 0 0 / 6px 6px',
           }}
-        />
+        >
+          <span
+            style={{
+              display: 'block',
+              width: '100%',
+              height: '100%',
+              borderRadius: 2,
+              background: value,
+            }}
+          />
+        </span>
       )}
       <code style={{ fontSize: 12 }}>{value}</code>
     </span>

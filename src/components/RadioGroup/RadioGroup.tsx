@@ -57,7 +57,6 @@ export function RadioGroup({
       className="bh-radio-group"
       aria-describedby={describedBy || undefined}
       aria-invalid={error ? true : undefined}
-      aria-required={required || undefined}
     >
       <legend className="bh-field__label">
         {legend}
@@ -88,6 +87,10 @@ export function RadioGroup({
                 name={groupName}
                 value={option.value}
                 disabled={option.disabled}
+                // On the inputs, not the fieldset: aria-required is not a
+                // permitted attribute of role=group, and a required radio
+                // input is the native way to say it.
+                required={required || undefined}
                 checked={value === undefined ? undefined : value === option.value}
                 defaultChecked={value === undefined ? defaultValue === option.value : undefined}
                 aria-describedby={option.description ? optionDescriptionId : undefined}

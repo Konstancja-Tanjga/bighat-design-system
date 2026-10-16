@@ -5,11 +5,12 @@ import remarkGfm from 'remark-gfm';
  * The deployed Storybook is this system's primary artefact, which changes two
  * things about this config.
  *
- * `docs/` is globbed before `src/`, so Introduction and the Foundations pages
- * come first in the sidebar rather than after 45 components — a reviewer's first
- * screen should be the argument, not an alphabetical list of controls.
+ * `docs/` is globbed before `src/`, so the root pages and the docs/ foundations
+ * sit ahead of the components; preview.tsx's storySort does the rest. A
+ * reviewer's first screen should be the argument, not an alphabetical list of
+ * controls.
  *
- * `docs/generated/` holds the ARIA conformance and token drift pages, written
+ * `docs/generated/` holds the Reports group — ARIA conformance and token drift — written
  * by scripts/generate-doc-pages.mjs from the same audits that gate CI. They are
  * regenerated before every build, so the numbers on the site cannot drift from
  * the numbers in the build.
@@ -39,6 +40,8 @@ const config: StorybookConfig = {
     },
     '@storybook/addon-a11y',
     '@storybook/addon-themes',
+    // Every story is also a Vitest test in a real browser; see vite.config.ts.
+    '@storybook/addon-vitest',
     // The Design tab: each component's Figma set, from parameters.design in its
     // stories file. The Figma side links back through documentation links.
     '@storybook/addon-designs',

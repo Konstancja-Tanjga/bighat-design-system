@@ -1,0 +1,117 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Getting started" />
+
+# Getting started
+
+Everything on the other pages is the argument. This one is the install.
+
+## 1. Install
+
+```bash
+npm i @bighat/ui
+```
+
+React 18 or 19 is a peer dependency. The package ships no React of its own.
+
+## 2. Load the stylesheet once
+
+```tsx
+// main.tsx — once, at the root, before anything renders
+import '@bighat/ui/styles.css';
+```
+
+`styles.css` carries the tokens and every component stylesheet. Nothing is
+injected at runtime, so there is no flash of unstyled components and nothing to
+configure in the bundler. If you only want the tokens — for your own CSS, with
+none of the components — import `@bighat/ui/tokens.css` instead.
+
+## 3. Choose a theme
+
+Dark is a swap of the semantic layer and nothing else: same component code,
+no second stylesheet. It is selected
+with one attribute on the document element:
+
+```html
+<html data-theme="dark"></html>
+```
+
+With no attribute the page follows `prefers-color-scheme`, so a product that
+never sets it still gets dark for readers who asked their system for it. Set
+`data-theme="light"` to opt out of that.
+
+## 4. Use a component
+
+```tsx
+import { Button, StateBlock, ToastProvider } from '@bighat/ui';
+
+export function App() {
+  return (
+    <ToastProvider>
+      <Button onClick={save}>Save changes</Button>
+      <StateBlock state="empty" title="No invoices yet" />
+    </ToastProvider>
+  );
+}
+```
+
+Component pages open with a "When to use it" table whose second column is what
+the component is _not_ for. Read that column before the props.
+
+## 5. Icons are fetched, not bundled
+
+The system standardises on Material Symbols and does not ship the font.
+Components take icons as children and never render the font themselves. Add
+the stylesheet to your document head; the one variable file covers every axis
+**Foundations → Iconography** recommends:
+
+```html
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+/>
+```
+
+See **Foundations → Iconography** for why `display=block` rather than `swap`.
+
+## 6. Reference tokens from your own code
+
+Component CSS and product CSS use the same custom properties. Only the
+semantic layer exists; primitives are not emitted, so there is nothing to reach
+for below a role.
+
+```css
+.invoice-total {
+  color: var(--bh-text-primary);
+  padding: var(--bh-padding-block);
+  border-radius: var(--bh-radius-surface);
+}
+```
+
+From TypeScript, `cssVar` is typed against every semantic token, so a path that
+does not exist is a compile error:
+
+```ts
+import { cssVar } from '@bighat/ui/tokens';
+
+const style = { color: cssVar('text.muted') };
+```
+
+If no role fits what you are building, that is a gap in the system rather than
+a reason to write a hex value. **Foundations → Colour & tone** says what to do
+with it.
+
+## 7. If a coding agent writes the UI
+
+`@bighat/ui/agent/SKILL.md` is the system's rules in the form an agent can
+follow: which component answers which need, what the vocabulary is, and what
+not to invent locally. Point the agent at it before the first prompt.
+
+## Where next
+
+- **Foundations → Tokens** — the two layers, and why product code may touch
+  only one of them.
+- **Components → Button** — the smallest page that shows the whole method.
+- **Reports** — the build's own numbers: ARIA conformance and token drift,
+  regenerated on every deploy.

@@ -29,8 +29,9 @@ conversation about what the role is — not a new primitive slipped into a
 component.
 
 That friction is the point, and it is also the most common reason a two-layer
-system quietly collapses back into one. The lint rule and the contrast test are
-what keep the shortcut from being available.
+system quietly collapses back into one. Primitives are not emitted to `dist/tokens.css`
+at all, so there is no `var(--bh-color-blue-500)` to reach for; that and the
+contrast test are what keep the shortcut from being available.
 
 ## Semantic colour
 
@@ -59,6 +60,6 @@ components take steps, never measurements.
 
 ## Generated, not maintained
 
-`src/styles/tokens.css` is emitted from `src/tokens/*.ts` by `npm run tokens`.
+`dist/tokens.css` is emitted from `tokens/*.tokens.json` by `npm run tokens`.
 CI runs `npm run tokens:check` and fails if the committed CSS has drifted from
 its source, so "one source of truth" is enforced rather than agreed.
