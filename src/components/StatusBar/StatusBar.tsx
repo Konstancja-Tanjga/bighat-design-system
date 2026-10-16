@@ -28,10 +28,10 @@ export type StatusBarProps = {
 };
 
 export function StatusBar({ items = [], message, end, ariaLabel = 'Status' }: StatusBarProps) {
-  // `region`, not `contentinfo`: a status bar sits inside `main` or an
-  // AppShell, and contentinfo is only valid at the top level of the page —
-  // axe flagged every template that mounted one. A labelled region is the
-  // landmark that may be nested, and it is still findable by rotor.
+  // `region`, not `contentinfo`: contentinfo is only valid at the top level
+  // of the page, and a status bar sits inside `main` or an AppShell. A
+  // labelled region is the landmark that may be nested, and it is still
+  // findable by rotor.
   return (
     <div className="bh-status-bar" role="region" aria-label={ariaLabel}>
       <div className="bh-status-bar__items">

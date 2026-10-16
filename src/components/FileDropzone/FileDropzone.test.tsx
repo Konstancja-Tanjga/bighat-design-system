@@ -80,4 +80,14 @@ describe('FileDropzone', () => {
     await userEvent.upload(screen.getByLabelText('Attachments'), file('invoice.pdf'));
     expect(onFiles).not.toHaveBeenCalled();
   });
+
+  it('marks the surface aria-disabled only while disabled', () => {
+    const { container, rerender } = render(
+      <FileDropzone label="Attachments" onFiles={() => {}} disabled />,
+    );
+    expect(container.querySelector('.bh-dropzone')).toHaveAttribute('aria-disabled', 'true');
+
+    rerender(<FileDropzone label="Attachments" onFiles={() => {}} />);
+    expect(container.querySelector('.bh-dropzone')).not.toHaveAttribute('aria-disabled');
+  });
 });

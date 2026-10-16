@@ -1,7 +1,8 @@
 # Working in this repository
 
-`@bighat/ui` — a React design system. Two token layers, WCAG AA enforced
-in CI, 39 components, 2 page templates in Storybook.
+`@bighat/ui` — a React design system. Two token layers; contrast and token
+drift enforced in CI, with axe run against every story; 46 components and page
+templates in Storybook.
 
 ## Before writing any UI
 
@@ -17,10 +18,12 @@ adjacent component.
 ## The one command
 
 ```bash
-npm run verify   # lint · format · token sync · 134 tests (58 contrast) · both builds
+npm run verify   # lint · token sync · spec · drift · aria · docs · tests (unit + every story) · build
 ```
 
-Run it before reporting any change as done. `dist/tokens.css` is generated
+Run it before reporting any change as done. `npm test` renders every story in
+headless Chromium, so a fresh clone needs `npx playwright install chromium`
+once; `npm run test:unit` is the browser-free path. `dist/tokens.css` is generated
 from `tokens/*.tokens.json` — edit the DTCG source, never the CSS, and
 regenerate with `npm run tokens`.
 

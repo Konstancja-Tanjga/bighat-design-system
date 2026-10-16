@@ -9,7 +9,7 @@ stated target with no mechanism is a stated target.
 
 ## Contrast is a build error, not a review comment
 
-`tokens/semantic.tokens.json` declares, in its `$extensions` block, every
+`tokens/semantic.tokens.json` declares, in `$extensions['com.bighat.contrast'].pairs`, every
 foreground/background relationship the system promises to keep legible.
 `src/tokens/contrast.test.ts` iterates that list across both themes and asserts
 each one against the WCAG level that actually applies, in CI before Storybook
@@ -34,7 +34,7 @@ gets switched off within a month. Encoding the _right_ threshold per pair is
 what keeps the gate switched on.
 
 The coverage property is the other half: adding a semantic token that renders
-text means adding a pair to that `$extensions` list. Forgetting is a review comment,
+text means adding a pair to that list. Forgetting is a review comment,
 because the pair list _is_ the coverage — there is no separate audit to fall
 behind.
 
@@ -91,7 +91,7 @@ and there is no version of writing one that beats not writing one.
   Vitest addon runs every story in a real browser with the a11y addon set to
   `test: 'error'`, so a violation fails `npm test`; the test runner then
   renders every story of the _built_ Storybook a second time, so a story that
-  only works on the dev server cannot deploy. Neither knows whether a label is
+  only works on the dev server cannot merge. Neither knows whether a label is
   the _right_ label.
 - No reduced-transparency or forced-colors mode support beyond the browser
   defaults.

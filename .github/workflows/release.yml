@@ -27,6 +27,11 @@ jobs:
 
       - run: npm ci
 
+      # `verify` runs `npm test`, and the storybook project renders every
+      # story in headless Chromium. The browser is not on ubuntu-latest.
+      - name: Browser for the story tests
+        run: npx playwright install --with-deps chromium
+
       # `verify` deliberately excludes check:docs. That gate is red on the
       # scaffolded doc pages by design, and a gate that is meant to be red
       # cannot also be the thing that decides whether a release may happen —

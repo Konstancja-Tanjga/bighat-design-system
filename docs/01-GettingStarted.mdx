@@ -28,7 +28,8 @@ none of the components — import `@bighat/ui/tokens.css` instead.
 
 ## 3. Choose a theme
 
-Dark is a swap of the semantic colour layer and nothing else. It is selected
+Dark is a swap of the semantic layer and nothing else: same component code,
+no second stylesheet. It is selected
 with one attribute on the document element:
 
 ```html
@@ -54,14 +55,15 @@ export function App() {
 }
 ```
 
-Every component page in **Components** opens with a "when to use it" table and
-a "do not use it for" line. Read that line before the props.
+Component pages open with a "When to use it" table whose second column is what
+the component is _not_ for. Read that column before the props.
 
 ## 5. Icons are fetched, not bundled
 
-The system standardises on Material Symbols and does not ship the font. Add
-the stylesheet to your document head; the one variable file covers every
-weight, fill and optical size the components use:
+The system standardises on Material Symbols and does not ship the font.
+Components take icons as children and never render the font themselves. Add
+the stylesheet to your document head; the one variable file covers every axis
+**Foundations → Iconography** recommends:
 
 ```html
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -82,7 +84,7 @@ for below a role.
 ```css
 .invoice-total {
   color: var(--bh-text-primary);
-  padding: var(--bh-padding-card);
+  padding: var(--bh-padding-block);
   border-radius: var(--bh-radius-surface);
 }
 ```

@@ -29,8 +29,9 @@ export default defineConfig({
   test: {
     /**
      * Two projects under one `npm test`. `unit` is the suite that was always
-     * here: contrast, drift, and the contract-driven keyboard and anatomy
-     * tests, in jsdom. `storybook` renders every story in headless Chromium
+     * here: the contrast gate across both themes and the contract-driven
+     * keyboard and anatomy suites, in jsdom. (Token drift is `audit:drift`,
+     * its own step.) `storybook` renders every story in headless Chromium
      * through the Vitest addon, with the a11y addon composed in, so an axe
      * violation in any story fails the same command the contrast gate does.
      */

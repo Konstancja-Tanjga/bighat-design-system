@@ -1,7 +1,7 @@
 {
   "name": "@bighat/ui",
   "version": "6.0.4",
-  "description": "A small, opinionated React design system: two token layers, eight value classes that cannot be literals, WCAG AA enforced in CI, and contracts an agent can read.",
+  "description": "A small, opinionated React design system: two token layers, eight value classes that cannot be literals, contrast and token drift enforced in CI with axe on every story, and contracts an agent can read.",
   "license": "MIT",
   "author": "Konstancja Tanjga-Nawrot",
   "repository": {
@@ -72,7 +72,7 @@
     "test:unit": "vitest run --project unit",
     "test:stories": "vitest run --project storybook",
     "test:storybook": "test-storybook",
-    "test:storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006\""
+    "test:storybook:ci": "concurrently -k -s command-TEST -n \"SB,TEST\" -c \"magenta,blue\" \"http-server storybook-static --port 6006\" \"wait-on -t 60000 http://127.0.0.1:6006/index.json && test-storybook --index-json --url http://127.0.0.1:6006\""
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.0",
@@ -92,7 +92,6 @@
     "@vitejs/plugin-react": "^6.0.4",
     "@vitest/browser": "^4.1.12",
     "@vitest/browser-playwright": "^4.1.12",
-    "axe-playwright": "^2.2.2",
     "concurrently": "^10.0.6",
     "http-server": "^14.1.1",
     "jsdom": "^30.0.1",
@@ -115,5 +114,8 @@
   "allowScripts": {
     "esbuild@0.28.2": true,
     "fsevents@2.3.3": true
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
