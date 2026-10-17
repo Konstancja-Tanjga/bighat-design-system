@@ -145,3 +145,63 @@
 #storybook-docs .sbdocs-toc--custom .toc-list-item.is-active-li::before {
   border-left-color: var(--bh-selection-mark);
 }
+
+/*
+ * Syntax colours in code blocks, dark theme only.
+ *
+ * Storybook highlights with Prism and ships one light palette: dark grey for
+ * a function name, navy for a keyword, maroon for a tag. On the raised dark
+ * surface those fall to around 1.5:1 and the install page's first example
+ * reads as blanks. The light theme keeps Storybook's own palette; dark takes
+ * the system's, from roles that already exist. Every colour below clears
+ * 4.5:1 against surface.raised in the dark theme.
+ */
+:root[data-theme='dark'] .sbdocs-content .token {
+  color: var(--bh-text-primary);
+}
+
+:root[data-theme='dark'] .sbdocs-content .token.comment,
+:root[data-theme='dark'] .sbdocs-content .token.prolog,
+:root[data-theme='dark'] .sbdocs-content .token.doctype,
+:root[data-theme='dark'] .sbdocs-content .token.cdata {
+  color: var(--bh-text-muted);
+  font-style: italic;
+}
+
+:root[data-theme='dark'] .sbdocs-content .token.punctuation,
+:root[data-theme='dark'] .sbdocs-content .token.operator {
+  color: var(--bh-text-secondary);
+}
+
+:root[data-theme='dark'] .sbdocs-content .token.keyword,
+:root[data-theme='dark'] .sbdocs-content .token.tag,
+:root[data-theme='dark'] .sbdocs-content .token.boolean,
+:root[data-theme='dark'] .sbdocs-content .token.important {
+  color: var(--bh-text-link);
+}
+
+:root[data-theme='dark'] .sbdocs-content .token.string,
+:root[data-theme='dark'] .sbdocs-content .token.attr-value,
+:root[data-theme='dark'] .sbdocs-content .token.char,
+:root[data-theme='dark'] .sbdocs-content .token.inserted {
+  color: var(--bh-status-success-fg);
+}
+
+:root[data-theme='dark'] .sbdocs-content .token.attr-name,
+:root[data-theme='dark'] .sbdocs-content .token.property,
+:root[data-theme='dark'] .sbdocs-content .token.number,
+:root[data-theme='dark'] .sbdocs-content .token.constant,
+:root[data-theme='dark'] .sbdocs-content .token.symbol {
+  color: var(--bh-status-warning-fg);
+}
+
+:root[data-theme='dark'] .sbdocs-content .token.selector,
+:root[data-theme='dark'] .sbdocs-content .token.deleted {
+  color: var(--bh-status-critical-fg);
+}
+
+:root[data-theme='dark'] .sbdocs-content .token.function,
+:root[data-theme='dark'] .sbdocs-content .token.class-name,
+:root[data-theme='dark'] .sbdocs-content .token.builtin {
+  color: var(--bh-text-primary);
+}
