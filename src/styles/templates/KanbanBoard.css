@@ -84,7 +84,10 @@
 .bh-kanban__skeleton {
   display: flex;
   gap: var(--bh-gap-normal);
-  overflow-x: auto;
+  /* Hidden, not auto: a placeholder has nothing to scroll to, and a scrollable
+     region that cannot take focus fails WCAG 2.1.1 (axe:
+     scrollable-region-focusable) the moment the columns outgrow the frame. */
+  overflow-x: hidden;
 }
 
 .bh-kanban__skeleton-column {
