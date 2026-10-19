@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=43-21
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=15-1216
 // source=src/components/Pagination/Pagination.tsx
 // component=Pagination
 import figma from 'figma';

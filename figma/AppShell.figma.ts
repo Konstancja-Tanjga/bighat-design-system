@@ -1,12 +1,13 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=66-453
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=32-3940
 // source=src/components/AppShell/AppShell.tsx
 // component=AppShell
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
-const aside = instance.getEnum('panes', {
-  sidebar: '',
-  'sidebar + aside': figma.code`
+// The Skip link toggle only shows its focused look; in code the link is always there.
+const aside = instance.getEnum('Aside', {
+  false: '',
+  true: figma.code`
   aside={<SidePanel ariaLabel="Filters" title="Filters">{filters}</SidePanel>}`,
 });
 

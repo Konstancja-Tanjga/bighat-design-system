@@ -1,12 +1,12 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=22-34
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=15-1474
 // source=src/components/Menu/Menu.tsx
 // component=Menu
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
-// The trigger is the Menu component: its label is the button's text, and the
-// items come from the Menu / List next to it.
-const label = instance.getString('Label');
+// The trigger label is the button's text; the items are data, one per MenuItem.
+// Open is runtime state, not a prop.
+const label = instance.getString('Trigger label');
 
 export default {
   example: figma.code`<Menu label="${label}" items={items} />`,

@@ -1,11 +1,11 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=44-44
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=11-214
 // source=src/components/Skeleton/Skeleton.tsx
 // component=Skeleton
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 // control is the default radius in code.
-const radius = instance.getEnum('radius', {
+const radius = instance.getEnum('Radius', {
   control: '',
   field: ' radius="field"',
   surface: ' radius="surface"',

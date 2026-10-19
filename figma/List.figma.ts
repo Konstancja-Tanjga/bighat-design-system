@@ -1,10 +1,10 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=59-103
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=25-1185
 // source=src/components/List/List.tsx
 // component=List
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
-const variant = instance.getEnum('variant', { plain: '', inset: ' variant="inset"' });
+const variant = instance.getEnum('Variant', { plain: '', inset: ' variant="inset"' });
 const items = instance
   .findConnectedInstances((node) => node.codeConnectId() === 'list-item')
   .map((item) => (item.type === 'INSTANCE' ? item.executeTemplate().example : ''));

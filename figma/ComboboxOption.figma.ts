@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=63-21
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=25-1352
 // source=src/components/Combobox/Combobox.tsx
 // component=ComboboxOption
 import figma from 'figma';
@@ -6,8 +6,8 @@ const instance = figma.selectedInstance;
 
 // An option is one entry of <Combobox options>. active and selected are runtime state.
 const label = instance.getString('Label');
-const hint = instance.getBoolean('Show hint')
-  ? figma.code`, hint: '${instance.getString('Hint')}'`
+const hint = instance.getBoolean('Hint')
+  ? figma.code`, hint: '${instance.getString('Hint text')}'`
   : '';
 
 export default {

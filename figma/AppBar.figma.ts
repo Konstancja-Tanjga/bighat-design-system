@@ -1,11 +1,11 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=49-3
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=29-1659
 // source=src/components/AppBar/AppBar.tsx
 // component=AppBar
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const title = instance.getString('Title');
-const center = instance.getBoolean('Show center', {
+const center = instance.getBoolean('Center', {
   true: '\n  center={<Breadcrumbs items={trail} />}',
   false: '',
 });
