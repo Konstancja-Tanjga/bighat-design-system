@@ -4,6 +4,7 @@
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
+// The Skip link toggle only shows its focused look; in code the link is always there.
 const aside = instance.getEnum('Aside', {
   false: '',
   true: figma.code`

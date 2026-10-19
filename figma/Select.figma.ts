@@ -5,7 +5,14 @@ import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
+// The drawn text is the empty field's prompt ("Choose an option"); the chosen
+// option is runtime state.
 const placeholder = instance.getString('Value');
+const description = instance.getBoolean('Description')
+  ? instance.getString('Description text')
+  : '';
+const required = instance.getBoolean('Required', { true: ' required', false: '' });
+
 // hover and focus are pointer and keyboard states, not props.
 const state = instance.getEnum('State', {
   default: 'default',
@@ -22,11 +29,16 @@ export default {
   label="${label}"
   placeholder="${placeholder}"
   options={options}${
+    description
+      ? figma.code`
+  description="${description}"`
+      : ''
+  }${
     error
       ? figma.code`
   error="${error}"`
       : ''
-  }${state === 'disabled' ? ' disabled' : ''}
+  }${required}${state === 'disabled' ? ' disabled' : ''}
 />`,
   imports: ['import { Select } from "@bighat/ui"'],
   id: 'select',

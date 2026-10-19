@@ -5,6 +5,7 @@ import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
+// Labels is the rail's showLabels, active is its activeId, hover is the pointer's.
 const badge = instance.getBoolean('Dot', { true: ', badge: true', false: '' });
 
 export default {

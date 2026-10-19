@@ -19,7 +19,8 @@ const toc = instance.getBoolean('ToC', {
 });
 const footer = instance.getBoolean('Footer', { true: '\n  footer={footer}', false: '' });
 
-// The layout is the container's width, not a prop: wide shows the margin and the contents.
+// Article has no layout prop: the margin and the contents column appear when the
+// container is wide enough.
 export default {
   example: figma.code`<Article
   eyebrow="${eyebrow}"

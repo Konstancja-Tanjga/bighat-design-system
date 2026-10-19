@@ -3,7 +3,7 @@
 // component=Icon/close
 import figma from 'figma';
 
-// The system names Material Symbols and carries no glyph data: the icon is a ligature.
+// The package ships no glyphs: Material Symbols draws the icon from its ligature name.
 export default {
   example: figma.code`<span className="material-symbols-outlined">close</span>`,
   id: 'icon-close',

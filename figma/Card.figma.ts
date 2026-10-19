@@ -17,7 +17,9 @@ const accent = instance.getEnum('Accent', {
   warning: ' accent="warning"',
   critical: ' accent="critical"',
 });
-const actions = instance.getBoolean('Actions', { true: ' actions={actions}', false: '' });
+// A card that is a button cannot hold buttons: in code onClick and actions exclude
+// each other, so a clickable card drops the drawn actions row.
+const actions = !isClickable && instance.getBoolean('Actions') ? ' actions={actions}' : '';
 const title = instance.getString('Title');
 const body = instance.getString('Body');
 

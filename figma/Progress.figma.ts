@@ -7,9 +7,15 @@ const instance = figma.selectedInstance;
 const label = instance.getString('Label');
 // Indeterminate has no value: the bar travels instead of filling.
 const determinate = instance.getEnum('State', { determinate: true, indeterminate: false });
-const value = determinate
-  ? figma.code` value={${instance.getString('Value text').replace('%', '')}}`
-  : '';
+// A plain percentage is the value; any other text ("12 of 40 files") is valueText,
+// and the product passes the number.
+const valueText = instance.getString('Value text').trim();
+const percent = /^\d+(\.\d+)?%?$/.test(valueText) ? valueText.replace('%', '') : '';
+const value = !determinate
+  ? ''
+  : percent
+    ? figma.code` value={${percent}}`
+    : figma.code` value={value} valueText="${valueText}"`;
 // neutral and md are the defaults in code, so they are left out of the snippet.
 const tone = instance.getEnum('Tone', {
   neutral: '',

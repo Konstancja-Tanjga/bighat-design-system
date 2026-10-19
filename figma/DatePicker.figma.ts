@@ -5,6 +5,7 @@ import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
+const required = instance.getBoolean('Required', { true: ' required', false: '' });
 const description = instance.getBoolean('Description')
   ? figma.code`
   description="${instance.getString('Description text')}"`
@@ -23,7 +24,7 @@ export default {
   example: figma.code`<DatePicker
   label="${label}"${description}
   value={value}
-  onChange={(event) => setValue(event.target.value)}${state}
+  onChange={(event) => setValue(event.target.value)}${required}${state}
 />`,
   imports: ['import { DatePicker } from "@bighat/ui"'],
   id: 'date-picker',

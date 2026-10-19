@@ -4,7 +4,8 @@
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
-// In code the tone is derived from the name (tone="auto"); pass one only to pin it.
+// Figma draws one fixed tone; code derives it from the name (tone="auto"). The tone
+// written here pins it, so delete it unless the design needs that exact colour.
 // overflow is the "+N" disc AvatarGroup draws itself, so it maps to the group.
 const tone = instance.getEnum('Tone', {
   neutral: ' tone="neutral"',

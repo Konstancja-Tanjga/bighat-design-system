@@ -9,6 +9,8 @@ const description = instance.getBoolean('Description')
   ? figma.code`
   description="${instance.getString('Description text')}"`
   : '';
+// focus is the keyboard's, not a prop. The drawn value text is formatValue's
+// output in code, so it is not read here.
 const disabled = instance.getEnum('State', {
   default: '',
   focus: '',

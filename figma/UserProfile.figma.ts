@@ -10,7 +10,8 @@ const compact = instance.getEnum('Compact', { false: '', true: ' compact' });
 const badge = instance.getBoolean('Badge', { true: ' badge={badge}', false: '' });
 
 export default {
-  // The caret is drawn because it is a Menu trigger: items are its account actions.
+  // The set always draws the caret, which in code means items is set: without
+  // items there is no caret and no menu. hover is the pointer's.
   example: figma.code`<UserProfile name="${name}" secondary="${secondary}"${compact}${badge} items={items} />`,
   imports: ['import { UserProfile } from "@bighat/ui"'],
   id: 'user-profile',

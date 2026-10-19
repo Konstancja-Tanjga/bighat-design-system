@@ -5,6 +5,8 @@ import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
+const placeholder = instance.getString('Placeholder');
+const required = instance.getBoolean('Required', { true: ' required', false: '' });
 const description = instance.getBoolean('Description')
   ? instance.getString('Description text')
   : '';
@@ -20,7 +22,8 @@ const error = state === 'invalid' ? instance.getString('Error text') : '';
 
 export default {
   example: figma.code`<Textarea
-  label="${label}"${
+  label="${label}"
+  placeholder="${placeholder}"${
     description
       ? figma.code`
   description="${description}"`
@@ -30,7 +33,7 @@ export default {
       ? figma.code`
   error="${error}"`
       : ''
-  }${state === 'disabled' ? ' disabled' : ''}
+  }${required}${state === 'disabled' ? ' disabled' : ''}
 />`,
   imports: ['import { Textarea } from "@bighat/ui"'],
   id: 'textarea',

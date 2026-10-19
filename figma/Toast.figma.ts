@@ -1,6 +1,6 @@
 // url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=13-669
 // source=src/components/Toast/Toast.tsx
-// component=Toast
+// component=useToast
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
@@ -16,8 +16,9 @@ const description = instance.getBoolean('Description')
   : '';
 
 export default {
-  // A toast is raised, not placed: the snippet is the call that shows it.
-  example: figma.code`toast.show({ tone: '${tone}', title: '${title}'${description ? figma.code`, description: '${description}'` : ''} });`,
+  // A toast is raised, not placed: the snippet is the call that shows it,
+  // with notify from const { notify } = useToast().
+  example: figma.code`notify({ tone: '${tone}', title: '${title}'${description ? figma.code`, description: '${description}'` : ''} });`,
   imports: ['import { useToast } from "@bighat/ui"'],
   id: 'toast',
   metadata: { nestable: false },

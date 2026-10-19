@@ -5,6 +5,7 @@ import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
+const required = instance.getBoolean('Required', { true: ' required', false: '' });
 const description = instance.getBoolean('Description')
   ? figma.code`
   description="${instance.getString('Description text')}"`
@@ -27,7 +28,7 @@ export default {
   prompt="${prompt}"
   accept="application/pdf,image/*"
   multiple
-  onFiles={addFiles}${state}
+  onFiles={addFiles}${required}${state}
 />`,
   imports: ['import { FileDropzone } from "@bighat/ui"'],
   id: 'file-dropzone',
