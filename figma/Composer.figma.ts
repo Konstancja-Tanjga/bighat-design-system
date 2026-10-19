@@ -1,33 +1,35 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=65-58
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=29-2404
 // source=src/components/Composer/Composer.tsx
 // component=Composer
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
-const label = instance.getString('Label');
-const hint = instance.getBoolean('Show hint')
+const placeholder = instance.getString('Placeholder / value');
+const hint = instance.getBoolean('Hint')
   ? figma.code`
-  hint="${instance.getString('Hint')}"`
+  hint="${instance.getString('Hint text')}"`
   : '';
-const modes = instance.getBoolean('Show modes')
+const modes = instance.getBoolean('Modes')
   ? figma.code`
   modes={modes}
   activeMode={mode}
   onModeChange={setMode}`
   : '';
-// focus is the browser's; busy is the only state that is a prop.
-const busy = instance.getEnum('state', {
+// focus is the browser's; busy and disabled are props.
+const state = instance.getEnum('State', {
   default: '',
   focus: '',
   busy: figma.code`
   busy`,
+  disabled: figma.code`
+  disabled`,
 });
 
 export default {
   example: figma.code`<Composer
-  label="${label}"
-  placeholder="Ask a question, or describe the change"
-  onSubmit={send}${modes}${hint}${busy}
+  label="Ask the assistant"
+  placeholder="${placeholder}"
+  onSubmit={send}${modes}${hint}${state}
 />`,
   imports: ['import { Composer } from "@bighat/ui"'],
   id: 'composer',

@@ -1,11 +1,17 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=21-33
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=13-419
 // source=src/components/RemovableChip/RemovableChip.tsx
 // component=RemovableChip
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
-const disabled = instance.getEnum('state', { default: '', disabled: ' disabled' });
+// hover and focus are the remove button's pointer and keyboard states.
+const disabled = instance.getEnum('State', {
+  default: '',
+  hover: '',
+  focus: '',
+  disabled: ' disabled',
+});
 
 export default {
   // removeLabel names the kind of thing: "Remove filter Contract", not "Remove".

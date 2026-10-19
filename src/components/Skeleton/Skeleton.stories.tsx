@@ -20,7 +20,7 @@ const meta: Meta<typeof Skeleton> = {
   parameters: {
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=44-44',
+      url: 'https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=11-214',
     },
     layout: 'padded',
   },

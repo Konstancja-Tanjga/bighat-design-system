@@ -9,7 +9,7 @@ const meta: Meta<typeof SegmentedControl> = {
   parameters: {
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=27-263',
+      url: 'https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=13-514',
     },
   },
 };

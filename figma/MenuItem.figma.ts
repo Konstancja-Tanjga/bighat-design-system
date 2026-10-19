@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=22-21
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=15-1473
 // source=src/components/Menu/Menu.tsx
 // component=MenuItem
 import figma from 'figma';
@@ -6,12 +6,12 @@ const instance = figma.selectedInstance;
 
 // An item is data passed to <Menu items>, so the snippet is the item object.
 const label = instance.getString('Label');
-const shortcut = instance.getBoolean('Show shortcut') ? instance.getString('Shortcut') : '';
-const tone = instance.getEnum('tone', { neutral: '', critical: ", tone: 'critical'" });
-// active is the highlighted item, a runtime state, not a prop.
-const disabled = instance.getEnum('state', {
+const shortcut = instance.getBoolean('Shortcut') ? instance.getString('Shortcut text') : '';
+const tone = instance.getEnum('Tone', { neutral: '', critical: ", tone: 'critical'" });
+// focus is the highlighted item, a runtime state, not a prop.
+const disabled = instance.getEnum('State', {
   default: '',
-  active: '',
+  focus: '',
   disabled: ', disabled: true',
 });
 

@@ -1,11 +1,11 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=58-74
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=15-1392
 // source=src/components/Accordion/Accordion.tsx
 // component=Accordion
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 // plain is the default, so only inset is written.
-const variant = instance.getEnum('variant', { plain: '', inset: ' variant="inset"' });
+const variant = instance.getEnum('Variant', { plain: '', inset: ' variant="inset"' });
 // The items render through AccordionItem.figma.ts.
 const items = instance
   .findConnectedInstances((node) => node.codeConnectId() === 'accordion-item')

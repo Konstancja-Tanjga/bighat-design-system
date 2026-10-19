@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=43-10
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=15-1180
 // source=src/components/Breadcrumbs/Breadcrumbs.tsx
 // component=Breadcrumbs
 import figma from 'figma';

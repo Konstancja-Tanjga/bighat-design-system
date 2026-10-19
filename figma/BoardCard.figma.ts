@@ -1,10 +1,11 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=65-59
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=32-2840
 // source=src/components/Board/Board.tsx
 // component=BoardCard
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const title = instance.getString('Title');
+// hover and dragging are the pointer's; the move control is always there in code.
 
 export default {
   example: figma.code`<BoardCard title="${title}" onOpen={open} moveTargets={columns} onMove={move}>

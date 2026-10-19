@@ -1,18 +1,18 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=31-35
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=13-669
 // source=src/components/Toast/Toast.tsx
-// component=useToast
+// component=Toast
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
-const tone = instance.getEnum('tone', {
+const tone = instance.getEnum('Tone', {
   info: 'info',
   success: 'success',
   warning: 'warning',
   critical: 'critical',
 });
 const title = instance.getString('Title');
-const description = instance.getBoolean('Show description')
-  ? instance.getString('Description')
+const description = instance.getBoolean('Description')
+  ? instance.getString('Description text')
   : '';
 
 export default {

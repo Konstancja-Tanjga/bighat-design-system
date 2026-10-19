@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=12-18
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=11-81
 // source=src/components/Badge/Badge.tsx
 // component=Badge
 import figma from 'figma';
@@ -6,7 +6,7 @@ const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
 // neutral is the default in code, so it is left out of the snippet.
-const tone = instance.getEnum('tone', {
+const tone = instance.getEnum('Tone', {
   neutral: '',
   info: ' tone="info"',
   success: ' tone="success"',

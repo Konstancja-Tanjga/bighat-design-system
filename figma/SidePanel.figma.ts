@@ -1,16 +1,20 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=49-94
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=29-2176
 // source=src/components/SidePanel/SidePanel.tsx
 // component=SidePanel
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const title = instance.getString('Title');
-const footer = instance.getBoolean('Show footer', { true: '\n  footer={footer}', false: '' });
+const footer = instance.getBoolean('Footer', { true: '\n  footer={footer}', false: '' });
+const collapsed = instance.getEnum('Collapsed', {
+  false: '',
+  true: '\n  collapsed\n  onToggle={toggle}',
+});
 
 export default {
   example: figma.code`<SidePanel
   ariaLabel="${title}"
-  title="${title}"${footer}
+  title="${title}"${footer}${collapsed}
 >
   {children}
 </SidePanel>`,

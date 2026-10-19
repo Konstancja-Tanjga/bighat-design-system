@@ -8,7 +8,7 @@ const meta: Meta<typeof Tabs> = {
   parameters: {
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=30-542',
+      url: 'https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=13-566',
     },
   },
 };

@@ -9,7 +9,7 @@ const meta: Meta<typeof Tooltip> = {
   parameters: {
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=31-3',
+      url: 'https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=13-618',
     },
   },
 };

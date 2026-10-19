@@ -1,11 +1,11 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=48-25
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=29-1812
 // source=src/components/NavRail/NavRail.tsx
 // component=NavRailItem
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
-const badge = instance.getBoolean('Badge', { true: ', badge: true', false: '' });
+const badge = instance.getBoolean('Dot', { true: ', badge: true', false: '' });
 
 export default {
   // One entry of <NavRail items>; the icon is the product's own.

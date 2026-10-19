@@ -1,9 +1,10 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=65-174
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=32-2841
 // source=src/components/Board/Board.tsx
 // component=Board
 import figma from 'figma';
 
-// Columns and cards render through BoardColumn.figma.ts and BoardCard.figma.ts.
+// Columns are drawn as frames in Figma and are BoardColumn in code; cards render
+// through BoardCard.figma.ts.
 export default {
   example: figma.code`<Board ariaLabel="Renewals" announcement={announcement}>
   {columns.map((column) => (

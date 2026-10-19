@@ -25,7 +25,7 @@ const meta: Meta<typeof AppShell> = {
   parameters: {
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=66-453',
+      url: 'https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=32-3940',
     },
     layout: 'fullscreen',
     // `fill` is `100dvh`. Rendered inline on the docs page, every story would

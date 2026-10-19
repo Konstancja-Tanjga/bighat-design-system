@@ -1,21 +1,31 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=66-68
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=32-3041
 // source=src/components/Article/Article.tsx
 // component=Article
 import figma from 'figma';
+const instance = figma.selectedInstance;
 
-// The layout is the container's width, not a prop: wide shows the margin and the contents.
-export default {
-  example: figma.code`<Article
-  eyebrow="Guides · Billing"
-  title="How dunning works"
-  meta="6 min read · Updated 2 July 2026"
-  lead="Overdue invoices get three reminders, a week apart."
+const title = instance.getString('Title');
+const eyebrow = instance.getString('Eyebrow');
+const meta = instance.getString('Meta');
+const lead = instance.getString('Lead');
+const toc = instance.getBoolean('ToC', {
+  true: `
   toc={[
     { id: 'what', label: 'What dunning is' },
     { id: 'how', label: 'How a reminder is sent' },
   ]}
-  tocLabel="In this article"
-  footer={footer}
+  tocLabel="In this article"`,
+  false: '',
+});
+const footer = instance.getBoolean('Footer', { true: '\n  footer={footer}', false: '' });
+
+// The layout is the container's width, not a prop: wide shows the margin and the contents.
+export default {
+  example: figma.code`<Article
+  eyebrow="${eyebrow}"
+  title="${title}"
+  meta="${meta}"
+  lead="${lead}"${toc}${footer}
 >
   <h2 id="what">What dunning is</h2>
   <p>…</p>

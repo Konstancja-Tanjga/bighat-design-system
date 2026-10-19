@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=61-28
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=29-1994
 // source=src/components/NavList/NavList.tsx
 // component=NavList
 import figma from 'figma';

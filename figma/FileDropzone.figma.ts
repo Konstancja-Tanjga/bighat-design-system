@@ -1,22 +1,22 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=64-32
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=24-1381
 // source=src/components/FileDropzone/FileDropzone.tsx
 // component=FileDropzone
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
-const description = instance.getBoolean('Show description')
+const description = instance.getBoolean('Description')
   ? figma.code`
-  description="${instance.getString('Description')}"`
+  description="${instance.getString('Description text')}"`
   : '';
 const prompt = instance.getString('Prompt');
 // over and focus are the drag's and the keyboard's, not props.
-const state = instance.getEnum('state', {
+const state = instance.getEnum('State', {
   default: '',
   over: '',
   focus: '',
   invalid: figma.code`
-  error={error}`,
+  error="${instance.getString('Error text')}"`,
   disabled: figma.code`
   disabled`,
 });

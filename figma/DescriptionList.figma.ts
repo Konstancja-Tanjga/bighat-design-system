@@ -1,12 +1,12 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=59-156
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=24-1030
 // source=src/components/DescriptionList/DescriptionList.tsx
 // component=DescriptionList
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 // columns and comfortable are the defaults.
-const layout = instance.getEnum('layout', { rows: ' layout="rows"', columns: '' });
-const density = instance.getEnum('density', { comfortable: '', compact: ' density="compact"' });
+const layout = instance.getEnum('Layout', { rows: ' layout="rows"', columns: '' });
+const density = instance.getEnum('Density', { comfortable: '', compact: ' density="compact"' });
 
 // The pairs are data; the snippet shows their shape.
 export default {

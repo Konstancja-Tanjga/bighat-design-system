@@ -1,14 +1,13 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=27-165
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=12-890
 // source=src/components/Switch/Switch.tsx
 // component=Switch
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
-const description = instance.getBoolean('Show hint') ? instance.getString('Hint') : '';
-const checked = instance.getEnum('checked', { true: '{true}', false: '{false}' });
+const checked = instance.getEnum('Checked', { true: '{true}', false: '{false}' });
 // hover and focus are pointer and keyboard states, not props.
-const disabled = instance.getEnum('state', {
+const disabled = instance.getEnum('State', {
   default: '',
   hover: '',
   focus: '',
@@ -17,12 +16,7 @@ const disabled = instance.getEnum('state', {
 
 export default {
   example: figma.code`<Switch
-  label="${label}"${
-    description
-      ? figma.code`
-  description="${description}"`
-      : ''
-  }
+  label="${label}"
   checked=${checked}
   onChange={setChecked}${disabled}
 />`,

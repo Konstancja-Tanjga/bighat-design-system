@@ -1,21 +1,16 @@
-// url=https://www.figma.com/design/xIbIzmUNRZ3gyONsVn9jle/BigHat-Design-System?node-id=61-2244
+// url=https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=24-1114
 // source=src/components/Slider/Slider.tsx
 // component=Slider
 import figma from 'figma';
 const instance = figma.selectedInstance;
 
 const label = instance.getString('Label');
-const description = instance.getBoolean('Show description')
+const description = instance.getBoolean('Description')
   ? figma.code`
-  description="${instance.getString('Description')}"`
+  description="${instance.getString('Description text')}"`
   : '';
-const hideValue = instance.getBoolean('Show value')
-  ? ''
-  : figma.code`
-  hideValue`;
-const disabled = instance.getEnum('state', {
+const disabled = instance.getEnum('State', {
   default: '',
-  hover: '',
   focus: '',
   disabled: figma.code`
   disabled`,
@@ -27,7 +22,7 @@ export default {
   value={value}
   onChange={setValue}
   min={1}
-  max={30}${description}${hideValue}${disabled}
+  max={30}${description}${disabled}
 />`,
   imports: ['import { Slider } from "@bighat/ui"'],
   id: 'slider',
