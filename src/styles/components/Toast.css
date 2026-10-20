@@ -65,7 +65,7 @@
 }
 
 .bh-toast__description {
-  margin: var(--bh-gap-tight) 0 0;
+  margin: var(--bh-margin-tight) 0 0;
   color: var(--bh-text-muted);
   font-size: var(--bh-text-size-body);
 }

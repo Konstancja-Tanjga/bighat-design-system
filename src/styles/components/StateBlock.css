@@ -58,7 +58,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--bh-gap-normal);
-  margin-top: var(--bh-gap-snug);
+  margin-top: var(--bh-margin-snug);
 }
 
 .bh-stateblock__spinner {
@@ -73,7 +73,7 @@
 }
 
 .bh-stateblock__diagnostics {
-  margin-top: var(--bh-gap-normal);
+  margin-top: var(--bh-margin-normal);
   font-size: var(--bh-text-size-body);
   color: var(--bh-text-muted);
 }
@@ -84,7 +84,7 @@
 }
 
 .bh-stateblock__diagnostics-body {
-  margin-top: var(--bh-gap-tight);
+  margin-top: var(--bh-margin-tight);
   padding: var(--bh-padding-block) var(--bh-padding-inline);
   background: var(--bh-fill-hover);
   border-radius: var(--bh-radius-control);

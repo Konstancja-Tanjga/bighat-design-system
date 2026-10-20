@@ -283,6 +283,30 @@
       "$description": "Added in 4.0 for a full-height empty state's vertical breathing room. Narrowly justified: the other 48px in the codebase is a Switch track width, which is a control dimension and is in DS-GAPS.md rather than forced in here."
     }
   },
+  "margin": {
+    "$description": "Added in 6.1. The space outside a component: between stacked blocks, and the room a frame leaves around a component so its focus ring and shadow are not clipped. The same steps as gap and padding, named for the role so a margin never borrows a gap's name.",
+    "tight": {
+      "$value": "{space.1}",
+      "$description": "4px. The focus ring's clearance: a 2px ring at a 2px offset. The smallest room a frame may leave around a control."
+    },
+    "snug": {
+      "$value": "{space.2}"
+    },
+    "normal": {
+      "$value": "{space.3}"
+    },
+    "loose": {
+      "$value": "{space.4}"
+    },
+    "section": {
+      "$value": "{space.6}",
+      "$description": "Between sections of a page or a panel."
+    },
+    "hero": {
+      "$value": "{space.12}",
+      "$description": "Above a full-height empty state or a page title block."
+    }
+  },
   "radius": {
     "control": {
       "$value": "{radius.lg}",

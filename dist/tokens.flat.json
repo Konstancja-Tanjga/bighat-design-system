@@ -388,6 +388,40 @@
       "dark": "48px",
       "description": "Added in 4.0 for a full-height empty state's vertical breathing room. Narrowly justified: the other 48px in the codebase is a Switch track width, which is a control dimension and is in DS-GAPS.md rather than forced in here."
     },
+    "margin.tight": {
+      "type": "dimension",
+      "light": "4px",
+      "dark": "4px",
+      "description": "4px. The focus ring's clearance: a 2px ring at a 2px offset. The smallest room a frame may leave around a control."
+    },
+    "margin.snug": {
+      "type": "dimension",
+      "light": "8px",
+      "dark": "8px"
+    },
+    "margin.normal": {
+      "type": "dimension",
+      "light": "12px",
+      "dark": "12px"
+    },
+    "margin.loose": {
+      "type": "dimension",
+      "light": "16px",
+      "dark": "16px",
+      "description": "Also the drawn indicator size for checkbox, radio and switch; see control.indicator."
+    },
+    "margin.section": {
+      "type": "dimension",
+      "light": "24px",
+      "dark": "24px",
+      "description": "Between sections of a page or a panel."
+    },
+    "margin.hero": {
+      "type": "dimension",
+      "light": "48px",
+      "dark": "48px",
+      "description": "Above a full-height empty state or a page title block."
+    },
     "radius.control": {
       "type": "dimension",
       "light": "12px",

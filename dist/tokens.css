@@ -75,6 +75,12 @@
   --bh-padding-page: 96px;
   --bh-padding-gutter: 32px;
   --bh-padding-hero: 48px;
+  --bh-margin-tight: 4px;
+  --bh-margin-snug: 8px;
+  --bh-margin-normal: 12px;
+  --bh-margin-loose: 16px;
+  --bh-margin-section: 24px;
+  --bh-margin-hero: 48px;
   --bh-radius-control: 12px;
   --bh-radius-field: 12px;
   --bh-radius-surface: 24px;
@@ -207,6 +213,12 @@
   --bh-padding-page: 96px;
   --bh-padding-gutter: 32px;
   --bh-padding-hero: 48px;
+  --bh-margin-tight: 4px;
+  --bh-margin-snug: 8px;
+  --bh-margin-normal: 12px;
+  --bh-margin-loose: 16px;
+  --bh-margin-section: 24px;
+  --bh-margin-hero: 48px;
   --bh-radius-control: 12px;
   --bh-radius-field: 12px;
   --bh-radius-surface: 24px;
@@ -338,6 +350,12 @@
     --bh-padding-page: 96px;
     --bh-padding-gutter: 32px;
     --bh-padding-hero: 48px;
+    --bh-margin-tight: 4px;
+    --bh-margin-snug: 8px;
+    --bh-margin-normal: 12px;
+    --bh-margin-loose: 16px;
+    --bh-margin-section: 24px;
+    --bh-margin-hero: 48px;
     --bh-radius-control: 12px;
     --bh-radius-field: 12px;
     --bh-radius-surface: 24px;

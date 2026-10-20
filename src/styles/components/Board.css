@@ -68,7 +68,7 @@
 /* The over-limit signal is a sentence, not just an amber border — the border
    alone would be colour carrying meaning on its own. */
 .bh-board__warning {
-  margin: 0 var(--bh-gap-snug);
+  margin: 0 var(--bh-margin-snug);
   padding: var(--bh-gap-snug);
   border-radius: var(--bh-radius-control);
   background: var(--bh-status-warning-bg);

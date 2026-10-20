@@ -149,7 +149,10 @@
     "radius.control",
     "control.sm",
     "duration.fast",
-    "easing.standard"
+    "easing.standard",
+    "margin.tight",
+    "margin.snug",
+    "margin.normal"
   ],
   "interactive": true
 }

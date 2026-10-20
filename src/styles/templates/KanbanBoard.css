@@ -72,7 +72,7 @@
 
 .bh-kanban__card-meta {
   display: block;
-  margin: var(--bh-gap-tight) 0 var(--bh-gap-snug);
+  margin: var(--bh-margin-tight) 0 var(--bh-margin-snug);
   font-size: var(--bh-text-size-dense);
   color: var(--bh-text-muted);
 }

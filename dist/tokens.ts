@@ -76,6 +76,12 @@ export type TokenPath =
   | 'padding.page'
   | 'padding.gutter'
   | 'padding.hero'
+  | 'margin.tight'
+  | 'margin.snug'
+  | 'margin.normal'
+  | 'margin.loose'
+  | 'margin.section'
+  | 'margin.hero'
   | 'radius.control'
   | 'radius.field'
   | 'radius.surface'
@@ -216,6 +222,12 @@ export const tokens = {
   'padding.page': { light: "96px", dark: "96px" },
   'padding.gutter': { light: "32px", dark: "32px" },
   'padding.hero': { light: "48px", dark: "48px" },
+  'margin.tight': { light: "4px", dark: "4px" },
+  'margin.snug': { light: "8px", dark: "8px" },
+  'margin.normal': { light: "12px", dark: "12px" },
+  'margin.loose': { light: "16px", dark: "16px" },
+  'margin.section': { light: "24px", dark: "24px" },
+  'margin.hero': { light: "48px", dark: "48px" },
   'radius.control': { light: "12px", dark: "12px" },
   'radius.field': { light: "12px", dark: "12px" },
   'radius.surface': { light: "24px", dark: "24px" },

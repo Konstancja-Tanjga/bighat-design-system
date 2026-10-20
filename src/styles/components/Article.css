@@ -62,7 +62,7 @@
 
 /* Narrow: every margin note stays in the text, just above its paragraph. */
 .bh-article__margin {
-  margin-block: var(--bh-gap-normal);
+  margin-block: var(--bh-margin-normal);
 }
 
 .bh-article__footer {
@@ -80,7 +80,7 @@
 }
 
 .bh-article__toc-title {
-  margin: 0 0 var(--bh-gap-snug);
+  margin: 0 0 var(--bh-margin-snug);
   color: var(--bh-text-secondary);
   font-size: var(--bh-text-size-body);
   font-weight: var(--bh-text-weight-emphasis);
@@ -162,7 +162,7 @@
 }
 
 .bh-article__toc-fold details[open] .bh-article__toc-list {
-  margin-top: var(--bh-gap-tight);
+  margin-top: var(--bh-margin-tight);
 }
 
 /* ---- Medium: text | margin ---- */
@@ -185,7 +185,7 @@
     float: right;
     clear: right;
     width: var(--bh-article-margin);
-    margin-block: 0 var(--bh-gap-normal);
+    margin-block: 0 var(--bh-margin-normal);
     margin-right: calc(-1 * (var(--bh-article-margin) + var(--bh-article-gutter)));
   }
 }
