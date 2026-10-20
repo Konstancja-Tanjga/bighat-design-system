@@ -6,10 +6,8 @@ const instance = figma.selectedInstance;
 
 // raised is the default; hover is the clickable card's lift, so it means onClick.
 const elevation = instance.getEnum('Elevation', { raised: '', flat: ' elevation="flat"' });
-const clickable = instance.getEnum('State', {
-  default: '',
-  hover: ' onClick={open} ariaLabel="Open"',
-});
+const isClickable = instance.getEnum('State', { default: false, hover: true });
+const clickable = isClickable ? ' onClick={open} ariaLabel="Open"' : '';
 const accent = instance.getEnum('Accent', {
   none: '',
   info: ' accent="info"',

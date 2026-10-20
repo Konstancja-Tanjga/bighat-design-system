@@ -83,6 +83,7 @@ all of them through the parent's snippet.
 ## Publishing
 
 ```bash
+npm run figma:check         # runs every template; part of npm run verify
 npx figma connect parse     # parses the templates figma.config.json includes
 FIGMA_ACCESS_TOKEN=… npx figma connect publish
 ```
