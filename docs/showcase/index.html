@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Jak komponenty Big Hat łączą Figmę, kod i Storybook: Code Connect, zakładka Design i Figma MCP.">
 <title>Big Hat od Figmy do kodu</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: one reading column (~44rem) with wide figures that break out to ~64rem.
    Palette and shapes are Big Hat's own tokens: surface/text/border roles,
@@ -33,7 +30,7 @@
   --no-fg: #a31f24;
   --shadow: 0 0 0 1px rgba(20,24,28,.035), 0 1px 2px rgba(20,24,28,.05), 0 6px 20px rgba(20,24,28,.06);
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --radius-surface: 20px;
   --radius-control: 10px;
 }
@@ -109,6 +106,7 @@ header.hero { display: flex; flex-direction: column; gap: 20px; }
 table { border-collapse: collapse; width: 100%; font-size: .93rem; }
 th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border-hairline); vertical-align: top; }
 th { font-weight: 600; color: var(--text-secondary); font-size: .85rem; }
+tbody th { font-size: .93rem; color: var(--text-primary); font-weight: 500; }
 tr:last-child td { border-bottom: 0; }
 td code { white-space: nowrap; }
 .yes, .no, .depends { font-weight: 600; white-space: nowrap; }
@@ -142,7 +140,7 @@ footer { font-size: .85rem; color: var(--text-muted); border-top: 1px solid var(
     <span class="eyebrow">@bighat/ui · design system</span>
     <h1>Jeden komponent, ta sama nazwa w Figmie, w kodzie i w Storybooku</h1>
     <p class="lead col">Big Hat to biblioteka komponentów React z plikiem Figma, który jest jej drugą połową. Ta strona pokazuje, jak oba miejsca są ze sobą połączone, co możesz otworzyć samodzielnie i czego bez konta w moim zespole Figma nie zobaczysz.</p>
-    <nav class="links" aria-label="Linki">
+    <nav class="links" aria-label="Linki do projektu">
       <a class="pill primary" href="https://konstancja-tanjga.github.io/bighat-design-system/?path=/docs/introduction--docs" target="_blank" rel="noopener">Storybook <small>publiczny</small></a>
       <a class="pill" href="https://www.figma.com/design/OnPxkRmbGavyxKaygQrCRR/Big-Hat-Design-System?node-id=17-25" target="_blank" rel="noopener">Plik Figma</a>
       <a class="pill" href="https://github.com/Konstancja-Tanjga/bighat-design-system" target="_blank" rel="noopener">Repozytorium</a>
@@ -161,7 +159,7 @@ footer { font-size: .85rem; color: var(--text-muted); border-top: 1px solid var(
       <article class="bridge">
         <div class="route"><span class="chip">Storybook</span><span class="arrow">→</span><span class="chip">Figma</span></div>
         <h3>Zakładka Design</h3>
-        <p>Każda story w Storybooku ma zakładkę Design z tym samym komponentem z Figmy. W drugą stronę prowadzi link w opisie komponentu w Figmie.</p>
+        <p>Każdy komponent w Storybooku ma zakładkę Design z tym samym komponentem z Figmy. W drugą stronę prowadzi link w opisie komponentu w Figmie.</p>
       </article>
       <article class="bridge">
         <div class="route"><span class="chip">Figma</span><span class="arrow">→</span><span class="chip">agent AI</span><span class="arrow">→</span><span class="chip">kod</span></div>
@@ -243,7 +241,7 @@ notify({
   <section>
     <h2>Figma MCP, czyli co czyta agent</h2>
     <p class="col">Każdy komponent w Figmie ma opis napisany jak kontrakt: do czego służy, do czego nie, jak właściwości mapują się na propsy i jakich tokenów używa. Agent kodujący, na przykład Claude, czyta ten opis przez serwer MCP Figmy razem ze zmiennymi. Dzięki temu buduje ekran z <code>@bighat/ui</code> i nazw tokenów, a nie odtwarza wygląd z pikseli.</p>
-    <blockquote class="contract">
+    <blockquote class="contract" lang="en">
       <p><b>An action the user takes.</b> NOT for navigation (that is an anchor), a bookmarkable destination, or a two-state toggle (Switch).</p>
       <p><b>Props → code:</b> Variant = variant ("primary" | "secondary" | "ghost", how much weight), Tone = tone ("neutral" | "critical", what happens if you press it), Size = size, Loading = loading, Icon start/end = iconStart/iconEnd (decorative), Label = children (required, there is no icon-only button).</p>
       <p><b>Code:</b> import { Button } from '@bighat/ui'. Contract: spec/components/button.json.</p>
@@ -257,12 +255,12 @@ notify({
       <table>
         <thead><tr><th>Co</th><th>Czy otworzysz to sam</th><th>Uwagi</th></tr></thead>
         <tbody>
-          <tr><td>Storybook</td><td class="yes">tak</td><td>Publiczny, bez logowania.</td></tr>
-          <tr><td>Repozytorium, kod i kontrakty</td><td class="yes">tak</td><td>Publiczne na GitHubie. Szablony Code Connect są w katalogu <code>figma/</code>.</td></tr>
-          <tr><td>Plik Figma: komponenty, warianty, opisy, tryb ciemny</td><td class="depends">z linku</td><td>W trybie podglądu, jeśli plik jest udostępniony do oglądania. Wystarczy darmowe konto Figma.</td></tr>
-          <tr><td>Zakładka Design w Storybooku</td><td class="depends">z linku</td><td>Działa tylko wtedy, gdy plik Figma jest udostępniony. Figma może poprosić o zalogowanie.</td></tr>
-          <tr><td>Snippety Code Connect w Dev Mode</td><td class="no">nie</td><td>Dev Mode wymaga płatnego miejsca Dev lub Full w zespole, do którego należy plik.</td></tr>
-          <tr><td>Agent czytający Figmę przez MCP</td><td class="no">nie</td><td>Działa na moim koncie i moim komputerze. Mogę to pokazać na żywo.</td></tr>
+          <tr><th scope="row">Storybook</th><td class="yes">tak</td><td>Publiczny, bez logowania.</td></tr>
+          <tr><th scope="row">Repozytorium, kod i kontrakty</th><td class="yes">tak</td><td>Publiczne na GitHubie. Szablony Code Connect są w katalogu <code>figma/</code>.</td></tr>
+          <tr><th scope="row">Plik Figma: komponenty, warianty, opisy, tryb ciemny</th><td class="depends">z linku</td><td>W trybie podglądu, jeśli plik jest udostępniony do oglądania. Wystarczy darmowe konto Figma.</td></tr>
+          <tr><th scope="row">Zakładka Design w Storybooku</th><td class="depends">z linku</td><td>Działa tylko wtedy, gdy plik Figma jest udostępniony. Figma może poprosić o zalogowanie.</td></tr>
+          <tr><th scope="row">Snippety Code Connect w Dev Mode</th><td class="no">nie</td><td>Dev Mode wymaga płatnego miejsca Dev lub Full w zespole, do którego należy plik.</td></tr>
+          <tr><th scope="row">Agent czytający Figmę przez MCP</th><td class="no">nie</td><td>Działa na moim koncie i moim komputerze. Mogę to pokazać na żywo.</td></tr>
         </tbody>
       </table>
     </div>
