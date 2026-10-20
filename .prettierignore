@@ -5,3 +5,4 @@ package-lock.json
 src/styles/tokens.css
 docs/images/*.png
 docs/handoff-guide.html
+docs/showcase/
