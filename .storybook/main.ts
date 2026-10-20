@@ -20,7 +20,9 @@ const config: StorybookConfig = {
 
   // The logo files, for the manager's brand image, and favicon.svg, which
   // Storybook picks up from the root of a static dir in place of its own.
-  staticDirs: ['../docs/brand'],
+  // docs/showcase is a standalone page for people outside the team, on how
+  // Figma, code and Storybook connect; it is served at /showcase/.
+  staticDirs: ['../docs/brand', { from: '../docs/showcase', to: '/showcase' }],
 
   stories: [
     '../docs/00-Introduction.mdx',
