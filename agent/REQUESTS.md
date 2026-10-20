@@ -24,7 +24,8 @@ Read [`SKILL.md`](./SKILL.md) first; everything below assumes its rules. For
 ## "The spacing on this screen looks off"
 
 Answer in scale steps — `tight` / `snug` / `normal` / `loose`, and
-`padding-inline` / `block` / `section` — and in the relations between them.
+`padding-inline` / `block` / `section`, and `margin-*` for the space outside a
+component — and in the relations between them.
 
 **Never answer in pixels.** A pixel answer is a value that will drift the moment
 the scale moves, and it teaches the person asking to think in a unit the system

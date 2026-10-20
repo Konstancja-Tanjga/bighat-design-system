@@ -152,7 +152,10 @@
     "selection.mark",
     "margin.tight",
     "margin.snug",
-    "margin.normal"
+    "margin.normal",
+    "padding.block",
+    "padding.inline",
+    "padding.hero"
   ],
   "content": {
     "title": "Sentence case, no trailing period. 'No invoices yet', not 'No Invoices Found.'",

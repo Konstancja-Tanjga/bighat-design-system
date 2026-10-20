@@ -287,24 +287,27 @@
     "$description": "Added in 6.1. The space outside a component: between stacked blocks, and the room a frame leaves around a component so its focus ring and shadow are not clipped. The same steps as gap and padding, named for the role so a margin never borrows a gap's name.",
     "tight": {
       "$value": "{space.1}",
-      "$description": "4px. The focus ring's clearance: a 2px ring at a 2px offset. The smallest room a frame may leave around a control."
+      "$description": "4px. Between a line of text and the line that belongs to it - a label and its hint, a title and its description - and the focus ring's clearance: a 2px ring at a 2px offset, the least room a frame may leave around a control."
     },
     "snug": {
-      "$value": "{space.2}"
+      "$value": "{space.2}",
+      "$description": "8px. Below a short label or caption that heads a group."
     },
     "normal": {
-      "$value": "{space.3}"
+      "$value": "{space.3}",
+      "$description": "12px. Between stacked blocks inside one component, and either side of a divider."
     },
     "loose": {
-      "$value": "{space.4}"
+      "$value": "{space.4}",
+      "$description": "16px. Between groups in a list or a panel."
     },
     "section": {
       "$value": "{space.6}",
-      "$description": "Between sections of a page or a panel."
+      "$description": "24px. Between sections of a page or a panel, and either side of a loose divider."
     },
     "hero": {
       "$value": "{space.12}",
-      "$description": "Above a full-height empty state or a page title block."
+      "$description": "48px. Above a section heading in long-form prose, where a heading starts a new part of the text."
     }
   },
   "radius": {

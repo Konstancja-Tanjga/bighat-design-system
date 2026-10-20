@@ -36,7 +36,14 @@ const group = (prefix) =>
 const named = (prefix) =>
   Object.entries(tokens)
     .filter(([path]) => path.startsWith(`${prefix}.`))
-    .map(([path, v]) => [v.light, `--bh-${path.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase().split('.').join('-')}`]);
+    .map(([path, v]) => [
+      v.light,
+      `--bh-${path
+        .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+        .toLowerCase()
+        .split('.')
+        .join('-')}`,
+    ]);
 
 function stylesheets(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -127,8 +134,8 @@ const rules = [
   },
   {
     name: 'spacing',
-    token: '--bh-gap-* / --bh-padding-*',
-    allowed: new Set([...group('gap'), ...group('padding')]),
+    token: '--bh-gap-* / --bh-padding-* / --bh-margin-*',
+    allowed: new Set([...group('gap'), ...group('padding'), ...group('margin')]),
     /**
      * 1px is legal for optical correction against a 1px border - a
      * `margin-top: 1px` nudging a label against a bordered control is not a
@@ -203,13 +210,15 @@ const rules = [
     token: '--bh-easing-*',
     allowed: group('easing'),
     find: (css) =>
-      css.split('\n').flatMap((text, i) =>
-        (
-          text.match(
-            /(?<![\w-])(ease(?:-in|-out|-in-out)?|linear|cubic-bezier\([^)]*\))(?![\w-])/g,
-          ) ?? []
-        ).map((value) => ({ line: i + 1, value })),
-      ),
+      css
+        .split('\n')
+        .flatMap((text, i) =>
+          (
+            text.match(
+              /(?<![\w-])(ease(?:-in|-out|-in-out)?|linear|cubic-bezier\([^)]*\))(?![\w-])/g,
+            ) ?? []
+          ).map((value) => ({ line: i + 1, value })),
+        ),
   },
   {
     name: 'z-index',
@@ -246,8 +255,7 @@ for (const rule of rules) {
   }
   for (const hit of hits) totals[hit.severity] += 1;
 
-  const counts = ORDER
-    .map((s) => [s, hits.filter((h) => h.severity === s).length])
+  const counts = ORDER.map((s) => [s, hits.filter((h) => h.severity === s).length])
     .filter(([, n]) => n > 0)
     .map(([s, n]) => `${n} ${s}`)
     .join(', ');
@@ -275,9 +283,14 @@ for (const rule of rules) {
   );
   for (const row of rows) {
     const near = nearest(row.value, rule.allowed);
-    const varName = named(rule.name === 'spacing' ? 'gap' : rule.name.replace('font-size', 'textSize').replace('font-weight', 'textWeight').replace('z-index', 'layer')).find(
-      ([v]) => v === (near ?? row.value),
-    );
+    const varName = named(
+      rule.name === 'spacing'
+        ? 'gap'
+        : rule.name
+            .replace('font-size', 'textSize')
+            .replace('font-weight', 'textWeight')
+            .replace('z-index', 'layer'),
+    ).find(([v]) => v === (near ?? row.value));
     const action =
       row.severity === 'unlinked'
         ? `codemod → \`var(${varName?.[1] ?? '…'})\``

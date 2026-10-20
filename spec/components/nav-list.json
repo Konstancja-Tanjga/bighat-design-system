@@ -2,9 +2,9 @@
   "$schema": "../schema.json",
   "name": "NavList",
   "layer": "frame",
-  "purpose": "Grouped list inside a side panel \u2014 saved views, recent items, a shallow tree.",
+  "purpose": "Grouped list inside a side panel — saved views, recent items, a shallow tree.",
   "notFor": [
-    "Tabular data \u2014 use Table"
+    "Tabular data — use Table"
   ],
   "composition": "composite",
   "anatomy": [
@@ -60,7 +60,7 @@
     },
     "label": {
       "kind": "string",
-      "note": "On NavGroup \u2014 wired with aria-labelledby."
+      "note": "On NavGroup — wired with aria-labelledby."
     },
     "ariaLabel": {
       "kind": "string",

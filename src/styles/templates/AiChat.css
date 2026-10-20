@@ -60,7 +60,7 @@
 }
 
 .bh-ai__section-title {
-  margin: 0 0 var(--bh-padding-inline);
+  margin: 0 0 var(--bh-margin-normal);
   font-size: var(--bh-text-size-heading);
   font-weight: var(--bh-text-weight-heading);
   text-align: center;

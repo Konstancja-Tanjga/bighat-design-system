@@ -2,9 +2,9 @@
   "$schema": "../schema.json",
   "name": "Board",
   "layer": "frame",
-  "purpose": "Columns of cards \u2014 kanban, pipeline, review queue.",
+  "purpose": "Columns of cards — kanban, pipeline, review queue.",
   "notFor": [
-    "Ordered data the user compares \u2014 that is Table"
+    "Ordered data the user compares — that is Table"
   ],
   "composition": "composite",
   "anatomy": [
@@ -60,7 +60,7 @@
     {
       "part": "bh-board__move-trigger",
       "element": "button[type=button]",
-      "note": "A Menu trigger. Named \"Move to\u2026 {title}\"; the menu is named \"Move \u201c{title}\u201d to\"."
+      "note": "A Menu trigger. Named \"Move to… {title}\"; the menu is named \"Move “{title}” to\"."
     }
   ],
   "props": {
@@ -79,7 +79,7 @@
     },
     "BoardColumn.limit": {
       "kind": "number",
-      "note": "WIP limit \u2014 surfaced, never enforced."
+      "note": "WIP limit — surfaced, never enforced."
     },
     "BoardColumn.empty": {
       "kind": "slot",
@@ -91,7 +91,7 @@
     },
     "BoardCard.onMove": {
       "kind": "event",
-      "note": "Required for a pointer-free move \u2014 WCAG 2.5.1."
+      "note": "Required for a pointer-free move — WCAG 2.5.1."
     }
   },
   "states": [
@@ -110,7 +110,7 @@
       "aria-label": "ariaLabel",
       "aria-hidden": "true"
     },
-    "labelling": "The move button is named \"Move to\u2026 {title}\", starting with its visible text (WCAG 2.5.3); the menu it opens is named \"Move \u201c{title}\u201d to\".",
+    "labelling": "The move button is named \"Move to… {title}\", starting with its visible text (WCAG 2.5.3); the menu it opens is named \"Move “{title}” to\".",
     "focus": "The move menu takes focus on open and returns it to the move button on Escape or choice. When the product re-renders the card in its new column the button is removed and focus drops; the announcement says where the card went.",
     "announcements": null
   },

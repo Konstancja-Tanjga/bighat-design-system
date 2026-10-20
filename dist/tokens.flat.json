@@ -392,35 +392,37 @@
       "type": "dimension",
       "light": "4px",
       "dark": "4px",
-      "description": "4px. The focus ring's clearance: a 2px ring at a 2px offset. The smallest room a frame may leave around a control."
+      "description": "4px. Between a line of text and the line that belongs to it - a label and its hint, a title and its description - and the focus ring's clearance: a 2px ring at a 2px offset, the least room a frame may leave around a control."
     },
     "margin.snug": {
       "type": "dimension",
       "light": "8px",
-      "dark": "8px"
+      "dark": "8px",
+      "description": "8px. Below a short label or caption that heads a group."
     },
     "margin.normal": {
       "type": "dimension",
       "light": "12px",
-      "dark": "12px"
+      "dark": "12px",
+      "description": "12px. Between stacked blocks inside one component, and either side of a divider."
     },
     "margin.loose": {
       "type": "dimension",
       "light": "16px",
       "dark": "16px",
-      "description": "Also the drawn indicator size for checkbox, radio and switch; see control.indicator."
+      "description": "16px. Between groups in a list or a panel."
     },
     "margin.section": {
       "type": "dimension",
       "light": "24px",
       "dark": "24px",
-      "description": "Between sections of a page or a panel."
+      "description": "24px. Between sections of a page or a panel, and either side of a loose divider."
     },
     "margin.hero": {
       "type": "dimension",
       "light": "48px",
       "dark": "48px",
-      "description": "Above a full-height empty state or a page title block."
+      "description": "48px. Above a section heading in long-form prose, where a heading starts a new part of the text."
     },
     "radius.control": {
       "type": "dimension",

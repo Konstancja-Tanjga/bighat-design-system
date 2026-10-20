@@ -4,7 +4,7 @@
   "layer": "control",
   "purpose": "A line between things. Decorative unless it carries a label.",
   "notFor": [
-    "Spacing \u2014 use the gap tokens"
+    "Spacing — use the margin, gap and padding tokens"
   ],
   "composition": "leaf",
   "anatomy": [
