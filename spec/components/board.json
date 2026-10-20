@@ -144,7 +144,8 @@
     "elevation.floating",
     "elevation.raised",
     "fill.hover",
-    "radius.field"
+    "radius.field",
+    "margin.snug"
   ],
   "interactive": true
 }

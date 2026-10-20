@@ -28,7 +28,11 @@ const { tokens } = JSON.parse(
 );
 
 const cssVar = (path) =>
-  `--bh-${path.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase().split('.').join('-')}`;
+  `--bh-${path
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .toLowerCase()
+    .split('.')
+    .join('-')}`;
 
 /**
  * value → var name, for one token group. First declaration wins, so the order
@@ -50,7 +54,16 @@ const properties = [
   { match: /font-weight/, values: lookup('textWeight') },
   { match: /z-index/, values: lookup('layer') },
   {
-    match: /padding|padding-\w+|margin|margin-\w+|gap|row-gap|column-gap/,
+    // Margins take the margin role. A value the margin group lacks (the 2px
+    // hairline) falls back to gap; later entries win, so margin beats gap and
+    // padding wherever the values match.
+    match: /margin|margin-\w+/,
+    values: new Map([...lookup('gap'), ...lookup('padding'), ...lookup('margin')]),
+    shorthand: true,
+    negatable: true,
+  },
+  {
+    match: /padding|padding-\w+|gap|row-gap|column-gap/,
     values: new Map([...lookup('gap'), ...lookup('padding')]),
     shorthand: true,
     negatable: true,

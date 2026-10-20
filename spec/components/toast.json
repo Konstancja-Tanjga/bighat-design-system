@@ -93,7 +93,6 @@
     "border.strong",
     "font.family",
     "gap.snug",
-    "gap.tight",
     "layer.toast",
     "padding.inline",
     "padding.section",
@@ -117,7 +116,8 @@
     "duration.fast",
     "easing.standard",
     "fill.hover",
-    "radius.pill"
+    "radius.pill",
+    "margin.tight"
   ],
   "interactive": true
 }

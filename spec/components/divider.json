@@ -4,7 +4,7 @@
   "layer": "control",
   "purpose": "A line between things. Decorative unless it carries a label.",
   "notFor": [
-    "Spacing — use the gap tokens"
+    "Spacing — use the margin, gap and padding tokens"
   ],
   "composition": "leaf",
   "anatomy": [
@@ -58,9 +58,10 @@
   "tokensUsed": [
     "font.family",
     "gap.normal",
-    "padding.section",
     "border.hairline",
-    "text.secondary"
+    "text.secondary",
+    "margin.normal",
+    "margin.section"
   ],
   "interactive": false
 }

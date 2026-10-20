@@ -3,14 +3,14 @@
 }
 
 .bh-navgroup + .bh-navgroup {
-  margin-top: var(--bh-gap-loose);
+  margin-top: var(--bh-margin-loose);
 }
 
 /* Sentence case, not tracked capitals: a label is read as a word, and a row
    of spaced capitals above every group is decoration that slows the reading
    down. Weight and colour set it apart from the items. */
 .bh-navgroup__label {
-  margin: 0 0 var(--bh-gap-tight);
+  margin: 0 0 var(--bh-margin-tight);
   padding: 0 var(--bh-gap-snug);
   font-size: var(--bh-text-size-body);
   font-weight: var(--bh-text-weight-emphasis);

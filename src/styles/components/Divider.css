@@ -16,16 +16,16 @@
 }
 
 .bh-divider--horizontal.bh-divider--snug {
-  margin: var(--bh-gap-normal) 0;
+  margin: var(--bh-margin-normal) 0;
 }
 .bh-divider--horizontal.bh-divider--loose {
-  margin: var(--bh-padding-section) 0;
+  margin: var(--bh-margin-section) 0;
 }
 .bh-divider--vertical.bh-divider--snug {
-  margin: 0 var(--bh-gap-normal);
+  margin: 0 var(--bh-margin-normal);
 }
 .bh-divider--vertical.bh-divider--loose {
-  margin: 0 var(--bh-padding-section);
+  margin: 0 var(--bh-margin-section);
 }
 
 /* Labelled: the rule is drawn by the pseudo-elements either side of the text. */

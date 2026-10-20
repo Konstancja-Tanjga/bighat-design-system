@@ -356,7 +356,7 @@
 /* Every section is numbered, the number in the accent above the heading. */
 .tpl-article__prose h2 {
   clear: right;
-  margin: var(--bh-padding-hero) 0 var(--bh-gap-loose);
+  margin: var(--bh-margin-hero) 0 var(--bh-margin-loose);
   counter-increment: section;
   font-family: var(--tpl-font-display);
   font-size: clamp(1.45rem, 1.25rem + 0.9vw, 2rem);
@@ -369,7 +369,7 @@
 .tpl-article__prose h2::before {
   content: counter(section);
   display: block;
-  margin-bottom: var(--bh-gap-snug);
+  margin-bottom: var(--bh-margin-snug);
   color: var(--tpl-accent);
   font-family: var(--bh-font-family-sans);
   font-size: var(--bh-text-size-caption);
@@ -378,7 +378,7 @@
 
 .tpl-article__prose p,
 .tpl-article__prose ul {
-  margin: 0 0 var(--bh-gap-loose);
+  margin: 0 0 var(--bh-margin-loose);
 }
 
 .tpl-article__prose ul {
@@ -386,7 +386,7 @@
 }
 
 .tpl-article__prose li {
-  margin-block-end: var(--bh-gap-snug);
+  margin-block-end: var(--bh-margin-snug);
   padding-left: var(--bh-gap-tight);
 }
 
@@ -410,7 +410,7 @@
 
 /* Tables in the interface face, between two lines, no frame. */
 .tpl-article__table {
-  margin: 0 0 var(--bh-gap-loose);
+  margin: 0 0 var(--bh-margin-loose);
   border-block: 1px solid var(--tpl-line);
   overflow-x: auto;
 }
@@ -450,7 +450,7 @@
 }
 
 .tpl-article .bh-article__margin > * + * {
-  margin-top: var(--bh-gap-normal);
+  margin-top: var(--bh-margin-normal);
 }
 
 .tpl-article__figure {
@@ -499,7 +499,7 @@
 .tpl-article__next {
   display: grid;
   gap: var(--bh-gap-snug);
-  margin-top: var(--bh-gap-loose);
+  margin-top: var(--bh-margin-loose);
   padding: var(--bh-padding-section);
   border-radius: var(--bh-radius-modal);
   background: var(--tpl-scene-shade), var(--tpl-scene);
@@ -522,7 +522,7 @@
 
 .tpl-article__next-action {
   justify-self: start;
-  margin-top: var(--bh-gap-snug);
+  margin-top: var(--bh-margin-snug);
   padding: var(--bh-gap-tight) var(--bh-padding-inline);
   border-radius: var(--bh-radius-pill);
   background: var(--tpl-highlight);

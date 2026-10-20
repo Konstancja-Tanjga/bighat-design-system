@@ -60,7 +60,7 @@
 }
 
 .bh-ai__section-title {
-  margin: 0 0 var(--bh-padding-inline);
+  margin: 0 0 var(--bh-margin-normal);
   font-size: var(--bh-text-size-heading);
   font-weight: var(--bh-text-weight-heading);
   text-align: center;
@@ -77,7 +77,7 @@
   font-size: var(--bh-text-size-caption);
   font-weight: var(--bh-text-weight-heading);
   color: var(--bh-text-primary);
-  margin-bottom: var(--bh-gap-tight);
+  margin-bottom: var(--bh-margin-tight);
 }
 
 .bh-ai__suggestion-detail {
@@ -92,7 +92,7 @@
 .bh-ai__composer {
   position: sticky;
   bottom: 0;
-  margin-top: var(--bh-padding-section);
+  margin-top: var(--bh-margin-section);
   padding: var(--bh-padding-inline) var(--bh-padding-section) var(--bh-padding-section);
   background: linear-gradient(to bottom, transparent, var(--bh-surface-sunken) 30%);
 }
@@ -103,7 +103,7 @@
 }
 
 .bh-ai__memory-intro {
-  margin: 0 var(--bh-gap-snug) var(--bh-gap-normal);
+  margin: 0 var(--bh-margin-snug) var(--bh-margin-normal);
   font-size: var(--bh-text-size-body);
   line-height: 1.5;
   color: var(--bh-text-muted);

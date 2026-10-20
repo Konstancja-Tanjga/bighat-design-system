@@ -90,9 +90,7 @@
   },
   "tokensUsed": [
     "gap.hairline",
-    "gap.loose",
     "gap.snug",
-    "gap.tight",
     "radius.control",
     "selection.mark",
     "text.muted",
@@ -108,7 +106,9 @@
     "text.secondary",
     "text.weightEmphasis",
     "fontFamily.sans",
-    "fill.selected"
+    "fill.selected",
+    "margin.tight",
+    "margin.loose"
   ],
   "interactive": true
 }
