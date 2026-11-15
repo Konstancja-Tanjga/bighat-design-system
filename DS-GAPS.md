@@ -242,6 +242,158 @@ audit skips.
 
 ---
 
+## Found while building SailRock
+
+Source: `konstancja-tanjga/SailRock` at `d45b090`, built on `@bighat/ui` 6.1.0 —
+a dive planner used on a phone: a form of depths and times, a result that is
+three numbers and a few warnings, saved plans. It is handheld-first and
+number-first, which none of the earlier sources were. Everything below was
+either hand-written in that project or done without.
+
+### 11. No figure — `Stat`
+
+**Reached for:** `DescriptionList`, then `Badge`. Neither fits. The answer a
+planner gives is a number the reader has to find first — a time, a pressure
+group, a pressure — and `DescriptionList` reads at 12px in both densities, the
+same size as the detail it sits beside. `Badge` says what something _is_, not
+how much; its contract excludes bare counts.
+
+**What got hand-rolled:** a `<dl>` with `.sr-stats` / `.sr-figure`: a caption
+label over a value at `textSize.title`, three to a row, on `surface.sunken`.
+`.sr-figure` is used a second time for the headline of the slate view.
+
+**What it does worse:**
+
+|              | A `Stat` in the system    | The hand-rolled version                                                                                  |
+| ------------ | ------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Long values  | truncation or wrap rule   | a value with its unit ("160 bar") does not fit a third of a 390px screen, so the unit lives in the label |
+| Column count | responds to its container | fixed three columns                                                                                      |
+| Tone         | optional, with the word   | none — a critical figure looks like a healthy one                                                        |
+
+**Proposal:** `Stat` (label, value, optional unit, optional tone with required
+text) and `StatGroup` that owns the grid. The value is never colour-only.
+
+### 12. No numeric field with increment buttons — `NumberField`
+
+**Reached for:** `Input type="number"`. It works, and it is wrong for the
+context: on a phone it opens the keyboard, which covers the result the user is
+adjusting towards. Depth and time change by one or five; that wants
+increment and decrement buttons. `Slider` refuses too: depth is an exact
+value, and its own contract sends exact values to `Input`.
+
+**What got hand-rolled:** nothing. Depth and time are plain number inputs.
+
+**What it does worse:** every adjustment is focus, keyboard, type, dismiss,
+scroll back to the result. With cold hands or gloves it is the main friction in
+the app.
+
+**Proposal:** `NumberField` — the `Input` field contract (label, description,
+error) plus decrement/increment buttons at `control.lg`, `step`, `min`, `max`,
+press-and-hold, and the buttons named after the field for assistive technology.
+
+### 13. `Toast` cannot carry an action
+
+**Wanted:** a toast saying "Plan changed — Undo" after removing a dive,
+clearing the plan or loading a saved one. `Toast` takes `title`,
+`description`, `tone` and `duration`; there is no action, so `useToast` was
+never wired in.
+
+**What got hand-rolled:** a `role="status"` row below the plan's buttons with a
+ghost button. It stays until Undo is pressed or the plan is edited again.
+
+**What it does worse:**
+
+- It sits where the layout puts it, below the fold on a long plan, rather than
+  where the eye is.
+- The live region is mounted together with its content, which `Toast`'s own
+  source notes is not reliably announced.
+- The two planners carry identical copies of it, and deleting a saved plan has
+  no undo at all.
+- Its first version kept a stale snapshot while the plan was edited further,
+  so Undo silently discarded those edits. A component would have got that
+  right once.
+
+**Proposal:** an optional `action: { label, onAction }` on `Toast`. One action
+only; an action extends the default duration and the toast must stay reachable
+by keyboard while it is shown (WCAG 2.2.1).
+
+### 14. No inline message — `Callout`
+
+**Reached for:** `StateBlock`, which is right for empty and error and wrong for
+a caution attached to a successful result ("this plan is beyond your
+certification", "ascent below reserve").
+
+**What got hand-rolled:** three different things for the same job — a `Badge`,
+a muted paragraph, and a plain bulleted list in `text.secondary`.
+
+**What it does worse:** a safety warning has no single recognisable form. The
+`Badge` holds only a few words, so the explanation of why the plan is out of
+bounds lands in muted text, at lower contrast than the detail list beside it.
+
+**Proposal:** `Callout` — tone, required title, optional body and action, an
+icon that is not the only carrier of the tone. Not a live region by default;
+it is part of the rendered result, like `StateBlock state="empty"`. Not for
+empty or error states (`StateBlock`), transient confirmations (`Toast`) or
+decoration (`Card` `accent`).
+
+### 15. No layout help for a form-and-result screen
+
+**What got hand-rolled:** `.sr-stack`, `.sr-stack-loose`, `.sr-row`,
+`.sr-row-spread`, `.sr-fields` (an auto-fit field grid) and `.sr-page` (a
+centred column). Spacing is token-only; the column's maximum width (44rem) and
+the field minimum (8rem) are literals because no token exists for either.
+
+**What it does worse:** nothing in this product. It is recorded because the
+next handheld product will write the same six classes and choose its own two
+literals.
+
+**Proposal:** _Adding a component_ already answers the component question — a
+layout does not need one, and if it recurs it is a template. So: a handheld
+form-and-result template in `Templates/`, and tokens for the two literals. No
+`Stack` component.
+
+### 16. Token gaps
+
+| Gap                                              | Now          | Needed for                                                                                                                                                               |
+| ------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| No page-gutter role                              | —            | `padding.page` (96px) is the vertical room of a full-height empty state, not a gutter. The product uses `padding.inline` (12px), a control's padding, for the page edge. |
+| No content-width or field-minimum size           | —            | The 44rem column and the 8rem field minimum in entry 15.                                                                                                                 |
+| No reading density for `DescriptionList`/`Table` | 12px in both | Both densities resolve to 12px. That is right for an ERP screen and too small outdoors on a phone; there is no larger density to opt into.                               |
+
+One thing that is not a gap but reads like one: `textSize.caption` (14px) is
+larger than `textSize.body` (12px). _Typography_ documents this as deliberate —
+`caption` is the reading size, `body` the dense one. A handheld product sets
+all its running text in `caption`, as this one does, and the names read
+backwards while doing it.
+
+### Plan for closing 11–16
+
+A draft for a decision, not a commitment: filing a proposal is a human step in
+this repository. Ordered by what unblocks the most with the least API risk.
+Each component step is the usual sequence — contract in `spec/components` with
+its `notFor`, implementation, stories and tests, the MDX page, a changeset —
+and is done when `npm run verify` passes.
+
+| Step | Work                                                              | Size | Release | Depends on |
+| ---- | ----------------------------------------------------------------- | ---- | ------- | ---------- |
+| 1    | Tokens: a page-gutter role, a content width, a field minimum      | S    | minor   | —          |
+| 2    | `Callout` (tones, title required, optional action)                | S    | minor   | —          |
+| 3    | `Stat` + `StatGroup` (unit, tone with text)                       | M    | minor   | —          |
+| 4    | `Toast` `action` (one action, extended duration, keyboard reach)  | S    | minor   | —          |
+| 5    | `NumberField` (increment buttons, hold-to-repeat, field contract) | M    | minor   | —          |
+| 6    | A reading density for `DescriptionList` and `Table`               | M    | minor   | —          |
+| 7    | Handheld form-and-result template                                 | M    | —       | 1–6        |
+
+Every step adds and none renames, so none is a major under _Versioning_. Step 2
+also updates the `notFor` lists of `StateBlock` and `Card` to point at
+`Callout`. Step 7 is last because a template should be built from the
+components above, not around their absence.
+
+A step is closed when the hand-rolled class or workaround it replaces is
+deleted from SailRock.
+
+---
+
 ## Standing gaps, not yet argued for
 
 Named so an agent stops looking rather than quietly widening something adjacent.
